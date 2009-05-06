@@ -1,0 +1,152 @@
+% Defino el tipo de documento.
+\documentclass[a4paper,11pt]{article}
+
+% Este paquete permite hacer encabezados y pies de p�gina como
+% Los de las guias
+%\usepackage{fancyhdr}
+
+% Es es para que sea sudaca-friendly
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+
+% Este es para poder poner graficos y diagramas.
+\usepackage{graphicx}
+
+% Este paquete est� por las dudas... Si algun archivo eps se vuelve
+% rebelde y no sale donde uno quiere, hay que encajarle "\FloatBarrier" antes
+% y despues y listo.
+\usepackage{placeins}
+
+% Este paquete me permite poner grados celsius.
+\usepackage{textcomp}
+
+
+%====================
+%= TEMPLATES UTILES =
+%====================
+
+%\begin{table}[htpb]
+%	\centering
+%	\begin{tabular}{|c|c|} \hline
+%	Cant. Iter. M\'aximas & Tiempo(seg) \\ \hline
+%	100			&	13.80 \\
+%	1000		&	14.56 \\
+%	2500		&	16.16 \\
+%	5000		&	18.48 \\
+%	10000		&	23.05 \\
+%	25000		&	37.21 \\
+%	50000		&	60.43 \\
+%	100000		&	106.99 \\ \hline
+%	\end{tabular}
+%	\caption{\label{ej02Tiempos}Tiempos medido para distintas iteraciones m\'aximas del conjunto de Mandelbrot.}
+%\end{table}
+
+%\begin{figure}[htpb]
+%\centering
+%\includegraphics[width=9cm, height=9cm]{ej03local.png}
+%\caption{\label{ej03local} Curva de tiempos en segundos para los primeros 12 casos  }
+%\end{figure}
+
+% Toda la configuraci�n del documento.
+%\input{preambulo.tex}
+
+%Encabeados y pie de pagina
+%\pagestyle{headings}
+
+\title{ Programacion de Objetos Distribuidos \\ Diagrama y Casos de Uso }
+
+\author {Grupo 3}
+
+\date{}
+
+% Empieza el documento.
+\begin{document}
+ 
+
+\maketitle
+\pagebreak
+\section{How to write big dicked use cases (Oppossed to Pablos 'no dick' way)}
+
+Definiciones utiles para completar el template (alguna aplican, otras no, tomen lo que necesiten)
+
+\begin{itemize}
+ \item Actor: Cualquiera o cualquier cosa con comportamiento
+ \item Stakeholder: Alguien o algo con interes en el comportamiento del sistema
+ \item Primary Actor: El Stakeholder que inicia una interaccion con el sistema para alcanzar un gol
+ \item Use case: un contrato de comportamiento del sistema
+ \item Scope: identifica al sistema que estamos discutiendo
+ \item Precondiciones: Cosas que deben ser true antes del que caso de uso corra
+ \item Garantias: PostCondiciones
+ \item Main Success Scenario: El caso feliz
+ \item Extensions: Que puede pasar diferente en el caso feliz
+\end{itemize}
+
+Los caso de uso que son 'incluidos' aparecen subrayados.
+
+Ej. '2.3.1 El usuario hace click en el boton Save para \underline{Guardar el trabajo}'
+
+\pagebreak
+\section{Template}
+Usamos el \emph{RUP Style}. Tratemos de poner nombres de caso de uso 'descriptivos'.
+Fijense que para que si necesitan agregar un nivel de anidacion tiene que agregar las lineas que se pueden ver en el .tex
+
+%Redefine the first level
+\renewcommand{\theenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumi}{\theenumi}
+ 
+%Redefine the second level
+\renewcommand{\theenumii}{\arabic{enumii}.}
+\renewcommand{\labelenumii}{\theenumii}
+
+%Redefine the thrid level
+\renewcommand{\theenumiii}{\arabic{enumiii}.}
+\renewcommand{\labelenumiii}{\theenumiii}
+
+
+\begin{enumerate}
+
+ \item Use Case Name \\
+...text...
+
+\begin{enumerate}
+
+\item Brief Description \\
+...text...
+\item Actors \\
+...text...
+\item Triggers \\
+...text...
+
+\end{enumerate} 
+
+\item Flow of Events \\
+
+\begin{enumerate}
+
+\item Basic Flow \\
+...text...
+\item Alternative Flows \\
+
+\begin{enumerate}
+
+\item Condition 1 \\
+...text...
+\item Condition 2 \\
+...text...
+\item Etc \\
+...text...
+
+\end{enumerate}
+\end{enumerate} 
+
+\item Preconditions \\
+...text...
+
+\item PostConditions \\
+...text...
+
+\end{enumerate}
+
+
+
+\end{document}
