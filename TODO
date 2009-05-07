@@ -1,0 +1,44 @@
+Modificaciones al diagrama de charly que hay que hacer:
+1) mejorar los nombres de los actores
+2) cargar datos como 'factor comun' vuela
+3) administrar como 'factor comun' vuela
+Charlado con mcabral y lombo.
+
+Casos de uso que tiene que hacer cada uno.
+Nadie habló y les cabió.
+
+1) maxi
+administrar premios reserva
+administrar reservas por puntos
+administrar complejos
+administrar canchas
+
+2) lombo
+cargar paso reserva
+cargar reserva completa
+cancelar reserva
+ver detalle complejo
+
+3) pablo
+usuario gen 2 (logueado) cambiar datos personales
+cron caida de reservas
+usuario logueado reservar cancha
+usuario logueado reservar cancha periodicamente
+
+4) martin
+listar canchas
+ordenar listados
+listar complejos
+ver detalle cancha
+
+5) juani
+reservas caidas rss
+nuevas canchas rss
+invitado registrarse
+invitado login
+
+6) charly
+ver reserva de canchas
+ver todas las reservas
+ver reservas de complejos
+ordenar reservas
