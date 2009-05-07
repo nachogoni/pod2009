@@ -1,18 +1,17 @@
 % Defino el tipo de documento.
 \documentclass[a4paper,11pt]{article}
 
-% Este paquete permite hacer encabezados y pies de p�gina como
+% Este paquete permite hacer encabezados y pies de página como
 % Los de las guias
 %\usepackage{fancyhdr}
 
-% Es es para que sea sudaca-friendly
 \usepackage[spanish]{babel}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 
 % Este es para poder poner graficos y diagramas.
 \usepackage{graphicx}
 
-% Este paquete est� por las dudas... Si algun archivo eps se vuelve
+% Este paquete está por las dudas... Si algun archivo eps se vuelve
 % rebelde y no sale donde uno quiere, hay que encajarle "\FloatBarrier" antes
 % y despues y listo.
 \usepackage{placeins}
@@ -38,7 +37,7 @@
 %	50000		&	60.43 \\
 %	100000		&	106.99 \\ \hline
 %	\end{tabular}
-%	\caption{\label{ej02Tiempos}Tiempos medido para distintas iteraciones m\'aximas del conjunto de Mandelbrot.}
+%	\caption{\label{ej02Tiempos}Tiempos medido para distintas iteraciones máximas del conjunto de Mandelbrot.}
 %\end{table}
 
 %\begin{figure}[htpb]
@@ -47,48 +46,61 @@
 %\caption{\label{ej03local} Curva de tiempos en segundos para los primeros 12 casos  }
 %\end{figure}
 
-% Toda la configuraci�n del documento.
+% Toda la configuración del documento.
 %\input{preambulo.tex}
 
 %Encabeados y pie de pagina
 %\pagestyle{headings}
 
-\title{ Programacion de Objetos Distribuidos \\ Diagrama y Casos de Uso }
+\title{
+        Programación de Objetos Distribuidos \\
+        Entrega \#1: \\
+        Diagrama y Casos de Uso
+    }
 
-\author {Grupo 3}
-
+\author{
+        Grupo 3. \\
+        46099 - Abramowicz, Pablo Federico \\
+        46281 - Cabral, Martín Esteban \\
+        47031 - Gomez, Vidal Darío Maximiliano \\
+        46383 - Goñi, Juan Ignacio \\
+        46233 - Palombo, Martín \\
+        46069 - Sessa, Carlos Manuel
+        }
 \date{}
 
 % Empieza el documento.
 \begin{document}
- 
+
 
 \maketitle
 \pagebreak
-\section{How to write big dicked use cases (Oppossed to Pablos 'no dick' way)}
+\section{How to write use cases}
 
-Definiciones utiles para completar el template (alguna aplican, otras no, tomen lo que necesiten)
+Definiciones útiles para completar el template
+(alguna aplican, otras no, tomen lo que necesiten)
 
 \begin{itemize}
- \item Actor: Cualquiera o cualquier cosa con comportamiento
- \item Stakeholder: Alguien o algo con interes en el comportamiento del sistema
- \item Primary Actor: El Stakeholder que inicia una interaccion con el sistema para alcanzar un gol
- \item Use case: un contrato de comportamiento del sistema
- \item Scope: identifica al sistema que estamos discutiendo
- \item Precondiciones: Cosas que deben ser true antes del que caso de uso corra
- \item Garantias: PostCondiciones
- \item Main Success Scenario: El caso feliz
- \item Extensions: Que puede pasar diferente en el caso feliz
+ \item Actor: Cualquiera o cualquier cosa con comportamiento.
+ \item Stakeholder: Alguien o algo con interés en el comportamiento del sistema.
+ \item Primary Actor: El Stakeholder que inicia una interacción con el sistema para alcanzar una meta.
+ \item Use case: un contrato de comportamiento del sistema.
+ \item Scope: identifica al sistema que estamos discutiendo.
+ \item Precondiciones: Cosas que deben ser true antes del que caso de uso corra.
+ \item Garantías: Post condiciones.
+ \item Main Success Scenario: El caso feliz.
+ \item Extensions: Que puede pasar diferente en el caso feliz.
 \end{itemize}
 
 Los caso de uso que son 'incluidos' aparecen subrayados.
 
-Ej. '2.3.1 El usuario hace click en el boton Save para \underline{Guardar el trabajo}'
+Ej. '2.3.1 El usuario hace click en el boton Save para \underline{Guardar el trabajo}'.
 
 \pagebreak
 \section{Template}
 Usamos el \emph{RUP Style}. Tratemos de poner nombres de caso de uso 'descriptivos'.
-Fijense que para que si necesitan agregar un nivel de anidacion tiene que agregar las lineas que se pueden ver en el .tex
+Fíjense que para que si necesitan agregar un nivel de anidación tiene que agregar
+las líneas que se pueden ver en el .tex
 
 %Redefine the first level
 \renewcommand{\theenumi}{\arabic{enumi}.}
