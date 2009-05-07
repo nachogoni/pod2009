@@ -117,45 +117,40 @@ las líneas que se pueden ver en el .tex
 
 \begin{enumerate}
 
- \item Use Case Name \\
-...text...
+    \item Nombre del caso de uso: \\
+    Ver reservas de canchas.
 
-\begin{enumerate}
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se listan las reservas de canchas.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Ver reservas de canchas} dentro de la
+        página principal del administrador.
+    \end{enumerate}
 
-\item Brief Description \\
-...text...
-\item Actors \\
-...text...
-\item Triggers \\
-...text...
+    \item Flujo de Eventos: \\
 
-\end{enumerate} 
+    \begin{enumerate}
 
-\item Flow of Events \\
+        \item Flujo básico:\\
+            Un usuario genérico hace \underline{Login} como administrador y
+            hace click en \underline{Ver reservas de canchas}.
+        \item Flujos alternativos:\\
+            Se muestra un cartel que no existen reservas de cancha.
+            \begin{enumerate}
+                \item Condición 1 \\
+                    No existan reservas de canchas.
+            \end{enumerate}
 
-\begin{enumerate}
+    \end{enumerate}
 
-\item Basic Flow \\
-...text...
-\item Alternative Flows \\
+    \item Precondiciones: \\
+        Administrador logueado como administrador.
 
-\begin{enumerate}
-
-\item Condition 1 \\
-...text...
-\item Condition 2 \\
-...text...
-\item Etc \\
-...text...
-
-\end{enumerate}
-\end{enumerate} 
-
-\item Preconditions \\
-...text...
-
-\item PostConditions \\
-...text...
+    \item Post condiciones \\
+        No aplica.
 
 \end{enumerate}
 
