@@ -378,12 +378,174 @@ las líneas que se pueden ver en el .tex
 % 46383 - Goñi, Juan Ignacio \\ INICIO
 
 % reservas caidas rss
+\begin{enumerate}
+
+	\item Nombre del caso de uso: \\
+	\emph{RSS}: Ver reservas caidas.
+
+	\begin{enumerate}
+		\item Descripción breve: \\
+			Se listan los complejos con las \'ultimas reservas caidas.
+		\item Actores \\
+			Usuario gen\'erico, invitado.
+	
+		\item Disparadores: \\
+			Acceso a la url del \emph{RSS} de reservas caidas.
+
+	\end{enumerate}
+
+	\item Flujo de Eventos: \\
+
+	\begin{enumerate}
+		\item Flujo básico:\\
+			Un usuario gen\'erico accede a la url del \emph{RSS}  de reservas caidas
+			y visualiza el listado de reservas que fueron dadas de baja. El listado
+			contiene la informaci\'on necesaria como para que el lector del \emph{RSS}
+			pueda realizar una nueva reserva.
+	\end{enumerate}
+
+	\item Precondiciones: \\
+		El lector del \emph{RSS} no necesita estar logueado como usuario.
+
+	\item Post condiciones \\
+		No aplica.
+
+\end{enumerate}
 
 % nuevas canchas rss
+\begin{enumerate}
+
+	\item Nombre del caso de uso: \\
+	\emph{RSS}: Ver nuevas canchas.
+
+	\begin{enumerate}
+		\item Descripción breve: \\
+			Se listan las \'ultimas canchas agregadas al sistema.
+		\item Actores \\
+			Usuario gen\'erico, invitado.
+	
+		\item Disparadores: \\
+			Acceso a la url del \emph{RSS} de canchas nuevas.
+
+	\end{enumerate}
+
+	\item Flujo de Eventos: \\
+
+	\begin{enumerate}
+		\item Flujo básico:\\
+			Un usuario gen\'erico accede a la url del \emph{RSS}  de canchas nuevas
+			y visualiza el listado de canchas que fueron agregadas al sistema. El
+			listado contiene informaci\'on sobre el complejo y barrio para facilitar
+			al lector del \emph{RSS} la reserva de la cancha.
+	\end{enumerate}
+
+	\item Precondiciones: \\
+		El lector del \emph{RSS} no necesita estar logueado como usuario.
+
+	\item Post condiciones \\
+		No aplica.
+
+\end{enumerate}
 
 % invitado registrarse
+\begin{enumerate}
+
+	\item Nombre del caso de uso: \\
+	Invitado registrarse.
+
+	\begin{enumerate}
+		\item Descripción breve: \\
+			Obtener una cuenta de usuario del sistema.
+		\item Actores \\
+			Invitado.
+	
+		\item Disparadores: \\
+			Click en \underline{registrarse} en la pantalla principal del sistema.
+
+	\end{enumerate}
+
+	\item Flujo de Eventos: \\
+
+	\begin{enumerate}
+		\item Flujo básico:\\
+			Un usuario gen\'erico accede a la pantalla principal del sistema y
+			hace click en \underline{registrarse}. Ingresa los datos necesarios
+			para registrarse como usuario del sistema.
+
+		\item Flujo alternativo:\\
+			Se muestra un cartel que informa que los datos ingresados son
+			incorrectos, puede volver a intentarlo.
+
+			\begin{enumerate}
+			\item Condición 1 \\
+				El usuario ingresado ya existe dentro del sistema.
+			\item Condición 2 \\
+				Faltan datos requeridos.
+			\item Condición 3 \\
+				Las contrase\~nas ingresadas no son iguales.
+			\item Condición 4 \\
+				Alguna combinaci\'on de las anteriores.
+			\end{enumerate}
+
+	\end{enumerate}
+
+	\item Precondiciones: \\
+		No debe estar registrado como usuario del sistema.
+
+	\item Post condiciones \\
+		El invitado obtiene una cuenta de usuario del sistema.
+
+\end{enumerate}
 
 % invitado login
+\begin{enumerate}
+
+	\item Nombre del caso de uso: \\
+	Invitado login.
+
+	\begin{enumerate}
+		\item Descripción breve: \\
+			Acceso al sistema como usuario.
+		\item Actores \\
+			Usuario del sistema.
+	
+		\item Disparadores: \\
+			Acceso a la pantalla principal del sistema.
+
+	\end{enumerate}
+
+	\item Flujo de Eventos: \\
+
+	\begin{enumerate}
+		\item Flujo básico:\\
+			Un usuario gen\'erico accede a la pantalla principal del sistema.
+			Ingresa nombre de usuario, tipo y contrase\~na. Si los datos son
+			v\'alidos, tiene acceso al sistema.
+
+		\item Flujo alternativo:\\
+			Se muestra un cartel que informa que los datos ingresados son
+			incorrectos, puede volver a intentarlo.
+
+			\begin{enumerate}
+			\item Condición 1 \\
+				El usuario ingresado es incorrecto.
+			\item Condición 2 \\
+				El tipo de usuario ingresado es incorrecto.
+			\item Condición 3 \\
+				La contrase\~na ingresada es incorrecta.
+			\item Condición 4 \\
+				Alguna combinaci\'on de las anteriores.
+			\end{enumerate}
+
+	\end{enumerate}
+
+	\item Precondiciones: \\
+		Debe estar registrado como usuario del sistema.
+
+	\item Post condiciones \\
+		El usuario tiene acceso al sistema.
+
+\end{enumerate}
 
 % 46383 - Goñi, Juan Ignacio \\ FIN
 
