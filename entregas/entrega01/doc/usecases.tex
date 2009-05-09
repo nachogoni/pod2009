@@ -160,6 +160,219 @@ las líneas que se pueden ver en el .tex
 % 46281 - Cabral, Martín Esteban \\ FIN
 
 % 47031 - Gomez, Vidal Darío Maximiliano \\ INICIO
+
+% ADMINISTRAR COMPLEJOS
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Administrar complejos.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe las operaciones de creación, borrado y
+        modificación de complejos.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador selecciona las operaciones explícitamente de su panel
+        de administración.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario selecciona \underline{Listar complejos}.
+        \item Flujos alternativos:\\
+            \begin{enumerate}
+                \item \underline{Crear complejo} \\
+                \begin{enumerate}
+                    \item El usuario hace click en \textit{Crear nuevo complejo}
+                    en el panel de administración.
+                    \item El usuario completa los datos solicitados: País, 
+                    provincia, localidad y barrio; teléfono, dirección, horario 
+                    general de atención.
+                    Se pueden indicar en forma opcional los rangos de puntos con
+                    el vencimiento de los distintos estados de las canchas, el 
+                    precio de las canchas y el porcentaje que corresponde a la
+                    reserva.
+                    \item El usuario da por finalizada la creación haciendo click
+                    en \textit{Guardar complejo}.
+                \end{enumerate}
+                \item \underline{Modificar complejo} \\
+                \begin{enumerate}
+                    \item El usuario hace click en \textit{Modificar complejo} 
+                    dentro de la entrada del listado que corresponde al complejo 
+                    que desea modificar.
+                    \item El usuario modifica los datos deseados.
+                    \item El usuario da por finalizada la modificación haciendo 
+                    click en \textit{Guardar complejo}.
+                \end{enumerate}
+                \item \underline{Borrar complejo}
+                \begin{enumerate}
+                    \item El usuario hace click en \textit{Borrar complejo}
+                    dentro de la entrada del listado que corresponde al complejo
+                     que desea eliminar.
+                    \item El usuario confirma que desea eliminar el elemento
+                    seleccionado.
+                \end{enumerate}
+            \end{enumerate}
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+
+    \item Post condiciones \\
+        No aplica.
+
+\end{enumerate}
+
+% ADMINISTRAR CANCHAS
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Administrar canchas.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe las operaciones de creación, borrado y
+        modificación de canchas.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador selecciona las operaciones explícitamente de la página
+        de administración de un complejo existente.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario selecciona un complejo a través de 
+            \underline{Listar complejos} y luego hace click en 
+            \underline{Listar canchas}.
+        \item Flujos alternativos:\\
+            \begin{enumerate}
+                \item \underline{Crear cancha} \\
+                \begin{enumerate}
+                    \item El usuario hace click en \textit{Crear nueva cancha}
+                    en el listado de canchas del complejo elegido.
+                    \item El usuario indica la cantidad de jugadores, el tipo de
+                    piso y si la cancha es o no techada.
+                    \item El usuario da por finalizada la creación haciendo click
+                    en \textit{Guardar cancha}.
+                \end{enumerate}
+                \item \underline{Modificar cancha} \\
+                \begin{enumerate}
+                    \item El usuario hace click en \textit{Modificar cancha} 
+                    dentro de la entrada del listado que corresponde a la cancha 
+                    que desea modificar.
+                    \item El usuario modifica los datos deseados.
+                    \item El usuario da por finalizada la modificación haciendo 
+                    click en \textit{Guardar cancha}.
+                \end{enumerate}
+                \item \underline{Borrar cancha}
+                \begin{enumerate}
+                    \item El usuario hace click en \textit{Borrar cancha}
+                    dentro de la entrada del listado que corresponde a la cancha
+                     que desea eliminar.
+                    \item El usuario confirma que desea eliminar el elemento
+                    seleccionado.
+                \end{enumerate}
+            \end{enumerate}
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+
+    \item Post condiciones \\
+        No aplica.
+
+\end{enumerate}
+
+% ADMINISTRAR PREMIOS POR RESERVAS
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Administrar premios por reservas.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe como se define la cantidad de puntos que gana
+        un usuario al pasar por los distintos estados de una reserva, de acuerdo
+        al sistema de puntos.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Administrar premios por reserva}
+        dentro de su panel de administración.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario hace click en \underline{Administrar premios por reserva}.
+            Luego determina cuantos puntos se otorgarán para las acciones de
+            \textit{Reservar}, \textit{Señar} y \textit{Pagar}.
+            También debe indicar cuántos puntos pierde el usuario si se cae
+            su reserva, según ya estuviese reservada o señada.
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+
+    \item Post condiciones \\
+        Todas las acciones tienen un puntaje asociado. Sistema de puntos
+        actualizado.
+
+\end{enumerate}
+
+% ADMINISTRAR LIMITES DE RESERVAS POR PUNTOS
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Administrar límites de reservas por puntos.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe como se definen los plazos de vencimiento de
+        las reservas según el puntaje del usuario que haya realizado la reserva.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en 
+        \underline{Administrar límites de reserva por puntos}
+        dentro de su panel de administración.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario hace click en \underline{Administrar límites de reserva
+            por puntos}.
+            Luego se determina cuales serán los plazos máximos de tiempo para la
+            caducidad de cada complejo y cada cancha, teniendo en cuenta el rango
+            de puntos que tenga el usuario.
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+
+    \item Post condiciones \\
+        No aplica.
+        
+\end{enumerate}
+
 % 47031 - Gomez, Vidal Darío Maximiliano \\ FIN
 
 % 46383 - Goñi, Juan Ignacio \\ INICIO
