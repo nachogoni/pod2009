@@ -114,6 +114,46 @@ las líneas que se pueden ver en el .tex
 \renewcommand{\theenumiii}{\arabic{enumiii}.}
 \renewcommand{\labelenumiii}{\theenumiii}
 
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Ver todas las reservas.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se listan todas las reservas existentes.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Ver reservas} dentro de la
+        página principal del administrador.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un Administrador hace click en \underline{Ver reservas}.
+        \item Flujos alternativos:\\
+            Se muestra un cartel que no existen reservas.
+            \begin{enumerate}
+                \item Condición 1 \\
+                    No existen reservas de ningún tipo.
+            \end{enumerate}
+
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Administrador logueado como administrador.
+
+    \item Post condiciones \\
+        No aplica.
+
+\end{enumerate}
+
+
 \begin{enumerate}
 
     \item Nombre del caso de uso: \\
@@ -125,8 +165,8 @@ las líneas que se pueden ver en el .tex
     \item Actores \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \underline{Ver reservas de canchas} dentro de la
-        página principal del administrador.
+        Click en el botón \underline{Ver reservas de canchas}
+        dentro de la página principal del administrador.
     \end{enumerate}
 
     \item Flujo de Eventos: \\
@@ -134,19 +174,97 @@ las líneas que se pueden ver en el .tex
     \begin{enumerate}
 
         \item Flujo básico:\\
-            Un usuario genérico hace \underline{Login} como administrador y
-            hace click en \underline{Ver reservas de canchas}.
+            Un Administrador hace click en \underline{Ver reservas} y luego
+            en \underline{Ver reservas de canchas}.
         \item Flujos alternativos:\\
             Se muestra un cartel que no existen reservas de cancha.
             \begin{enumerate}
                 \item Condición 1 \\
-                    No existan reservas de canchas.
+                    No existen reservas de canchas.
             \end{enumerate}
 
     \end{enumerate}
 
     \item Precondiciones: \\
         Administrador logueado como administrador.
+
+    \item Post condiciones \\
+        No aplica.
+
+\end{enumerate}
+
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Ver reservas de complejos.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se listan las reservas de complejos.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Ver reservas de complejos}
+        dentro de la página principal del administrador.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un Administrador hace click en \underline{Ver reservas} y luego
+            en \underline{Ver reservas de complejos}.
+        \item Flujos alternativos:\\
+            Se muestra un cartel que no existen reservas de complejos.
+            \begin{enumerate}
+                \item Condición 1 \\
+                    No existen reservas de complejos.
+            \end{enumerate}
+
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Administrador logueado como administrador.
+
+    \item Post condiciones \\
+        No aplica.
+
+\end{enumerate}
+
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Ordenar reservas.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se ordenan los listados de reservas.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Ordenar reservas}
+        dentro de cualquier listado de reservas.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un Administrador hace click en \underline{Ver reservas} y luego
+            en \underline{Ordenar reservas}.
+        \item Flujos alternativos:\\
+            No aplica.
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        \begin{enumerate}
+            \item Administrador logueado como administrador.
+            \item Existencia de reservas.
+        \end{enumerate}
 
     \item Post condiciones \\
         No aplica.
