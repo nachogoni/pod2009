@@ -154,6 +154,168 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
+\begin{enumerate}
 
+    \item Nombre del caso de uso: \\
+    Cargar pago reservas.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se carga un pago para una determinada reserva.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Cargar pago de reserva} dentro de la
+        página que muestra las reservas para una cancha.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un usuario genérico hace \underline{Login} como administrador y
+            hace click en \underline{Ver reservas de canchas}. Luego para una
+            reserva particular hace click en
+            \underline{Cargar pago de reserva}. El administrador ingresa el
+            monto que fue pagado de la reserva. En el caso de que se logre el
+            mínimo para pasar a estado señada se pasa la reserva a dicho
+            estado, lo mismo si se completa el pago total, pasándola a estado
+            pagada; en ambos casos se actualizan los puntos del usuario que
+            emitió la reserva y se informa al usuario que la operación fue
+            exitosa. En caso contrario, ya que la cantidad ingresada es
+            incorrecta, se procede al \underline{Flujo alternativo 1}. 
+
+
+        \item Flujos alternativos:\\
+            Se muestra un cartel que informa que la cantidad ingresada es
+            incorrecta.
+            \begin{enumerate}
+                \item Condición 1 \\
+                    La cantidad ingresada es incorrecta.
+            \end{enumerate}
+
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Ususario logueado como administrador.
+
+    \item Post condiciones \\
+        Pago de la reserva cargado y, si aplica, estado de la reserva y puntos
+        del usuario que emitió la reserva actualizados.
+
+\end{enumerate}
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Cargar reserva completa.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se carga un pago completo para una determinada reserva.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Cargar pago completo de reserva} dentro de la
+        página que muestra las reservas para una cancha.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un usuario genérico hace \underline{Login} como administrador y
+            hace click en \underline{Ver reservas de canchas}. Luego para una
+            reserva particular hace click en
+            \underline{Cargar pago completo de reserva}. La reserva pasa al
+            estado pagada y se actualizan los puntos del usuario que emitió la
+            reserva. Se informa al usuario que la operación fue exitosa.
+
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Ususario logueado como administrador.
+
+    \item Post condiciones \\
+        Pago de la reserva cargado y estado de la reserva actualizado a pagada.
+        Puntos del usuario que emitió la reserva actualizados.
+
+\end{enumerate}
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Cancelar reserva.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se da de baja una determinada reserva.
+    \item Actores \\
+        Usuario logueado como usuario común.
+    \item Disparadores: \\
+        Click en el botón \underline{Cancelar reserva} dentro de la
+        página que muestra las reservas de una cancha.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un usuario genérico hace \underline{Login} como usuario común y
+            hace click en \underline{Ver reservas de canchas}. Luego para una
+            reserva particular hace click en \underline{Cancelar reserva}.
+            La reserva se elimina del sistema. Se informa al usuario que la
+            operación fue exitosa.
+
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Ususario logueado como usuario común.
+
+    \item Post condiciones \\
+        Reserva dada de baja.
+
+\end{enumerate}
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Ver detalle complejo.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Se muestra en detalle las características de un complejo.
+    \item Actores \\
+        Administrador.
+    \item Disparadores: \\
+        Click en el botón \underline{Ver detalle} dentro de la
+        página que lista los complejos del sistema.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            Un usuario genérico hace \underline{Login} como usuario común y
+            hace click en \underline{Listar complejos}. Se visualiza el
+            complejo seleccionado, las canchas que tiene, la información del
+            mismo y todos los datos que contiene. A su vez tiene el detalle de
+            cada cancha, el cual consiste de sus características y los horarios
+            disponibles en un calendario.
+
+
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario logueado como usuario común.
+
+    \item Post condiciones \\
+        No aplica.
+
+\end{enumerate}
 
 \end{document}
