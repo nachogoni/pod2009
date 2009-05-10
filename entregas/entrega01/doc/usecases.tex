@@ -117,6 +117,159 @@ las líneas que se pueden ver en el .tex
 
 
 % 46099 - Abramowicz, Pablo Federico \\ INICIO
+
+% usuario gen 2 (logueado) cambiar datos personales
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Cambiar datos personales.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe la modificación de datos personales de un 
+        usuario genérico del sistema.
+    \item Actores \\
+        Usuario genérico.
+    \item Disparadores: \\
+        El usuario hace click en \underline{Cambiar datos personales}
+        dentro de su panel de usuario.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario hace click en \underline{Cambiar datos personales}.
+            Luego modifica los datos propios que sean pertinentes a cambiar.
+            Una vez realizados los cambios hace click en \underline{Guardar}.
+        \item Flujo alternativo:\\
+            El usuario hace click en \underline{Cambiar datos personales}.
+            Luego modifica los datos propios que sean pertinentes a cambiar.
+            Una vez realizados los cambios hace click en \underline{Cancelar}.
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como usuario genérico.
+
+    \item Post condiciones \\
+        Datos personales del usuario guardados.
+
+\end{enumerate}
+
+
+% cron caida de reservas
+
+\begin{enumerate}
+
+	\item Nombre del caso de uso: \\
+	\emph{CRON}: Caida de reservas de canchas.
+
+	\begin{enumerate}
+		\item Descripción breve: \\
+			Actualización de las reservas automáticamente cuando alguna reserva
+            se da de baja por que se cumplió el tiempo de pago.
+		\item Actores \\
+			Cron.
+	
+		\item Disparadores: \\
+			Dada una hora determina se ejecuta automáticamente.
+
+	\end{enumerate}
+
+	\item Flujo de Eventos: \\
+
+	\begin{enumerate}
+		\item Flujo básico:\\
+			Si existe alguna reserva cuyo tiempo de seña o pago expiró se da de baja.
+	\end{enumerate}
+
+	\item Precondiciones: \\
+        Reserva existente.
+
+	\item Post condiciones \\
+		Reserva dada de baja.
+
+\end{enumerate}
+
+
+% usuario logueado reservar cancha
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Reservar cancha.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe la reserva de una cancha determinada.
+    \item Actores \\
+        Usuario genérico.
+    \item Disparadores: \\
+        El usuario hace click en \underline{Reservar cancha}
+        dentro del menu de la cancha.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario hace click en \underline{Reservar cancha}.
+            Selecciona el día.
+            Selecciona la hora dentro del listado de horarios disponibles
+            Hace click en \underline{Reservar}.
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como usuario genérico.
+        La cancha está registrada en el sistema.
+
+    \item Post condiciones \\
+        Cancha reservada para el usuario genérico.
+
+\end{enumerate}
+
+% usuario logueado reservar cancha periodicamente
+
+\begin{enumerate}
+
+    \item Nombre del caso de uso: \\
+    Reservar cancha periodicamente.
+
+    \begin{enumerate}
+    \item Descripción breve: \\
+        Este caso de uso describe la reserva periodica de una cancha determinada.
+    \item Actores \\
+        Usuario genérico.
+    \item Disparadores: \\
+        El usuario hace click en \underline{Reservar cancha}
+        dentro del menu de la cancha.
+    \end{enumerate}
+
+    \item Flujo de Eventos: \\
+
+    \begin{enumerate}
+
+        \item Flujo básico:\\
+            El usuario hace click en \underline{Reservar cancha}.
+            Selecciona el día.
+            Selecciona la hora dentro del listado de horarios disponibles.
+            Selecciona el item \underline{Reservar periodicamente}.
+            Hace click en \underline{Reservar}.
+    \end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como usuario genérico.
+        La cancha está registrada en el sistema.
+        El horario en cuestión no está reservado periodicamente.
+
+    \item Post condiciones \\
+        Cancha reservada periodicamente para el usuario genérico.
+
+\end{enumerate}
+
 % 46099 - Abramowicz, Pablo Federico \\ FIN
 
 % 46281 - Cabral, Martín Esteban \\ INICIO
