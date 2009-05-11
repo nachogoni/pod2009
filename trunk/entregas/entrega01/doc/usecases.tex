@@ -115,15 +115,24 @@ las líneas que se pueden ver en el .tex
 \renewcommand{\labelenumiii}{\theenumiii}
 
 
+\section{Diagrama de Casos de Uso}
+
+\begin{center}
+ \includegraphics[width=1.00\textwidth]{use_cases.png}
+ % use_cases.png: 1449x1890 pixel, 72dpi, 51.12x66.68 cm, bb=0 0 1449 1890
+\end{center}
+
+\section{Casos de Uso}
 
 % 46099 - Abramowicz, Pablo Federico \\ INICIO
 
 % usuario gen 2 (logueado) cambiar datos personales
 
+\subsection{Cambiar datos personales}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Cambiar datos personales.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -136,18 +145,21 @@ las líneas que se pueden ver en el .tex
         dentro de su panel de usuario.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
-
+    \item Flujo de Eventos: 
     \begin{enumerate}
 
-        \item Flujo básico:\\
-            El usuario hace click en \underline{Cambiar datos personales}.
-            Luego modifica los datos propios que sean pertinentes a cambiar.
-            Una vez realizados los cambios hace click en \underline{Guardar}.
-        \item Flujo alternativo:\\
-            El usuario hace click en \underline{Cambiar datos personales}.
-            Luego modifica los datos propios que sean pertinentes a cambiar.
-            Una vez realizados los cambios hace click en \underline{Cancelar}.
+        \item Flujo básico:
+                \begin{enumerate}
+            		\item El usuario hace click en \underline{Cambiar datos personales}. 
+            		\item Luego modifica los datos propios que sean pertinentes a cambiar. 
+            		\item Una vez realizados los cambios hace click en \underline{Guardar}. 
+		\end{enumerate}
+        \item Flujo alternativo:
+                \begin{enumerate}
+            		\item El usuario hace click en \underline{Cambiar datos personales}. 
+            		\item Luego modifica los datos propios que sean pertinentes a cambiar.
+            		\item Una vez realizados los cambios hace click en \underline{Cancelar}.
+		\end{enumerate}
     \end{enumerate}
 
     \item Precondiciones: \\
@@ -160,11 +172,11 @@ las líneas que se pueden ver en el .tex
 
 
 % cron caida de reservas
-
+\subsection{Caida de reservas de canchas}
 \begin{enumerate}
 
-	\item Nombre del caso de uso: \\
-	\emph{CRON}: Caida de reservas de canchas.
+%	\item Nombre del caso de uso: \\
+%	\emph{CRON}: .
 
 	\begin{enumerate}
 		\item Descripción breve: \\
@@ -178,10 +190,10 @@ las líneas que se pueden ver en el .tex
 
 	\end{enumerate}
 
-	\item Flujo de Eventos: \\
+	\item Flujo de Eventos: 
 
 	\begin{enumerate}
-		\item Flujo básico:\\
+		\item Flujo básico:
 			Si existe alguna reserva cuyo tiempo de seña o pago expiró se da de baja.
 	\end{enumerate}
 
@@ -195,11 +207,11 @@ las líneas que se pueden ver en el .tex
 
 
 % usuario logueado reservar cancha
-
+\subsection{Reservar cancha}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Reservar cancha.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -211,11 +223,11 @@ las líneas que se pueden ver en el .tex
         dentro del menu de la cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             El usuario hace click en \underline{Reservar cancha}.
             Selecciona el día.
             Selecciona la hora dentro del listado de horarios disponibles
@@ -232,11 +244,11 @@ las líneas que se pueden ver en el .tex
 \end{enumerate}
 
 % usuario logueado reservar cancha periodicamente
-
+\subsection{Reservar cancha periódicamente}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Reservar cancha periódicamente.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -248,11 +260,11 @@ las líneas que se pueden ver en el .tex
         dentro del menu de la cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             El usuario hace click en \underline{Reservar cancha}.
             Selecciona el día.
             Selecciona la hora dentro del listado de horarios disponibles.
@@ -273,12 +285,12 @@ las líneas que se pueden ver en el .tex
 % 46099 - Abramowicz, Pablo Federico \\ FIN
 
 % 46281 - Cabral, Martín Esteban \\ INICIO
-
+\subsection{Listar Canchas}
 % LISTAR CANCHAS
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Listar Canchas.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -289,16 +301,17 @@ las líneas que se pueden ver en el .tex
         El usuario hace click en \emph{Mostrar canchas disponibles}.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
         \begin{enumerate}
                     \item El usuario hace click en \emph{Mostrar Canchas Disponibles}
                     \item El sistema presenta al usuario un listado de las canchas.
         \end{enumerate}
         \item Flujo alternativo:\\
+			No aplica.
         \begin{enumerate}
                     \item El usuario completa algún criterio de ordenación y
                         hace click en \underline{Ordenar Listado}.
@@ -310,18 +323,19 @@ las líneas que se pueden ver en el .tex
     \end{enumerate}
 
     \item Precondiciones: \\
-        Ninguna.
+        No aplica.
 
     \item Post condiciones \\
         Listado de canchas presentado al usuario.
 
 \end{enumerate}
 
+\subsection{Listar Complejos}
 % LISTAR COMLEJOS
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Listar Complejos.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -332,11 +346,11 @@ las líneas que se pueden ver en el .tex
         El usuario hace click en \emph{Mostrar Complejos}.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
         \begin{enumerate}
                     \item El usuario hace click en \emph{Mostrar Complejos}
                     \item El sistema presenta al usuario un listado de los complejos.
@@ -353,18 +367,19 @@ las líneas que se pueden ver en el .tex
     \end{enumerate}
 
     \item Precondiciones: \\
-        Ninguna.
+        No aplica.
 
     \item Post condiciones \\
         Listado de complejos presentado al usuario.
 
 \end{enumerate}
 
+\subsection{Ordenar Listados}
 % ORDENAR LISTADO
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Ordenar Listados
+%    \item Nombre del caso de uso: \\
+%    
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -375,11 +390,11 @@ las líneas que se pueden ver en el .tex
         El usuario hace click en \emph{Ordenar Listado}.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
         \begin{enumerate}
                     \item El usuario selecciona el criterio de ordenación.
                     \item El usuario hace click en \emph{Ordenar Listado}.
@@ -398,10 +413,11 @@ las líneas que se pueden ver en el .tex
 
 % VER DETALLE CANCHA
 
+\subsection{Ver detalle complejo}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-        Ver detalle complejo.
+%    \item Nombre del caso de uso: \\
+%        .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -413,11 +429,11 @@ las líneas que se pueden ver en el .tex
         página que lista las canchas o en la vista dellada de un complejo.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
         \begin{enumerate}
             \item El usuario selecciona \underline{Listar Canchas Disponibles}
                 o \underline{Ver detalles} en el listado de complejos.
@@ -440,10 +456,11 @@ las líneas que se pueden ver en el .tex
 
 % ADMINISTRAR COMPLEJOS
 
+\subsection{Administrar complejos}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Administrar complejos.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -456,11 +473,11 @@ las líneas que se pueden ver en el .tex
         de administración.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             El usuario selecciona \underline{Listar complejos}.
         \item Flujos alternativos:\\
             \begin{enumerate}
@@ -508,10 +525,11 @@ las líneas que se pueden ver en el .tex
 
 % ADMINISTRAR CANCHAS
 
+\subsection{Administrar canchas}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Administrar canchas.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -524,11 +542,11 @@ las líneas que se pueden ver en el .tex
         de administración de un complejo existente.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             El usuario selecciona un complejo a través de 
             \underline{Listar complejos} y luego hace click en 
             \underline{Listar canchas}.
@@ -573,10 +591,11 @@ las líneas que se pueden ver en el .tex
 
 % ADMINISTRAR PREMIOS POR RESERVAS
 
+\subsection{Administrar premios por reservas}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Administrar premios por reservas.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -590,11 +609,11 @@ las líneas que se pueden ver en el .tex
         dentro de su panel de administración.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             El usuario hace click en \underline{Administrar premios por reserva}.
             Luego determina cuantos puntos se otorgarán para las acciones de
             \textit{Reservar}, \textit{Señar} y \textit{Pagar}.
@@ -613,10 +632,11 @@ las líneas que se pueden ver en el .tex
 
 % ADMINISTRAR LIMITES DE RESERVAS POR PUNTOS
 
+\subsection{Administrar límites de reservas por puntos}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Administrar límites de reservas por puntos.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -630,11 +650,11 @@ las líneas que se pueden ver en el .tex
         dentro de su panel de administración.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             El usuario hace click en \underline{Administrar límites de reserva
             por puntos}.
             Luego se determina cuales serán los plazos máximos de tiempo para la
@@ -654,11 +674,12 @@ las líneas que se pueden ver en el .tex
 
 % 46383 - Goñi, Juan Ignacio \\ INICIO
 
+\subsection{RSS: Ver reservas caidas}
 % reservas caidas rss
 \begin{enumerate}
 
-	\item Nombre del caso de uso: \\
-	\emph{RSS}: Ver reservas caidas.
+%	\item Nombre del caso de uso: \\
+%	\emph{RSS}: .
 
 	\begin{enumerate}
 		\item Descripción breve: \\
@@ -671,10 +692,10 @@ las líneas que se pueden ver en el .tex
 
 	\end{enumerate}
 
-	\item Flujo de Eventos: \\
+	\item Flujo de Eventos: 
 
 	\begin{enumerate}
-		\item Flujo básico:\\
+		\item Flujo básico:
 			Un usuario gen\'erico accede a la url del \emph{RSS}  de reservas caidas
 			y visualiza el listado de reservas que fueron dadas de baja. El listado
 			contiene la informaci\'on necesaria como para que el lector del \emph{RSS}
@@ -690,10 +711,11 @@ las líneas que se pueden ver en el .tex
 \end{enumerate}
 
 % nuevas canchas rss
+\subsection{RSS: Ver nuevas canchas}
 \begin{enumerate}
 
-	\item Nombre del caso de uso: \\
-	\emph{RSS}: Ver nuevas canchas.
+%	\item Nombre del caso de uso: \\
+%	\emph{RSS}: .
 
 	\begin{enumerate}
 		\item Descripción breve: \\
@@ -706,10 +728,10 @@ las líneas que se pueden ver en el .tex
 
 	\end{enumerate}
 
-	\item Flujo de Eventos: \\
+	\item Flujo de Eventos: 
 
 	\begin{enumerate}
-		\item Flujo básico:\\
+		\item Flujo básico:
 			Un usuario gen\'erico accede a la url del \emph{RSS}  de canchas nuevas
 			y visualiza el listado de canchas que fueron agregadas al sistema. El
 			listado contiene informaci\'on sobre el complejo y barrio para facilitar
@@ -725,10 +747,11 @@ las líneas que se pueden ver en el .tex
 \end{enumerate}
 
 % invitado registrarse
+\subsection{Invitado registrarse}
 \begin{enumerate}
 
-	\item Nombre del caso de uso: \\
-	Invitado registrarse.
+%	\item Nombre del caso de uso: \\
+%	.
 
 	\begin{enumerate}
 		\item Descripción breve: \\
@@ -741,10 +764,10 @@ las líneas que se pueden ver en el .tex
 
 	\end{enumerate}
 
-	\item Flujo de Eventos: \\
+	\item Flujo de Eventos: 
 
 	\begin{enumerate}
-		\item Flujo básico:\\
+		\item Flujo básico:
 			Un usuario gen\'erico accede a la pantalla principal del sistema y
 			hace click en \underline{registrarse}. Ingresa los datos necesarios
 			para registrarse como usuario del sistema.
@@ -775,10 +798,11 @@ las líneas que se pueden ver en el .tex
 \end{enumerate}
 
 % invitado login
+\subsection{Invitado login}
 \begin{enumerate}
 
-	\item Nombre del caso de uso: \\
-	Invitado login.
+%	\item Nombre del caso de uso: \\
+%	.
 
 	\begin{enumerate}
 		\item Descripción breve: \\
@@ -791,10 +815,10 @@ las líneas que se pueden ver en el .tex
 
 	\end{enumerate}
 
-	\item Flujo de Eventos: \\
+	\item Flujo de Eventos: 
 
 	\begin{enumerate}
-		\item Flujo básico:\\
+		\item Flujo básico:
 			Un usuario gen\'erico accede a la pantalla principal del sistema.
 			Ingresa nombre de usuario, tipo y contrase\~na. Si los datos son
 			v\'alidos, tiene acceso al sistema.
@@ -827,10 +851,11 @@ las líneas que se pueden ver en el .tex
 % 46383 - Goñi, Juan Ignacio \\ FIN
 
 % 46233 - Palombo, Martín \\ INICIO
+\subsection{Cargar pago reservas}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Cargar pago reservas.
+ %   \item Nombre del caso de uso: \\
+ %   .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -842,11 +867,11 @@ las líneas que se pueden ver en el .tex
         página que muestra las reservas para una cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un usuario genérico hace \underline{Login} como administrador y
             hace click en \underline{Ver reservas de canchas}. Luego para una
             reserva particular hace click en
@@ -879,10 +904,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
+\subsection{Cargar reserva completa}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Cargar reserva completa.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -894,11 +920,11 @@ las líneas que se pueden ver en el .tex
         página que muestra las reservas para una cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un usuario genérico hace \underline{Login} como administrador y
             hace click en \underline{Ver reservas de canchas}. Luego para una
             reserva particular hace click en
@@ -917,10 +943,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
+\subsection{Cancelar reserva}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Cancelar reserva.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -932,11 +959,11 @@ las líneas que se pueden ver en el .tex
         página que muestra las reservas de una cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un usuario genérico hace \underline{Login} como usuario común y
             hace click en \underline{Ver reservas de canchas}. Luego para una
             reserva particular hace click en \underline{Cancelar reserva}.
@@ -953,10 +980,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
+\subsection{Ver detalle complejo}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Ver detalle complejo.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -968,11 +996,11 @@ las líneas que se pueden ver en el .tex
         página que lista los complejos del sistema.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un usuario genérico hace \underline{Login} como usuario común y
             hace click en \underline{Listar complejos}. Se visualiza el
             complejo seleccionado, las canchas que tiene, la información del
@@ -993,11 +1021,11 @@ las líneas que se pueden ver en el .tex
 % 46233 - Palombo, Martín \\ FIN
 
 % 46069 - Sessa, Carlos Manuel \\ INICIO
-
+\subsection{Ver todas las reservas}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Ver todas las reservas.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -1009,11 +1037,11 @@ las líneas que se pueden ver en el .tex
         página principal del administrador.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un Administrador hace click en \underline{Ver reservas}.
         \item Flujos alternativos:\\
             Se muestra un cartel que no existen reservas.
@@ -1032,10 +1060,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
+\subsection{Ver reservas de canchas}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Ver reservas de canchas.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -1047,11 +1076,11 @@ las líneas que se pueden ver en el .tex
         dentro de la página principal del administrador.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un Administrador hace click en \underline{Ver reservas} y luego
             en \underline{Ver reservas de canchas}.
         \item Flujos alternativos:\\
@@ -1071,11 +1100,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
-
+\subsection{Ver reservas de complejos}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Ver reservas de complejos.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -1087,11 +1116,11 @@ las líneas que se pueden ver en el .tex
         dentro de la página principal del administrador.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un Administrador hace click en \underline{Ver reservas} y luego
             en \underline{Ver reservas de complejos}.
         \item Flujos alternativos:\\
@@ -1111,11 +1140,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
-
+\subsection{Ordenar reservas}
 \begin{enumerate}
 
-    \item Nombre del caso de uso: \\
-    Ordenar reservas.
+%    \item Nombre del caso de uso: \\
+%    .
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -1127,11 +1156,11 @@ las líneas que se pueden ver en el .tex
         dentro de cualquier listado de reservas.
     \end{enumerate}
 
-    \item Flujo de Eventos: \\
+    \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:\\
+        \item Flujo básico:
             Un Administrador hace click en \underline{Ver reservas} y luego
             en \underline{Ordenar reservas}.
         \item Flujos alternativos:\\
