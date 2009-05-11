@@ -6,7 +6,7 @@
 %\usepackage{fancyhdr}
 
 \usepackage[spanish]{babel}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 
 % Este es para poder poner graficos y diagramas.
 \usepackage{graphicx}
@@ -236,11 +236,11 @@ las líneas que se pueden ver en el .tex
 \begin{enumerate}
 
     \item Nombre del caso de uso: \\
-    Reservar cancha periodicamente.
+    Reservar cancha periódicamente.
 
     \begin{enumerate}
     \item Descripción breve: \\
-        Este caso de uso describe la reserva periodica de una cancha determinada.
+        Este caso de uso describe la reserva periódica de una cancha determinada.
     \item Actores \\
         Usuario genérico.
     \item Disparadores: \\
@@ -256,17 +256,17 @@ las líneas que se pueden ver en el .tex
             El usuario hace click en \underline{Reservar cancha}.
             Selecciona el día.
             Selecciona la hora dentro del listado de horarios disponibles.
-            Selecciona el item \underline{Reservar periodicamente}.
+            Selecciona el item \underline{Reservar periódicamente}.
             Hace click en \underline{Reservar}.
     \end{enumerate}
 
     \item Precondiciones: \\
         Usuario hizo \underline{Login} como usuario genérico.
         La cancha está registrada en el sistema.
-        El horario en cuestión no está reservado periodicamente.
+        El horario en cuestión no está reservado periódicamente.
 
     \item Post condiciones \\
-        Cancha reservada periodicamente para el usuario genérico.
+        Cancha reservada periódicamente para el usuario genérico.
 
 \end{enumerate}
 
@@ -293,26 +293,27 @@ las líneas que se pueden ver en el .tex
 
     \begin{enumerate}
 
-        \item Flujo básico:\\          
-	\begin{enumerate}
+        \item Flujo básico:\\
+        \begin{enumerate}
                     \item El usuario hace click en \emph{Mostrar Canchas Disponibles}
                     \item El sistema presenta al usuario un listado de las canchas.
         \end{enumerate}
         \item Flujo alternativo:\\
-	\begin{enumerate}
-                    \item El usuario completa algun criterio de ordenacion y hace click en \underline{Ordenar Listado}
+        \begin{enumerate}
+                    \item El usuario completa algún criterio de ordenación y
+                        hace click en \underline{Ordenar Listado}.
         \end{enumerate}
-	\begin{enumerate}
-                    \item El usuario completa algun criterio de filtrado.
-		\item El sistema refresca el listado siguiendo el criterio de filtrado.
+        \begin{enumerate}
+                \item El usuario completa algún criterio de filtrado.
+                \item El sistema refresca el listado siguiendo el criterio de filtrado.
         \end{enumerate}
     \end{enumerate}
 
     \item Precondiciones: \\
-	Ninguna
+        Ninguna.
 
     \item Post condiciones \\
-        Listado de canchas presentado al usuario
+        Listado de canchas presentado al usuario.
 
 \end{enumerate}
 
@@ -320,7 +321,7 @@ las líneas que se pueden ver en el .tex
 \begin{enumerate}
 
     \item Nombre del caso de uso: \\
-    Listar Complejos
+    Listar Complejos.
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -335,23 +336,24 @@ las líneas que se pueden ver en el .tex
 
     \begin{enumerate}
 
-        \item Flujo básico:\\          
-	\begin{enumerate}
+        \item Flujo básico:\\
+        \begin{enumerate}
                     \item El usuario hace click en \emph{Mostrar Complejos}
-                    \item El sistema presenta al usuario un listado de los complejos
+                    \item El sistema presenta al usuario un listado de los complejos.
         \end{enumerate}
         \item Flujo alternativo:\\
-	\begin{enumerate}
-                    \item El usuario completa algun criterio de ordenacion y hace click en \underline{Ordenar Listado}
+        \begin{enumerate}
+                    \item El usuario completa algún criterio de ordenación y
+                        hace click en \underline{Ordenar Listado}.
         \end{enumerate}
-	\begin{enumerate}
-                    \item El usuario completa algun criterio de filtrado.
-		\item El sistema refresca el listado siguiendo el criterio de filtrado.
+        \begin{enumerate}
+            \item El usuario completa algún criterio de filtrado.
+            \item El sistema refresca el listado siguiendo el criterio de filtrado.
         \end{enumerate}
     \end{enumerate}
 
     \item Precondiciones: \\
-	Ninguna
+        Ninguna.
 
     \item Post condiciones \\
         Listado de complejos presentado al usuario.
@@ -377,20 +379,20 @@ las líneas que se pueden ver en el .tex
 
     \begin{enumerate}
 
-        \item Flujo básico:\\          
-	\begin{enumerate}
-                    \item El usuario selecciona el criterio de ordenacion.
-                    \item El usuario hace click en \emph{Ordenar Listado}
+        \item Flujo básico:\\
+        \begin{enumerate}
+                    \item El usuario selecciona el criterio de ordenación.
+                    \item El usuario hace click en \emph{Ordenar Listado}.
         \end{enumerate}
         \item Flujo alternativo:\\
 
     \end{enumerate}
 
     \item Precondiciones: \\
-	Listado cargado previamente.
+        Listado cargado previamente.
 
     \item Post condiciones \\
-        Listado ordenado segun criterio seleccionado.
+        Listado ordenado según criterio seleccionado.
 
 \end{enumerate}
 
@@ -399,7 +401,7 @@ las líneas que se pueden ver en el .tex
 \begin{enumerate}
 
     \item Nombre del caso de uso: \\
-    Ver detalle complejo.
+        Ver detalle complejo.
 
     \begin{enumerate}
     \item Descripción breve: \\
@@ -416,12 +418,13 @@ las líneas que se pueden ver en el .tex
     \begin{enumerate}
 
         \item Flujo básico:\\
-	\begin{enumerate}
-                    \item El usuario selecciona \underline{Listar Canchas Disponibles} o \underline{Ver detalles} en el listado de complejos.
-                    \item El usuario hace click en \underline{Ver detalles}
-		    \item Se le presenta al usuario informacion detallada sobre la cancha seleccionada.
+        \begin{enumerate}
+            \item El usuario selecciona \underline{Listar Canchas Disponibles}
+                o \underline{Ver detalles} en el listado de complejos.
+            \item El usuario hace click en \underline{Ver detalles}
+            \item Se le presenta al usuario informacion detallada sobre la cancha seleccionada.
         \end{enumerate}
-	\item Flujo alternativo:\\
+    \item Flujo alternativo:\\
     \end{enumerate}
 
     \item Precondiciones: \\
