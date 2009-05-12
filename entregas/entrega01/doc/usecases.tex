@@ -1,56 +1,11 @@
 % Defino el tipo de documento.
 \documentclass[a4paper,11pt]{article}
-
-% Este paquete permite hacer encabezados y pies de página como
-% Los de las guias
-%\usepackage{fancyhdr}
-
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
-
 % Este es para poder poner graficos y diagramas.
 \usepackage{graphicx}
-
-% Este paquete está por las dudas... Si algun archivo eps se vuelve
-% rebelde y no sale donde uno quiere, hay que encajarle "\FloatBarrier" antes
-% y despues y listo.
-%\usepackage{placeins}
-
 % Este paquete me permite poner grados celsius.
 \usepackage{textcomp}
-
-
-%====================
-%= TEMPLATES UTILES =
-%====================
-
-%\begin{table}[htpb]
-%	\centering
-%	\begin{tabular}{|c|c|} \hline
-%	Cant. Iter. M\'aximas & Tiempo(seg) \\ \hline
-%	100			&	13.80 \\
-%	1000		&	14.56 \\
-%	2500		&	16.16 \\
-%	5000		&	18.48 \\
-%	10000		&	23.05 \\
-%	25000		&	37.21 \\
-%	50000		&	60.43 \\
-%	100000		&	106.99 \\ \hline
-%	\end{tabular}
-%	\caption{\label{ej02Tiempos}Tiempos medido para distintas iteraciones máximas del conjunto de Mandelbrot.}
-%\end{table}
-
-%\begin{figure}[htpb]
-%\centering
-%\includegraphics[width=9cm, height=9cm]{ej03local.png}
-%\caption{\label{ej03local} Curva de tiempos en segundos para los primeros 12 casos  }
-%\end{figure}
-
-% Toda la configuración del documento.
-%\input{preambulo.tex}
-
-%Encabeados y pie de pagina
-%\pagestyle{headings}
 
 \title{
         Programación de Objetos Distribuidos \\
@@ -75,37 +30,11 @@
 
 \maketitle
 \pagebreak
-\section{How to write use cases}
-
-Definiciones útiles para completar el template
-(alguna aplican, otras no, tomen lo que necesiten)
-
-\begin{itemize}
- \item Actor: Cualquiera o cualquier cosa con comportamiento.
- \item Stakeholder: Alguien o algo con interés en el comportamiento del sistema.
- \item Primary Actor: El Stakeholder que inicia una interacción con el sistema para alcanzar una meta.
- \item Use case: un contrato de comportamiento del sistema.
- \item Scope: identifica al sistema que estamos discutiendo.
- \item Precondiciones: Cosas que deben ser true antes del que caso de uso corra.
- \item Garantías: Post condiciones.
- \item Main Success Scenario: El caso feliz.
- \item Extensions: Que puede pasar diferente en el caso feliz.
-\end{itemize}
-
-Los caso de uso que son 'incluidos' aparecen subrayados.
-
-Ej. '2.3.1 El usuario hace click en el boton Save para \underline{Guardar el trabajo}'.
-
-\pagebreak
-\section{Template}
-Usamos el \emph{RUP Style}. Tratemos de poner nombres de caso de uso 'descriptivos'.
-Fíjense que para que si necesitan agregar un nivel de anidación tiene que agregar
-las líneas que se pueden ver en el .tex
 
 %Redefine the first level
 \renewcommand{\theenumi}{\arabic{enumi}.}
 \renewcommand{\labelenumi}{\theenumi}
- 
+
 %Redefine the second level
 \renewcommand{\theenumii}{\arabic{enumii}.}
 \renewcommand{\labelenumii}{\theenumii}
@@ -122,22 +51,17 @@ las líneas que se pueden ver en el .tex
  % use_cases.png: 1449x1890 pixel, 72dpi, 51.12x66.68 cm, bb=0 0 1449 1890
 \end{center}
 
+\pagebreak
+
 \section{Casos de Uso}
-
-% 46099 - Abramowicz, Pablo Federico \\ INICIO
-
-% usuario gen 2 (logueado) cambiar datos personales
 
 \subsection{Cambiar datos personales}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
-        Este caso de uso describe la modificación de datos personales de un 
-        usuario genérico del sistema.
+        Modificación de datos personales de un usuario genérico del sistema.
     \item Actores \\
         Usuario genérico.
     \item Disparadores: \\
@@ -145,21 +69,21 @@ las líneas que se pueden ver en el .tex
         dentro de su panel de usuario.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
     \begin{enumerate}
 
         \item Flujo básico:
-                \begin{enumerate}
-            		\item El usuario hace click en \underline{Cambiar datos personales}. 
-            		\item Luego modifica los datos propios que sean pertinentes a cambiar. 
-            		\item Una vez realizados los cambios hace click en \underline{Guardar}. 
-		\end{enumerate}
+            \begin{enumerate}
+                \item El usuario hace click en \underline{Cambiar datos personales}.
+                \item Luego modifica los datos propios que sean pertinentes a cambiar.
+                \item Una vez realizados los cambios hace click en \underline{Guardar}.
+            \end{enumerate}
         \item Flujo alternativo:
-                \begin{enumerate}
-            		\item El usuario hace click en \underline{Cambiar datos personales}. 
-            		\item Luego modifica los datos propios que sean pertinentes a cambiar.
-            		\item Una vez realizados los cambios hace click en \underline{Cancelar}.
-		\end{enumerate}
+            \begin{enumerate}
+                \item El usuario hace click en \underline{Cambiar datos personales}.
+                \item Luego modifica los datos propios que sean pertinentes a cambiar.
+                \item Una vez realizados los cambios hace click en \underline{Cancelar}.
+            \end{enumerate}
     \end{enumerate}
 
     \item Precondiciones: \\
@@ -175,33 +99,29 @@ las líneas que se pueden ver en el .tex
 \subsection{Caida de reservas de canchas}
 \begin{enumerate}
 
-%	\item Nombre del caso de uso: \\
-%	\emph{CRON}: .
-
+        \item
 	\begin{enumerate}
-		\item Descripción breve: \\
-			Actualización de las reservas automáticamente cuando alguna reserva
-            se da de baja por que se cumplió el tiempo de pago.
-		\item Actores \\
-			Cron.
-	
-		\item Disparadores: \\
-			Dada una hora determina se ejecuta automáticamente.
+            \item Descripción breve: \\
+                Actualización de las reservas automáticamente cuando alguna reserva
+                se da de baja por que se cumplió el tiempo de pago.
+            \item Actores \\
+                Cron.
+            \item Disparadores: \\
+                Dada una hora determina se ejecuta automáticamente.
+        \end{enumerate}
 
-	\end{enumerate}
+        \item Flujo de Eventos: 
 
-	\item Flujo de Eventos: 
+        \begin{enumerate}
+            \item Flujo básico:
+                Si existe alguna reserva cuyo tiempo de seña o pago expiró se da de baja.
+        \end{enumerate}
 
-	\begin{enumerate}
-		\item Flujo básico:
-			Si existe alguna reserva cuyo tiempo de seña o pago expiró se da de baja.
-	\end{enumerate}
+        \item Precondiciones: \\
+            Reserva existente.
 
-	\item Precondiciones: \\
-        Reserva existente.
-
-	\item Post condiciones \\
-		Reserva dada de baja.
+        \item Post condiciones \\
+            Reserva dada de baja.
 
 \end{enumerate}
 
@@ -210,9 +130,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Reservar cancha}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Este caso de uso describe la reserva de una cancha determinada.
@@ -247,9 +165,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Reservar cancha periódicamente}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Este caso de uso describe la reserva periódica de una cancha determinada.
@@ -260,7 +176,7 @@ las líneas que se pueden ver en el .tex
         dentro del menu de la cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
@@ -282,16 +198,11 @@ las líneas que se pueden ver en el .tex
 
 \end{enumerate}
 
-% 46099 - Abramowicz, Pablo Federico \\ FIN
-
-% 46281 - Cabral, Martín Esteban \\ INICIO
 \subsection{Listar Canchas}
 % LISTAR CANCHAS
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se le presenta al usuario un listado de las canchas cargadas en el sistema.
@@ -301,17 +212,17 @@ las líneas que se pueden ver en el .tex
         El usuario hace click en \emph{Mostrar canchas disponibles}.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
         \item Flujo básico:
         \begin{enumerate}
-                    \item El usuario hace click en \emph{Mostrar Canchas Disponibles}
-                    \item El sistema presenta al usuario un listado de las canchas.
+            \item El usuario hace click en \emph{Mostrar Canchas Disponibles}
+            \item El sistema presenta al usuario un listado de las canchas.
         \end{enumerate}
         \item Flujo alternativo:\\
-			No aplica.
+            No aplica.
         \begin{enumerate}
                     \item El usuario completa algún criterio de ordenación y
                         hace click en \underline{Ordenar Listado}.
@@ -334,9 +245,7 @@ las líneas que se pueden ver en el .tex
 % LISTAR COMLEJOS
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se le presenta al usuario un listado de las complejos deportivos cargados en el sistema.
@@ -352,13 +261,13 @@ las líneas que se pueden ver en el .tex
 
         \item Flujo básico:
         \begin{enumerate}
-                    \item El usuario hace click en \emph{Mostrar Complejos}
-                    \item El sistema presenta al usuario un listado de los complejos.
+            \item El usuario hace click en \emph{Mostrar Complejos}
+            \item El sistema presenta al usuario un listado de los complejos.
         \end{enumerate}
         \item Flujo alternativo:\\
         \begin{enumerate}
-                    \item El usuario completa algún criterio de ordenación y
-                        hace click en \underline{Ordenar Listado}.
+            \item El usuario completa algún criterio de ordenación y
+                hace click en \underline{Ordenar Listado}.
         \end{enumerate}
         \begin{enumerate}
             \item El usuario completa algún criterio de filtrado.
@@ -378,9 +287,7 @@ las líneas que se pueden ver en el .tex
 % ORDENAR LISTADO
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se le permite al usuario ordenar un listado siguiendo diversos criterios.
@@ -416,9 +323,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Ver detalle complejo}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%        .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se muestra en detalle las características de una cancha.
@@ -450,18 +355,12 @@ las líneas que se pueden ver en el .tex
         Detalles de la cancha presentados al usuario.
 
 \end{enumerate}
-% 46281 - Cabral, Martín Esteban \\ FIN
-
-% 47031 - Gomez, Vidal Darío Maximiliano \\ INICIO
 
 % ADMINISTRAR COMPLEJOS
-
 \subsection{Administrar complejos}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Este caso de uso describe las operaciones de creación, borrado y
@@ -528,9 +427,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Administrar canchas}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Este caso de uso describe las operaciones de creación, borrado y
@@ -594,9 +491,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Administrar premios por reservas}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Este caso de uso describe como se define la cantidad de puntos que gana
@@ -635,9 +530,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Administrar límites de reservas por puntos}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Este caso de uso describe como se definen los plazos de vencimiento de
@@ -667,46 +560,41 @@ las líneas que se pueden ver en el .tex
 
     \item Post condiciones \\
         No aplica.
-        
+
 \end{enumerate}
 
-% 47031 - Gomez, Vidal Darío Maximiliano \\ FIN
-
-% 46383 - Goñi, Juan Ignacio \\ INICIO
 
 \subsection{RSS: Ver reservas caidas}
 % reservas caidas rss
 \begin{enumerate}
 
-%	\item Nombre del caso de uso: \\
-%	\emph{RSS}: .
+    \item
+        \begin{enumerate}
+            \item Descripción breve: \\
+                Se listan los complejos con las últimas reservas caidas.
+            \item Actores \\
+                Usuario genérico, invitado.
 
-	\begin{enumerate}
-		\item Descripción breve: \\
-			Se listan los complejos con las \'ultimas reservas caidas.
-		\item Actores \\
-			Usuario gen\'erico, invitado.
-	
-		\item Disparadores: \\
-			Acceso a la url del \emph{RSS} de reservas caidas.
+            \item Disparadores: \\
+                Acceso a la url del \emph{RSS} de reservas caidas.
 
-	\end{enumerate}
+        \end{enumerate}
 
-	\item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
-	\begin{enumerate}
-		\item Flujo básico:
-			Un usuario gen\'erico accede a la url del \emph{RSS}  de reservas caidas
-			y visualiza el listado de reservas que fueron dadas de baja. El listado
-			contiene la informaci\'on necesaria como para que el lector del \emph{RSS}
-			pueda realizar una nueva reserva.
-	\end{enumerate}
+        \begin{enumerate}
+            \item Flujo básico:
+                Un usuario genérico accede a la url del \emph{RSS}  de reservas caidas
+                y visualiza el listado de reservas que fueron dadas de baja. El listado
+                contiene la información necesaria como para que el lector del \emph{RSS}
+                pueda realizar una nueva reserva.
+        \end{enumerate}
 
-	\item Precondiciones: \\
-		El lector del \emph{RSS} no necesita estar logueado como usuario.
+    \item Precondiciones: \\
+        No aplica.
 
-	\item Post condiciones \\
-		No aplica.
+    \item Post condiciones \\
+        No aplica.
 
 \end{enumerate}
 
@@ -714,35 +602,32 @@ las líneas que se pueden ver en el .tex
 \subsection{RSS: Ver nuevas canchas}
 \begin{enumerate}
 
-%	\item Nombre del caso de uso: \\
-%	\emph{RSS}: .
+    \item
+    \begin{enumerate}
+        \item Descripción breve: \\
+            Se listan las últimas canchas agregadas al sistema.
+        \item Actores \\
+            Usuario genérico, invitado.
+        \item Disparadores: \\
+            Acceso a la url del \emph{RSS} de canchas nuevas.
 
-	\begin{enumerate}
-		\item Descripción breve: \\
-			Se listan las \'ultimas canchas agregadas al sistema.
-		\item Actores \\
-			Usuario gen\'erico, invitado.
-	
-		\item Disparadores: \\
-			Acceso a la url del \emph{RSS} de canchas nuevas.
+    \end{enumerate}
 
-	\end{enumerate}
+    \item Flujo de Eventos: 
 
-	\item Flujo de Eventos: 
+        \begin{enumerate}
+            \item Flujo básico:
+                Un usuario genérico accede a la url del \emph{RSS}  de canchas nuevas
+                y visualiza el listado de canchas que fueron agregadas al sistema. El
+                listado contiene información sobre el complejo y barrio para facilitar
+                al lector del \emph{RSS} la reserva de la cancha.
+        \end{enumerate}
 
-	\begin{enumerate}
-		\item Flujo básico:
-			Un usuario gen\'erico accede a la url del \emph{RSS}  de canchas nuevas
-			y visualiza el listado de canchas que fueron agregadas al sistema. El
-			listado contiene informaci\'on sobre el complejo y barrio para facilitar
-			al lector del \emph{RSS} la reserva de la cancha.
-	\end{enumerate}
+    \item Precondiciones: \\
+        El lector del \emph{RSS} no necesita estar logueado como usuario.
 
-	\item Precondiciones: \\
-		El lector del \emph{RSS} no necesita estar logueado como usuario.
-
-	\item Post condiciones \\
-		No aplica.
+    \item Post condiciones \\
+        No aplica.
 
 \end{enumerate}
 
@@ -750,50 +635,46 @@ las líneas que se pueden ver en el .tex
 \subsection{Invitado registrarse}
 \begin{enumerate}
 
-%	\item Nombre del caso de uso: \\
-%	.
+    \item
+        \begin{enumerate}
+            \item Descripción breve: \\
+                Obtener una cuenta de usuario del sistema.
+            \item Actores \\
+                Invitado.
+            \item Disparadores: \\
+                Click en \underline{registrarse} en la pantalla principal del sistema.
 
-	\begin{enumerate}
-		\item Descripción breve: \\
-			Obtener una cuenta de usuario del sistema.
-		\item Actores \\
-			Invitado.
-	
-		\item Disparadores: \\
-			Click en \underline{registrarse} en la pantalla principal del sistema.
+        \end{enumerate}
 
+    \item Flujo de Eventos:
+
+        \begin{enumerate}
+            \item Flujo básico:
+                Un usuario genérico accede a la pantalla principal del sistema y
+                hace click en \underline{registrarse}. Ingresa los datos necesarios
+                para registrarse como usuario del sistema.
+
+            \item Flujo alternativo:\\
+                Se muestra un cartel que informa que los datos ingresados son
+                incorrectos, puede volver a intentarlo.
+
+                \begin{enumerate}
+                    \item Condición 1 \\
+                            El usuario ingresado ya existe dentro del sistema.
+                    \item Condición 2 \\
+                            Faltan datos requeridos.
+                    \item Condición 3 \\
+                            Las contrase\~nas ingresadas no son iguales.
+                    \item Condición 4 \\
+                            Alguna combinación de las anteriores.
+                \end{enumerate}
 	\end{enumerate}
 
-	\item Flujo de Eventos: 
+    \item Precondiciones: \\
+        No debe estar registrado como usuario del sistema.
 
-	\begin{enumerate}
-		\item Flujo básico:
-			Un usuario gen\'erico accede a la pantalla principal del sistema y
-			hace click en \underline{registrarse}. Ingresa los datos necesarios
-			para registrarse como usuario del sistema.
-
-		\item Flujo alternativo:\\
-			Se muestra un cartel que informa que los datos ingresados son
-			incorrectos, puede volver a intentarlo.
-
-			\begin{enumerate}
-			\item Condición 1 \\
-				El usuario ingresado ya existe dentro del sistema.
-			\item Condición 2 \\
-				Faltan datos requeridos.
-			\item Condición 3 \\
-				Las contrase\~nas ingresadas no son iguales.
-			\item Condición 4 \\
-				Alguna combinaci\'on de las anteriores.
-			\end{enumerate}
-
-	\end{enumerate}
-
-	\item Precondiciones: \\
-		No debe estar registrado como usuario del sistema.
-
-	\item Post condiciones \\
-		El invitado obtiene una cuenta de usuario del sistema.
+    \item Post condiciones \\
+        El invitado obtiene una cuenta de usuario del sistema.
 
 \end{enumerate}
 
@@ -801,62 +682,52 @@ las líneas que se pueden ver en el .tex
 \subsection{Invitado login}
 \begin{enumerate}
 
-%	\item Nombre del caso de uso: \\
-%	.
+    \item
+        \begin{enumerate}
+            \item Descripción breve: \\
+                Acceso al sistema como usuario.
+            \item Actores \\
+                Usuario del sistema.
+            \item Disparadores: \\
+                Acceso a la pantalla principal del sistema.
+        \end{enumerate}
 
-	\begin{enumerate}
-		\item Descripción breve: \\
-			Acceso al sistema como usuario.
-		\item Actores \\
-			Usuario del sistema.
-	
-		\item Disparadores: \\
-			Acceso a la pantalla principal del sistema.
+    \item Flujo de Eventos:
+        \begin{enumerate}
+            \item Flujo básico:
+                Un usuario genérico accede a la pantalla principal del sistema.
+                Ingresa nombre de usuario, tipo y contraseña. Si los datos son
+                válidos, tiene acceso al sistema.
 
-	\end{enumerate}
+            \item Flujo alternativo:\\
+                Se muestra un cartel que informa que los datos ingresados son
+                incorrectos, puede volver a intentarlo.
 
-	\item Flujo de Eventos: 
+                \begin{enumerate}
+                \item Condición 1 \\
+                    El usuario ingresado es incorrecto.
+                \item Condición 2 \\
+                    El tipo de usuario ingresado es incorrecto.
+                \item Condición 3 \\
+                    La contraseña ingresada es incorrecta.
+                \item Condición 4 \\
+                    Alguna combinación de las anteriores.
+                \end{enumerate}
 
-	\begin{enumerate}
-		\item Flujo básico:
-			Un usuario gen\'erico accede a la pantalla principal del sistema.
-			Ingresa nombre de usuario, tipo y contrase\~na. Si los datos son
-			v\'alidos, tiene acceso al sistema.
+        \end{enumerate}
 
-		\item Flujo alternativo:\\
-			Se muestra un cartel que informa que los datos ingresados son
-			incorrectos, puede volver a intentarlo.
+        \item Precondiciones: \\
+            Debe estar registrado como usuario del sistema.
 
-			\begin{enumerate}
-			\item Condición 1 \\
-				El usuario ingresado es incorrecto.
-			\item Condición 2 \\
-				El tipo de usuario ingresado es incorrecto.
-			\item Condición 3 \\
-				La contrase\~na ingresada es incorrecta.
-			\item Condición 4 \\
-				Alguna combinaci\'on de las anteriores.
-			\end{enumerate}
-
-	\end{enumerate}
-
-	\item Precondiciones: \\
-		Debe estar registrado como usuario del sistema.
-
-	\item Post condiciones \\
-		El usuario tiene acceso al sistema.
+        \item Post condiciones \\
+            El usuario tiene acceso al sistema.
 
 \end{enumerate}
 
-% 46383 - Goñi, Juan Ignacio \\ FIN
-
-% 46233 - Palombo, Martín \\ INICIO
 \subsection{Cargar pago reservas}
 \begin{enumerate}
 
- %   \item Nombre del caso de uso: \\
- %   .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se carga un pago para una determinada reserva.
@@ -882,7 +753,7 @@ las líneas que se pueden ver en el .tex
             pagada; en ambos casos se actualizan los puntos del usuario que
             emitió la reserva y se informa al usuario que la operación fue
             exitosa. En caso contrario, ya que la cantidad ingresada es
-            incorrecta, se procede al \underline{Flujo alternativo 1}. 
+            incorrecta, se procede al \underline{Flujo alternativo 1}.
 
 
         \item Flujos alternativos:\\
@@ -907,20 +778,18 @@ las líneas que se pueden ver en el .tex
 \subsection{Cargar reserva completa}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se carga un pago completo para una determinada reserva.
     \item Actores \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \underline{Cargar pago completo de reserva} dentro de la
-        página que muestra las reservas para una cancha.
+        Click en el botón \underline{Cargar pago completo de reserva} dentro
+        de la página que muestra las reservas para una cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
@@ -946,9 +815,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Cancelar reserva}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se da de baja una determinada reserva.
@@ -959,7 +826,7 @@ las líneas que se pueden ver en el .tex
         página que muestra las reservas de una cancha.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
@@ -983,9 +850,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Ver detalle complejo}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se muestra en detalle las características de un complejo.
@@ -996,7 +861,7 @@ las líneas que se pueden ver en el .tex
         página que lista los complejos del sistema.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
@@ -1018,15 +883,11 @@ las líneas que se pueden ver en el .tex
         No aplica.
 
 \end{enumerate}
-% 46233 - Palombo, Martín \\ FIN
 
-% 46069 - Sessa, Carlos Manuel \\ INICIO
 \subsection{Ver todas las reservas}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se listan todas las reservas existentes.
@@ -1063,9 +924,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Ver reservas de canchas}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se listan las reservas de canchas.
@@ -1076,7 +935,7 @@ las líneas que se pueden ver en el .tex
         dentro de la página principal del administrador.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
@@ -1103,9 +962,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Ver reservas de complejos}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se listan las reservas de complejos.
@@ -1116,7 +973,7 @@ las líneas que se pueden ver en el .tex
         dentro de la página principal del administrador.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
@@ -1143,9 +1000,7 @@ las líneas que se pueden ver en el .tex
 \subsection{Ordenar reservas}
 \begin{enumerate}
 
-%    \item Nombre del caso de uso: \\
-%    .
-
+    \item
     \begin{enumerate}
     \item Descripción breve: \\
         Se ordenan los listados de reservas.
@@ -1177,6 +1032,5 @@ las líneas que se pueden ver en el .tex
         No aplica.
 
 \end{enumerate}
-% 46069 - Sessa, Carlos Manuel \\ FIN
 
 \end{document}
