@@ -3,6 +3,15 @@
         margin:0 auto;
 }
 
+.littleMarginTop {
+	margin-top:6px;
+}
+
+.search {
+	width:26em;
+	margin-bottom: 1em;
+}
+
 .header {
         margin-top:20px;
 }
