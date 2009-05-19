@@ -14,10 +14,11 @@ body
 <body>
     <div>
         <h3>
-            <a href="principal.html">Inicio</a>     |
-            <a href="complejos.html">Complejos</a>  |
-            <a href="login.html">Login</a>          |
-            <a href="register.html">Registrarse</a>
+            <a href="admin.html">Panel Admin</a>                |
+            <a href="admin_reservas.html">Reservas</a>          |
+            <a href="admin_puntos.html">Sistema de puntos</a>   |
+            <a href="admin_complejos.html">Complejos</a>        |
+            <a href="admin_canchas.html">Canchas</a>
         </h3>
     </div>
 
@@ -25,6 +26,17 @@ body
         <h1>
             Listado de complejos en MiCanchita.com
         </h1>
+    </div>
+
+    <div>
+        <FORM action="admin_complejos.html" method="post">
+            <P>
+                <LABEL for="username">Buscar: </LABEL>
+                    <INPUT type="text" id="buscar"><BR />
+                <INPUT type="submit" value="Buscar">
+                <INPUT type="reset" value="Borrar">
+            </P>
+        </FORM>
     </div>
 
     <div>
