@@ -1,0 +1,35 @@
+.bloggerStyle {
+        width:800px;
+        margin:0 auto;
+}
+
+.header {
+        margin-top:20px;
+}
+
+.loginForm {
+	float:right;
+        width:392px;
+        margin-right:20px;
+}
+
+.gray {
+        color:#999999;
+}
+
+.loginInputElement:hover {
+        background-color:#EFEFEF;
+}
+
+.loginInputElement {
+
+        float:left;
+        width:138px;
+        margin:0 2px;
+}
+
+.loginButtonElement {
+
+        float:left;
+        width:100px;
+}
