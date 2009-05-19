@@ -10,6 +10,7 @@ body
     font-size: 12px;
 }
 </style>
+<link rel="stylesheet" href="css/greentable.css" type="text/css">
 </head>
 <body>
     <div>
@@ -41,14 +42,16 @@ body
 
     <div>
         <table border="2">
-            <tbody>
+            <thead>
                 <tr>
-                    <td>Nombre</td>
-                    <td>Descripción</td>
-                    <td>Ubicación</td>
-                    <td>Horarios</td>
-                    <td>Contacto</td>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Ubicación</th>
+                    <th>Horarios</th>
+                    <th>Contacto</th>
                 </tr>
+	</thead>
+	<tbody>
                 <tr>
                     <td><a href="complejo1.html">No Hay nadie</a></td>
                     <td>Canchas de fútbol. </td>
@@ -56,7 +59,7 @@ body
                     <td>Lunes a Viernes: 8-24h</td>
                     <td>nohaynadie@meil.com</td>
                 </tr>
-                <tr>
+                <tr class="odd">
                     <td><a href="complejo2.html">Sólo niños</a></td>
                     <td>Canchas multiuso</td>
                     <td>Lombardo 182, Castelar, Bs as, Argentina</td>
