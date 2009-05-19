@@ -9,6 +9,16 @@ float:left;
 margin-left:20px;
 }
 
+
+.loggedColorTab {
+width: 390px;
+}
+
+.adminColorTab {
+width: 585px;
+}
+
+
 .ubercolortabs ul{
 font: bold 11px Arial, Verdana, sans-serif;
 margin: 0;
