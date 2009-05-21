@@ -15,6 +15,13 @@
     	<servlet-class>
     	lala</servlet-class>
     </servlet>
+    <servlet>
+    	<servlet-name>ListComplex</servlet-name>
+    	<display-name>ListComplex</display-name>
+    	<description></description>
+    	<servlet-class>
+    	com.canchita.controller.complex.ListComplex</servlet-class>
+    </servlet>
   <servlet-mapping>
     <servlet-name>prueba</servlet-name>
     <url-pattern>/prueba</url-pattern>
@@ -22,6 +29,10 @@
   <servlet-mapping>
   	<servlet-name>lala</servlet-name>
   	<url-pattern>/lala</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ListComplex</servlet-name>
+  	<url-pattern>/ListComplex</url-pattern>
   </servlet-mapping>
   
 </web-app>
