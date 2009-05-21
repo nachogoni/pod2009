@@ -2,6 +2,7 @@ package com.canchita.model.location;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -26,22 +27,16 @@ public class Place {
 	private String longitude;
 	private List<String> telephones;
 	
-	public Place(String address, List<String> telephones, String zipCode,
-			String neighbourhood, String town, String state, String country,
-			String latitude, String longitude) {
-		this.address = address;
-		this.zipCode = zipCode;
-		this.neighbourhood = neighbourhood;
-		this.town = town;
-		this.state = state;
-		this.country = country;
-		this.latitude = latitude;
-		this.longitude = longitude;
-
-		this.telephones = new ArrayList<String>();
-		for (Iterator<String> i = telephones.iterator(); i.hasNext(); ) {
-			this.telephones.add(i.next());
-		}
+	public Place(Builder builder) {
+		this.address = builder.address;
+		this.zipCode = builder.zipCode;
+		this.neighbourhood = builder.neighbourhood;
+		this.town = builder.town;
+		this.state = builder.state;
+		this.country = builder.country;
+		this.latitude = builder.latitude;
+		this.longitude = builder.longitude;
+		this.telephones = builder.telephones;
 	}
 
 	public List<String> getTelephones() {
@@ -206,17 +201,73 @@ public class Place {
 
 	@Override
 	public String toString() {
+		
 		StringBuffer ret = new StringBuffer();
 		
-		ret.append(address).append(", ").append(town).append(", ").append(state);
-		ret.append(", ").append(country).append(".\n CP: ").append(zipCode).append(", ");
-		ret.append(neighbourhood).append(", ").append(latitude).append(", ").append(longitude);
-		if (!telephones.isEmpty()) {
-			ret.append(".\n Telefonos: ").append(telephones.toString());
-		}
+		ret.append(address).append(", ").append(neighbourhood);
+		
 		return ret.toString();
 	}
 	
-	
+	public static class Builder {
+		
+		//Required parameters
+		private final String address;
+		private final String neighbourhood;
+		
+		//Optional parameters
+		private String zipCode = null;
+		private String town = null;
+		private String state = null;
+		private String country = null;
+		private String latitude = null;
+		private String longitude = null;
+		private List<String> telephones = new LinkedList<String>();
+		
+		public Builder(String address, String neighbourhood) {
+			this.address = address;
+			this.neighbourhood = neighbourhood;
+		}
+
+		public Builder zipCode(String zipCode) {
+			this.zipCode = zipCode;
+			return this;
+		}
+
+		public Builder town(String town) {
+			this.town = town;
+			return this;
+		}
+
+		public Builder state(String state) {
+			this.state = state;
+			return this;
+		}
+
+		public Builder country(String country) {
+			this.country = country;
+			return this;
+		}
+
+		public Builder latitude(String latitude) {
+			this.latitude = latitude;
+			return this;
+		}
+
+		public Builder longitude(String longitude) {
+			this.longitude = longitude;
+			return this;
+		}
+
+		public Builder telephone(String telephone) {
+			this.telephones.add(telephone);
+			return this;
+		}
+		
+		public Place build() {
+			return new Place(this);
+		}
+		
+	}
 	
 }
