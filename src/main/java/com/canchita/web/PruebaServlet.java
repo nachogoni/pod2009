@@ -17,7 +17,7 @@ public class PruebaServlet extends HttpServlet {
                       HttpServletResponse response)
         throws ServletException, IOException {
     
-    	Complex unComplejo = new Complex();
+    	Complex unComplejo = new Complex("The titos's Complex");
     	ComplexMemoryMock aDao = new ComplexMemoryMock();
     	
     	unComplejo.setId(new Long(1));

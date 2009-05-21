@@ -1,6 +1,5 @@
 package com.canchita.model.booking;
 
-import java.util.Date;
 import java.util.List;
 
 import com.canchita.model.location.Locatable;
@@ -29,6 +28,6 @@ public interface Bookable {
 	
 	Locatable getLocation();
 	
-	Date getExpiration(Booking booking);
+	Expiration getExpiration(Booking booking);
 	
 }

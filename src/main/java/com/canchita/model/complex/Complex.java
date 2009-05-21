@@ -1,6 +1,6 @@
 package com.canchita.model.complex;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.canchita.model.booking.Bookable;
@@ -23,7 +23,6 @@ import com.canchita.model.location.Place;
  */
 public class Complex implements Booker {
 
-	private Long id;
 	private String name;
 	private Place place;
 	private String description;
@@ -31,15 +30,74 @@ public class Complex implements Booker {
 	private ScoreSystem scoreSystem;
 	private List<Field> fields;
 	private Expiration expiration;
+	private Long id;
 	
 	public static List<Complex> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	public Complex(String name) {
+		List<Field> fields = new ArrayList<Field>();
+		List<String> tels = new ArrayList<String>();
+		
+		if (name.equals("The titos's Complex")) {
+		
+			Calendar titos_horarios = new Calendar();
+			ScoreSystem titos_scores = new ScoreSystem();
+			Expiration titos_expiran = new Expiration();
+			
+			Place titos_place = new Place("Madero 339", tels,"1233", "Pto Madero", "Buenos Aires",
+					"CABA", "Argentina", "-34.030303", "+54.3434334");
+			titos_place.addTelephone("4444-5555");
+			titos_place.addTelephone("5555-5555");
+			
+			
+			
+			this.name = new String("The titos's Complex");
+			this.place = titos_place;
+			this.description = new String("El complejo mas divertido");
+			this.timeTable = titos_horarios;
+			this.scoreSystem = titos_scores;
+			this.fields = fields;
+			this.expiration = titos_expiran;
+
+		} else if (name.equals("La casa de la nona")) {
+			
+			Calendar nonas_horarios = new Calendar();
+			ScoreSystem nonas_scores = new ScoreSystem();
+			Expiration nonas_expiran = new Expiration();		
+
+			Place nonas_place = new Place("8 de Abril 339", tels,"1233", "Costanera", "Capital",
+					"Capital", "Uruguay", "-35.030303", "+45.3434334");
+			nonas_place.addTelephone("4321-1234");
+			nonas_place.addTelephone("1234-4321");
+
+			this.name = new String("La casa de la nona");
+			this.place = nonas_place;
+			this.description = new String("Donde te atienden mejor que en casa");
+			this.timeTable = nonas_horarios;
+			this.scoreSystem = nonas_scores;
+			this.fields = fields;
+			this.expiration = nonas_expiran;
+		}
+	}
+
 	public List<Field> listFields() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		List<Field> fields = new ArrayList<Field>();
+
+		if (this.name.equals("The titos's Complex")) {
+			fields.add(new Field(this, "Cancha_1"));
+			fields.add(new Field(this, "Cancha_2"));
+		} else if (this.name.equals("La casa de la nona")) {
+			fields.add(new Field(this, "Cancha_1"));
+			fields.add(new Field(this, "Cancha_2"));
+			fields.add(new Field(this, "Cancha_3"));
+			fields.add(new Field(this, "Cancha_4"));
+		}
+		return fields;
 	}
 	
 	@Override
@@ -61,9 +119,8 @@ public class Complex implements Booker {
 	}
 
 	@Override
-	public Date getExpiration(Booking reservation) {
-		// TODO Auto-generated method stub
-		return null;
+	public Expiration getExpiration(Booking reservation) {
+		return this.expiration;
 	}
 
 	@Override
@@ -80,8 +137,7 @@ public class Complex implements Booker {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -89,8 +145,7 @@ public class Complex implements Booker {
 	}
 	@Override
 	public Place getPlace() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.place;
 	}
 
 	public Long getId() {
