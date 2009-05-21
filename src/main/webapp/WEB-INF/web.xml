@@ -4,4 +4,24 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+    <servlet-name>prueba</servlet-name>
+    <servlet-class>com.canchita.web.PruebaServlet</servlet-class>
+  </servlet>
+    <servlet>
+    	<servlet-name>lala</servlet-name>
+    	<display-name>lala</display-name>
+    	<description></description>
+    	<servlet-class>
+    	lala</servlet-class>
+    </servlet>
+  <servlet-mapping>
+    <servlet-name>prueba</servlet-name>
+    <url-pattern>/prueba</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>lala</servlet-name>
+  	<url-pattern>/lala</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

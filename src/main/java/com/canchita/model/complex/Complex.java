@@ -23,13 +23,14 @@ import com.canchita.model.location.Place;
  */
 public class Complex implements Booker {
 
-	String name;
-	Place place;
-	String description;
-	Calendar timeTable;
-	ScoreSystem scoreSystem;
-	List<Field> fields;
-	Expiration expiration;
+	private Long id;
+	private String name;
+	private Place place;
+	private String description;
+	private Calendar timeTable;
+	private ScoreSystem scoreSystem;
+	private List<Field> fields;
+	private Expiration expiration;
 	
 	public static List<Complex> list() {
 		// TODO Auto-generated method stub
@@ -83,10 +84,22 @@ public class Complex implements Booker {
 		return null;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public Place getPlace() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+	
+	public void setId(Long id){
+		this.id = id;
 	}
 
 }
