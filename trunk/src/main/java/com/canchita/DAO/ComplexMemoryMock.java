@@ -1,6 +1,5 @@
 package com.canchita.DAO;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +43,10 @@ public class ComplexMemoryMock implements ComplexDAO {
 	public ComplexMemoryMock() {
 
 	}
-
-	public void delete(Complex complex) {
-		ComplexMemoryMock.complexMocks.remove(complex.getId());
+	
+	
+	public void delete(Long id) {
+		ComplexMemoryMock.complexMocks.remove(id);
 	}
 
 	public Collection<Complex> getAll() {

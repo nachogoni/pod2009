@@ -19,10 +19,18 @@
 	</tr>
 	<c:if test="${(complexes != null)}">
 		<c:forEach items="${complexes}" var="complex">
+			<form action="/DeleteComplex" method="post">
+			
+			<!--  TODO: Arreglar esta grasada que hacemos para pasar el parametro -->
+			
+			<input type="hidden" name="id" value="<c:out value="${complex.id}" />"/>
 			<tr>
+				<td><c:out value="${complex.id}" /></td>
 				<td><c:out value="${complex.name}" /></td>
 				<td><c:out value="${complex.place}" /></td>
+				<td><input type="submit" name="delete" value="Delete"/></td>
 			</tr>
+			</form>
 		</c:forEach>
 	</c:if>
 </table>

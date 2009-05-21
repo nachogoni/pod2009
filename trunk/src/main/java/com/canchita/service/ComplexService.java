@@ -8,8 +8,8 @@ import com.canchita.model.complex.Complex;
 public class ComplexService implements ComplexServiceProtocol {
 
 	
-	public void deleteComplex(Complex complex) {
-		(new ComplexMemoryMock()).delete(complex);
+	public void deleteComplex(Long id) {
+		(new ComplexMemoryMock()).delete(null);
 	}
 
 	public Collection<Complex> listComplex() {		
