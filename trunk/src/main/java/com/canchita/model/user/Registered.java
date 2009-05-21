@@ -48,6 +48,10 @@ public abstract class Registered extends User {
 		return username;
 	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public Long getScore() {
 		return score;
 	}
