@@ -38,49 +38,7 @@ public class Complex implements Booker {
 	}
 	
 	public Complex(String name) {
-		List<Field> fields = new ArrayList<Field>();
-		List<String> tels = new ArrayList<String>();
-		
-		if (name.equals("The titos's Complex")) {
-		
-			Calendar titos_horarios = new Calendar();
-			ScoreSystem titos_scores = new ScoreSystem();
-			Expiration titos_expiran = new Expiration();
-			
-			Place titos_place = new Place("Madero 339", tels,"1233", "Pto Madero", "Buenos Aires",
-					"CABA", "Argentina", "-34.030303", "+54.3434334");
-			titos_place.addTelephone("4444-5555");
-			titos_place.addTelephone("5555-5555");
-			
-			
-			
-			this.name = new String("The titos's Complex");
-			this.place = titos_place;
-			this.description = new String("El complejo mas divertido");
-			this.timeTable = titos_horarios;
-			this.scoreSystem = titos_scores;
-			this.fields = fields;
-			this.expiration = titos_expiran;
-
-		} else if (name.equals("La casa de la nona")) {
-			
-			Calendar nonas_horarios = new Calendar();
-			ScoreSystem nonas_scores = new ScoreSystem();
-			Expiration nonas_expiran = new Expiration();		
-
-			Place nonas_place = new Place("8 de Abril 339", tels,"1233", "Costanera", "Capital",
-					"Capital", "Uruguay", "-35.030303", "+45.3434334");
-			nonas_place.addTelephone("4321-1234");
-			nonas_place.addTelephone("1234-4321");
-
-			this.name = new String("La casa de la nona");
-			this.place = nonas_place;
-			this.description = new String("Donde te atienden mejor que en casa");
-			this.timeTable = nonas_horarios;
-			this.scoreSystem = nonas_scores;
-			this.fields = fields;
-			this.expiration = nonas_expiran;
-		}
+		this.setName(name);
 	}
 
 	public List<Field> listFields() {
@@ -100,42 +58,42 @@ public class Complex implements Booker {
 		return fields;
 	}
 	
-	@Override
+	
 	public void add(Bookable bookable) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+
 	public Booking book(Bookable bookable, Schedule hour) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public List<Bookable> getBookables() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public Expiration getExpiration(Booking reservation) {
 		return this.expiration;
 	}
 
-	@Override
+
 	public List<Booking> getReservations() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public void remove(Bookable bookable) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+
 	public String getName() {
 		return this.name;
 	}
@@ -143,7 +101,7 @@ public class Complex implements Booker {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Override
+
 	public Place getPlace() {
 		return this.place;
 	}
@@ -155,6 +113,50 @@ public class Complex implements Booker {
 	
 	public void setId(Long id){
 		this.id = id;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Calendar getTimeTable() {
+		return timeTable;
+	}
+
+	public void setTimeTable(Calendar timeTable) {
+		this.timeTable = timeTable;
+	}
+
+	public ScoreSystem getScoreSystem() {
+		return scoreSystem;
+	}
+
+	public void setScoreSystem(ScoreSystem scoreSystem) {
+		this.scoreSystem = scoreSystem;
+	}
+
+	public List<Field> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
+
+	public Expiration getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(Expiration expiration) {
+		this.expiration = expiration;
+	}
+
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 }

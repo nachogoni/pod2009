@@ -123,39 +123,38 @@ public class Field implements Bookable {
 		}		
 	}
 
-	@Override
+	
 	public void book(Schedule hour) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
+
 	public List<Booking> getBookings() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	public String getDescription() {
 		return this.description;
 	}
 
-	@Override
+
 	public Expiration getExpiration(Booking booking) {
 		return this.expiration;
 	}
 
-	@Override
 	public Locatable getLocation() {
 		return this.complex;
 	}
 
-	@Override
+	
 	public String getName() {
 		return this.name;
 	}
 
-	@Override
+	
 	public boolean viewAvailability(Schedule hour) {
 		// TODO Auto-generated method stub
 		// TODO A QUIEN LE PREGUNTO SI ES DISPONIBLE O NO?
