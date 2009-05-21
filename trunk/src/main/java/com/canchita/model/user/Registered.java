@@ -45,7 +45,7 @@ public abstract class Registered extends User {
 	}
 	
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -53,7 +53,11 @@ public abstract class Registered extends User {
 	}
 
 	public Long getScore() {
-		return score;
+		return this.score;
+	}
+
+	public String getEmail() {
+		return this.email;
 	}
 
 	public void setEmail(String email) {
