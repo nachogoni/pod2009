@@ -10,7 +10,7 @@ public interface ComplexServiceProtocol {
 	
 	public Collection<Complex> listComplex(String filter);
 	
-	public void deleteComplex(Complex aComplex);
+	public void deleteComplex(Long id);
 	
 	public void saveComplex(Complex aComplex);
 	

@@ -13,7 +13,7 @@ public interface ComplexDAO {
 	
 	public void update(Complex aComplex);
 	
-	public void delete(Complex aComplex);
+	public void delete(Long id);
 	
 	public Collection<Complex> getAll();
 	

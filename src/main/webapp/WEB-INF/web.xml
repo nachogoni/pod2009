@@ -22,6 +22,20 @@
     	<servlet-class>
     	com.canchita.controller.complex.ListComplex</servlet-class>
     </servlet>
+    <servlet>
+    	<servlet-name>DeleteComplex</servlet-name>
+    	<display-name>DeleteComplex</display-name>
+    	<description></description>
+    	<servlet-class>
+    	com.canchita.controller.complex.DeleteComplex</servlet-class>
+    </servlet>
+    <servlet>
+    	<servlet-name>AddComplex</servlet-name>
+    	<display-name>AddComplex</display-name>
+    	<description></description>
+    	<servlet-class>
+    	com.canchita.controller.complex.AddComplex</servlet-class>
+    </servlet>
   <servlet-mapping>
     <servlet-name>prueba</servlet-name>
     <url-pattern>/prueba</url-pattern>
@@ -33,6 +47,14 @@
   <servlet-mapping>
   	<servlet-name>ListComplex</servlet-name>
   	<url-pattern>/ListComplex</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteComplex</servlet-name>
+  	<url-pattern>/DeleteComplex</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddComplex</servlet-name>
+  	<url-pattern>/AddComplex</url-pattern>
   </servlet-mapping>
   
 </web-app>
