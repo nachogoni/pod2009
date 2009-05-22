@@ -1,9 +1,15 @@
 package com.canchita.controller.helper;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.canchita.controller.complex.ListComplex;
 
 /**
  * 
@@ -17,12 +23,11 @@ import javax.servlet.http.HttpServlet;
  */
 
 /*
- * TODO falta agregar las paginas default de success y failure
- * no se me ocurre una buena success default lo mandaria al home
- * igual como que siempre va a ahber una success.
+ * TODO falta agregar las paginas default de success y failure no se me ocurre
+ * una buena success default lo mandaria al home igual como que siempre va a
+ * ahber una success.
  * 
- * La default de error que sea una generica tipo pasaron cosas
- * locas so sorry
+ * La default de error que sea una generica tipo pasaron cosas locas so sorry
  */
 
 public class UrlMapper {
@@ -32,6 +37,8 @@ public class UrlMapper {
 	private static final String ROOT_DIR = "/WEB-INF/views/";
 	private Map<String, String> success;
 	private Map<String, String> failure;
+	public static final String POST = "POST";
+	public static final String GET = "GET";
 
 	private UrlMapper() {
 
@@ -54,7 +61,9 @@ public class UrlMapper {
 	private void initializeSuccess() {
 		this.success = new HashMap<String, String>();
 
-		success.put("ListComplex", ROOT_DIR + "ListComplex.jsp");
+		success.put("ListComplexGET", ROOT_DIR + "ListComplex.jsp");
+		success.put("DeleteComplexPOST", ROOT_DIR + "ListComplex.jsp");
+		success.put("AddComplexGET", ROOT_DIR + "AddComplexForm.jsp");
 
 	}
 
@@ -64,6 +73,8 @@ public class UrlMapper {
 	private void initializeFailure() {
 		this.failure = new HashMap<String, String>();
 
+		failure.put("AddComplexPOST", ROOT_DIR + "AddComplexForm.jsp");
+
 	}
 
 	/**
@@ -71,12 +82,14 @@ public class UrlMapper {
 	 * 
 	 * @param servlet
 	 *            who needs to find its success url.
+	 * @param type
+	 *            HTTP request type
 	 * @return path to send to @see{RequestDispatcher.getRequestDispatcher}. If
 	 *         the request is not mapped it will return the DEFAULT path.
 	 */
-	public String onSuccess(HttpServlet servlet) {
+	public String onSuccess(HttpServlet servlet, UrlMapperType type) {
 
-		return this.findUrl(this.success, servlet);
+		return this.findUrl(this.success, servlet, type);
 
 	}
 
@@ -88,9 +101,9 @@ public class UrlMapper {
 	 * @return path to send to @see{RequestDispatcher.getRequestDispatcher}. If
 	 *         the request is not mapped it will return the DEFAULT path.
 	 */
-	public String onFailure(HttpServlet servlet) {
+	public String onFailure(HttpServlet servlet, UrlMapperType type) {
 
-		return this.findUrl(this.failure, servlet);
+		return this.findUrl(this.failure, servlet, type);
 
 	}
 
@@ -101,12 +114,14 @@ public class UrlMapper {
 	 *            where the path is mapped.
 	 * @param servlet
 	 *            who needs to find its failure url.
+	 * @param type
 	 * @return path to send to @see{RequestDispatcher.getRequestDispatcher}. If
 	 *         the request is not mapped it will return the DEFAULT path.
 	 */
-	private String findUrl(Map<String, String> map, HttpServlet servlet) {
+	private String findUrl(Map<String, String> map, HttpServlet servlet,
+			UrlMapperType type) {
 
-		String name = this.getName(servlet);
+		String name = this.getName(servlet) + type;
 		String url;
 
 		if (map.containsKey(name)) {
@@ -134,6 +149,33 @@ public class UrlMapper {
 		}
 
 		return name;
+
+	}
+
+	public void forwardSuccess(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type)
+			throws ServletException, IOException {
+
+		this.forward(servlet, request, response, type, success);
+
+	}
+
+	public void forwardFailure(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type)
+			throws ServletException, IOException {
+
+		this.forward(servlet, request, response, type, failure);
+
+	}
+
+	private void forward(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type,
+			Map<String, String> map) throws ServletException, IOException {
+
+		String url = this.findUrl(map, servlet, type);
+
+		request.getRequestDispatcher(url).forward(
+				request, response);
 
 	}
 
