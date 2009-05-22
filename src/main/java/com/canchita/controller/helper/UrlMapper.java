@@ -37,8 +37,6 @@ public class UrlMapper {
 	private static final String ROOT_DIR = "/WEB-INF/views/";
 	private Map<String, String> success;
 	private Map<String, String> failure;
-	public static final String POST = "POST";
-	public static final String GET = "GET";
 
 	private UrlMapper() {
 

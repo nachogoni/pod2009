@@ -1,15 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
+	<jsp:param name="title" value="Listado de Complejos" />
+	<jsp:param name="header" value="admin" />
+</jsp:include>
+
 <h1>Esto es un puto listado</h1>
 
 <table class="complexesTable" border="1">
@@ -28,7 +24,7 @@
 			
 			<!--  TODO: Arreglar esta grasada que hacemos para pasar el parametro -->
 			
-			<input type="hidden" name="id" value="<c:out value="${complex.id}" />"/>
+			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>"/>
 			<tr>
 				<td><c:out value="${complex.id}" /></td>
 				<td><c:out value="${complex.name}" /></td>
@@ -39,7 +35,6 @@
 		</c:forEach>
 	</c:if>
 </table>
-
 
 </body>
 </html>
