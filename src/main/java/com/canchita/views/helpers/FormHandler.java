@@ -5,25 +5,32 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class FormHandler {
-	private ArrayList<FormElement> formElements;
-	private HashMap<String, FormElement> formValues;
-	private HashMap<String, String> errors;
+public abstract class FormHandler {
+	protected ArrayList<FormElement> formElements;
+	protected HashMap<String, FormElement> formValues;
+	protected HashMap<String, String> errors;
+	protected ArrayList<String> attributes;
+	protected String method;
 
 	public FormHandler() {
 		errors = new HashMap<String, String>();
 		formValues = new HashMap<String, FormElement>();
 		formElements = new ArrayList<FormElement>();
+		attributes = new ArrayList<String>();
 
-		formElements.add(new FormElement("text", "name", true,
-				"Nombre:", ""));
-		formElements.add(new FormElement("text", "lastname", true,
-				"Apellido:", ""));
+	}
+	public FormElement addElement(FormElement e) {
+		this.formElements.add(e);
+		this.formValues.put(e.getName(), e);
+		return e;
+	}
 
-		for (FormElement e : formElements) {
-			formValues.put(e.getName(), e);
-		}
-		
+	public FormElement getElement(String aName) {
+		return this.formValues.get(aName);
+	}
+	
+	public void unsetErrors() {
+		this.errors = new HashMap<String, String>();
 	}
 	
 	public String toString() {
@@ -31,7 +38,8 @@ public class FormHandler {
 		String ret;
 		String err;
 		
-		ret = "<form action=\"\" method=\"post\">";
+		ret = String.format("<form action=\"\" method=\"%s\" %s>",
+				this.method, this.getAttributesString());
 		
 		for (FormElement e : formElements) {
 			ret += e;
@@ -45,6 +53,16 @@ public class FormHandler {
 		return ret;
 	}
 
+	private Object getAttributesString() {
+		String ret = "";
+		
+		for (String attr : attributes) {
+			ret += attr;
+		}
+		
+		return ret;
+	}
+
 	public void loadValues(HttpServletRequest request) {
 		for (FormElement e : this.formElements) {
 			e.setValue(request.getParameter(e.getName()));
@@ -52,24 +70,14 @@ public class FormHandler {
 			
 	}
 
-	public boolean validate() {
-		boolean ret = true;
-		FormElement e;
+	public abstract boolean isValid();
+
+	public void setAttribute(String a, String b) {
+		this.attributes.add(a+ "=\"" +b + "\" ");
 		
-		/*Name validations*/
-		e = this.formValues.get("name");
-		if (e.isRequired() && e.getValue().isEmpty()) {
-			this.errors.put(e.getName(), "Este campo no puede estar vacío.");
-			ret = false;
-		}
-		
-		/*Lastname validations*/
-		e = this.formValues.get("lastname");
-		if (!e.getValue().matches("[a-zA-ZñÑ]*")) {
-			this.errors.put(e.getName(), "Este campo sólo permite letras.");
-			ret = false;
-		}	
-		
-		return ret;
+	}
+	
+	public void setMethod(String aMethod) {
+		this.method = aMethod;
 	}
 }

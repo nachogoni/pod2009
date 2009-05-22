@@ -8,15 +8,19 @@ public class FormElement {
 	private boolean required;
 	
 
-	public FormElement(String aType, String aName, boolean req, String aLabel,
-			String aValue) {
-		label = aLabel;
+	public FormElement(String aType, String aName) {
 		type = aType;
 		name = aName;
-		required = req;
-		value = aValue;
+		required = false;
+		label = "";
+		value = "";
 	}
 
+	public FormElement setRequired(boolean flag) {
+		this.required = flag;
+		return this;
+	}
+	
 	public String toString() {
 		return this.genLabel()+this.genInput();
 		
@@ -26,7 +30,10 @@ public class FormElement {
 		return String.format("<input type=\"%s\" name=\"%s\" value=\"%s\">",
 							this.type, this.name, this.value);
 	}
-
+	public FormElement setLabel(String aLabel) {
+		this.label = aLabel;
+		return this;
+	}
 	private String genLabel() {
 		String nameFixed = this.label;
 		if (this.required)
