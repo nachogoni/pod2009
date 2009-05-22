@@ -61,9 +61,9 @@ public class UrlMapper {
 	private void initializeSuccess() {
 		this.success = new HashMap<String, String>();
 
-		success.put("ListComplexGET", ROOT_DIR + "ListComplex.jsp");
-		success.put("DeleteComplexPOST", ROOT_DIR + "ListComplex.jsp");
-		success.put("AddComplexGET", ROOT_DIR + "AddComplexForm.jsp");
+		success.put("ListComplexGET", ROOT_DIR + "complex/ListComplex.jsp");
+		success.put("DeleteComplexPOST", ROOT_DIR + "complex/ListComplex.jsp");
+		success.put("AddComplexGET", ROOT_DIR + "complex/AddComplexForm.jsp");
 
 	}
 
