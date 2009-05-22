@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
@@ -13,18 +13,21 @@
 <h1>Agregar un nuevo Complejo</h1>
 
 
-<FORM action="" method="post">
+<c:out value="${formulario}" escapeXml="false" />
+
+dasdasdasd
+<form action="" method="post">
 
 	<fieldset>
 		<legend>Complejo</legend>
 		<label for="name">Nombre: </label>
 		<input type="text" name="name" size="30"/>
-		<label for="description">Descripci髇: </label>
+		<label for="description">Descripci贸n: </label>
 		<input type="text" name="description" size="30"/>
 	</fieldset>
 
 	<fieldset>
-		<legend>Horarios de atenci髇</legend>
+		<legend>Horarios de atenci贸n</legend>
 			<%  int h = 0;  %>
 			<fieldset>
 				<legend>Lunes</legend>
@@ -59,22 +62,22 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Ubicaci髇</legend>
+		<legend>Ubicaci贸n</legend>
 		<label for="neighbourhood">Barrio: </label>
 		<input type="text" name="neighbourhood" size="30"/>
 		<label for="town">Ciudad: </label>
 		<input type="text" name="town" size="30"/>
 		<label for="state">Provincia: </label>
 		<input type="text" name="state" size="30"/>
-		<label for="zipcode">C骴igo Postal: </label>
+		<label for="zipcode">C贸digo Postal: </label>
 		<input type="text" name="zipcode" size="30"/>
 		<label for="latitude">Latitud: </label>
 		<input type="text" name="latitude" size="30"/>
 		<label for="longitude">Longitud: </label>
 		<input type="text" name="longitude" size="30"/>
-		<label for="telephone">Tel閒ono: </label>
+		<label for="telephone">Tel茅fono: </label>
 		<input type="text" name="telephone" size="30"/>
-		<label for="country">Pa韘: </label>
+		<label for="country">Pa铆s: </label>
 		<jsp:include page="/WEB-INF/resources/countries_es.html" flush="true"/>
    	</fieldset>
    	
