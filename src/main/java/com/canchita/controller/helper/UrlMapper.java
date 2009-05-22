@@ -73,7 +73,7 @@ public class UrlMapper {
 	private void initializeFailure() {
 		this.failure = new HashMap<String, String>();
 
-		failure.put("AddComplexPOST", ROOT_DIR + "AddComplexForm.jsp");
+		failure.put("AddComplexPOST", ROOT_DIR + "complex/AddComplexForm.jsp");
 
 	}
 
