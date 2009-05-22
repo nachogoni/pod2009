@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.canchita.controller.helper.UrlMapper;
+import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.service.ComplexService;
 
 /**
@@ -31,7 +33,7 @@ public class DeleteComplex extends HttpServlet {
 		ComplexService delService = new ComplexService();
 
 		Long id = null;
-		
+
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
@@ -40,7 +42,9 @@ public class DeleteComplex extends HttpServlet {
 
 		try {
 			delService.deleteComplex(id);
-	    	request.getRequestDispatcher("/WEB-INF/views/ListComplex.jsp").forward(request, response);
+			UrlMapper.getInstance().forwardSuccess(this, request, response,
+					UrlMapperType.POST);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
