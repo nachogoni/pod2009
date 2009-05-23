@@ -1,9 +1,13 @@
 package com.canchita.views.helpers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.canchita.views.helpers.validators.Validator;
+import com.canchita.views.helpers.validators.*;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;
@@ -44,7 +48,7 @@ public abstract class FormHandler {
 		for (FormElement e : formElements) {
 			ret += e;
 			if ((err = this.errors.get(e.getName())) != null)
-				ret += err;
+				ret += "<div class='errors'>" + err + "</div>";
 		}
 			
 		ret += "<input type=\"submit\" value=\"Agregar\">";
@@ -70,7 +74,71 @@ public abstract class FormHandler {
 			
 	}
 
-	public abstract boolean isValid();
+	/**
+	 * Valida que un formulario sea correcto
+	 * 
+	 * @return boolean
+	 */
+	public boolean isValid(){
+		boolean ret = true;
+		Validator aVal;
+		
+		// por cada elemento del formulario
+		for (FormElement e : formElements){
+			//Si es requerido y tiene validadores
+			if (e.isRequired()){
+				
+				//Valido que no este vacio
+				aVal = new IsEmpty();
+				if ( !aVal.validate(e.getValue()) ){
+					this.errors.put(e.getName(), aVal.getError());
+					ret = false;
+				}
+				
+				if (e.validators != null)
+				{
+					//por cada validador
+					for(String val: e.validators){
+						//Si es un alphaNumerico
+						if (val.equals("isAlphaNum"))
+							aVal = new IsAlphaNum();
+						else if (val.equals("isAlpha"))
+							aVal = new IsAlpha();
+						else
+							aVal = new IsEmpty();
+	
+						if ( !aVal.validate(e.getValue()) ){
+							this.errors.put(e.getName(), aVal.getError());
+							ret = false;
+						}
+							
+					}
+				}
+			}
+		}
+		    
+
+		
+		/*Name validations*/
+		/*
+		e = this.formValues.get("name");
+		
+		if (e.isRequired() && e.getValue().isEmpty()) {
+			
+		}
+		*/
+		
+		/*Lastname validations*/
+		/*
+		e = this.formValues.get("lastname");
+		if (!e.getValue().matches("[a-zA-ZñÑ]*")) {
+			this.errors.put(e.getName(), "Este campo sólo permite letras.");
+			ret = false;
+		}
+		*/
+		
+		return ret;
+	}
 
 	public void setAttribute(String a, String b) {
 		this.attributes.add(a+ "=\"" +b + "\" ");
