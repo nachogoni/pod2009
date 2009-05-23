@@ -79,14 +79,14 @@ public class Field implements Bookable {
 				this.complex = complex;
 				this.hasRoof = true;
 				this.floor = FloorType.ARTIFICIAL_GRASS;
-				this.expiration = complex.getExpiration(null);
+				this.expiration = complex.getExpiration();
 			} else if (name.equals("Cancha_2")) {
 				this.name = "Cancha_2";
 				this.description = "La del fondo";
 				this.complex = complex;
 				this.hasRoof = false;
 				this.floor = FloorType.CONCRETE;
-				this.expiration = complex.getExpiration(null);
+				this.expiration = complex.getExpiration();
 			}
 			
 		} else if (complex.getName().equals("La casa de la nona")) {
@@ -97,37 +97,37 @@ public class Field implements Bookable {
 				this.complex = complex;
 				this.hasRoof = true;
 				this.floor = FloorType.ARTIFICIAL_GRASS;
-				this.expiration = complex.getExpiration(null);
+				this.expiration = complex.getExpiration();
 			} else if (name.equals("Cancha_2")) {
 				this.name = "Cancha_2";
 				this.description = "Adelante, derecha";
 				this.complex = complex;
 				this.hasRoof = true;
 				this.floor = FloorType.CONCRETE;
-				this.expiration = complex.getExpiration(null);
+				this.expiration = complex.getExpiration();
 			} else if (name.equals("Cancha_3")) {
 				this.name = "Cancha_3";
 				this.description = "Atras, izquierda";
 				this.complex = complex;
 				this.hasRoof = false;
 				this.floor = FloorType.CONCRETE;
-				this.expiration = complex.getExpiration(null);
+				this.expiration = complex.getExpiration();
 			} else if (name.equals("Cancha_4")) {
 				this.name = "Cancha_4";
 				this.description = "Atras, derecha";
 				this.complex = complex;
 				this.hasRoof = true;
 				this.floor = FloorType.CONCRETE;
-				this.expiration = complex.getExpiration(null);
+				this.expiration = complex.getExpiration();
 			}
 			
 		}		
 	}
 
 	
-	public void book(Schedule hour) {
+	public Booking book(Schedule hour) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 
@@ -140,10 +140,13 @@ public class Field implements Bookable {
 	public String getDescription() {
 		return this.description;
 	}
-
+	
+	public Expiration getExpiration() {
+		return this.expiration;
+	}
 
 	public Date getExpiration(Booking booking) {
-		return complex.getExpiration(booking);
+		return this.complex.getExpiration(booking);
 	}
 
 	public Locatable getLocation() {

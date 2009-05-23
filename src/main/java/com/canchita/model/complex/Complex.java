@@ -151,6 +151,10 @@ public class Complex implements Booker {
 	public void setExpiration(Expiration expiration) {
 		this.expiration = expiration;
 	}
+	
+	public Expiration getExpiration() {
+		return expiration;
+	}
 
 	public void setPlace(Place place) {
 		this.place = place;

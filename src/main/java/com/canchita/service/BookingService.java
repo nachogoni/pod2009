@@ -1,6 +1,7 @@
 package com.canchita.service;
 
 import java.util.Collection;
+import java.util.Date;
 
 import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.BookingMemoryMock;
@@ -35,16 +36,10 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public void saveBooking(Booking booking) throws ElementExistsException {
-		bookingDAO.save(booking);
-
-	}
-
-	@Override
-	public void updateBooking(Booking booking) {
+	public void saveBooking(Long fieldId, Date startTime, Date endTime)
+			throws ElementExistsException {
+		// TODO Auto-generated method stub
 		
-		bookingDAO.update(booking);
-
 	}
 
 }

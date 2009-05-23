@@ -47,18 +47,7 @@ public class AddBooking extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		/*Errors from the past are deleted*/
-		this.formulario.unsetErrors();
-		
-		/*Form get loaded with POST*/
-		this.formulario.loadValues(request);
-		
-		if (!this.formulario.isValid()) {
-			request.setAttribute("formulario", this.formulario);
 
-			UrlMapper.getInstance().forwardFailure(this, request, response,
-					UrlMapperType.POST);
-		}
 
 	}
 
