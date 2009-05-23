@@ -19,6 +19,14 @@ public class Booking {
 	private Bookable item;
 	private BookingStatus state;
 	private Schedule schedule;
+		
+	public Booking(Long id) {
+		this.id = id;
+	}
+	
+	public Booking(Bookable item, Schedule schedule) {
+		
+	}
 	
 	public void cancel() {
 		

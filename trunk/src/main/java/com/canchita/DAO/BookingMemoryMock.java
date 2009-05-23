@@ -52,20 +52,6 @@ public class BookingMemoryMock implements BookingDAO {
 
 	}
 
-
-	@Override
-	public void update(Booking booking) {
-		
-		Long id = booking.g
-		
-		if( bookingMocks.containsKey(id)) {
-			this.delete(id);
-			this.internalSave(id, booking);
-		}
-		
-
-	}
-
 	private void internalSave(Long id, Booking booking) {
 		bookingMocks.put(id, booking);
 	}

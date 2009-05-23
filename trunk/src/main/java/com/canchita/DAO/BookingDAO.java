@@ -11,8 +11,6 @@ public interface BookingDAO {
 	
 	public Booking getById(Long id);
 	
-	void update(Booking booking);
-	
 	public void delete(Long id);
 	
 	public Collection<Booking> getComplexBookings(Long complexId);

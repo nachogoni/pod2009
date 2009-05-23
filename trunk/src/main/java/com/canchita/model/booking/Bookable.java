@@ -21,7 +21,7 @@ public interface Bookable {
 	
 	List<Booking> getBookings();
 	
-	void book(Schedule hour);
+	Booking book(Schedule hour);
 	
 	String getName();
 	
