@@ -1,12 +1,10 @@
 package com.canchita.views.helpers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.canchita.views.helpers.validators.Validator;
 import com.canchita.views.helpers.validators.*;
 
 public abstract class FormHandler {
@@ -15,14 +13,18 @@ public abstract class FormHandler {
 	protected HashMap<String, String> errors;
 	protected ArrayList<String> attributes;
 	protected String method;
-
+	private Decorator formDecorator;
+	private String name;
+	
 	public FormHandler() {
 		errors = new HashMap<String, String>();
 		formValues = new HashMap<String, FormElement>();
 		formElements = new ArrayList<FormElement>();
 		attributes = new ArrayList<String>();
-
+		formDecorator = new Decorator();
+		name = "form";
 	}
+	
 	public FormElement addElement(FormElement e) {
 		this.formElements.add(e);
 		this.formValues.put(e.getName(), e);
@@ -41,9 +43,11 @@ public abstract class FormHandler {
 
 		String ret;
 		String err;
+
+		ret = "";
 		
-		ret = String.format("<form action=\"\" method=\"%s\" %s>",
-				this.method, this.getAttributesString());
+		ret += String.format("<form name=\"\" action=\"\" method=\"%s\" %s>",
+				this.name, this.method, this.getAttributesString());
 		
 		for (FormElement e : formElements) {
 			ret += e;
@@ -53,6 +57,12 @@ public abstract class FormHandler {
 			
 		ret += "<input type=\"submit\" value=\"Agregar\">";
 		ret += "</form>";
+		
+		if (!this.formDecorator.getFieldset().isEmpty())
+		{
+			ret = String.format("<fieldset><legend> %s</legend>%s</fieldset>",
+					this.name, ret);
+		}
 		
 		return ret;
 	}
@@ -82,7 +92,7 @@ public abstract class FormHandler {
 	public boolean isValid(){
 		boolean ret = true;
 		Validator aVal;
-		
+
 		// por cada elemento del formulario
 		for (FormElement e : formElements){
 			//Si es requerido y tiene validadores
@@ -99,14 +109,24 @@ public abstract class FormHandler {
 				{
 					//por cada validador
 					for(String val: e.validators){
-						//Si es un alphaNumerico
-						if (val.equals("isAlphaNum"))
-							aVal = new IsAlphaNum();
-						else if (val.equals("isAlpha"))
-							aVal = new IsAlpha();
-						else
+						//Levanto la clase dinamicamente si no puede tira error en consola
+						try{
+							Class cvalidator = Class.forName("com.canchita.views.helpers.validators." + val);
+							try{
+								aVal = (Validator)cvalidator.newInstance();
+							}catch (IllegalAccessException exp) {
+								// TODO: handle exception
+								System.out.println("Error 1");
+							}catch (InstantiationException e2) {
+								// TODO: handle exception
+								System.out.println("Error 2");
+							}
+						} catch (ClassNotFoundException except) {
+							// TODO: handle exception
+							System.out.println("Error 3");
 							aVal = new IsEmpty();
-	
+						}
+
 						if ( !aVal.validate(e.getValue()) ){
 							this.errors.put(e.getName(), aVal.getError());
 							ret = false;
@@ -116,26 +136,6 @@ public abstract class FormHandler {
 				}
 			}
 		}
-		    
-
-		
-		/*Name validations*/
-		/*
-		e = this.formValues.get("name");
-		
-		if (e.isRequired() && e.getValue().isEmpty()) {
-			
-		}
-		*/
-		
-		/*Lastname validations*/
-		/*
-		e = this.formValues.get("lastname");
-		if (!e.getValue().matches("[a-zA-ZñÑ]*")) {
-			this.errors.put(e.getName(), "Este campo sólo permite letras.");
-			ret = false;
-		}
-		*/
 		
 		return ret;
 	}
@@ -147,5 +147,23 @@ public abstract class FormHandler {
 	
 	public void setMethod(String aMethod) {
 		this.method = aMethod;
+	}
+
+	public Decorator getFormDecorator() {
+		return formDecorator;
+	}
+
+	public FormHandler setFormDecorator(Decorator formDecorator) {
+		this.formDecorator = formDecorator;
+		return this;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public FormHandler setName(String name) {
+		this.name = name;
+		return this;
 	}
 }

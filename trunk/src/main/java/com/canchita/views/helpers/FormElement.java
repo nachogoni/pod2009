@@ -1,14 +1,13 @@
 package com.canchita.views.helpers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import com.canchita.views.helpers.validators.*;
 
 public class FormElement {
 	private String label;
 	private String type;
 	private String name;
 	private String value;
+	private Decorator deco;
 	protected ArrayList<String> validators;
 	private boolean required;
 	
@@ -20,6 +19,7 @@ public class FormElement {
 		label = "";
 		value = "";
 		validators = new ArrayList<String>();
+		deco = new Decorator();
 	}
 
 	public FormElement setRequired(boolean flag) {
@@ -28,7 +28,17 @@ public class FormElement {
 	}
 	
 	public String toString() {
-		return this.genLabel()+this.genInput();
+		String ret = "";
+		
+		ret = this.genLabel()+this.genInput();
+		
+		if (!deco.getFieldset().isEmpty())
+		{
+			ret = String.format("<fieldset><legend> %s</legend>%s</fieldset>",
+					this.name, ret);
+		}
+		
+		return ret;
 		
 	}
 	
