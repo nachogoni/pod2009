@@ -1,10 +1,15 @@
 package com.canchita.views.helpers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.canchita.views.helpers.validators.*;
+
 public class FormElement {
 	private String label;
 	private String type;
 	private String name;
 	private String value;
+	protected ArrayList<String> validators;
 	private boolean required;
 	
 
@@ -14,6 +19,7 @@ public class FormElement {
 		required = false;
 		label = "";
 		value = "";
+		validators = new ArrayList<String>();
 	}
 
 	public FormElement setRequired(boolean flag) {
@@ -30,6 +36,7 @@ public class FormElement {
 		return String.format("<input type=\"%s\" name=\"%s\" value=\"%s\">",
 							this.type, this.name, this.value);
 	}
+	
 	public FormElement setLabel(String aLabel) {
 		this.label = aLabel;
 		return this;
@@ -48,6 +55,11 @@ public class FormElement {
 
 	public boolean isRequired() {
 		return this.required;
+	}
+	
+	public FormElement addValidator(String aValidator){
+		this.validators.add(aValidator);
+		return this;
 	}
 	
 	public String getValue() {
