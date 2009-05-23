@@ -2,7 +2,6 @@ package com.canchita.model.booking;
 
 import java.util.Date;
 
-
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -15,7 +14,7 @@ import java.util.Date;
  */
 public class Expiration {
 
-	Date getExpiration(Booking booking) {
+	public Date getExpiration(Booking booking) {
 		//TODO implementame
 		return null;
 	}

@@ -1,6 +1,7 @@
 package com.canchita.model.field;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -141,8 +142,8 @@ public class Field implements Bookable {
 	}
 
 
-	public Expiration getExpiration(Booking booking) {
-		return this.expiration;
+	public Date getExpiration(Booking booking) {
+		return complex.getExpiration(booking);
 	}
 
 	public Locatable getLocation() {

@@ -1,6 +1,7 @@
 package com.canchita.model.complex;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.canchita.model.booking.Bookable;
@@ -77,12 +78,12 @@ public class Complex implements Booker {
 	}
 
 
-	public Expiration getExpiration(Booking reservation) {
-		return this.expiration;
+	public Date getExpiration(Booking booking) {
+		return expiration.getExpiration(booking);
 	}
 
 
-	public List<Booking> getReservations() {
+	public List<Booking> getBookings() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -145,10 +146,6 @@ public class Complex implements Booker {
 
 	public void setFields(List<Field> fields) {
 		this.fields = fields;
-	}
-
-	public Expiration getExpiration() {
-		return expiration;
 	}
 
 	public void setExpiration(Expiration expiration) {

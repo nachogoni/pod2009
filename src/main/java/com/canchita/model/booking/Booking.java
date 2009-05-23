@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class Booking {
 	
+	private Long id;
 	private Bookable item;
 	private BookingStatus state;
 	private Schedule schedule;
@@ -28,8 +29,7 @@ public class Booking {
 	}
 
 	public Date getExpiration() {
-		//TODO implementame
-		return null;
+		return item.getExpiration(this);
 	}
 
 	public Bookable getItem() {
