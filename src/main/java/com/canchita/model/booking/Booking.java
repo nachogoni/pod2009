@@ -100,6 +100,11 @@ public class Booking {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public boolean inConflict(Booking otherBooking) {
+		
+		return schedule.inConflict(otherBooking.schedule);
+	}
 	
 	
 	

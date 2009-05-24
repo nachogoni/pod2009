@@ -8,10 +8,11 @@ import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.BookingMemoryMock;
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.FieldMemoryMock;
-import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
 
 public class BookingService implements BookingServiceProtocol {
@@ -43,7 +44,7 @@ public class BookingService implements BookingServiceProtocol {
 
 	@Override
 	public void saveBooking(Long bookeableId, DateTime startTime, DateTime endTime)
-			throws ElementExistsException {
+			throws PersistenceException {
 
 		FieldDAO fieldDAO = new FieldMemoryMock();
 		

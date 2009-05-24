@@ -19,5 +19,7 @@ public interface FieldDAO {
 	public Collection<Field> getAll();
 	
 	public List<Field> getFiltered(String name, Locatable aLocation );
+
+	public boolean exists(Field field);
 	
 }

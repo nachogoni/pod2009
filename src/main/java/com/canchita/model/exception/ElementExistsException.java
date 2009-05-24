@@ -1,11 +1,12 @@
-package com.canchita.DAO.exception;
+package com.canchita.model.exception;
 
-public class ElementExistsException extends Exception {
+public class ElementExistsException extends PersistenceException {
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7803686410516162708L;
+	private static final long serialVersionUID = 1L;
 
 	public ElementExistsException() {
 	}
