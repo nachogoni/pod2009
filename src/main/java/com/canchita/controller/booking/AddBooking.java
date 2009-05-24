@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeParser;
 
+import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.service.BookingService;
@@ -61,7 +62,7 @@ public class AddBooking extends HttpServlet {
 
 		try {
 			date = parser.parseDateTime(dateParameter);
-		} catch (ParseException e) {
+		} catch (IllegalArgumentException e) {
 			// agregar error
 		}
 
@@ -74,12 +75,12 @@ public class AddBooking extends HttpServlet {
 		
 		BookingServiceProtocol bookingService = new BookingService();
 		
-		bookingService.saveBooking(id, startTime, endTime);
-		
-		//Levantar los aprametros del formulario
-		//Llamar a saveBooking
-
-		
+		try {
+			bookingService.saveBooking(id, startTime, endTime);
+		} catch (ElementExistsException e) {
+			// manejar error de reserva existente
+		}
+				
 		
 	}
 

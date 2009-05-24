@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.model.location.Locatable;
 
 /**
@@ -22,7 +23,7 @@ public interface Bookable {
 	
 	List<Booking> getBookings();
 	
-	Booking book(Schedule hour);
+	Booking book(Schedule hour) throws ElementExistsException;
 	
 	String getName();
 	

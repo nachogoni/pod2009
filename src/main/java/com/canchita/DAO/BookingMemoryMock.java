@@ -48,9 +48,10 @@ public class BookingMemoryMock implements BookingDAO {
 			throw new ElementExistsException(
 					"This booking already exists in our records: " + booking);
 		}
-
-		this.internalSave(BOOKING_ID++,booking);
 		
+		this.internalSave(BOOKING_ID,booking);
+		
+		booking.setId(BOOKING_ID++);
 
 	}
 

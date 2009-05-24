@@ -96,6 +96,10 @@ public class Booking {
 			return false;
 		return true;
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	
 	
