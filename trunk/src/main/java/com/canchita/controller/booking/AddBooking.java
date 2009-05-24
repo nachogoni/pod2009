@@ -13,9 +13,11 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeParser;
 
-import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.BookingService;
 import com.canchita.service.BookingServiceProtocol;
 
@@ -47,7 +49,9 @@ public class AddBooking extends HttpServlet {
 		
 		Long id = null;
 		DateTime date = null;
-
+		String from = null;
+		String to = null;
+		
 		try {
 			id = Long.parseLong(request.getParameter("id"));
 		}
@@ -66,9 +70,13 @@ public class AddBooking extends HttpServlet {
 			// agregar error
 		}
 
-			
-		String from = request.getParameter("from");
-		String to = request.getParameter("to");
+		try {
+			from = request.getParameter("from");
+			to = request.getParameter("to");
+		}
+		catch( NumberFormatException e ) {
+			//agregar error
+		}
 
 		DateTime startTime = this.getDate(date,from);
 		DateTime endTime = this.getDate(date,to);
@@ -79,14 +87,21 @@ public class AddBooking extends HttpServlet {
 			bookingService.saveBooking(id, startTime, endTime);
 		} catch (ElementExistsException e) {
 			// manejar error de reserva existente
+		} catch ( ElementNotExistsException ene ) {
+			//manejar error de cancha inexistente
+		} catch (PersistenceException pe) {
+			//error en el servidor
 		}
 				
 		
 	}
 
 	private DateTime getDate(DateTime date, String offset) {
-		//return date.withTime(int hourOfDay, int minuteOfHour, 0, 0);
-		return null;
+		
+		String[] hoursAndMins = offset.split(":");
+		
+		return date.withTime(Integer.parseInt(hoursAndMins[0]), Integer.parseInt(hoursAndMins[1]), 0, 0);
+		
 	}
 
 }

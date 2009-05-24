@@ -2,12 +2,12 @@ package com.canchita.DAO;
 
 import java.util.Collection;
 
-import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.model.booking.Booking;
+import com.canchita.model.exception.PersistenceException;
 
 public interface BookingDAO {
 
-	public void save(Booking booking) throws ElementExistsException;
+	public void save(Booking booking) throws PersistenceException;
 	
 	public Booking getById(Long id);
 	

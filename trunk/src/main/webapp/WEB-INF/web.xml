@@ -38,7 +38,7 @@
 		<display-name>GetAttendingHours</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.GetAttendingHours</servlet-class>
+			com.canchita.controller.field.GetAttendingHours</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

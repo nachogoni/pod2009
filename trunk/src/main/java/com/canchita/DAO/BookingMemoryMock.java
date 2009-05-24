@@ -4,14 +4,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.model.booking.Booking;
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.field.Field;
 
 public class BookingMemoryMock implements BookingDAO {
 
 	private static Map<Long, Booking> bookingMocks = new HashMap<Long, Booking>();
 	private static long BOOKING_ID = 1;
-	
+
 	static {
 		// Initialize an element for mocking purposes
 
@@ -40,19 +43,47 @@ public class BookingMemoryMock implements BookingDAO {
 	}
 
 	@Override
-	public void save(Booking booking) throws ElementExistsException {
+	public void save(Booking booking) throws PersistenceException {
 
-		//TODO chequear que exista la cancha
+		/*
+		 * TODO esto ESTA HORRIBLE estaria increible tener
+		 * la interfaz bookeableDAO y bookerDAO y que las de cancha
+		 * y complejo extiendan de esas porque sino pasan estos
+		 * casteos horribles
+		 */
 		
-		if (bookingMocks.containsValue(booking)) {
+		FieldDAO fieldDAO = new FieldMemoryMock();
+		
+		if( ! fieldDAO.exists((Field) booking.getItem()) ) {
+			throw new ElementNotExistsException("Nonexistent field");
+		}
+
+		if (this.viewAvailability(booking)) {
+			throw new ElementExistsException("Schedule already booked");
+		}
+
+		if (this.exists(booking)) {
 			throw new ElementExistsException(
 					"This booking already exists in our records: " + booking);
 		}
-		
-		this.internalSave(BOOKING_ID,booking);
-		
+
+		this.internalSave(BOOKING_ID, booking);
+
 		booking.setId(BOOKING_ID++);
 
+	}
+
+	public boolean viewAvailability(Booking booking) {
+
+		for (Booking otherBooking : bookingMocks.values()) {
+			
+			if( booking.inConflict(otherBooking) ){
+				return true;
+			}
+			
+		}
+		
+		return false;
 	}
 
 	private void internalSave(Long id, Booking booking) {
@@ -61,6 +92,7 @@ public class BookingMemoryMock implements BookingDAO {
 
 	@Override
 	public boolean exists(Booking booking) {
+
 		return bookingMocks.containsValue(booking);
 	}
 }

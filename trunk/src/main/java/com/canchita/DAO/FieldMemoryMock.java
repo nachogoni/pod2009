@@ -28,7 +28,7 @@ public class FieldMemoryMock implements FieldDAO {
 		
 		aField = new Field("Cancha_2", "La del fondo", complex, false,
 				FloorType.CONCRETE, complex.getExpiration());
-		aField.setId(21L);
+		aField.setId(2L);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
 		complex = new Complex("La casa de la nona");
@@ -81,6 +81,12 @@ public class FieldMemoryMock implements FieldDAO {
 
 	public void update(Field Field) {
 		save(Field);
+	}
+
+	@Override
+	public boolean exists(Field field) {
+		
+		return FieldMemoryMock.FieldMocks.containsValue(field);
 	}
 
 }
