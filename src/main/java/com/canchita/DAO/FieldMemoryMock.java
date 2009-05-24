@@ -59,7 +59,6 @@ public class FieldMemoryMock implements FieldDAO {
 
 	}
 	
-	
 	public void delete(Long id) {
 		FieldMemoryMock.FieldMocks.remove(id);
 	}
