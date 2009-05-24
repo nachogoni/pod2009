@@ -1,8 +1,6 @@
 package com.canchita.model.field;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import com.canchita.model.booking.Bookable;
@@ -31,7 +29,16 @@ public class Field implements Bookable {
 	private boolean hasRoof;
 	private FloorType floor;
 	private Expiration expiration;
+	private Long id;
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
 	public static List<Field> list (Complex complex) {
 		return complex.listFields();
 	}
