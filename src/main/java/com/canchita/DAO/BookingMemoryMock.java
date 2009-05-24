@@ -42,6 +42,8 @@ public class BookingMemoryMock implements BookingDAO {
 	@Override
 	public void save(Booking booking) throws ElementExistsException {
 
+		//TODO chequear que exista la cancha
+		
 		if (bookingMocks.containsValue(booking)) {
 			throw new ElementExistsException(
 					"This booking already exists in our records: " + booking);
@@ -54,5 +56,10 @@ public class BookingMemoryMock implements BookingDAO {
 
 	private void internalSave(Long id, Booking booking) {
 		bookingMocks.put(id, booking);
+	}
+
+	@Override
+	public boolean exists(Booking booking) {
+		return bookingMocks.containsValue(booking);
 	}
 }

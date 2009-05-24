@@ -2,7 +2,7 @@
         <div id="menu" class="ubercolortabs">
                 <ul class="ui-tabs-nav">
                         <li><a href="principal.html"><span>Inicio</span></a></li>
-                        <li><a href="complejos.html"><span>Complejos</span></a></li>
+                        <li><a href="/tp-pod/ListComplex"><span>Complejos</span></a></li>
                         <li><a href="register.html"><span>Registrarse</span></a></li>
                 </ul>
         </div>

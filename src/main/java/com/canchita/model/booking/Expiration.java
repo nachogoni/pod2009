@@ -1,6 +1,7 @@
 package com.canchita.model.booking;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+
 
 /**
  * 
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 public class Expiration {
 
-	public Date getExpiration(Booking booking) {
+	public DateTime getExpiration(Booking booking) {
 		//TODO implementame
 		return null;
 	}
