@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.BookingMemoryMock;
+import com.canchita.DAO.exception.ElementExistsException;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
@@ -90,9 +93,15 @@ public class Field implements Bookable {
 		// TODO: ir a buscar al complex un determinado field		
 	}
 	
-	public Booking book(Schedule hour) {
-		// TODO Auto-generated method stub
-		return null;
+	public Booking book(Schedule hour) throws ElementExistsException {
+		
+		Booking booking = new Booking(this,hour);
+		
+		BookingDAO bookingDAO = new BookingMemoryMock();
+		
+		bookingDAO.save(booking);
+
+		return booking;
 	}
 
 	public List<Booking> getBookings() {

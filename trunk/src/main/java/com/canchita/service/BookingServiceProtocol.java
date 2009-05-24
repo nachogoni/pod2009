@@ -8,13 +8,13 @@ import com.canchita.model.booking.Booking;
 
 public interface BookingServiceProtocol {
 
-	void saveBooking(Long fieldId, DateTime startTime, DateTime endTime)
+	void saveBooking(Long bookeableId, DateTime startTime, DateTime endTime)
 			throws ElementExistsException;
 
 	public void deleteBooking(Long id);
 
-	public Collection<Booking> getComplexBookings(Long complexId);
+	public Collection<Booking> getBookenBookings(Long bookerId);
 
-	public Collection<Booking> getFieldBookings(Long fieldId);
+	public Collection<Booking> getBookeableBookings(Long bookeableId);
 
 }

@@ -18,6 +18,11 @@ public class Schedule {
 	private DateTime startTime;
 	private DateTime endTime;
 	
+	public Schedule(DateTime startTime, DateTime endTime) {
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
