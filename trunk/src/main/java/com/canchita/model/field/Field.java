@@ -1,7 +1,8 @@
 package com.canchita.model.field;
 
-import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
@@ -23,13 +24,14 @@ import com.canchita.model.location.Locatable;
 
 public class Field implements Bookable {
 
+	private Long id;
+	
 	private String name;
 	private String description;
 	private Complex complex;
 	private boolean hasRoof;
 	private FloorType floor;
 	private Expiration expiration;
-	private Long id;
 	
 	public Complex getComplex() {
 		return complex;
@@ -106,7 +108,7 @@ public class Field implements Bookable {
 		return this.expiration;
 	}
 
-	public Date getExpiration(Booking booking) {
+	public DateTime getExpiration(Booking booking) {
 		return this.complex.getExpiration(booking);
 	}
 
@@ -131,4 +133,40 @@ public class Field implements Bookable {
 		return floor;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((complex == null) ? 0 : complex.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Field other = (Field) obj;
+		if (complex == null) {
+			if (other.complex != null)
+				return false;
+		} else if (!complex.equals(other.complex))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	
+
+
+
+	
 }
