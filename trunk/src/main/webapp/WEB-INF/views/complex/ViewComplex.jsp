@@ -34,7 +34,7 @@
 <strong>Alerta:</strong>
 </span>
 		<c:forEach items="${searchError.errors}" var="error">
-			<span class="block">* <c:out value="${error}"/></span>
+			<span class="block">* Informacion no disponible</span>
 		</c:forEach>
 </div>
 </c:when>

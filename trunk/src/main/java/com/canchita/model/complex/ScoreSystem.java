@@ -18,6 +18,37 @@ public class ScoreSystem {
 	private Integer downBooking;
 	private Integer downDeposit;
 	
+	public Integer getBooking() {
+		return booking;
+	}
+	public void setBooking(Integer booking) {
+		this.booking = booking;
+	}
+	public Integer getDeposit() {
+		return deposit;
+	}
+	public void setDeposit(Integer deposit) {
+		this.deposit = deposit;
+	}
+	public Integer getPay() {
+		return pay;
+	}
+	public void setPay(Integer pay) {
+		this.pay = pay;
+	}
+	public Integer getDownBooking() {
+		return downBooking;
+	}
+	public void setDownBooking(Integer downBooking) {
+		this.downBooking = downBooking;
+	}
+	public Integer getDownDeposit() {
+		return downDeposit;
+	}
+	public void setDownDeposit(Integer downDeposit) {
+		this.downDeposit = downDeposit;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
