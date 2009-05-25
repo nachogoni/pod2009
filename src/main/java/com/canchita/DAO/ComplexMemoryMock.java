@@ -55,7 +55,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		availability = new Availability(DayOfWeek.TUESDAY, schedule);
 		titos_horarios.add(availability);
 
-		ScoreSystem titos_scores = new ScoreSystem();
+		ScoreSystem titos_scores = new ScoreSystem(10,20,30,10,20);
 		Expiration titos_expiran = new Expiration();
 
 		Place place = new Place.Builder("Madero 339", "Puerto Madero").town(

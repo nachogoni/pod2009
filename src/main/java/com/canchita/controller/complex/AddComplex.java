@@ -48,6 +48,7 @@ public class AddComplex extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		ComplexService addService = new ComplexService();
 		
 		//TODO: Migrar a ComplexForm
 		
@@ -61,10 +62,20 @@ public class AddComplex extends HttpServlet {
 		String country = request.getParameter("country");
 		String address = request.getParameter("address");
 		
+		Integer booking = Integer.parseInt(request.getParameter("booking"));
+		Integer deposit = Integer.parseInt(request.getParameter("deposit"));
+		Integer pay = Integer.parseInt(request.getParameter("pay"));
+		Integer downBooking = Integer.parseInt(request.getParameter("downBooking"));
+		Integer downDeposit = Integer.parseInt(request.getParameter("downDeposit"));
+		
 		request.removeAttribute("search");
 		
-		(new ComplexService()).saveComplex(name, description, address, zipCode, neighbourhood, town, state, country);
+		Long id = addService.saveComplex(name, description, address, zipCode, neighbourhood, town, state, country);
+		
+		addService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
+		
 		UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.POST);
+		
 		
 	}
 
