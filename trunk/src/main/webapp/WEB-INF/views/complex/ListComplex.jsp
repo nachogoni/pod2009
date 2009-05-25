@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
-<%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp"
 	flush="true">
@@ -9,31 +9,100 @@
 
 <h1>Listado de Complejos</h1>
 
-<table class="complexesTable" border="1">
-	<tr>
-		<td></td>
-		<td>Nombre</td>
-		<td>Lugar</td>
-		<td>
-		<form action="AddComplex" method="get"><input type="submit"
-			name="add" value="Agregar Nuevo" /></form>
-		</td>
-	</tr>
-	<c:if test="${(complexes != null)}">
-		<c:forEach items="${complexes}" var="complex">
-			<form action="DeleteComplex" method="post"><!--  TODO: Arreglar esta grasada que hacemos para pasar el parametro -->
+<form action="/tp-pod/ListComplex" method="get">
+	<fieldset>
+	<legend>Búsqueda de complejos</legend>
+	<label for="search">Nombre: </label>
+	<input id="complexName" type="text" name="search" value="<c:out value="${param.name}" />"/>
+	</fieldset>
 
-			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-			<tr>
-				<td><c:out value="${complex.id}" /></td>
-				<td><c:out value="${complex.name}" /></td>
-				<td><c:out value="${complex.place}" /></td>
-				<td><input type="submit" name="delete" value="Eliminar" /></td>
-			</tr>
-			</form>
+	<input type="submit" value="Buscar" class="submit-go" />
+</form>
+
+<c:choose>
+<c:when  test="${(searchError != null)}">
+<div class="ui-state-error ui-corner-all error"> 
+
+<span class="ui-icon ui-icon-alert errorIcon"></span>
+<span>
+<strong>Alerta:</strong>
+</span>
+		<c:forEach items="${searchError.errors}" var="error">
+			<span class="block">* <c:out value="${error}"/></span>
 		</c:forEach>
-	</c:if>
-</table>
+</div>
+</c:when>
+<c:otherwise>
+	<c:choose>
+	<c:when test="${(complexes != null)}">
+	
+	<%-- TODO ver como hacerque anden los function tags --%>
+	
+		<c:choose>
+		<c:when test="${ complexesLength != 0 }">
+			<table class="complexesTable" border="1">
+				<tr>
+					<td><strong>Nombre</strong></td>
+					<td><strong>Lugar</strong></td>
+					<td><strong>Descipción</strong></td>
+					<td><a href="/tp-pod/AddComplex">Agregar Nuevo</a></td>
+				</tr>
+				<c:forEach items="${complexes}" var="complex" varStatus="rowCounter">
+						
+				        <c:choose>
+				          <c:when test="${rowCounter.count % 2 == 0}">
+				            <c:set var="rowStyle" scope="page" value="odd"/>
+				          </c:when>
+				          <c:otherwise>
+				            <c:set var="rowStyle" scope="page" value=""/>
+				          </c:otherwise>
+				        </c:choose>
+						
+						<tr class="<c:out value="${rowStyle}" />">
+							<td><c:out value="${complex.name}" /></td>
+							<td><c:out value="${complex.place}" /></td>
+							<td><c:out value="${complex.description}" /></td>
+							
+							<td>
+								<form action="/tp-pod/DeleteComplex" method="post">
+								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+								<input type="submit" name="delete" value="Eliminar" />
+								</form>
+								</td>
+						</tr>
+						
+					</c:forEach>
+			</table>
+			</c:when>
+			<c:otherwise>
+				<div class="ui-state-highlight ui-corner-all info"> 
+				
+					<span class="ui-icon ui-icon-info infoIcon"></span>
+					<span><strong>Información:</strong></span>
+					<span class="block">* No se encontraron canchas</span>
+				</div>
+			
+				<div class="submit-go">
+					<a href="/tp-pod/AddComplex" >Agregar</a>
+				</div>
+			
+			</c:otherwise>
+			</c:choose>
+	</c:when>
+	<c:otherwise>
+		<div class="ui-state-error ui-corner-all error"> 
+		
+		<span class="ui-icon ui-icon-alert errorIcon"></span>
+		<span>
+		<strong>Alerta:</strong>
+		</span>
+			<span class="block">* Error en el servidor</span>
+		</div>
+	</c:otherwise>
+	</c:choose>
+</c:otherwise>
+</c:choose>
 
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
+	flush="true" />

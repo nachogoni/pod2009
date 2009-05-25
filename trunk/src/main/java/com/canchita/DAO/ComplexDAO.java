@@ -24,4 +24,6 @@ public interface ComplexDAO {
 	
 	public List<Complex> getFiltered(String name, Locatable aLocation );
 
+	public Collection<Complex> getFiltered(String filter);
+
 }

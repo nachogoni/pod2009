@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.canchita.helper.validator.Validator;
+
 public class ErrorManager {
 
 	private List<String> errors;
@@ -12,9 +14,14 @@ public class ErrorManager {
 		this.errors = new ArrayList<String>();
 	}
 	
+	public void add(Validator validator) {
+		this.errors.add(validator.getError());
+	}
+
 	public void add(String error) {
 		this.errors.add(error);
 	}
+
 	
 	public void add(Exception exception) {
 		this.errors.add(exception.getMessage());

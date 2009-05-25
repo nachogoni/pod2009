@@ -24,7 +24,7 @@
 <form action="" method="post">
 	<fieldset>
 	<legend>Por favor, seleccione la fecha en la que desea realizar la reserva</legend>
-	<label for="name">Fecha: </label>
+	<label for="date">Fecha: </label>
 	<input id="datepicker" type="text" name="date" size="10"/>
 	</fieldset>
 
@@ -53,5 +53,5 @@
 <script src="/tp-pod/js/util/calendar.js" type="text/javascript"/></script>
 <script src="/tp-pod/js/field/book/init.js" type="text/javascript"/></script>
 
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
+	flush="true" />

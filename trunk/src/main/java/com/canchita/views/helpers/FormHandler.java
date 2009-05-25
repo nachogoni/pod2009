@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.canchita.views.helpers.validators.*;
+import com.canchita.helper.validator.*;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;
@@ -111,7 +111,7 @@ public abstract class FormHandler {
 					for(String val: e.validators){
 						//Levanto la clase dinamicamente si no puede tira error en consola
 						try{
-							Class cvalidator = Class.forName("com.canchita.views.helpers.validators." + val);
+							Class cvalidator = Class.forName("com.canchita.helper.validator." + val);
 							try{
 								aVal = (Validator)cvalidator.newInstance();
 							}catch (IllegalAccessException exp) {

@@ -76,8 +76,8 @@
 		<jsp:include page="/WEB-INF/resources/countries_es.html" flush="true"/>
    	</fieldset>
    	
-	<input type="submit" value="Agregar">
+	<input type="submit" value="Agregar" class="submit-go">
 </form>
 
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
+	flush="true" />

@@ -3,12 +3,16 @@
         margin:0 auto;
 }
 
-.error {
+.complexesTable {
+	margin-top:2em;
+}
+
+.error, .info {
 	padding:2em;
 	margin-top: 1em;
 }
 
-.errorIcon {
+.errorIcon, .infoIcon {
 	float: left;
 	margin-right: 0.3em;
 }
@@ -121,25 +125,45 @@ input.default {
 	padding:5px 0;
 }
 
-input.submit-go {
-       margin-top:1em;
-       width:106px;
-       height:26px;
-       overflow:hidden;
-       border:0;
-       background:url(/tp-pod/img/css/submit-button.gif) no-repeat 0 0;
-       display:block;
-       cursor:pointer;
-	color:#FFFFFF;
-	font-weight:bold;
+input.submit-go{
+    width:106px;
+    height:26px;
+	background:url(/tp-pod/img/css/submit-button.gif) no-repeat 0 0;
+	margin-top:1em;
 }
 
 .loginForm input.submit-go {
 	margin:0;
 }
 
-input.submit-go:hover {
+input.submit-go:hover, div.submit-go:hover {
        background-position:0 -26px;
+}
+
+.submit-go {
+	font-size: 0.95em;
+	font-weight: bold;
+	background:url(/tp-pod/img/css/submit-button.gif) no-repeat 0 0;
+	color:#FFFFFF;
+	margin-top:1em;
+    overflow:hidden;
+    border:0;
+    display:block;
+    cursor:pointer;
+    font-family: arial,sans-serif;
+}
+
+div.submit-go {
+	height:1.6em;
+}
+
+.submit-go a {
+	text-decoration:none;
+	color:inherit;
+	font-weight: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	padding-left: 1.3em;
 }
 
 .centeredForm{

@@ -1,44 +1,45 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">  
+<!--  
+	Copyright 2002, 2003 Sun Microsystems, Inc. All Rights Reserved.  
+--> 
+ 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
 		<servlet-name>ListComplex</servlet-name>
 		<display-name>ListComplex</display-name>
 		<description></description>
-		<servlet-class>
-			com.canchita.controller.complex.ListComplex</servlet-class>
+		<servlet-class>com.canchita.controller.complex.ListComplex</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DeleteComplex</servlet-name>
 		<display-name>DeleteComplex</display-name>
 		<description></description>
-		<servlet-class>
-			com.canchita.controller.complex.DeleteComplex</servlet-class>
+		<servlet-class>com.canchita.controller.complex.DeleteComplex</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddComplex</servlet-name>
 		<display-name>AddComplex</display-name>
 		<description></description>
-		<servlet-class>
-			com.canchita.controller.complex.AddComplex</servlet-class>
+		<servlet-class>com.canchita.controller.complex.AddComplex</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddBooking</servlet-name>
 		<display-name>AddBooking</display-name>
 		<description></description>
-		<servlet-class>
-			com.canchita.controller.field.AddBooking
-    	</servlet-class>
+		<servlet-class>com.canchita.controller.field.AddBooking</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GetAvailableHours</servlet-name>
 		<display-name>GetAvailableHours</display-name>
 		<description></description>
-		<servlet-class>
-			com.canchita.controller.field.GetAvailableHours</servlet-class>
+		<servlet-class>com.canchita.controller.field.GetAvailableHours</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AdminHome</servlet-name>
+		<display-name>AdminHome</display-name>
+		<description></description>
+		<servlet-class>com.canchita.controller.admin.AdminHome</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -61,6 +62,10 @@
 	<servlet-mapping>
 		<servlet-name>GetAvailableHours</servlet-name>
 		<url-pattern>/field/getavailablehours</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminHome</servlet-name>
+		<url-pattern>/admin/home</url-pattern>
 	</servlet-mapping>
 
 
