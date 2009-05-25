@@ -7,6 +7,7 @@ import com.canchita.DAO.ComplexMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.complex.Complex;
+import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.location.Place;
 
@@ -40,7 +41,7 @@ public class ComplexService implements ComplexServiceProtocol {
 		
 	}
 
-	public void saveComplex(String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country) {
+	public Long saveComplex(String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country) {
 		
 		Complex aComplex = new Complex(name);
 		aComplex.setDescription(description);
@@ -56,6 +57,8 @@ public class ComplexService implements ComplexServiceProtocol {
 		aComplex.setPlace(complexLocation);
 		
 		(new ComplexMemoryMock()).save(aComplex);
+		
+		return aComplex.getId();
 
 	}
 
@@ -66,6 +69,20 @@ public class ComplexService implements ComplexServiceProtocol {
 	@Override
 	public Complex getById(Long id) {
 		return (new ComplexMemoryMock()).getById(id);	
+	}
+
+	@Override
+	public void addScoreSystem(Long id, Integer booking, Integer deposit,
+			Integer pay, Integer downBooking, Integer downDeposit) {
+		
+		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay, downBooking, downDeposit);
+		Complex aComplex = getById(id);
+		
+		aComplex.setScoreSystem(scoreSystem);
+		
+		updateComplex(aComplex);
+		
+		
 	}
 
 }

@@ -42,6 +42,20 @@
 		<label for="country">País: </label>
 		<jsp:include page="/WEB-INF/resources/countries_es.html" flush="true"/>
    	</fieldset>
+
+	<fieldset>
+		<legend>Sistema de Puntos</legend>
+		<label for="address">Reservar: </label>
+		<input type="text" name="booking" size="30"/>
+		<label for="neighbourhood">Seniar: </label>
+		<input type="text" name="deposit" size="30"/>
+		<label for="town">Pagar: </label>
+		<input type="text" name="pay" size="30"/>
+		<label for="state">Cancelar Reserva: </label>
+		<input type="text" name="downBooking" size="30"/>
+		<label for="zipcode">Cancelar Deposito: </label>
+		<input type="text" name="downDeposit" size="30"/>
+   	</fieldset>   	
    	
 	<input type="submit" value="Agregar" class="submit-go">
 </form>

@@ -18,6 +18,17 @@ public class ScoreSystem {
 	private Integer downBooking;
 	private Integer downDeposit;
 	
+	public ScoreSystem(){
+	}
+	
+	public ScoreSystem(Integer booking, Integer deposit, Integer pay, Integer downBooking, Integer downDeposit){
+		this.booking = booking;
+		this.deposit = deposit;
+		this.pay = pay;
+		this.downBooking = downBooking;
+		this.downDeposit = downDeposit;
+	
+	}
 	public Integer getBooking() {
 		return booking;
 	}

@@ -17,9 +17,11 @@ public interface ComplexServiceProtocol {
 	
 	public void deleteComplex(Long id);
 	
-	public void saveComplex(String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country);
+	public Long saveComplex(String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country);
 	
 	public void updateComplex(Complex aComplex);
+	
+	public void addScoreSystem(Long id, Integer booking, Integer deposit, Integer pay, Integer downBooking, Integer downDeposit);
 	
 	public Complex getById(Long id);
 	
@@ -31,15 +33,5 @@ public interface ComplexServiceProtocol {
 //	private List<Field> fields;
 //	private Expiration expiration;
 //	private Long id;
-//	
-//	private String address;
-//	private String zipCode;
-//	private String neighbourhood;
-//	private String town;
-//	private String state;
-//	private String country;
-//	private String latitude;
-//	private String longitude;
-//	private List<String> telephones;
 	
 }

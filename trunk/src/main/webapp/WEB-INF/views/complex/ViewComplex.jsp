@@ -54,37 +54,83 @@
 					<td><strong>Descipción</strong></td>
 					<td><c:out value="${complex.description}" /></td>
 				</tr>
-				<td><strong>Canchas:</strong></td>
-				<td>
-				
-				<c:choose>
-				<c:when test="${complex.fields != null}">
-					
-					<c:forEach items="${complex.fields}" var="field" varStatus="rowCounter">
-				        
-				        <c:choose>
-				          <c:when test="${rowCounter.count % 2 == 0}">
-				            <c:set var="rowStyle" scope="page" value="odd"/>
-				          </c:when>
-				          <c:otherwise>
-				            <c:set var="rowStyle" scope="page" value=""/>
-				          </c:otherwise>
-				        </c:choose>
+				<tr>
+					<td><strong>Canchas:</strong></td>				
+					<td>
+									
+					<c:choose>
 						
-						<tr class="<c:out value="${rowStyle}" />">
-							<td><c:out value="${field.name}" /></td>
-						</tr>
+						<c:when test="${complex.fields != null}">
+							
+							<c:forEach items="${complex.fields}" var="field" varStatus="rowCounter">
+						        
+						        <c:choose>
+						          <c:when test="${rowCounter.count % 2 == 0}">
+						            <c:set var="rowStyle" scope="page" value="odd"/>
+						          </c:when>
+						          <c:otherwise>
+						            <c:set var="rowStyle" scope="page" value=""/>
+						          </c:otherwise>
+						        </c:choose>
+								
+								<tr class="<c:out value="${rowStyle}" />">
+									<td><c:out value="${field.name}" /></td>
+								</tr>
+								
+							</c:forEach>
+							
+						</c:when>
 						
-					</c:forEach>
+						<c:otherwise>
+							Este complejo todavia no tiene canchas
+						</c:otherwise>
+						
+					</c:choose>
 					
-				</c:when>
-				<c:otherwise>
-					Este complejo todavia no tiene canchas
-				</c:otherwise>
-				</c:choose>
+					</td>
+				</tr>
+				<tr>
+
+					<td><strong>Sistema de Puntos</strong></td>
+					<td>
+					<table>
+						<c:choose>
+						<c:when test="${complex.scoreSystem != null}">
+							
+							<tr>
+							<td><strong>Reserva: </strong></td>
+							<td><c:out value="${complex.scoreSystem.booking}" /></td>
+							</tr>
+							
+							<tr>
+							<td><strong>Deposito: </strong></td>
+							<td><c:out value="${complex.scoreSystem.deposit}" /></td>
+							</tr>
+							
+							<tr>
+							<td><strong>Pago: </strong></td>
+							<td><c:out value="${complex.scoreSystem.pay}" /></td>
+							</tr>
+							
+							<tr>
+							<td><strong>Cancelar Reserva: </strong></td>
+							<td>-<c:out value="${complex.scoreSystem.downBooking}" /></td>
+							</tr>
+							
+							<tr>
+							<td><strong>Cancelar Deposito: </strong></td>
+							<td>-<c:out value="${complex.scoreSystem.downDeposit}" /></td>
+							</tr>				
+							
+						</c:when>
+						<c:otherwise>
+							Este complejo todavia no tiene un sistema de puntos asignado.
+						</c:otherwise>
+						</c:choose>
+					</table>
+					</td>
 				
-				</td>
-			
+				</tr>
 			</table>
 
 </c:otherwise>
