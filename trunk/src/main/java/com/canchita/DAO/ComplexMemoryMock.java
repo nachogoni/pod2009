@@ -3,6 +3,7 @@ package com.canchita.DAO;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,12 @@ import com.canchita.model.location.Place;
 public class ComplexMemoryMock implements ComplexDAO {
 
 	private static Map<Long, Complex> complexMocks = new HashMap<Long, Complex>();
+	private static Long autoincrementalPk = 0L;
 
 	static {
 		// Initialize an element for mocking purposes
+		autoincrementalPk = 0L;
+		
 		Complex aComplex = new Complex("Lo de Tincho");
 
 		Calendar titos_horarios = new Calendar();
@@ -65,24 +69,8 @@ public class ComplexMemoryMock implements ComplexDAO {
 		aComplex.setScoreSystem(titos_scores);
 		// aComplex.setFields(fields);
 		aComplex.setExpiration(titos_expiran);
-		aComplex.setId(1L);
-
-		ComplexMemoryMock.complexMocks.put(aComplex.getId(), aComplex);
-
-		aComplex = new Complex("Lo de la tia nona");
+		aComplex.setId(ComplexMemoryMock.autoincrementalPk);
 		
-		place = new Place.Builder("rivadavia 7339", "flores").town(
-		"CABA").state("Buenos Aires").country("Argentina").latitude(
-		"-34.3330303").longitude("-58.333665").telephone("2121-1212")
-		.telephone("3331-5131").build();
-		
-		aComplex.setPlace(place);
-		aComplex.setDescription("El mas diver");
-		aComplex.setTimeTable(titos_horarios);
-		aComplex.setScoreSystem(titos_scores);
-		// aComplex.setFields(fields);
-		aComplex.setExpiration(titos_expiran);
-		aComplex.setId(2L);
 		
 		ComplexMemoryMock.complexMocks.put(aComplex.getId(), aComplex);
 	}
@@ -129,10 +117,35 @@ public class ComplexMemoryMock implements ComplexDAO {
 	}
 
 	public void save(Complex complex) {
+		
+		Collection<Complex> complexes = ComplexMemoryMock.complexMocks.values();
+		
+//		List administrators = getAdministrators();
+//
+//		for (Iterator iter = administrators.iterator(); iter.hasNext();) {
+//		   Administrator administrator = (Administrator) iter.next();
+//		   //rest of the code block removed
+//		}
+		for(Iterator iter = complexes.iterator(); iter.hasNext();){
+			Complex aComplex = (Complex)iter.next();
+			
+			if(aComplex.getName()== complex.getName()){
+				return;
+			}
+		}
+		complex.setId(setPrimaryKey());
+		
 		ComplexMemoryMock.complexMocks.put(complex.getId(), complex);
 	}
 
+	private Long setPrimaryKey() {
+		
+		ComplexMemoryMock.autoincrementalPk++;
+		return ComplexMemoryMock.autoincrementalPk;
+	}
+
 	public void update(Complex complex) {
+		delete(complex.getId());
 		save(complex);
 	}
 

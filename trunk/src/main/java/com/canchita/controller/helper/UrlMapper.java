@@ -62,9 +62,10 @@ public class UrlMapper {
 		success.put("ListComplexGET", ROOT_DIR + "complex/ListComplex.jsp");
 		success.put("DeleteComplexPOST", ROOT_DIR + "complex/ListComplex.jsp");
 		success.put("AddComplexGET", ROOT_DIR + "complex/AddComplexForm.jsp");
+		success.put("AddComplexPOST", ROOT_DIR + "complex/ListComplex.jsp");
 		success.put("AddBookingGET", ROOT_DIR + "field/AddBooking.jsp");
 		success.put("AdminHomeGET", ROOT_DIR + "admin/AdminHome.jsp");
-		
+		success.put("DetailedViewComplexGET", ROOT_DIR + "complex/ViewComplex.jsp");
 
 	}
 

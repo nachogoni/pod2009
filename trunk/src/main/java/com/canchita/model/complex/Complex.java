@@ -48,18 +48,6 @@ public class Complex implements Booker {
 
 	public List<Field> listFields() {
 		// TODO Auto-generated method stub
-
-		List<Field> fields = new ArrayList<Field>();
-
-		if (this.name.equals("The titos's Complex")) {
-			fields.add(new Field(this, "Cancha_1"));
-			fields.add(new Field(this, "Cancha_2"));
-		} else if (this.name.equals("La casa de la nona")) {
-			fields.add(new Field(this, "Cancha_1"));
-			fields.add(new Field(this, "Cancha_2"));
-			fields.add(new Field(this, "Cancha_3"));
-			fields.add(new Field(this, "Cancha_4"));
-		}
 		return fields;
 	}
 

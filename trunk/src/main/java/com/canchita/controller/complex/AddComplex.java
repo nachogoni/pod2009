@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.canchita.service.ComplexService;
 import com.canchita.views.helpers.ComplexForm;
 import com.canchita.views.helpers.FormHandler;
 import com.canchita.controller.helper.UrlMapper;
@@ -33,8 +34,8 @@ public class AddComplex extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		this.formulario = new ComplexForm();
-		request.setAttribute("formulario", this.formulario);
+		
+		//TODO: Migrar a ComplexForm
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
@@ -47,19 +48,24 @@ public class AddComplex extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		/* Errors from the past are deleted */
-		this.formulario.unsetErrors();
-
-		/* Form get loaded with POST */
-		this.formulario.loadValues(request);
-
-		if (!this.formulario.isValid()) {
-			request.setAttribute("formulario", this.formulario);
-
-			UrlMapper.getInstance().forwardFailure(this, request, response,
-					UrlMapperType.POST);
-		}
-
+		
+		//TODO: Migrar a ComplexForm
+		
+		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+		
+		String zipCode = request.getParameter("zipCode");
+		String town = request.getParameter("town");
+		String state = request.getParameter("state");
+		String neighbourhood = request.getParameter("neighbourhood");
+		String country = request.getParameter("country");
+		String address = request.getParameter("address");
+		
+		request.removeAttribute("search");
+		
+		(new ComplexService()).saveComplex(name, description, address, zipCode, neighbourhood, town, state, country);
+		UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.POST);
+		
 	}
 
 }
