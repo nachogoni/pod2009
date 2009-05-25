@@ -85,7 +85,6 @@ public class FieldMemoryMock implements FieldDAO {
 
 	@Override
 	public boolean exists(Field field) {
-		
 		return FieldMemoryMock.FieldMocks.containsValue(field);
 	}
 

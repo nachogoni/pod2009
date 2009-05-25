@@ -3,6 +3,15 @@
         margin:0 auto;
 }
 
+.errorIcon {
+	float: left;
+	margin-right: 0.3em;
+}
+
+.block {
+	display:block;
+}
+
 .hidden {
 	visibility: hidden;
 }
@@ -73,7 +82,7 @@ legend span {
        text-align:right;
 }
 
-input {
+input, select {
        padding:0.15em;
        width:10em;
        border:1px solid #ddd;
@@ -91,6 +100,11 @@ input:hover, input:focus {
 fieldset {
        border:1px solid #ddd;
        padding:0 0.5em 0.5em;
+       margin-top:2em;
+}
+
+fieldset * {
+       margin-top:0.5em;
 }
 
 

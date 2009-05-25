@@ -49,6 +49,7 @@ public class BookingService implements BookingServiceProtocol {
 		FieldDAO fieldDAO = new FieldMemoryMock();
 		
 		Bookable bookable = fieldDAO.getById(bookeableId);
+		
 		Schedule schedule = new Schedule(startTime,endTime);
 		
 		bookable.book(schedule);

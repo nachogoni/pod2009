@@ -30,7 +30,7 @@
 		<display-name>AddBooking</display-name>
 		<description></description>
 		<servlet-class>
-			com.canchita.controller.booking.AddBooking
+			com.canchita.controller.field.AddBooking
     	</servlet-class>
 	</servlet>
 	<servlet>
