@@ -55,22 +55,17 @@ public class BookingMemoryMock implements BookingDAO {
 		FieldDAO fieldDAO = new FieldMemoryMock();
 		
 		if( ! fieldDAO.exists((Field) booking.getItem()) ) {
-			throw new ElementNotExistsException("Nonexistent field");
+			throw new ElementNotExistsException("La cancha seleccionada no existe");
 		}
 
 		if (this.viewAvailability(booking)) {
-			throw new ElementExistsException("Schedule already booked");
-		}
-
-		if (this.exists(booking)) {
-			throw new ElementExistsException(
-					"This booking already exists in our records: " + booking);
+			throw new ElementExistsException("El horario ya fue reservado");
 		}
 
 		this.internalSave(BOOKING_ID, booking);
 
 		booking.setId(BOOKING_ID++);
-
+		
 	}
 
 	public boolean viewAvailability(Booking booking) {

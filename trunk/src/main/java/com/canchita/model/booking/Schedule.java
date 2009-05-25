@@ -58,11 +58,19 @@ public class Schedule {
 
 		if (startTime.compareTo(schedule.endTime) >= 0
 				|| endTime.compareTo(schedule.startTime) <= 0) {
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 
 	}
 
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+
+		ret.append(startTime.toString("dd/MM/yyyy HH:mm")).append(" - ").append(
+				endTime.toString("dd/MM/yyyy HH:mm"));
+
+		return ret.toString();
+	}
 }
