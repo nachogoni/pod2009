@@ -12,21 +12,21 @@ import com.canchita.model.booking.Schedule;
 import com.canchita.model.field.Field;
 
 public class FieldService implements FieldServiceProtocol {
-	
+
 	public void deleteField(Long id) {
 		(new FieldMemoryMock()).delete(id);
 	}
 
-	public Collection<Field> listField() {		
-		Collection<Field> fields = (new FieldMemoryMock()).getAll(); 
+	public Collection<Field> listField() {
+		Collection<Field> fields = (new FieldMemoryMock()).getAll();
 		System.out.println(fields.toString());
 		return fields;
 	}
-	
+
 	public Collection<Field> listField(String filter) {
-		return null; //TODO:
+		return null; // TODO:
 	}
-	
+
 	public void saveField(Field field) {
 		(new FieldMemoryMock()).save(field);
 	}
@@ -37,13 +37,13 @@ public class FieldService implements FieldServiceProtocol {
 
 	@Override
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date) {
-		
+
 		FieldDAO fieldDAO = new FieldMemoryMock();
-		
+
 		Field field = fieldDAO.getById(id);
-		
+
 		return field.getAvailableHours(date);
-		
+
 	}
 
 }

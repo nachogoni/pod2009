@@ -74,23 +74,25 @@ public class Schedule {
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
 
-		ret.append(startTime.toString("dd/MM/yyyy HH:mm")).append(" - ").append(
-				endTime.toString("dd/MM/yyyy HH:mm"));
+		ret.append(startTime.toString("dd/MM/yyyy HH:mm")).append(" - ")
+				.append(endTime.toString("dd/MM/yyyy HH:mm"));
 
 		return ret.toString();
 	}
 
 	public boolean hasDay(DateTime date) {
-		
-		long startDay = startTime.getDayOfYear() + ( 365 * ( startTime.getYear() - 1900 ));
-		long endDay = endTime.getDayOfYear() + (365 * ( endTime.getYear() -1900 )); 
-		
-		long dateDay = date.getDayOfYear() + (365 * ( date.getYear() -1900 ) );
-		
+
+		long startDay = startTime.getDayOfYear()
+				+ (365 * (startTime.getYear() - 1900));
+		long endDay = endTime.getDayOfYear()
+				+ (365 * (endTime.getYear() - 1900));
+
+		long dateDay = date.getDayOfYear() + (365 * (date.getYear() - 1900));
+
 		if (startDay <= dateDay && endDay >= dateDay) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -104,20 +106,19 @@ public class Schedule {
 
 	public static Iterator<Schedule> createHourlySchedule(DateTime date,
 			List<Integer> possibleValues) {
-		
+
 		List<Schedule> list = new ArrayList<Schedule>();
-		
+
 		for (Iterator iterator = possibleValues.iterator(); iterator.hasNext();) {
 			Integer i = (Integer) iterator.next();
-			
+
 			DateTime from = date.withTime(i, 0, 0, 0);
-			DateTime to = date.withTime(i+1, 0, 0, 0);
-			
-			list.add(new Schedule(from,to));
+			DateTime to = date.withTime(i + 1, 0, 0, 0);
+
+			list.add(new Schedule(from, to));
 		}
-		
+
 		return list.iterator();
 	}
-	
-	
+
 }
