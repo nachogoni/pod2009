@@ -67,7 +67,24 @@ public class ComplexMemoryMock implements ComplexDAO {
 		aComplex.setExpiration(titos_expiran);
 		aComplex.setId(1L);
 
-		ComplexMemoryMock.complexMocks.put(1L, aComplex);
+		ComplexMemoryMock.complexMocks.put(aComplex.getId(), aComplex);
+
+		aComplex = new Complex("Lo de la tia nona");
+		
+		place = new Place.Builder("rivadavia 7339", "flores").town(
+		"CABA").state("Buenos Aires").country("Argentina").latitude(
+		"-34.3330303").longitude("-58.333665").telephone("2121-1212")
+		.telephone("3331-5131").build();
+		
+		aComplex.setPlace(place);
+		aComplex.setDescription("El mas diver");
+		aComplex.setTimeTable(titos_horarios);
+		aComplex.setScoreSystem(titos_scores);
+		// aComplex.setFields(fields);
+		aComplex.setExpiration(titos_expiran);
+		aComplex.setId(2L);
+		
+		ComplexMemoryMock.complexMocks.put(aComplex.getId(), aComplex);
 	}
 
 	public ComplexMemoryMock() {
