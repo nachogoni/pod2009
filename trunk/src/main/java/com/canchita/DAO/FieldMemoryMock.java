@@ -52,6 +52,7 @@ public class FieldMemoryMock implements FieldDAO {
 		ScoreSystem titos_scores = new ScoreSystem();
 		Expiration titos_expiran = new Expiration();
 
+
 		Place place = new Place.Builder("Madero 339", "Puerto Madero").town(
 				"CABA").state("Buenos Aires").country("Argentina").latitude(
 				"-34.030303").longitude("-58.3665").telephone("4343-4334")
@@ -65,6 +66,8 @@ public class FieldMemoryMock implements FieldDAO {
 		aComplex.setExpiration(titos_expiran);
 		aComplex.setId(1L);
 		
+		//complex = (new ComplexMemoryMock()).getById(1L);
+
 		//now the fields
 		
 		aField = new Field("Cancha_1", "La de adelante", aComplex, true,
@@ -77,6 +80,7 @@ public class FieldMemoryMock implements FieldDAO {
 		aField.setId(2L);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
+		//complex = (new ComplexMemoryMock()).getById(2L);
 		aComplex = new Complex("La casa de la nona");
 		
 		aField = new Field("Cancha_1", "Adelante, izquierda", aComplex, true,
