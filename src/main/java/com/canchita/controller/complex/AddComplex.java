@@ -51,7 +51,8 @@ public class AddComplex extends HttpServlet {
 		ComplexService addService = new ComplexService();
 		
 		//TODO: Migrar a ComplexForm
-		
+		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
+		try{
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		
@@ -68,11 +69,16 @@ public class AddComplex extends HttpServlet {
 		Integer downBooking = Integer.parseInt(request.getParameter("downBooking"));
 		Integer downDeposit = Integer.parseInt(request.getParameter("downDeposit"));
 		
-		request.removeAttribute("search");
 		
 		Long id = addService.saveComplex(name, description, address, zipCode, neighbourhood, town, state, country);
-		
 		addService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
+		
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+
 		
 		UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.POST);
 		
