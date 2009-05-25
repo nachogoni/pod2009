@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
 
@@ -23,7 +24,7 @@ public interface Bookable {
 	
 	List<Booking> getBookings();
 	
-	Booking book(Schedule hour) throws PersistenceException;
+	Booking book(Schedule hour) throws PersistenceException, BookingException;
 	
 	String getName();
 	

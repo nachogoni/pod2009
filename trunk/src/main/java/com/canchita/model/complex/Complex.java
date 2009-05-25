@@ -1,6 +1,7 @@
 package com.canchita.model.complex;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,6 +96,53 @@ public class Complex implements Booker {
 
 		return this.timeTable.getScheduleForDay(date);
 
+	}
+
+	public boolean inAvailableHours(Schedule schedule) {
+		
+		DateTime startTime =  schedule.getStartTime();
+		DateTime endTime = schedule.getEndTime();
+		Collection<Schedule> collection = new ArrayList<Schedule>();
+		
+		long startDay = startTime.getDayOfYear() + ( 365 * startTime.getYear() );
+		long endDay = endTime.getDayOfYear() + ( 365 * endTime.getYear() );
+		
+		long diffDays = endDay - startDay;
+		
+		/*
+		 * We get the schedule for every day in the schedule parameter
+		 */
+		for( int i = 0 ; i <= diffDays ; i++  ) {
+			
+			DateTime day = startTime.plusDays(i);
+			
+			Iterator<Schedule> iterator = this.getScheduleForDay(day);
+			
+			while(iterator.hasNext()) {
+				Schedule aSchedule = (Schedule) iterator.next();
+				
+				collection.add(aSchedule);
+				
+			}
+			
+		}
+		
+		return this.inAvailableHours(collection,schedule);
+		
+	}
+	
+	private boolean inAvailableHours(Collection<Schedule> collection,
+			Schedule schedule) {
+		
+		for (Schedule otherSchedule : collection) {
+			
+			if( otherSchedule.contains(schedule) ) {
+				return true;
+			}
+		}
+		
+		return false;
+		
 	}
 
 	public String getName() {
@@ -192,5 +240,6 @@ public class Complex implements Booker {
 			return false;
 		return true;
 	}
+
 
 }

@@ -62,13 +62,18 @@ public class Schedule {
 
 	public boolean inConflict(Schedule schedule) {
 
+		return this.contains(schedule);
+
+	}
+
+	public boolean contains(Schedule schedule) {
+		
 		if (startTime.compareTo(schedule.endTime) >= 0
 				|| endTime.compareTo(schedule.startTime) <= 0) {
 			return false;
 		}
-
+		
 		return true;
-
 	}
 
 	public String toString() {
@@ -120,5 +125,6 @@ public class Schedule {
 
 		return list.iterator();
 	}
+
 
 }

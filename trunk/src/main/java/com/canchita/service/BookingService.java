@@ -12,6 +12,7 @@ import com.canchita.DAO.FieldMemoryMock;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
@@ -45,12 +46,12 @@ public class BookingService implements BookingServiceProtocol {
 
 	@Override
 	public void saveBooking(Long bookeableId, DateTime startTime, DateTime endTime)
-			throws PersistenceException {
+			throws PersistenceException, BookingException {
 
 		FieldDAO fieldDAO = new FieldMemoryMock();
 		
 		Bookable bookable = fieldDAO.getById(bookeableId);
-		
+				
 		Schedule schedule = new Schedule(startTime,endTime);
 		
 		bookable.book(schedule);
