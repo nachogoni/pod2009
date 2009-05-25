@@ -1,6 +1,7 @@
 package com.canchita.service;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
@@ -31,13 +32,13 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public Collection<Booking> getBookenBookings(Long complexId) {
+	public Iterator<Booking> getBookenBookings(Long complexId) {
 
 		return bookingDAO.getComplexBookings(complexId);
 	}
 
 	@Override
-	public Collection<Booking> getBookeableBookings(Long fieldId) {
+	public Iterator<Booking> getBookeableBookings(Long fieldId) {
 
 		return bookingDAO.getFieldBookings(fieldId);
 	}

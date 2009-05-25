@@ -1,8 +1,13 @@
 package com.canchita.DAO;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
@@ -32,16 +37,30 @@ public class BookingMemoryMock implements BookingDAO {
 	}
 
 	@Override
-	public Collection<Booking> getComplexBookings(Long complexId) {
+	public Iterator<Booking> getComplexBookings(Long complexId) {
 
 		return null;
 	}
 
 	@Override
-	public Collection<Booking> getFieldBookings(Long fieldId) {
+	public Iterator<Booking> getFieldBookings(Long fieldId) {
 		return null;
 	}
 
+	@Override
+	public Iterator<Booking> getFieldBookings(Long fieldId, DateTime date) {
+		
+		Collection<Booking> bookings = new ArrayList<Booking>();
+		
+		for (Booking booking : bookingMocks.values()) {
+			if( booking.getSchedule().hasDay(date) ) {
+				bookings.add(booking);
+			}
+		}
+		
+		return bookings.iterator();
+	}
+	
 	@Override
 	public void save(Booking booking) throws PersistenceException {
 
@@ -90,4 +109,5 @@ public class BookingMemoryMock implements BookingDAO {
 
 		return bookingMocks.containsValue(booking);
 	}
+
 }

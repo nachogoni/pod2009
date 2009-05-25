@@ -1,6 +1,8 @@
 package com.canchita.DAO;
 
-import java.util.Collection;
+import java.util.Iterator;
+
+import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.PersistenceException;
@@ -13,9 +15,11 @@ public interface BookingDAO {
 	
 	public void delete(Long id);
 	
-	public Collection<Booking> getComplexBookings(Long complexId);
+	public Iterator<Booking> getComplexBookings(Long complexId);
 
-	public Collection<Booking> getFieldBookings(Long fieldId);
+	public Iterator<Booking> getFieldBookings(Long fieldId);
+
+	public Iterator<Booking> getFieldBookings(Long fieldId, DateTime date);
 	
 	public boolean exists(Booking booking);
 	//TODO ver el tema de la busqueda de reservas

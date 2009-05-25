@@ -1,5 +1,11 @@
 package com.canchita.model.booking;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 /**
@@ -73,4 +79,45 @@ public class Schedule {
 
 		return ret.toString();
 	}
+
+	public boolean hasDay(DateTime date) {
+		
+		long startDay = startTime.getDayOfYear() + ( 365 * ( startTime.getYear() - 1900 ));
+		long endDay = endTime.getDayOfYear() + (365 * ( endTime.getYear() -1900 )); 
+		
+		long dateDay = date.getDayOfYear() + (365 * ( date.getYear() -1900 ) );
+		
+		if (startDay <= dateDay && endDay >= dateDay) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	public DateTime getStartTime() {
+		return startTime;
+	}
+
+	public DateTime getEndTime() {
+		return endTime;
+	}
+
+	public static Iterator<Schedule> createHourlySchedule(DateTime date,
+			List<Integer> possibleValues) {
+		
+		List<Schedule> list = new ArrayList<Schedule>();
+		
+		for (Iterator iterator = possibleValues.iterator(); iterator.hasNext();) {
+			Integer i = (Integer) iterator.next();
+			
+			DateTime from = date.withTime(i, 0, 0, 0);
+			DateTime to = date.withTime(i+1, 0, 0, 0);
+			
+			list.add(new Schedule(from,to));
+		}
+		
+		return list.iterator();
+	}
+	
+	
 }

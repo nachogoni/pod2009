@@ -1,6 +1,8 @@
 package com.canchita.service;
 
 import java.util.Collection;
+import java.util.Iterator;
+
 import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
@@ -14,8 +16,8 @@ public interface BookingServiceProtocol {
 
 	public void deleteBooking(Long id);
 
-	public Collection<Booking> getBookenBookings(Long bookerId);
+	public Iterator<Booking> getBookenBookings(Long bookerId);
 
-	public Collection<Booking> getBookeableBookings(Long bookeableId);
+	public Iterator<Booking> getBookeableBookings(Long bookeableId);
 
 }
