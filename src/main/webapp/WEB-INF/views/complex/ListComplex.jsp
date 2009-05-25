@@ -69,7 +69,17 @@
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="delete" value="Eliminar" />
 								</form>
-								</td>
+								<form action="/tp-pod/ModifyComplex" method="post">
+								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+								<input type="submit" name="modify" value="Modificar" />
+								</form>
+								<form action="/tp-pod/DetailedViewComplex" method="get">
+								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+								<input type="submit" name="viewDetails" value="Detalles" />
+								</form>
+							</td>
 						</tr>
 						
 					</c:forEach>

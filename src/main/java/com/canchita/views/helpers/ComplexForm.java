@@ -20,10 +20,10 @@ public class ComplexForm extends FormHandler {
 			.addValidator("IsAlpha")
 			.setValue("defaultValue");
 		
-		this.addElement(new FormElement("text", "lastname"))
+		this.addElement(new FormElement("text", "descripcion"))
 			.setRequired(true)
-			.addValidator("IsNumeric")
-			.setLabel("Apellido:");
+			.addValidator("IsAlpha")
+			.setLabel("Descripcion:");
 
 	}
 

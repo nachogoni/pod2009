@@ -22,42 +22,9 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Horarios de atención</legend>
-			<%  int h = 0;  %>
-			<fieldset>
-				<legend>Lunes</legend>
-				<label for="mondayOpenHour">Abre: </label>
-				<select name ="mondayOpenHour">
-					<%	for(int y=0; y<24; y++) { %>
-					<option><%=y%></option>
-					<%  }   %>
-				</select>
-				:
-				<select name ="mondayOpenMinute">
-					<%  h = 0;  %>
-					<%	for(int y=0; y < 4; y++) { %>
-					<option><%= h %></option>
-					<%  h += 15; }   %>
-				</select>
-
-				<label for="mondayOpenHour">Cierra: </label>
-				<select name ="mondayCloseHour">
-					<%	for(int y=0; y<24; y++) { %>
-					<option><%=y%></option>
-					<%  }   %>
-				</select>
-				:
-				<select name ="mondayCloseMinute">
-					<%  h = 0;  %>
-					<%	for(int y=0; y < 4; y++) { %>
-					<option><%= h %></option>
-					<%  h += 15; }   %>
-				</select>
-			</fieldset>
-	</fieldset>
-
-	<fieldset>
 		<legend>Ubicación</legend>
+		<label for="address">Direccion: </label>
+		<input type="text" name="address" size="60"/>
 		<label for="neighbourhood">Barrio: </label>
 		<input type="text" name="neighbourhood" size="30"/>
 		<label for="town">Ciudad: </label>

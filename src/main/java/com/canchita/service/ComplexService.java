@@ -8,6 +8,7 @@ import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ValidationException;
+import com.canchita.model.location.Place;
 
 public class ComplexService implements ComplexServiceProtocol {
 
@@ -39,14 +40,32 @@ public class ComplexService implements ComplexServiceProtocol {
 		
 	}
 
-	public void saveComplex(Complex complex) {
-		// TODO Auto-generated method stub
+	public void saveComplex(String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country) {
+		
+		Complex aComplex = new Complex(name);
+		aComplex.setDescription(description);
+		Place.Builder placeBuilder = new Place.Builder(address, neighbourhood);
+		
+		Place complexLocation = new Place(placeBuilder);
+		
+		complexLocation.setCountry(country);
+		complexLocation.setState(state);
+		complexLocation.setTown(town);
+		complexLocation.setZipCode(zipCode);
+		
+		aComplex.setPlace(complexLocation);
+		
+		(new ComplexMemoryMock()).save(aComplex);
 
 	}
 
 	public void updateComplex(Complex complex) {
-		// TODO Auto-generated method stub
+		(new ComplexMemoryMock()).update(complex);
+	}
 
+	@Override
+	public Complex getById(Long id) {
+		return (new ComplexMemoryMock()).getById(id);	
 	}
 
 }
