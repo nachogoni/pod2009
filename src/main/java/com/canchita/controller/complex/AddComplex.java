@@ -17,14 +17,15 @@ import com.canchita.controller.helper.UrlMapperType;
 public class AddComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private FormHandler formulario;       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddComplex() {
-        super();
-        formulario = new ComplexForm();
-    }
+	private FormHandler formulario;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AddComplex() {
+		super();
+		formulario = new ComplexForm();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -45,13 +46,13 @@ public class AddComplex extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-		/*Errors from the past are deleted*/
+
+		/* Errors from the past are deleted */
 		this.formulario.unsetErrors();
-		
-		/*Form get loaded with POST*/
+
+		/* Form get loaded with POST */
 		this.formulario.loadValues(request);
-		
+
 		if (!this.formulario.isValid()) {
 			request.setAttribute("formulario", this.formulario);
 

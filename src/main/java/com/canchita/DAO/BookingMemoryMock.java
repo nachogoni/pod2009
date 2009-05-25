@@ -49,32 +49,32 @@ public class BookingMemoryMock implements BookingDAO {
 
 	@Override
 	public Iterator<Booking> getFieldBookings(Long fieldId, DateTime date) {
-		
+
 		Collection<Booking> bookings = new ArrayList<Booking>();
-		
+
 		for (Booking booking : bookingMocks.values()) {
-			if( booking.getSchedule().hasDay(date) ) {
+			if (booking.getSchedule().hasDay(date)) {
 				bookings.add(booking);
 			}
 		}
-		
+
 		return bookings.iterator();
 	}
-	
+
 	@Override
 	public void save(Booking booking) throws PersistenceException {
 
 		/*
-		 * TODO esto ESTA HORRIBLE estaria increible tener
-		 * la interfaz bookeableDAO y bookerDAO y que las de cancha
-		 * y complejo extiendan de esas porque sino pasan estos
-		 * casteos horribles
+		 * TODO esto ESTA HORRIBLE estaria increible tener la interfaz
+		 * bookeableDAO y bookerDAO y que las de cancha y complejo extiendan de
+		 * esas porque sino pasan estos casteos horribles
 		 */
-		
+
 		FieldDAO fieldDAO = new FieldMemoryMock();
-		
-		if( ! fieldDAO.exists((Field) booking.getItem()) ) {
-			throw new ElementNotExistsException("La cancha seleccionada no existe");
+
+		if (!fieldDAO.exists((Field) booking.getItem())) {
+			throw new ElementNotExistsException(
+					"La cancha seleccionada no existe");
 		}
 
 		if (this.viewAvailability(booking)) {
@@ -84,19 +84,19 @@ public class BookingMemoryMock implements BookingDAO {
 		this.internalSave(BOOKING_ID, booking);
 
 		booking.setId(BOOKING_ID++);
-		
+
 	}
 
 	public boolean viewAvailability(Booking booking) {
 
 		for (Booking otherBooking : bookingMocks.values()) {
-			
-			if( booking.inConflict(otherBooking) ){
+
+			if (booking.inConflict(otherBooking)) {
 				return true;
 			}
-			
+
 		}
-		
+
 		return false;
 	}
 

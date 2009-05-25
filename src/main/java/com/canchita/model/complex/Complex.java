@@ -23,7 +23,7 @@ import com.canchita.model.location.Place;
  * @author Juan Ignacio Goñi
  * @author Martín Palombo
  * @author Carlos Manuel Sessa
- *
+ * 
  */
 public class Complex implements Booker {
 
@@ -35,19 +35,19 @@ public class Complex implements Booker {
 	private List<Field> fields;
 	private Expiration expiration;
 	private Long id;
-	
+
 	public static List<Complex> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public Complex(String name) {
 		this.setName(name);
 	}
 
 	public List<Field> listFields() {
 		// TODO Auto-generated method stub
-		
+
 		List<Field> fields = new ArrayList<Field>();
 
 		if (this.name.equals("The titos's Complex")) {
@@ -61,36 +61,30 @@ public class Complex implements Booker {
 		}
 		return fields;
 	}
-	
-	
+
 	public void add(Bookable bookable) {
 		// TODO Auto-generated method stub
 
 	}
-
 
 	public Booking book(Bookable bookable, Schedule hour) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public List<Bookable> getBookables() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	public DateTime getExpiration(Booking booking) {
 		return expiration.getExpiration(booking);
 	}
-
 
 	public List<Booking> getBookings() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	public void remove(Bookable bookable) {
 		// TODO Auto-generated method stub
@@ -100,7 +94,7 @@ public class Complex implements Booker {
 	public Iterator<Schedule> getScheduleForDay(DateTime date) {
 
 		return this.timeTable.getScheduleForDay(date);
-		
+
 	}
 
 	public String getName() {
@@ -119,11 +113,11 @@ public class Complex implements Booker {
 		// TODO Auto-generated method stub
 		return this.id;
 	}
-	
-	public void setId(Long id){
+
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -159,7 +153,7 @@ public class Complex implements Booker {
 	public void setExpiration(Expiration expiration) {
 		this.expiration = expiration;
 	}
-	
+
 	public Expiration getExpiration() {
 		return expiration;
 	}
@@ -198,10 +192,5 @@ public class Complex implements Booker {
 			return false;
 		return true;
 	}
-
-
-
-	
-	
 
 }
