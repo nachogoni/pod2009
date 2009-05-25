@@ -21,7 +21,7 @@
 </head>
 <body class="bloggerStyle">
 <jsp:include
-	page="<%="/WEB-INF/views/general/header/" + request.getParameter("header") + ".jsp"%>"
+	page='<%="/WEB-INF/views/general/header/" + request.getParameter("header") + ".jsp"%>'
 	flush="true">
 	<jsp:param name="title" value="Listado de Complejos" />
 </jsp:include>
