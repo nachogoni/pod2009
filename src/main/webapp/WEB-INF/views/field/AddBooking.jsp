@@ -38,7 +38,7 @@
 	
 	<fieldset id="whenForm" >
 	<legend>Ahora, seleccione el horario de entre los disponibles</legend>
-	<select id="when" name="when"></select>
+	<select id="when" name="when"><option>11:00 - 12:00</option></select>
 	</fieldset>
 	
 	<c:if test="${(param.id != null)}">

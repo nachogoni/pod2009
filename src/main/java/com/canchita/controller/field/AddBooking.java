@@ -48,52 +48,61 @@ public class AddBooking extends HttpServlet {
 
 		Long id = null;
 		DateTime date = null;
+		DateTime startTime, endTime;
 		
 		String idParameter = request.getParameter("id");
 		String dateParameter = request.getParameter("date");
 		String whenParameter = request.getParameter("when");
 
 		ErrorManager error = new ErrorManager();
-		
-		if (idParameter == null ) {
+
+		if (idParameter == null) {
 			error.add("Falta el identificador de cancha");
 		}
-		
-		if( dateParameter == null || dateParameter.equals("") ) {
+
+		if (dateParameter == null || dateParameter.equals("")) {
 			error.add("Falta la fecha de reserva");
 		}
-		
-		if( whenParameter == null) {
+
+		if (whenParameter == null) {
 			error.add("Falta el período en el cual se reservará la cancha");
 		}
-		
-		if( error.size() != 0 ) {
-			this.failure(request,response,error);
+
+		if (error.size() != 0) {
+			this.failure(request, response, error);
 			return;
 		}
-		
+
 		try {
 			id = Long.parseLong(request.getParameter("id"));
 		} catch (NumberFormatException nfe) {
-			error.add(nfe);
+			error.add("El identificador de cancha debe ser un número");
 		}
 
 		DateTimeFormatter parser = DateTimeFormat.forPattern("dd/MM/yyyy");
 
 		try {
 			date = parser.parseDateTime(dateParameter);
-		} catch (IllegalArgumentException e) {
-			error.add(e);
+		} catch (Exception e) {
+			error
+					.add("La fecha está en un formato inválido, debe ser de la forma \"dd/mm/yyyy\"");
 		}
 
-		if( error.size() != 0 ) {
-			this.failure(request,response,error);
+		if (error.size() != 0) {
+			this.failure(request, response, error);
 			return;
 		}
-		
+
 		String[] when = whenParameter.split(" ");
-		DateTime startTime = this.getDate(date, when[0]);
-		DateTime endTime = this.getDate(date, when[1]);
+		try {
+			startTime = this.getDate(date, when[0]);
+			endTime = this.getDate(date, when[1]);
+		} catch (Exception e) {
+			error
+					.add("El horario de reserva está malformado, debe ser de la forma \"hh:mm hh:mm\"");
+			this.failure(request, response, error);
+			return;
+		}
 
 		BookingServiceProtocol bookingService = new BookingService();
 
@@ -104,23 +113,25 @@ public class AddBooking extends HttpServlet {
 		} catch (ElementNotExistsException ene) {
 			error.add(ene);
 		} catch (PersistenceException pe) {
-			error.add(pe);
+			error.add("Error en el servidor, por favor intente nuevamente");
 		}
 
-		if( error.size() != 0 ) {
-			this.failure(request,response,error);
+		if (error.size() != 0) {
+			this.failure(request, response, error);
 			return;
 		}
-		
-		//TODO redireccionar a la vista de reservas del usuario
+
+		// TODO redireccionar a la vista de reservas del usuario
 	}
 
-	private void failure(HttpServletRequest request, HttpServletResponse response, ErrorManager error) throws ServletException, IOException {
+	private void failure(HttpServletRequest request,
+			HttpServletResponse response, ErrorManager error)
+			throws ServletException, IOException {
 		request.setAttribute("errorManager", error);
-		
+
 		UrlMapper.getInstance().forwardFailure(this, request, response,
 				UrlMapperType.GET);
-		
+
 	}
 
 	private DateTime getDate(DateTime date, String offset) {
