@@ -16,6 +16,7 @@ import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Complex;
+import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
@@ -100,15 +101,24 @@ public class Field implements Bookable {
 		// TODO: ir a buscar al complex un determinado field
 	}
 
-	public Booking book(Schedule hour) throws PersistenceException {
+	public Booking book(Schedule hour) throws PersistenceException, BookingException {
 
 		Booking booking = new Booking(this, hour);
 
+		if( ! this.inAvailableHours(booking) ) {
+			throw new BookingException("La cancha no está disponible en este horario");
+		}
+		
 		BookingDAO bookingDAO = new BookingMemoryMock();
 
 		bookingDAO.save(booking);
 
 		return booking;
+	}
+
+	private boolean inAvailableHours(Booking booking) {
+		return complex.inAvailableHours(booking.getSchedule());
+	
 	}
 
 	public Iterator<Schedule> getAvailableHours(DateTime date) {

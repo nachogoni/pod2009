@@ -14,6 +14,7 @@ import org.joda.time.format.DateTimeFormatter;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -46,6 +47,13 @@ public class AddBooking extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		/*
+		 * TODO falta agregar el manejo de 23:00 00:00
+		 * igual creo que el jugo es poner que atiende de 23:00 a
+		 * 00:00 siendo 00:00 el mismo dia en el horario de la cancha
+		 * (o quizas no) VERLO BIEN
+		 */
+		
 		Long id = null;
 		DateTime date = null;
 		DateTime startTime, endTime;
@@ -114,6 +122,8 @@ public class AddBooking extends HttpServlet {
 			error.add(ene);
 		} catch (PersistenceException pe) {
 			error.add("Error en el servidor, por favor intente nuevamente");
+		} catch (BookingException e) {
+			error.add(e);
 		}
 
 		if (error.size() != 0) {
