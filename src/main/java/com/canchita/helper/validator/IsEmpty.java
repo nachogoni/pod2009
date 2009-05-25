@@ -1,4 +1,4 @@
-package com.canchita.views.helpers.validators;
+package com.canchita.helper.validator;
 
 public class IsEmpty extends Validator {
 

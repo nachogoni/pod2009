@@ -9,9 +9,9 @@
 
 <link rel="stylesheet" href="/tp-pod/css/color.tabs.css" type="text/css"
 	media="print, projection, screen">
-<link rel="stylesheet" href="/tp-pod/css/canchita.css" type="text/css"
-	media="print, projection, screen">
 <link rel="stylesheet" href="/tp-pod/css/greentable.css" type="text/css"
+	media="print, projection, screen">
+<link rel="stylesheet" href="/tp-pod/css/canchita.css" type="text/css"
 	media="print, projection, screen">
 <link rel="stylesheet" href="/tp-pod/js/jquery/css/custom-theme/jquery-ui-1.7.1.custom.css" type="text/css"
 	media="print, projection, screen">

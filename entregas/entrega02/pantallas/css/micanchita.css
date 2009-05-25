@@ -98,7 +98,7 @@ input.default {
 	padding:5px 0;
 }
 
-input.submit-go {
+.submit-go {
        margin-top:1em;
        width:106px;
        height:26px;
@@ -115,7 +115,7 @@ input.submit-go {
 	margin:0;
 }
 
-input.submit-go:hover {
+submit-go:hover {
        background-position:0 -26px;
 }
 
