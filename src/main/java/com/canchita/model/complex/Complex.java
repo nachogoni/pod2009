@@ -1,9 +1,11 @@
 package com.canchita.model.complex;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booker;
@@ -95,6 +97,11 @@ public class Complex implements Booker {
 
 	}
 
+	public Iterator<Schedule> getScheduleForDay(DateTime date) {
+
+		return this.timeTable.getScheduleForDay(date);
+		
+	}
 
 	public String getName() {
 		return this.name;
@@ -191,6 +198,7 @@ public class Complex implements Booker {
 			return false;
 		return true;
 	}
+
 
 
 	

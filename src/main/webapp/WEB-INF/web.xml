@@ -34,11 +34,11 @@
     	</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>GetAttendingHours</servlet-name>
-		<display-name>GetAttendingHours</display-name>
+		<servlet-name>GetAvailableHours</servlet-name>
+		<display-name>GetAvailableHours</display-name>
 		<description></description>
 		<servlet-class>
-			com.canchita.controller.field.GetAttendingHours</servlet-class>
+			com.canchita.controller.field.GetAvailableHours</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -59,8 +59,8 @@
 		<url-pattern>/field/book</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>GetAttendingHours</servlet-name>
-		<url-pattern>/field/getattendinghours</url-pattern>
+		<servlet-name>GetAvailableHours</servlet-name>
+		<url-pattern>/field/getavailablehours</url-pattern>
 	</servlet-mapping>
 
 

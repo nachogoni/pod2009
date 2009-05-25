@@ -9,7 +9,7 @@
 <h1>Realizar la reserva de la cancha</h1>
 
 <c:if test="${(errorManager != null)}">
-<div class="ui-state-error ui-corner-all"> 
+<div class="ui-state-error ui-corner-all error"> 
 
 <span class="ui-icon ui-icon-alert errorIcon"></span>
 <span>
@@ -27,14 +27,22 @@
 	<label for="name">Fecha: </label>
 	<input id="datepicker" type="text" name="date" size="10"/>
 	</fieldset>
+
+	<div id="whenError" class="ui-state-error ui-corner-all hidden error"> 
+	
+		<span class="ui-icon ui-icon-alert errorIcon"></span>
+		<span><strong>Alerta:</strong></span>
+		<span class="block">* No hay horarios disponibles para este día</span>
+	</div>
+
 	
 	<fieldset id="whenForm" >
 	<legend>Ahora, seleccione el horario de entre los disponibles</legend>
 	<select id="when" name="when"></select>
 	</fieldset>
 	
-	<c:if test="${(id != null)}">
-		<input id="id" type="hidden" name="id" value="<c:out value="${id}"/>"/>
+	<c:if test="${(param.id != null)}">
+		<input id="id" type="hidden" name="id" value="<c:out value="${param.id}"/>"/>
 	</c:if>
 
 	<input type="submit" value="Agregar" class="submit-go" />

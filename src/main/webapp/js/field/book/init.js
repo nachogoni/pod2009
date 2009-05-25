@@ -4,7 +4,7 @@ $(document).ready(function() {
 				getHours();
 			}
 	);
-	$("#whenForm").addClass("hidden");
+	$("#whenForm").addClass("hidden");	
 });
 
 function getHours() {
@@ -12,20 +12,44 @@ function getHours() {
 	var id = $("#id").attr("value");
 	var date = $("#datepicker").attr("value");
 
+	$("#whenForm").addClass("hidden");	
+	$("#whenError").addClass("hidden");
+	
 	if( date == '' ) {
 		return;
 	}
 	
-	$.getJSON('/tp-pod/field/getattendinghours',{id:id, date:date},showHours);
+	$.getJSON('/tp-pod/field/getavailablehours',{id:id, date:date},showHours);
 	
 	function showHours(data)
 	{
 		if( data['success'] ) {
-			$("#whenForm").removeClass("hidden");
+
 			
-			$("#when").append('<option value="08:00 09:00">08:00 - 09:00</option>');
-			$("#when").append('<option value="09:00 10:00">09:00 - 10:00</option>');
-			$("#when").append('<option value="10:00 11:00">10:00 - 11:00</option>');		
+			//Array comes unsorted
+
+			var arr = data['availability'];
+			
+			if( arr == undefined || arr.length == 0 ) {
+				$("#whenError").removeClass("hidden");
+				return;
+			}
+			
+			var keys = new Array();
+			
+			for(k in arr) {
+			     keys.push(k);
+			}
+
+			keys.sort( function (a, b){return a - b;} );
+
+			$("#when").empty();
+			for (var i = 0; i < keys.length; i++) {
+				var hours = arr[i].split(" - ");
+				$("#when").append('<option value="' + hours[0] + " " + hours[1] + '">' + arr[i] + '</option>');
+			}
+						
+			$("#whenForm").removeClass("hidden");
 
 		}
 	}
