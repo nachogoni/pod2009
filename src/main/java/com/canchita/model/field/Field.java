@@ -9,15 +9,12 @@ import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.BookingMemoryMock;
-import com.canchita.DAO.ComplexDAO;
-import com.canchita.DAO.ComplexMemoryMock;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.BookingException;
-import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
 

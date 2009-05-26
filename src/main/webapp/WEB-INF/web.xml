@@ -83,6 +83,13 @@
 		<servlet-class>
 		com.canchita.controller.error.ErrorException</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>addField</servlet-name>
+		<display-name>addField</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.field.addField</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -131,6 +138,10 @@
 	<servlet-mapping>
 		<servlet-name>ErrorException</servlet-name>
 		<url-pattern>/error/servererror</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>addField</servlet-name>
+		<url-pattern>/addField</url-pattern>
 	</servlet-mapping>
 	
 <!-- BEGIN Error Handling -->
