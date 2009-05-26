@@ -8,7 +8,6 @@
 </jsp:include>
 
 <h1>Listado de Canchas</h1>
-ddd
 <form action="/tp-pod/ListField" method="get">
 	<fieldset>
 	<legend>Búsqueda de canchas</legend>
@@ -60,8 +59,8 @@ ddd
 						
 						<tr class="<c:out value="${rowStyle}" />">
 							<td><c:out value="${field.name}" /></td>
-							<td><c:out value="${field.place}" /></td>
-							<td><c:out value="${field.description}" /></td>
+							<td><c:out value="${field.complex.place}" /></td>
+							<td><c:out value="${field.complex.description}" /></td>
 							
 							<td>
 								<form action="/tp-pod/DeleteField" method="post">

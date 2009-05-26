@@ -80,7 +80,7 @@ public class FieldMemoryMock implements FieldDAO {
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
 		//complex = (new ComplexMemoryMock()).getById(2L);
-		aComplex = new Complex("La casa de la nona");
+		/*aComplex = new Complex("La casa de la nona");
 		
 		aField = new Field("Cancha_1", "Adelante, izquierda", aComplex, true,
 				FloorType.ARTIFICIAL_GRASS, aComplex.getExpiration());
@@ -101,7 +101,7 @@ public class FieldMemoryMock implements FieldDAO {
 				FloorType.CONCRETE, aComplex.getExpiration());
 		aField.setId(6L);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
-		
+		*/
 	}
 	
 	public FieldMemoryMock() {
