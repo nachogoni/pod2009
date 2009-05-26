@@ -8,6 +8,18 @@
 
 <h1>Agregar una nueva Cancha</h1>
 
+<c:if test="${(errorManager != null)}">
+<div class="ui-state-error ui-corner-all error"> 
+
+<span class="ui-icon ui-icon-alert errorIcon"></span>
+<span>
+<strong>Alerta:</strong>
+</span>
+		<c:forEach items="${errorManager.errors}" var="error">
+			<span class="block">* <c:out value="${error}"/></span>
+		</c:forEach>
+</div>
+</c:if>
 
 <c:out value="${formulario}" escapeXml="false" />
 

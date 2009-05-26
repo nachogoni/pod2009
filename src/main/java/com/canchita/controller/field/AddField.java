@@ -12,12 +12,8 @@ import org.apache.log4j.Logger;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
-import com.canchita.model.booking.Expiration;
-import com.canchita.model.exception.ElementExistsException;
-import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
-import com.canchita.service.ComplexService;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
 import com.canchita.views.helpers.FormHandler;
@@ -47,12 +43,36 @@ public class AddField extends HttpServlet {
 		
 		logger.debug("GET request");
 
+		String complexId = request.getParameter("id");
+		
+		Long id = null;
+		
+		try{
+			id = Long.parseLong(complexId);
+			
+		} catch (NumberFormatException nfe) {
+			
+			ErrorManager error = new ErrorManager();
+			
+			error.add("Complejo invalido");
+			
+			request.setAttribute("errorManager", error);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			
+			return;
+
+		}
+		
 		/*Get Form*/
 		formulario = new FormField();
 
+		formulario.setElementValue("idComplex", id.toString());
+		
 		/* Form is sent to the view*/
 		request.setAttribute("formulario", this.formulario);
-
+		
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
@@ -92,7 +112,7 @@ public class AddField extends HttpServlet {
 		String description = request.getParameter("description");
 		
 		try{
-			idComplex = Long.getLong(request.getParameter("idComplex"));
+			idComplex = Long.parseLong(request.getParameter("idComplex"));
 		} catch (NumberFormatException nfe) {
 			error.add("Complejo invalido");
 		}

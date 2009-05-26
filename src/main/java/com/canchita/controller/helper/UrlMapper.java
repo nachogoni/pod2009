@@ -137,6 +137,8 @@ public class UrlMapper {
 				+ "field/ListField.jsp");
 		failureForward.put("AddFieldPOST", FORWARD_ROOT_DIR
 				+ "field/AddFieldForm.jsp");
+		failureForward.put("AddFieldGET", FORWARD_ROOT_DIR
+				+ "field/AddFieldForm.jsp");
 
 		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
 				+ "error/500.jsp");

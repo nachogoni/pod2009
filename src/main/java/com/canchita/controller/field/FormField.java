@@ -3,9 +3,7 @@ package com.canchita.controller.field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.canchita.model.booking.Expiration;
 import com.canchita.model.field.Field;
-import com.canchita.model.field.FloorType;
 import com.canchita.views.helpers.Decorator;
 import com.canchita.views.helpers.FormElementButton;
 import com.canchita.views.helpers.FormElementInput;
@@ -45,6 +43,8 @@ public class FormField extends FormHandler {
 			.addValue("Césped Sintético", "ARTIFICIAL_GRASS")
 			.addValue("Césped", "GRASS"));
 		
+		this.addElement(new FormElementInput("hidden","idComplex"));
+
 		Decorator decorator = new Decorator()
 			.setSclass("submit-go"); 
 		
@@ -58,6 +58,7 @@ public class FormField extends FormHandler {
         
         sfield.add("name");
         sfield.add("description");
+        sfield.add("idComplex");
         this.addDisplayGroup(sfield, "Cancha");
         
         sprops.add("hasRoof");
@@ -67,6 +68,7 @@ public class FormField extends FormHandler {
         sconfirm.add("submit");
 		sconfirm.add("reset");
 		this.addDisplayGroup(sconfirm, "Confirmacion");
+                
 	}
 	
 	public FormField(Field aField) {

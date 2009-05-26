@@ -93,7 +93,7 @@ public class ModifyField extends HttpServlet {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		try{
-			idComplex = Long.getLong(request.getParameter("idComplex"));
+			idComplex = Long.parseLong(request.getParameter("idComplex"));
 		} catch (NumberFormatException nfe) {
 			error.add("Complejo invalido");
 		}
