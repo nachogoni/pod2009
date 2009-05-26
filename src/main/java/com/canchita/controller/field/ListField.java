@@ -76,7 +76,7 @@ public class ListField extends HttpServlet {
 			fieldsSize = -1;
 		}
 
-		request.setAttribute("fields", fieldsSize);
+		request.setAttribute("fields", fields);
 		
 		/*
 		 * TODO se hizo esto porque no funcionaba el tag

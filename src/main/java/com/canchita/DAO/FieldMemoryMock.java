@@ -1,8 +1,8 @@
 package com.canchita.DAO;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
@@ -16,7 +16,6 @@ import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
-import com.canchita.model.location.Locatable;
 import com.canchita.model.location.Place;
 
 public class FieldMemoryMock implements FieldDAO {
@@ -121,8 +120,23 @@ public class FieldMemoryMock implements FieldDAO {
 		return FieldMemoryMock.FieldMocks.get(id);
 	}
 
-	public List<Field> getFiltered(String filter) {
-		return null;
+	public Collection<Field> getFiltered(String filter) {
+		
+		Collection<Field> collection = new ArrayList<Field>();
+		
+		filter = filter.toLowerCase();
+		
+		for (Field field : FieldMocks.values()) {
+
+			String name = field.getName().toLowerCase(); 
+
+			if (name.indexOf(filter) != -1) {
+				collection.add(field);
+			}
+
+		}
+
+		return collection;
 	}
 
 	public void save(Field Field) {
