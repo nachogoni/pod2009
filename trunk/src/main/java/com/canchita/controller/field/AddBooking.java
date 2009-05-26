@@ -1,6 +1,8 @@
 package com.canchita.controller.field;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +24,8 @@ import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.BookingService;
 import com.canchita.service.BookingServiceProtocol;
+import com.canchita.service.FieldService;
+import com.canchita.service.FieldServiceProtocol;
 
 /**
  * Servlet implementation class AddBooking
@@ -142,7 +146,25 @@ public class AddBooking extends HttpServlet {
 			return;
 		}
 
-		// TODO redireccionar a la vista de reservas del usuario
+		FieldServiceProtocol fieldService = new FieldService();
+		
+		Map<String,String> params = new HashMap<String, String>();
+
+		
+		try {
+			params.put("id", fieldService.getComplexId(id).toString() );
+		} catch (ElementNotExistsException e) {
+			error.add(e);
+			
+			this.failure(request, response, error);
+			return;
+		}
+		
+		params.put("booking","true");
+		
+		UrlMapper.getInstance().redirectSuccess(this, request, response,
+				UrlMapperType.POST, params);
+		
 	}
 
 	private void failure(HttpServletRequest request,

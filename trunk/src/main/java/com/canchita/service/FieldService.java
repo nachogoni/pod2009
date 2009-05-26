@@ -170,4 +170,14 @@ public class FieldService implements FieldServiceProtocol {
 		return field.getBookings();
 	}
 
+	@Override
+	public Long getComplexId(Long id) throws ElementNotExistsException {
+		
+		FieldDAO fieldDAO = new FieldMemoryMock();
+		
+		Field field = fieldDAO.getById(id);
+		
+		return field.getComplex().getId();
+	}
+
 }

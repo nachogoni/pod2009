@@ -45,4 +45,6 @@ public interface FieldServiceProtocol {
 	public void addScoreSystem(Long id, Integer booking, Integer deposit,
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException;
+
+	public Long getComplexId(Long id) throws ElementNotExistsException;
 }

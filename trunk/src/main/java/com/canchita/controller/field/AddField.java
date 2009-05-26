@@ -12,9 +12,13 @@ import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.booking.Expiration;
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
+import com.canchita.service.ComplexService;
 import com.canchita.service.FieldService;
+import com.canchita.service.FieldServiceProtocol;
 import com.canchita.views.helpers.FormHandler;
 
 /**
@@ -61,6 +65,83 @@ public class AddField extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		Long idComplex = null;
+		Boolean hasRoof = null;
+		FloorType floor = null;
+		
 		logger.debug("POST request");
+		
+		/*Errors from the past are deleted.*/
+		this.formulario.unsetErrors();
+
+		/*Load form with request values*/
+		this.formulario.loadValues(request);
+		
+		if (!this.formulario.isValid())
+		{
+			logger.debug("Formulario inválido");
+			request.setAttribute("formulario", formulario);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
+		}
+		
+		ErrorManager error = new ErrorManager();
+
+		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+		
+		try{
+			idComplex = Long.getLong(request.getParameter("idComplex"));
+		} catch (NumberFormatException nfe) {
+			error.add("Complejo invalido");
+		}
+		
+		try{
+			hasRoof = Boolean.valueOf(request.getParameter("hasRoof"));
+		} catch (Exception nfe) {
+			error.add("Informacion sobre el tipo de techo invalida");
+		}
+		
+		try{
+			floor = FloorType.valueOf(request.getParameter("floor"));
+		} catch (Exception nfe) {
+			error.add("Informacion sobre el tipo de piso invalida");
+		}
+
+		if (name == null) {
+			error.add("Falta el nombre de la Cancha");
+		}	
+
+		if (error.size() != 0) {
+			request.setAttribute("error", error);
+			request.setAttribute("formulario", formulario);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
+		}
+
+		FieldServiceProtocol fieldService = new FieldService();
+
+		try {
+			fieldService.saveField(name, description, idComplex, hasRoof, floor);
+		} catch (PersistenceException e) {
+			error.add(e);
+			request.setAttribute("formulario", formulario);
+			this.failure(request, response, error);
+			return;
+		}
+		
+		UrlMapper.getInstance().redirectSuccess(this, request, response,
+													UrlMapperType.POST);
+				
+	}
+	
+	private void failure(HttpServletRequest request,
+			HttpServletResponse response, ErrorManager error)
+			throws ServletException, IOException {
+		request.setAttribute("errorManager", error);
+
+		UrlMapper.getInstance().forwardFailure(this, request, response,
+				UrlMapperType.POST);
+
 	}
 }

@@ -9,14 +9,55 @@
 
 <h1>Listado de Canchas</h1>
 
+<%-- TODO generalizar esto --%>
+
+<c:if test="${(param.add != null)}">
+
+	<c:choose>
+	  <c:when test="${param.add}">
+	    <c:set var="addMsg" scope="page" value="La cancha fue agregada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="addMsg" scope="page" value="Error al agregar la cancha"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${addMsg}" /></span>
+	</div>
+</c:if>
+
+<c:if test="${(param.modify != null)}">
+
+	<c:choose>
+	  <c:when test="${param.modify}">
+	    <c:set var="modifyMsg" scope="page" value="La cancha fue modificada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="modifyMsg" scope="page" value="Error al modificar la cancha"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${modifyMsg}" /></span>
+	</div>
+</c:if>
+
+
 <c:if test="${(param.delete != null)}">
 
 	<c:choose>
 	  <c:when test="${param.delete}">
-	    <c:set var="deleteMsg" scope="page" value="El complejo fue borrado exitosamente"/>
+	    <c:set var="deleteMsg" scope="page" value="La cancha fue borrada exitosamente"/>
 	  </c:when>
 	  <c:otherwise>
-	    <c:set var="deleteMsg" scope="page" value="Error al borrar el complejo"/>
+	    <c:set var="deleteMsg" scope="page" value="Error al borrar la cancha"/>
 	  </c:otherwise>
 	</c:choose>
 
@@ -64,7 +105,7 @@
 					<td><strong>Nombre</strong></td>
 					<td><strong>Lugar</strong></td>
 					<td><strong>Descipción</strong></td>
-					<td><a href="/tp-pod/field/add">Agregar Nuevo</a></td>
+					<td></td>
 				</tr>
 				<c:forEach items="${fields}" var="field" varStatus="rowCounter">
 						

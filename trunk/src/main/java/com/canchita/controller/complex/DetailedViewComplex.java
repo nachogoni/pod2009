@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.field.Field;
@@ -46,11 +47,13 @@ public class DetailedViewComplex extends HttpServlet {
 		Collection<Field> fields = null;
 		Long id = null;
 
+		ErrorManager error = new ErrorManager();
+		
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			logger.error("Error leyendo id");
-			e.printStackTrace();
+			error.add("El identificador debe ser numérico");
 		}
 
 		try {
@@ -58,18 +61,35 @@ public class DetailedViewComplex extends HttpServlet {
 			request.setAttribute("complex", service.getById(id));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			error.add(e);
 			logger.error("Error buscando detalles del complejo con id " + id);
 		}
 
+		if( error.size() != 0 ) {
+			
+			request.setAttribute("errorManager", error);
+
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			
+			return;
+		}
+		
 		try {
 			logger.debug("Listando canchas para el complejo con id " + id);
 			fields = fieldService.listField(id);
 			logger.debug(fields);
 			request.setAttribute("fields", fields);
 		} catch (Exception e) {
-			e.printStackTrace();
+			error.add(e);
 			logger.error("Error listando canchas para el complejo " + id);
+			
+			request.setAttribute("errorManager", error);
+
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			
+			return;
 		}
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);

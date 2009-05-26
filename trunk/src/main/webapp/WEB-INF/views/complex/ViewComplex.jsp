@@ -9,6 +9,40 @@
 
 <h1>Vista Detallada</h1>
 
+<c:if test="${(param.booking != null)}">
+
+	<c:choose>
+	  <c:when test="${param.booking}">
+	    <c:set var="bookingMsg" scope="page" value="Reserva agendada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="bookingMsg" scope="page" value="Error al agendar la reserva"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${bookingMsg}" /></span>
+	</div>
+</c:if>
+
+<c:choose>
+<c:when  test="${(complex == null)}">
+<div class="ui-state-error ui-corner-all error"> 
+
+<span class="ui-icon ui-icon-alert errorIcon"></span>
+<span>
+<strong>Alerta:</strong>
+</span>
+		<c:forEach items="${errorManager.errors}" var="error">
+			<span class="block">* <c:out value="${error}" /></span>
+		</c:forEach>
+</div>
+</c:when>
+<c:otherwise>	
+
 <table>
 	<tr>
 		<td>
@@ -35,20 +69,6 @@
 	</tr>
 </table>
 
-<c:choose>
-<c:when  test="${(complex == null)}">
-<div class="ui-state-error ui-corner-all error"> 
-
-<span class="ui-icon ui-icon-alert errorIcon"></span>
-<span>
-<strong>Alerta:</strong>
-</span>
-		<c:forEach items="${searchError.errors}" var="error">
-			<span class="block">* Informacion no disponible</span>
-		</c:forEach>
-</div>
-</c:when>
-<c:otherwise>	
 	<%-- TODO ver como hacerque anden los function tags --%>
 	
 			<table class="complexesTable" border="1">
