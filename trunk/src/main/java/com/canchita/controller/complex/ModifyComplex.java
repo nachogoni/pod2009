@@ -109,9 +109,12 @@ public class ModifyComplex extends HttpServlet {
 			return;
 		}
 
+		try{
 		modifyService.updateComplex(id,name, description, address, zipCode, neighbourhood, town, state, country);
 		modifyService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
-		
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		
 		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);

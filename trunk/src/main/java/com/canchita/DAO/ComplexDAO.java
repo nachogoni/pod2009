@@ -8,13 +8,14 @@ import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Complex;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
 
 public interface ComplexDAO {
 
-	public void save(Complex aComplex);
+	public void save(Complex aComplex) throws PersistenceException;
 	
-	public Complex getById(Long id);
+	public Complex getById(Long id) throws PersistenceException;
 	
 	public void update(Complex aComplex);
 	
