@@ -11,15 +11,15 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.service.ComplexService;
 
 /**
- * Servlet implementation class DetailedViewComplex
+ * Servlet implementation class ModifyComplex
  */
-public class DetailedViewComplex extends HttpServlet {
+public class ModifyComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailedViewComplex() {
+    public ModifyComplex() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,7 @@ public class DetailedViewComplex extends HttpServlet {
 		}
 
 		try {
-
+		
 			request.setAttribute("complex", service.getById(id));
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
@@ -48,6 +48,7 @@ public class DetailedViewComplex extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 
@@ -56,6 +57,7 @@ public class DetailedViewComplex extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//idem a addform
 	}
 
 }

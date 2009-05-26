@@ -9,22 +9,32 @@
 
 <h1>Vista Detallada</h1>
 
-	<form action="/tp-pod/DeleteComplex" method="post">
-	<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-	<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-	<input type="submit" name="delete" value="Eliminar" />
-	</form>
-	<form action="/tp-pod/ModifyComplex" method="post">
-	<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-	<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-	<input type="submit" name="modify" value="Modificar" />
-	</form>
-	<form action="/tp-pod/ModifyComplex" method="post">
-	<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-	<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-	<input type="submit" name="modify" value="Agregar Canchas" />
-	</form>
-	
+<table>
+	<tr>
+		<td>
+			<form action="/tp-pod/DeleteComplex" method="post">
+			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+			<input type="submit" name="delete" value="Eliminar" />
+			</form>
+		</td>
+		<td>
+			<form action="/tp-pod/ModifyComplex" method="post">
+			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+			<input type="submit" name="modify" value="Modificar" />
+			</form>
+		</td>
+		<td>
+			<form action="/tp-pod/ModifyComplex" method="post">
+			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+			<input type="submit" name="modify" value="Agregar Canchas" />
+			</form>
+		</td>
+	</tr>
+</table>
+
 <c:choose>
 <c:when  test="${(complex == null)}">
 <div class="ui-state-error ui-corner-all error"> 
