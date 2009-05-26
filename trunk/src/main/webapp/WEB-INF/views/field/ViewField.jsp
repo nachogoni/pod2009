@@ -11,7 +11,27 @@
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
 <script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
-<h1>Vista Detallada</h1>
+
+<h1>Vista Detallada de la Cancha</h1>
+
+<c:if test="${(param.booking != null)}">
+
+	<c:choose>
+	  <c:when test="${param.booking}">
+	    <c:set var="bookingMsg" scope="page" value="Reserva agendada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="bookingMsg" scope="page" value="Error al agendar la reserva"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${bookingMsg}" /></span>
+	</div>
+</c:if>
 
 <table>
 	<tr>

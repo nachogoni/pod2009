@@ -143,10 +143,13 @@ public class FieldMemoryMock implements FieldDAO {
 
 	public void save(Field field) throws PersistenceException {
 		
-		if (FieldMemoryMock.FieldMocks.containsKey(field.getId()) || this.exists(field)) {
+		
+		if ( this.exists(field) ) {
 			throw new PersistenceException("Ya existe la cancha en el sistema");
 		}
 
+		field.setId(autoincrementalPk++);
+		
 		FieldMemoryMock.FieldMocks.put(field.getId(), field);
 	}
 
