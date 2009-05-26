@@ -6,7 +6,7 @@
 	<li><a href="/tp-pod/field/list"><span>Canchas</span></a></li>
 	<li><a href=""><span>Reservas</span></a></li>
 	<li><a href=""><span>Sistema de Puntos</span></a></li>
-	<li><a href=""><span>Cerrar Sesión</span></a></li>
+	<li><a href="/tp-pod/"><span>Cerrar Sesión</span></a></li>
 </ul>
 </div>
 
