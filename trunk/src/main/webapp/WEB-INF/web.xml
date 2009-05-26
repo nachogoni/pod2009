@@ -55,6 +55,27 @@
 		<servlet-class>
 		com.canchita.controller.complex.ModifyComplex</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Error404</servlet-name>
+		<display-name>Error404</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.error.Error404</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Error500</servlet-name>
+		<display-name>Error500</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.error.Error500</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ErrorException</servlet-name>
+		<display-name>ErrorException</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.error.ErrorException</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
@@ -89,6 +110,37 @@
 		<servlet-name>ModifyComplex</servlet-name>
 		<url-pattern>/ModifyComplex</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Error404</servlet-name>
+		<url-pattern>/error/404</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Error500</servlet-name>
+		<url-pattern>/error/500</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ErrorException</servlet-name>
+		<url-pattern>/error/servererror</url-pattern>
+	</servlet-mapping>
+	
+<!-- BEGIN Error Handling -->
+	<!-- TODO agregar HTTP error 500 server error -->
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
 
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500</location>
+	</error-page>
+
+
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error/servererror</location>
+	</error-page>
+<!-- END Error Handling -->
 
 </web-app>
