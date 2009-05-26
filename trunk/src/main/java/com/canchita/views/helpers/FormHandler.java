@@ -144,6 +144,21 @@ public abstract class FormHandler {
 		}
 			
 	}
+	/*
+	 * Llena el formulario con los parametros pasados
+	 * 
+	 * String: name del elemento dentro del formulario
+	 * String: value a setear
+	 */
+	public void populate(HashMap<String, String> data){
+		String value;
+		
+		for (FormElement e : formElements){
+			if (data.get(e.getName()) != null){
+				e.setValue(data.get(e.getName()));
+			}
+		}
+	}
 	
 	/**
 	 * Valida que un formulario sea correcto
