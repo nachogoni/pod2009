@@ -34,6 +34,12 @@ public class FormElementSelect extends FormElement {
 		// TODO Auto-generated method stub
 		super.setValue(value);
 		
+		for(FormElementSelectValue e : options){
+			if (e.getName().equals(value)){
+				e.setDefault(true);
+			}
+		}
+		
 		return this;
 	}
 	
