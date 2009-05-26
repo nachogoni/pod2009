@@ -69,7 +69,7 @@
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="delete" value="Eliminar" />
 								</form>
-								<form action="/tp-pod/ModifyComplex" method="post">
+								<form action="/tp-pod/ModifyComplex" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="modify" value="Modificar" />

@@ -76,6 +76,7 @@ public class UrlMapper {
 		
 		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
 		this.successRedirect.put("DeleteComplexGET", "/tp-pod/ListComplex");
+		this.successRedirect.put("ModifyComplexPOST", "/tp-pod/ListComplex");
 	}
 
 	/**
