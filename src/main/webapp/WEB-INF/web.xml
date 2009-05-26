@@ -90,6 +90,20 @@
 		<servlet-class>
 		com.canchita.controller.field.addField</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ModifyField</servlet-name>
+		<display-name>ModifyField</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.field.ModifyField</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DeleteField</servlet-name>
+		<display-name>DeleteField</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.field.DeleteField</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -142,6 +156,14 @@
 	<servlet-mapping>
 		<servlet-name>addField</servlet-name>
 		<url-pattern>/addField</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModifyField</servlet-name>
+		<url-pattern>/ModifyField</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteField</servlet-name>
+		<url-pattern>/DeleteField</url-pattern>
 	</servlet-mapping>
 	
 <!-- BEGIN Error Handling -->
