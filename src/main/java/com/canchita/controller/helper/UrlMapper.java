@@ -113,8 +113,9 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=true");
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
-		successRedirect.put("AddBookingPOST",
-		"/tp-pod/DetailedViewComplex");
+		successRedirect.put("AddBookingPOST", "/tp-pod/DetailedViewComplex");
+		successRedirect.put("AdminHomePOST", FORWARD_ROOT_DIR
+				+ "admin/AdminHome.jsp");
 
 	}
 
@@ -145,7 +146,7 @@ public class UrlMapper {
 
 		failureForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ViewComplex.jsp");
-		
+
 		this.failureRedirect = new HashMap<String, String>();
 
 		failureRedirect.put("DeleteComplexPOST",
@@ -288,38 +289,40 @@ public class UrlMapper {
 			HttpServletRequest request, HttpServletResponse response,
 			UrlMapperType type, Map<String, String> params) throws IOException {
 
-		this.redirect(servlet, request, response, type, successRedirect,params);
+		this
+				.redirect(servlet, request, response, type, successRedirect,
+						params);
 
 	}
 
 	private void redirect(HttpServlet servlet, HttpServletRequest request,
 			HttpServletResponse response, UrlMapperType type,
-			Map<String, String> map, Map<String, String> paramsMap) throws IOException {
-		
+			Map<String, String> map, Map<String, String> paramsMap)
+			throws IOException {
+
 		String params = this.buildParams(paramsMap);
-		
+
 		String url = this.findUrl(map, servlet, type);
 
 		response.sendRedirect(url + "?" + params);
 	}
 
 	private String buildParams(Map<String, String> paramsMap) {
-		
+
 		String params = "";
 		boolean isFirst = true;
-		
+
 		for (String key : paramsMap.keySet()) {
-			
-			if( isFirst ) {
+
+			if (isFirst) {
 				isFirst = false;
-			}
-			else {
+			} else {
 				params += "&";
 			}
-			
-			params += key + "=" + paramsMap.get(key); 
+
+			params += key + "=" + paramsMap.get(key);
 		}
-		
+
 		return params;
 	}
 }
