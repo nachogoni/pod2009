@@ -45,22 +45,34 @@ public class ModifyComplex extends HttpServlet {
 		/*Get Form*/
 		formulario = new FormAddComplex();
 		
+		ErrorManager error = new ErrorManager();
+		
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
-			e.printStackTrace();
+			error.add("El identificador debe ser un número");
 			logger.error("Error leyendo id");
 		}
 
+		
+		logger.debug("Buscando información del complejo " + id);
 		try {
-			logger.debug("Buscando información del complejo " + id);
 			formulario = new FormAddComplex(service.getById(id));
-			//request.setAttribute("complex", service.getById(id));
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (PersistenceException e) {
+			error.add(e);
 			logger.error("Error buscando información del complejo " + id);
 		}
+
+		if( error.size() != 0 ) {
+			request.setAttribute("formulario", this.formulario);
+			
+			request.setAttribute("errorManager", error);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			return;
+		}
+		
 		
 		/* Form is sent to the view*/
 		request.setAttribute("formulario", this.formulario);
@@ -80,7 +92,20 @@ public class ModifyComplex extends HttpServlet {
 		ComplexService modifyService = new ComplexService();
 		
 		logger.debug("POST request");
+	
+		/*Errors from the past are deleted.*/
+		this.formulario.unsetErrors();
+
+		/*Load form with request values*/
+		this.formulario.loadValues(request);
 		
+		if (!this.formulario.isValid())
+		{
+			logger.debug("Formulario inválido");
+			request.setAttribute("formulario", formulario);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
+		}
 	
 		ErrorManager error = new ErrorManager();
 
@@ -127,6 +152,7 @@ public class ModifyComplex extends HttpServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
+			request.setAttribute("formulario", formulario);
 			this.failure(request, response, error);
 			return;
 		}
@@ -136,6 +162,7 @@ public class ModifyComplex extends HttpServlet {
 			modifyService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
 		} catch (PersistenceException e) {
 			logger.error("Error modificando el complejo con id " + id);
+			request.setAttribute("formulario", formulario);
 			error.add(e);
 			this.failure(request, response, error);
 			return;

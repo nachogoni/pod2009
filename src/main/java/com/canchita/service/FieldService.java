@@ -58,8 +58,7 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	public Long saveField(String name, String description, Long idComplex,
-			Boolean hasRoof, FloorType floor) throws PersistenceException
-			  {
+			Boolean hasRoof, FloorType floor) throws PersistenceException {
 
 		Field aField = new Field((new ComplexMemoryMock()).getById(idComplex),
 				name);
@@ -67,7 +66,6 @@ public class FieldService implements FieldServiceProtocol {
 		aField.setDescription(description);
 		aField.setHasRoof(hasRoof);
 		aField.setFloor(floor);
-		
 
 		(new FieldMemoryMock()).save(aField);
 
@@ -76,7 +74,7 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	public void updateField(Long id, String name, String description,
-			Long idComplex, Boolean hasRoof, FloorType floor) throws PersistenceException {
+			Boolean hasRoof, FloorType floor) throws PersistenceException {
 
 		Field aField = getById(id);
 
@@ -93,11 +91,9 @@ public class FieldService implements FieldServiceProtocol {
 			aField.setFloor(floor);
 		}
 
-
 		(new FieldMemoryMock()).update(aField);
 	}
 
-	
 	public void addScoreSystem(Long id, Integer booking, Integer deposit,
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException {
@@ -113,8 +109,7 @@ public class FieldService implements FieldServiceProtocol {
 		}
 
 	}
-	
-	
+
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException {
 		Expiration anExpiration = new Expiration();
@@ -141,7 +136,7 @@ public class FieldService implements FieldServiceProtocol {
 		}
 
 	}
-	
+
 	@Override
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws ElementNotExistsException {
@@ -172,11 +167,11 @@ public class FieldService implements FieldServiceProtocol {
 
 	@Override
 	public Long getComplexId(Long id) throws ElementNotExistsException {
-		
+
 		FieldDAO fieldDAO = new FieldMemoryMock();
-		
+
 		Field field = fieldDAO.getById(id);
-		
+
 		return field.getComplex().getId();
 	}
 

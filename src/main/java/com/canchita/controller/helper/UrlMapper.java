@@ -130,6 +130,11 @@ public class UrlMapper {
 				+ "complex/ListComplex.jsp");
 		failureForward.put("ListComplexPOST", FORWARD_ROOT_DIR
 				+ "complex/ListComplex.jsp");
+		failureForward.put("ModifyComplexPOST", FORWARD_ROOT_DIR
+				+ "complex/ModifyComplex.jsp");
+		failureForward.put("ModifyComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ModifyComplex.jsp");
+
 		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR
 				+ "complex/AddComplexForm.jsp");
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR
@@ -141,7 +146,13 @@ public class UrlMapper {
 				+ "field/AddFieldForm.jsp");
 		failureForward.put("AddFieldGET", FORWARD_ROOT_DIR
 				+ "field/AddFieldForm.jsp");
+		failureForward.put("ModifyFieldGET", FORWARD_ROOT_DIR
+				+ "field/ModifyField.jsp");
 
+		failureForward.put("ModifyFieldPOST", FORWARD_ROOT_DIR
+				+ "field/ModifyField.jsp");
+
+		
 		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
 				+ "error/500.jsp");
 

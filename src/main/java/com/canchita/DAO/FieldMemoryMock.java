@@ -14,6 +14,7 @@ import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
@@ -159,7 +160,18 @@ public class FieldMemoryMock implements FieldDAO {
 			throw new ElementNotExistsException("La cancha no existe");
 		}
 		
-		save(field);
+		for (Field otherField : FieldMocks.values()) {
+
+			
+			if (field.getId() != otherField.getId()
+					&& field.equals(otherField)) {
+				throw new ElementExistsException(
+						"Ya existe un complejo con esas características");
+			}
+
+		}
+		
+		FieldMemoryMock.FieldMocks.put(field.getId(), field);
 	}
 
 	@Override

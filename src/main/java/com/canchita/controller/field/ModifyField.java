@@ -49,26 +49,36 @@ public class ModifyField extends HttpServlet {
 		Long id = null;
 		formulario = new FormField();
 		
+		ErrorManager error = new ErrorManager();
+		
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
-			e.printStackTrace();
+			error.add("El identificador debe ser un número");
 			logger.error("Error leyendo id");
 		}
-
+		
+		logger.debug("Buscando información del cancha " + id);
+			
 		try {
-			logger.debug("Buscando información del cancha " + id);
 			formulario = new FormField(service.getById(id));
-			//request.setAttribute("field", service.getById(id));
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ElementNotExistsException e) {
 			logger.error("Error buscando información del cancha " + id);
+			error.add(e);
+		}
+
+		if( error.size() != 0 ) {
+			request.setAttribute("formulario", this.formulario);
+			
+			request.setAttribute("errorManager", error);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			return;
 		}
 		
 		/* Form is sent to the view*/
 		request.setAttribute("formulario", this.formulario);
-
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -89,16 +99,27 @@ public class ModifyField extends HttpServlet {
 		FloorType floor = FloorType.CONCRETE;
 
 		
-		ErrorManager error = new ErrorManager();
+		/*Errors from the past are deleted.*/
+		this.formulario.unsetErrors();
 
-		String name = request.getParameter("name");
-		String description = request.getParameter("description");
-		try{
-			idComplex = Long.parseLong(request.getParameter("idComplex"));
-		} catch (NumberFormatException nfe) {
-			error.add("Complejo invalido");
+		/*Load form with request values*/
+		this.formulario.loadValues(request);
+		
+		if (!this.formulario.isValid())
+		{
+			logger.debug("Formulario inválido");
+			request.setAttribute("formulario", formulario);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
 		}
 		
+		ErrorManager error = new ErrorManager();
+
+		
+		
+		String name = request.getParameter("name");
+		String description = request.getParameter("description");
+			
 		try{
 			hasRoof = Boolean.valueOf(request.getParameter("hasRoof"));
 		} catch (Exception nfe) {
@@ -125,21 +146,24 @@ public class ModifyField extends HttpServlet {
 
 		
 		if (error.size() != 0) {
-			request.setAttribute("error", error);
+			request.setAttribute("errorManager", error);
+			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
 
 		try {
-			modifyService.updateField(id, name, description, idComplex, hasRoof, floor);
+			modifyService.updateField(id, name, description, hasRoof, floor);
 		} catch (ElementNotExistsException e) {
 			error.add(e);
-			request.setAttribute("error", error);
+			request.setAttribute("errorManager", error);
+			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}catch (PersistenceException e) {
 			error.add(e);
-			request.setAttribute("error", error);
+			request.setAttribute("errorManager", error);
+			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
