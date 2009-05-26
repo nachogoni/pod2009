@@ -37,7 +37,9 @@ public interface ComplexServiceProtocol {
 	public Complex getById(Long id) throws PersistenceException;
  
 	
-	public void addExpiration(Long id, Integer bookingLimit, Integer depositLimit) throws PersistenceException, InvalidParameterException;
+	public void addExpiration(Long id, Integer bookingLimit,
+			Integer depositLimit) throws PersistenceException,
+			InvalidParameterException;
 	
 	public void addTimeTable(Long id, DateTime startMon, DateTime endMon,
 			DateTime startTues, DateTime endTues, DateTime startWed,

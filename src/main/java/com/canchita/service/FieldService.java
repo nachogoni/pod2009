@@ -13,6 +13,8 @@ import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.complex.Complex;
+import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -98,6 +100,51 @@ public class FieldService implements FieldServiceProtocol {
 		(new FieldMemoryMock()).update(aField);
 	}
 
+	
+	public void addScoreSystem(Long id, Integer booking, Integer deposit,
+			Integer pay, Integer downBooking, Integer downDeposit)
+			throws PersistenceException {
+
+		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
+				downBooking, downDeposit);
+		try {
+			Field aField = getById(id);
+			aField.setScoreSystem(scoreSystem);
+			(new FieldMemoryMock()).update(aField);
+		} catch (PersistenceException e) {
+			throw e;
+		}
+
+	}
+	
+	
+	public void addExpiration(Long id, Integer bookingLimit,
+			Integer depositLimit) throws PersistenceException {
+		Expiration anExpiration = new Expiration();
+
+		if (bookingLimit == null || bookingLimit < 0 || depositLimit == null
+				|| depositLimit < 0)
+			throw new IllegalArgumentException("Valores de caducidad invalidos");
+
+		if (depositLimit < bookingLimit) {
+			throw new IllegalArgumentException(
+					"El valor de caducidad de seña no puede ser menor al valor de caducidad de la reserva");
+		}
+
+		anExpiration.setBookingLimit(bookingLimit);
+		anExpiration.setDepositLimit(depositLimit);
+
+		try {
+			FieldMemoryMock fieldPersistor = new FieldMemoryMock();
+			Field aField = fieldPersistor.getById(id);
+			aField.setExpiration(anExpiration);
+			fieldPersistor.update(aField);
+		} catch (Exception e) {
+			throw new PersistenceException("Cancha no encontrado");
+		}
+
+	}
+	
 	@Override
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws ElementNotExistsException {

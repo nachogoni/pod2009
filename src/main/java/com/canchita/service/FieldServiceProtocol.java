@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.security.InvalidParameterException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -24,7 +25,8 @@ public interface FieldServiceProtocol {
 	public void deleteField(Long id) throws ElementNotExistsException;
 
 	public Long saveField(String name, String description, Long idComplex,
-			Boolean hasRoof, FloorType floor, Expiration expiration) throws PersistenceException;
+			Boolean hasRoof, FloorType floor, Expiration expiration)
+			throws PersistenceException;
 
 	public void updateField(Long id, String name, String description,
 			Long idComplex, Boolean hasRoof, FloorType floor,
@@ -37,4 +39,12 @@ public interface FieldServiceProtocol {
 
 	Iterator<Booking> getBookings(Long fieldId)
 			throws ElementNotExistsException;
+
+	public void addExpiration(Long id, Integer bookingLimit,
+			Integer depositLimit) throws PersistenceException,
+			InvalidParameterException;
+
+	public void addScoreSystem(Long id, Integer booking, Integer deposit,
+			Integer pay, Integer downBooking, Integer downDeposit)
+			throws PersistenceException;
 }
