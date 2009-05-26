@@ -22,7 +22,7 @@ public class IsAlphaNum extends Validator {
 	
 	@Override
 	public String getError() {
-		return "El valor debe ser alfanumerico";
+		return "El valor debe ser alfanumérico.";
 	}
 
 }

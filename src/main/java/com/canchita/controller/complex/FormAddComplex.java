@@ -23,6 +23,7 @@ public class FormAddComplex extends FormHandler {
 						.addValidator("IsAlphaNum"));
 		
 		this.addElement(new FormElement("text","description")
-						.setLabel("Descripción"));
+						.setLabel("Descripción")
+						.setRequired(true));
 	}
 }
