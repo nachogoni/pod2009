@@ -12,7 +12,7 @@
 	flush="true" />
 <script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
 
-<h1>Vista Detallada</h1>
+<h1>Vista Detallada del Complejo</h1>
 
 <c:if test="${(param.booking != null)}">
 

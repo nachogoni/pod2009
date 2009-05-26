@@ -113,7 +113,8 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=true");
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
-		successRedirect.put("AddBookingPOST", "/tp-pod/DetailedViewComplex");
+		successRedirect.put("AddBookingPOST",
+		"/tp-pod/field/detailedview");
 		successRedirect.put("AdminHomePOST", FORWARD_ROOT_DIR
 				+ "admin/AdminHome.jsp");
 

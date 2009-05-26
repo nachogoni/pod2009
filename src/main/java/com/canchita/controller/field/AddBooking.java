@@ -151,14 +151,7 @@ public class AddBooking extends HttpServlet {
 		Map<String,String> params = new HashMap<String, String>();
 
 		
-		try {
-			params.put("id", fieldService.getComplexId(id).toString() );
-		} catch (ElementNotExistsException e) {
-			error.add(e);
-			
-			this.failure(request, response, error);
-			return;
-		}
+		params.put("id", id.toString() );
 		
 		params.put("booking","true");
 		
