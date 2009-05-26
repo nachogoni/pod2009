@@ -4,8 +4,9 @@ public class FormElementInclude extends FormElement {
 
 	private String path;
 	
-	public FormElementInclude(String path) {
-		super("include", path);
+	public FormElementInclude(String apath) {
+		super("include", apath);
+		path = apath;
 	}
 	
 	public FormElementInclude() {
