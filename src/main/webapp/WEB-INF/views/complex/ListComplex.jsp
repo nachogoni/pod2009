@@ -78,9 +78,8 @@
 	<legend>Búsqueda de complejos</legend>
 	<label for="search">Nombre: </label>
 	<input id="complexName" type="text" name="search" value="<c:out value="${param.search}" />"/>
-	</fieldset>
-
 	<input type="submit" value="Buscar" class="submit-go" />
+	</fieldset>
 </form>
 
 <c:choose>
