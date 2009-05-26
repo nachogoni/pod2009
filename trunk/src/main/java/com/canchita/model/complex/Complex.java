@@ -108,9 +108,7 @@ public class Complex implements Booker {
 			
 			while(iterator.hasNext()) {
 				Schedule aSchedule = (Schedule) iterator.next();
-				
 				collection.add(aSchedule);
-				
 			}
 			
 		}

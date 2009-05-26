@@ -23,9 +23,6 @@ public class Availability {
 	
 	public boolean inDay(DateTime date) {
 		
-		System.out.println("day: " + day + " " + day.ordinal());
-		
-		System.out.println("dia de la semanee " + ( date.getDayOfWeek() -1));
 		return day.ordinal() ==  (date.getDayOfWeek() -1) ;
 		
 	}

@@ -30,7 +30,6 @@ public class ComplexService implements ComplexServiceProtocol {
 
 	public Collection<Complex> listComplex() {
 		Collection<Complex> complexes = (new ComplexMemoryMock()).getAll();
-		System.out.println(complexes.toString());
 		return complexes;
 	}
 

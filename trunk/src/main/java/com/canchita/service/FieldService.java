@@ -27,7 +27,6 @@ public class FieldService implements FieldServiceProtocol {
 
 	public Collection<Field> listField() {
 		Collection<Field> fields = (new FieldMemoryMock()).getAll();
-		System.out.println(fields.toString());
 		return fields;
 	}
 

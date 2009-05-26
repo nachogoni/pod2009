@@ -101,8 +101,6 @@ public class GetAvailableHours extends HttpServlet {
 			String representation = schedule.getStartTime().toString("HH:mm")
 					+ " - " + schedule.getEndTime().toString("HH:mm");
 
-			System.out.println(representation);
-
 			values.put(representation);
 			names.put(i++);
 		}

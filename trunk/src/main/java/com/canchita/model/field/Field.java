@@ -158,7 +158,6 @@ public class Field implements Bookable {
 			int startHour, endHour;
 
 			Schedule schedule = ((Booking) bookings.next()).getSchedule();
-			System.out.println(schedule);
 
 			// Bookings could be for various days or even years
 			// leap years are not taken into account

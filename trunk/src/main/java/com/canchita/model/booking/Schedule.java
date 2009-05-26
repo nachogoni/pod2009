@@ -126,5 +126,13 @@ public class Schedule {
 		return list.iterator();
 	}
 
+	public Schedule setSameDay(DateTime date) {
+		
+		DateTime newStart = startTime.withDate(date.getYear(), date.getMonthOfYear(), date.dayOfMonth().get());
+		DateTime newEnd = endTime.withDate(date.getYear(), date.getMonthOfYear(), date.dayOfMonth().get());
+		
+		return new Schedule(newStart,newEnd);
+	}
+
 
 }
