@@ -42,8 +42,8 @@ public class DeleteComplex extends HttpServlet {
 
 		try {
 			delService.deleteComplex(id);
-			UrlMapper.getInstance().forwardSuccess(this, request, response,
-					UrlMapperType.POST);
+			UrlMapper.getInstance().redirectSuccess(this, request, response,
+					UrlMapperType.GET);
 
 		} catch (Exception e) {
 			e.printStackTrace();

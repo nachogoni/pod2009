@@ -105,7 +105,7 @@ public class AddComplex extends HttpServlet {
 		
 
 		
-		UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.POST);
+		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
 		
 		
 	}
