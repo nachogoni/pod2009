@@ -131,7 +131,7 @@ public class FormAddComplex extends FormHandler {
 		subicacion.add("longitude");
 		subicacion.add("telephone");
 		subicacion.add("country");
-		this.addDisplayGroup(subicacion, "Ubicacion");
+		this.addDisplayGroup(subicacion, "Ubicación");
 		
 		spuntos.add("booking");
 		spuntos.add("deposit");
@@ -146,7 +146,7 @@ public class FormAddComplex extends FormHandler {
 
 		sconfirm.add("submit");
 		sconfirm.add("reset");
-		this.addDisplayGroup(sconfirm, "Confirmacion");
+		this.addDisplayGroup(sconfirm, "Confirmación");
 	}
 
 	public FormAddComplex(Complex aComplex) {

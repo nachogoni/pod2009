@@ -63,11 +63,11 @@ public class FormField extends FormHandler {
         
         sprops.add("hasRoof");
         sprops.add("floor");
-        this.addDisplayGroup(sprops, "Caracteristicas");
+        this.addDisplayGroup(sprops, "Características");
         
         sconfirm.add("submit");
 		sconfirm.add("reset");
-		this.addDisplayGroup(sconfirm, "Confirmacion");
+		this.addDisplayGroup(sconfirm, "Confirmación");
                 
 	}
 	
