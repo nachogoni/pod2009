@@ -145,8 +145,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 	}
 
 	public void update(Complex complex) {
-		delete(complex.getId());
-		save(complex);
+		ComplexMemoryMock.complexMocks.put(complex.getId(),complex);
 	}
 
 }

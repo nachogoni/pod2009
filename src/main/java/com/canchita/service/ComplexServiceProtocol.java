@@ -19,7 +19,7 @@ public interface ComplexServiceProtocol {
 	
 	public Long saveComplex(String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country);
 	
-	public void updateComplex(Complex aComplex);
+	public void updateComplex(Long id, String name, String description, String address, String zipCode, String neighbourhood, String town, String state, String country);
 	
 	public void addScoreSystem(Long id, Integer booking, Integer deposit, Integer pay, Integer downBooking, Integer downDeposit);
 	
