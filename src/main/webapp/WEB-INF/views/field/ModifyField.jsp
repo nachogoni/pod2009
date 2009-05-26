@@ -1,12 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
+	<jsp:param name="title" value="Modificar Cancha" />
+	<jsp:param name="header" value="admin" />
+</jsp:include>
+
+<h1>Modificar Cancha</h1>
+
+<c:if test="${(errorManager != null)}">
+<div class="ui-state-error ui-corner-all error"> 
+
+<span class="ui-icon ui-icon-alert errorIcon"></span>
+<span>
+<strong>Alerta:</strong>
+</span>
+        <c:forEach items="${errorManager.errors}" var="error">
+            <span class="block">* <c:out value="${error}"/></span>
+        </c:forEach>
+</div>
+</c:if>
+
+<c:out value="${formulario}" escapeXml="false" />
+
+<jsp:include page="/WEB-INF/views/general/js.jsp"
+    flush="true" />
+<script src="/tp-pod/js/complex/add/init.js" type="text/javascript"/></script>
+
+<jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
+    flush="true" />
