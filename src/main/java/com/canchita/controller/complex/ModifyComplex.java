@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -17,6 +19,8 @@ import com.canchita.service.ComplexService;
 public class ModifyComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	Logger logger = Logger.getLogger(ModifyComplex.class.getName());
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,6 +34,8 @@ public class ModifyComplex extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		logger.debug("GET request");
+		
 		ComplexService service = new ComplexService();
 
 		Long id = null;
@@ -38,16 +44,18 @@ public class ModifyComplex extends HttpServlet {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Error leyendo id");
 		}
 
 		try {
-		
+			logger.debug("Buscando información del complejo " + id);
 			request.setAttribute("complex", service.getById(id));
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Error buscando información del complejo " + id);
 		}
 		
 
@@ -58,6 +66,8 @@ public class ModifyComplex extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ComplexService modifyService = new ComplexService();
+		
+		logger.debug("POST request");
 		
 		//TODO: Migrar a ComplexForm
 		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
@@ -105,6 +115,7 @@ public class ModifyComplex extends HttpServlet {
 		}
 
 		if (error.size() != 0) {
+			logger.debug("Error en el formulario");
 			//this.failure(request, response, error);
 			return;
 		}
@@ -114,6 +125,7 @@ public class ModifyComplex extends HttpServlet {
 		modifyService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
 		}catch (Exception e) {
 			// TODO: handle exception
+			logger.error("Error modificando el complejo con id " + id);
 		}
 
 		

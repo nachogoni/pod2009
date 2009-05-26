@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.service.ComplexService;
 import com.canchita.views.helpers.FormHandler;
 import com.canchita.controller.helper.ErrorManager;
@@ -18,6 +20,8 @@ import com.canchita.controller.helper.UrlMapperType;
 public class AddComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	Logger logger = Logger.getLogger(AddComplex.class.getName());
+	
 	private FormHandler formulario;
 
 	public AddComplex() {
@@ -30,10 +34,13 @@ public class AddComplex extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		logger.debug("GET request");
 		/* armo el formulario */
 		
 		/* lo paso a la vista */
 		request.setAttribute("formulario", this.formulario);
+		
+		logger.debug("Saliendo del controlador");
 		
 		//TODO: Migrar a ComplexForm
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
@@ -48,7 +55,7 @@ public class AddComplex extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		
+		logger.debug("POST request");
 		
 		/*Errors from the past are deleted.*/
 		this.formulario.unsetErrors();
@@ -58,6 +65,7 @@ public class AddComplex extends HttpServlet {
 		
 		if (!this.formulario.isValid())
 		{
+			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
 			//UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
 			//UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.GET);
@@ -115,6 +123,7 @@ public class AddComplex extends HttpServlet {
 		}
 
 		if (error.size() != 0) {
+			logger.debug("Error en el formulario");
 			this.failure(request, response, error);
 			return;
 		}
@@ -126,6 +135,7 @@ public class AddComplex extends HttpServlet {
 		addService.addScoreSystem(id, booking, deposit, pay, downBooking,
 															downDeposit);
 		}catch (Exception e) {
+			logger.error("Error guardando complejo");
 			// TODO: handle exception
 		}
 

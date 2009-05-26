@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.service.ComplexService;
@@ -16,6 +18,8 @@ import com.canchita.service.ComplexService;
 public class DeleteComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	Logger logger = Logger.getLogger(DeleteComplex.class.getName());
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -32,21 +36,25 @@ public class DeleteComplex extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		ComplexService delService = new ComplexService();
 
+		logger.debug("POST request");
 		Long id = null;
 
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Error leyendo identificador");
 		}
 
 		try {
+			logger.debug("Eliminando complejo " + id);
 			delService.deleteComplex(id);
 			UrlMapper.getInstance().redirectSuccess(this, request, response,
 					UrlMapperType.GET);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Error eliminando complejo con id: " + id);
 		}
 	}
 
