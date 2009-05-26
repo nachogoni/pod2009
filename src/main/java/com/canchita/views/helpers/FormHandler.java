@@ -27,6 +27,7 @@ public abstract class FormHandler {
 		groupsOrder = new ArrayList<String>();
 		formDecorator = new Decorator();
 		name = "form";
+		method = "post";
 	}
 	
 
