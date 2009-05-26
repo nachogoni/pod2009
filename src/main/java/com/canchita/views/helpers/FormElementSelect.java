@@ -25,8 +25,8 @@ public class FormElementSelect extends FormElement {
 			ret += e.toString();
 		}
 
-		return String.format("%s<select name=\"%s\" name=\"%s\"> %s </select>", 
-				super.genLabel(), this.id, super.getName(), ret);
+		return String.format("%s<select name=\"%s\"> %s </select>", 
+				super.genLabel(), super.getName(), ret);
 	}
 	
 	@Override

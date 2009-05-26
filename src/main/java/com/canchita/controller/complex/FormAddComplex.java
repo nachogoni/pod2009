@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElement;
 import com.canchita.views.helpers.FormElementInput;
 import com.canchita.views.helpers.FormHandler;
 
@@ -20,7 +19,7 @@ public class FormAddComplex extends FormHandler {
 
 		this.setName("Complejo")
 	  		.setMethod("post");
-			      
+			     
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
 			.setRequired(true)
