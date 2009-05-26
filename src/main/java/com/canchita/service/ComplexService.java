@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.security.InvalidParameterException;
 import java.util.Collection;
 
 import org.joda.time.DateTime;
@@ -8,6 +9,7 @@ import com.canchita.DAO.ComplexDAO;
 import com.canchita.DAO.ComplexMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Availability;
 import com.canchita.model.complex.Calendar;
@@ -218,6 +220,28 @@ public class ComplexService implements ComplexServiceProtocol {
 		} catch (Exception e) {
 			throw new PersistenceException("Complejo no encontrado");
 		}
+	}
+
+	@Override
+	public void addExpiration(Long id, Integer bookingLimit, Integer depositLimit) throws PersistenceException, InvalidParameterException {
+		Expiration anExpiration = new Expiration();
+		
+		if(bookingLimit == null || bookingLimit < 0 || depositLimit == null || depositLimit < 0)
+			throw new InvalidParameterException("Valores de caducidad invalidos");
+		
+		anExpiration.setBookingLimit(bookingLimit);
+		anExpiration.setDepositLimit(depositLimit);
+
+		try {
+			ComplexMemoryMock complexPersistor = new ComplexMemoryMock();
+			Complex aComplex = complexPersistor.getById(id);
+			aComplex.setExpiration(anExpiration);
+			complexPersistor.update(aComplex);
+		} catch (Exception e) {
+			throw new PersistenceException("Complejo no encontrado");
+		}
+
+		
 	}
 
 }

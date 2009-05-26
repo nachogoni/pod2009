@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.security.InvalidParameterException;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,7 +35,10 @@ public interface ComplexServiceProtocol {
 			Integer pay, Integer downBooking, Integer downDeposit) throws PersistenceException;
 
 	public Complex getById(Long id) throws PersistenceException;
-
+ 
+	
+	public void addExpiration(Long id, Integer bookingLimit, Integer depositLimit) throws PersistenceException, InvalidParameterException;
+	
 	public void addTimeTable(Long id, DateTime startMon, DateTime endMon,
 			DateTime startTues, DateTime endTues, DateTime startWed,
 			DateTime endWed, DateTime startThurs, DateTime endThurs,
