@@ -24,6 +24,14 @@ public class FieldService implements FieldServiceProtocol {
 		System.out.println(fields.toString());
 		return fields;
 	}
+	
+	public Collection<Field> listField(Long idComplex) throws ValidationException {
+		
+		FieldDAO fieldDAO = new FieldMemoryMock();
+
+		return fieldDAO.getFiltered(idComplex);
+		
+	}
 
 	public Collection<Field> listField(String filter) throws ValidationException {
 

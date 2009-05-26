@@ -61,6 +61,7 @@
 							<td><c:out value="${field.name}" /></td>
 							<td><c:out value="${field.complex.place}" /></td>
 							<td><c:out value="${field.complex.description}" /></td>
+							<td><c:out value="${field.complex.description}" /></td>
 							
 							<td>
 								<form action="/tp-pod/DeleteField" method="post">

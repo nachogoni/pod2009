@@ -19,6 +19,8 @@ public interface FieldDAO {
 	
 	public Collection<Field> getFiltered(String filter);
 
+	public Collection<Field> getFiltered(Long idComplex);
+	
 	public boolean exists(Field field);
 	
 }
