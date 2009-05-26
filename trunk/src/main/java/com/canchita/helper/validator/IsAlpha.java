@@ -10,7 +10,7 @@ public class IsAlpha extends Validator {
 	
 	@Override
 	public String getError() {
-		return "El valor debe ser alfabetico unicamente";
+		return "El valor debe ser alfabético únicamente.";
 	}
 
 }

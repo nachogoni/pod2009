@@ -5,7 +5,7 @@ public class IsEmpty extends Validator {
 	@Override
 	public String getError() {
 		// TODO Auto-generated method stub
-		return "Debe contener algun valor";
+		return "Debe contener algún valor.";
 	}
 
 	@Override

@@ -22,6 +22,9 @@ public class AddComplex extends HttpServlet {
 
 	private FormHandler formulario;
 
+	public AddComplex() {
+		formulario = new FormAddComplex();
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -30,10 +33,9 @@ public class AddComplex extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		/* armo el formulario */
-		formulario = new FormAddComplex();
 		
 		/* lo paso a la vista */
-		request.setAttribute("formulario", formulario);
+		request.setAttribute("formulario", this.formulario);
 		
 		//TODO: Migrar a ComplexForm
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
@@ -50,13 +52,21 @@ public class AddComplex extends HttpServlet {
 
 		ComplexService addService = new ComplexService();
 		
-		if (!formulario.isValid())
+		/*Errors from the past are deleted.*/
+		this.formulario.unsetErrors();
+
+		/*Load form with request values*/
+		this.formulario.loadValues(request);
+		
+		if (!this.formulario.isValid())
 		{
 			request.setAttribute("formulario", formulario);
-			
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
+			return;
 		}
+
+		/*Form is valid.*/
 		
 		//TODO: Migrar a ComplexForm
 		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
@@ -107,12 +117,16 @@ public class AddComplex extends HttpServlet {
 			return;
 		}
 
-		Long id = addService.saveComplex(name, description, address, zipCode, neighbourhood, town, state, country);
-		addService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
+		Long id = addService.saveComplex(name, description, address, zipCode,
+										neighbourhood, town, state, country);
+
+		addService.addScoreSystem(id, booking, deposit, pay, downBooking,
+															downDeposit);
 		
 
 		
-		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
+		UrlMapper.getInstance().redirectSuccess(this, request, response,
+													UrlMapperType.POST);
 		
 		
 	}

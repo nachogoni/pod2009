@@ -4,7 +4,7 @@ public class IsNumeric extends Validator {
 
 	@Override
 	public String getError() {
-		return "Debe ser numerico";
+		return "Debe ser numérico.";
 	}
 
 	@Override
