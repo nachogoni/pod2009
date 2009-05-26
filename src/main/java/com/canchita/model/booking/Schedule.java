@@ -114,8 +114,8 @@ public class Schedule {
 
 		List<Schedule> list = new ArrayList<Schedule>();
 
-		for (Iterator iterator = possibleValues.iterator(); iterator.hasNext();) {
-			Integer i = (Integer) iterator.next();
+		for (Iterator<Integer> iterator = possibleValues.iterator(); iterator.hasNext();) {
+			Integer i = iterator.next();
 
 			DateTime from = date.withTime(i, 0, 0, 0);
 			DateTime to = date.withTime(i + 1, 0, 0, 0);

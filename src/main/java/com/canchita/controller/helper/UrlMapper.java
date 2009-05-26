@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.canchita.controller.complex.ListComplex;
-
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -71,7 +69,10 @@ public class UrlMapper {
 		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR + "admin/AdminHome.jsp");
 		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
 		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR + "complex/ModifyComplex.jsp");
-
+		successForward.put("Error404GET" , FORWARD_ROOT_DIR + "error/404.jsp");
+		successForward.put("Error500GET" , FORWARD_ROOT_DIR + "error/500.jsp");
+		successForward.put("ErrorExceptionGET" , FORWARD_ROOT_DIR + "error/exception.jsp");
+		
 		this.successRedirect = new HashMap<String, String>();
 		
 		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
@@ -88,8 +89,11 @@ public class UrlMapper {
 		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
 		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
+		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR + "error/500.jsp");
 
 		this.failureRedirect = new HashMap<String, String>();
+
+		failureRedirect.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR + "error/500.jsp");
 
 	}
 
