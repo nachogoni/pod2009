@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-
 import com.canchita.service.ComplexService;
 import com.canchita.views.helpers.FormHandler;
 import com.canchita.controller.helper.ErrorManager;
@@ -35,14 +34,12 @@ public class AddComplex extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		logger.debug("GET request");
-		/* armo el formulario */
 		
-		/* lo paso a la vista */
+		/* Form is sent to the view*/
 		request.setAttribute("formulario", this.formulario);
 		
 		logger.debug("Saliendo del controlador");
 		
-		//TODO: Migrar a ComplexForm
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 

@@ -5,23 +5,21 @@ public class FormElementInclude extends FormElement {
 	private String path;
 	
 	public FormElementInclude(String path) {
-		super("include", "path");
-		// TODO Auto-generated constructor stub
+		super("include", path);
 	}
 	
 	public FormElementInclude() {
 		super("include", "path");
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("<jsp:include page=\"%s\" flush=\"true\"/>", this.path);
+		return String.format("<jsp:include page=\"%s\" flush=\"true\"/>",
+				this.path);
 	}
 
 	public String getPath() {
-		return path;
+		return this.path;
 	}
 
 	public FormElementInclude setPath(String path) {
