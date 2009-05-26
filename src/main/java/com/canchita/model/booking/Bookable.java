@@ -1,7 +1,6 @@
 package com.canchita.model.booking;
 
-import java.util.List;
-
+import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.model.exception.BookingException;
@@ -22,7 +21,7 @@ public interface Bookable {
 
 	boolean viewAvailability(Schedule hour);
 	
-	List<Booking> getBookings();
+	Iterator<Booking> getBookings();
 	
 	Booking book(Schedule hour) throws PersistenceException, BookingException;
 	

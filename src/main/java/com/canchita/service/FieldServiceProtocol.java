@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
+import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.ValidationException;
@@ -26,4 +27,6 @@ public interface FieldServiceProtocol {
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date);
 
 	public Field getById(Long id);
+	
+	Iterator<Booking> getBookings(Long fieldId);
 }

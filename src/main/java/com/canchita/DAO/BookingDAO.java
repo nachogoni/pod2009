@@ -21,6 +21,8 @@ public interface BookingDAO {
 
 	public Iterator<Booking> getFieldBookings(Long fieldId, DateTime date);
 
+	public boolean viewAvailability(Booking booking);
+	
 	public boolean exists(Booking booking);
 	// TODO ver el tema de la busqueda de reservas
 	// public List<Complex> getFiltered(String name, Locatable aLocation );

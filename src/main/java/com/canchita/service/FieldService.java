@@ -5,10 +5,12 @@ import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.ComplexMemoryMock;
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.FieldMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
+import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.ValidationException;
@@ -52,7 +54,7 @@ public class FieldService implements FieldServiceProtocol {
 
 	public Long saveField(String name, String description, Long idComplex, Boolean hasRoof, FloorType floor, Expiration expiration) {
 		
-		Field aField = new Field((new ComplexService()).getById(idComplex), name);
+		Field aField = new Field((new ComplexMemoryMock()).getById(idComplex), name);
 		
 		aField.setDescription(description);
 		aField.setHasRoof(hasRoof);
@@ -102,6 +104,16 @@ public class FieldService implements FieldServiceProtocol {
 	@Override
 	public Field getById(Long id) {
 		return (new FieldMemoryMock()).getById(id);
+	}
+
+	@Override
+	public Iterator<Booking> getBookings(Long fieldId) {
+
+		FieldDAO fieldDAO = new FieldMemoryMock();
+		
+		Field field = fieldDAO.getById(fieldId);
+		
+		return field.getBookings();
 	}
 
 }
