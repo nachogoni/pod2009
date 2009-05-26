@@ -10,8 +10,12 @@ margin-left:20px;
 }
 
 
+.guestColorTab {
+width: 340px;
+}
+
 .loggedColorTab {
-width: 390px;
+width: 465px;
 }
 
 .adminColorTab {

@@ -54,13 +54,13 @@ public class DeleteComplex extends HttpServlet {
 		try {
 			logger.debug("Eliminando complejo " + id);
 			delService.deleteComplex(id);
-			UrlMapper.getInstance().redirectSuccess(this, request, response,
-					UrlMapperType.POST);
-
+			
 		} catch (ElementNotExistsException e) {
 			error.add(e);
+			e.printStackTrace();
 		} catch (PersistenceException e) {
 			error.add(e);
+			e.printStackTrace();
 		}
 		
 		/*
@@ -69,10 +69,17 @@ public class DeleteComplex extends HttpServlet {
 		
 		if( error.size() != 0 ) {
 			logger.error("Error eliminando complejo con id: " + id);
+			System.out.println("Salio todo mal");
 			UrlMapper.getInstance().redirectFailure(this, request, response,
 					UrlMapperType.POST);
 
 		}
+		
+		logger.debug("Complejo elimado: " + id);
+		System.out.println("salio todo bien");
+		UrlMapper.getInstance().redirectSuccess(this, request, response,
+				UrlMapperType.POST);
+
 	}
 
 }

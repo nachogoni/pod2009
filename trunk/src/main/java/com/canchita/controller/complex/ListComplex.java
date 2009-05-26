@@ -56,8 +56,10 @@ public class ListComplex extends HttpServlet {
 		if( search == null ) {
 			
 			complexes = complexService.listComplex();
+			complexesSize = complexes.size();
 			
 			request.setAttribute("complexes", complexes);
+			request.setAttribute("complexesLength", complexesSize);
 			
 			logger.debug("Saliendo del controlador");
 			

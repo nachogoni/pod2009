@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.canchita.controller.complex.AddComplex;
+import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.service.ComplexService;
 import com.canchita.service.FieldService;
 
@@ -48,17 +50,20 @@ public class DeleteField extends HttpServlet {
 			logger.error("Error leyendo id");
 		}
 
-		try {
 			logger.debug("Eliminando cancha con id " + id);
-			delService.deleteField(id);
-			
-			UrlMapper.getInstance().redirectSuccess(this, request, response,
-					UrlMapperType.POST);
+			try {
+				delService.deleteField(id);
+			} catch (ElementNotExistsException e) {
+				
+				UrlMapper.getInstance().redirectFailure(this, request, response,
+						UrlMapperType.POST);
+				
+			}
 
-		} catch (Exception e) {
-			logger.error("Error eliminando cancha con id " + id);
-			e.printStackTrace();
-		}
+		
+		UrlMapper.getInstance().redirectSuccess(this, request, response,
+				UrlMapperType.POST);
+
 	}
 
 }

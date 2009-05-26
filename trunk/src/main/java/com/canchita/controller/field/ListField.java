@@ -50,9 +50,10 @@ public class ListField extends HttpServlet {
 		if (search == null) {
 
 			fields = fieldService.listField();
-
+			fieldsSize = fields.size();
+			
 			request.setAttribute("fields", fields);
-
+			request.setAttribute("fieldsLength", fieldsSize);
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
 
