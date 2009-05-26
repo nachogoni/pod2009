@@ -9,9 +9,11 @@ import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.FieldMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
+import com.canchita.model.field.FloorType;
 
 public class FieldService implements FieldServiceProtocol {
 
@@ -47,15 +49,45 @@ public class FieldService implements FieldServiceProtocol {
 		return fieldDAO.getFiltered(filter);
 
 	}
+
+	public Long saveField(String name, String description, Long idComplex, Boolean hasRoof, FloorType floor, Expiration expiration) {
+		
+		Field aField = new Field((new ComplexService()).getById(idComplex), name);
+		
+		aField.setDescription(description);
+		aField.setHasRoof(hasRoof);
+		aField.setFloor(floor);
+		aField.setExpiration(expiration);
+
+		(new FieldMemoryMock()).save(aField);
+		
+		return aField.getId();
+		
+	}
 	
-	public void saveField(Field field) {
-		(new FieldMemoryMock()).save(field);
-	}
+	public void updateField(Long id, String name, String description, Long idComplex, Boolean hasRoof, FloorType floor, Expiration expiration) {
+		
+		Field aField = getById(id);
 
-	public void updateField(Field field) {
-		(new FieldMemoryMock()).update(field);
+		if (name != null) {
+			aField.setName(name);
+		}
+		if (description != null) {
+			aField.setDescription(description);
+		}
+		if (hasRoof != null) {
+			aField.setHasRoof(hasRoof);
+		}
+		if (floor != null) {
+			aField.setFloor(floor);
+		}
+		if (expiration != null) {
+			aField.setExpiration(expiration);
+		}
+		
+		(new FieldMemoryMock()).update(aField);		
 	}
-
+	
 	@Override
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date) {
 
@@ -65,6 +97,11 @@ public class FieldService implements FieldServiceProtocol {
 
 		return field.getAvailableHours(date);
 
+	}
+
+	@Override
+	public Field getById(Long id) {
+		return (new FieldMemoryMock()).getById(id);
 	}
 
 }
