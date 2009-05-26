@@ -14,13 +14,13 @@ public class ComplexForm extends FormHandler {
 		
 		//this.setAttribute("name", "ComplexForm");
 
-		this.addElement(new FormElement("text", "name"))
+		this.addElement(new FormElementInput("text", "name"))
 			.setRequired(true)
 			.setLabel("Nombre:")
 			.addValidator("IsAlpha")
 			.setValue("defaultValue");
 		
-		this.addElement(new FormElement("text", "descripcion"))
+		this.addElement(new FormElementInput("text", "descripcion"))
 			.setRequired(true)
 			.addValidator("IsAlpha")
 			.setLabel("Descripcion:");
