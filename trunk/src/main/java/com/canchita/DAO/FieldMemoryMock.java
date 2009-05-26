@@ -121,7 +121,7 @@ public class FieldMemoryMock implements FieldDAO {
 		return FieldMemoryMock.FieldMocks.get(id);
 	}
 
-	public List<Field> getFiltered(String name, Locatable location) {
+	public List<Field> getFiltered(String filter) {
 		return null;
 	}
 

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.canchita.model.field.Field;
-import com.canchita.model.location.Locatable;
 
 public interface FieldDAO {
 
@@ -18,7 +17,7 @@ public interface FieldDAO {
 	
 	public Collection<Field> getAll();
 	
-	public List<Field> getFiltered(String name, Locatable aLocation );
+	public List<Field> getFiltered(String filter);
 
 	public boolean exists(Field field);
 	

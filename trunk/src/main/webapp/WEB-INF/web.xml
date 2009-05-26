@@ -56,6 +56,13 @@
 		com.canchita.controller.complex.ModifyComplex</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ListField</servlet-name>
+		<display-name>ListField</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.field.ListField</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Error404</servlet-name>
 		<display-name>Error404</display-name>
 		<description></description>
@@ -76,7 +83,6 @@
 		<servlet-class>
 		com.canchita.controller.error.ErrorException</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -111,6 +117,10 @@
 		<url-pattern>/ModifyComplex</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>ListField</servlet-name>
+		<url-pattern>/ListField</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Error404</servlet-name>
 		<url-pattern>/error/404</url-pattern>
 	</servlet-mapping>
@@ -130,7 +140,6 @@
 		<error-code>404</error-code>
 		<location>/error/404</location>
 	</error-page>
-
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error/500</location>

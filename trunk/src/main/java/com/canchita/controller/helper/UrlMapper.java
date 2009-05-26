@@ -58,23 +58,35 @@ public class UrlMapper {
 	 * Initializes the success map
 	 */
 	private void initializeSuccess() {
+
 		this.successForward = new HashMap<String, String>();
 
-		
+		/*Field*/
+		successForward.put("ListFieldGET", FORWARD_ROOT_DIR + "field/ListField.jsp");
+		successForward.put("AddFieldGET", FORWARD_ROOT_DIR + "field/AddFieldForm.jsp");
+		successForward.put("AddFieldPOST", FORWARD_ROOT_DIR + "field/ListField.jsp");
+		successForward.put("ModifyFieldGET", FORWARD_ROOT_DIR + "field/ModifyField.jsp");
+		successForward.put("DetailedViewFieldGET", FORWARD_ROOT_DIR + "field/ViewField.jsp");
+		/*Complex*/
 		successForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
-
 		successForward.put("AddComplexGET", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
 		successForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR + "complex/ModifyComplex.jsp");
+		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
+
 		successForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
 		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR + "admin/AdminHome.jsp");
-		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
-		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR + "complex/ModifyComplex.jsp");
 		successForward.put("Error404GET" , FORWARD_ROOT_DIR + "error/404.jsp");
 		successForward.put("Error500GET" , FORWARD_ROOT_DIR + "error/500.jsp");
 		successForward.put("ErrorExceptionGET" , FORWARD_ROOT_DIR + "error/exception.jsp");
 		
 		this.successRedirect = new HashMap<String, String>();
 		
+		/*Field*/
+		this.successRedirect.put("AddFieldPOST","/tp-pod/ListField");
+		this.successRedirect.put("DeleteFieldGET", "/tp-pod/ListField");
+		this.successRedirect.put("ModifyFieldPOST", "/tp-pod/ListField");
+		/*Complex*/
 		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
 		this.successRedirect.put("DeleteComplexGET", "/tp-pod/ListComplex");
 		this.successRedirect.put("ModifyComplexPOST", "/tp-pod/ListComplex");
