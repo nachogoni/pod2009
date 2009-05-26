@@ -31,13 +31,14 @@ public class FormAddComplex extends FormHandler {
 			.setLabel("Descripción")
 			.setRequired(true));
 		
-		this.addElement(new FormElementSelect("select")
+		this.addElement(new FormElementSelect("country")
 						.setLabel("selectlabel")
 						.addValue("sarasa", "sarasa"));
 		
 		this.addElement(new FormElementInclude("/WEB-INF/resources/countries_es.html"));
 
 		elements.add("name");
+		elements.add("/WEB-INF/resources/countries_es.html");
 		this.addDisplayGroup(elements, "posta");
 		
 		elements.add("description");
