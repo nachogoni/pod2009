@@ -134,7 +134,7 @@
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" name="modify" value="Modificar" />
 								</form>
-								<form action="/tp-pod/DetailedViewField" method="get">
+								<form action="/tp-pod/field/detailedview" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" name="viewDetails" value="Detalles" />

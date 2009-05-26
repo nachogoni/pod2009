@@ -16,10 +16,10 @@ import com.canchita.service.FieldService;
 /**
  * Servlet implementation class DetaildedViewField
  */
-public class DetaildedViewField extends HttpServlet {
+public class DetailedViewField extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	Logger logger = Logger.getLogger(DetaildedViewField.class.getName());
+	Logger logger = Logger.getLogger(DetailedViewField.class.getName());
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,13 +40,13 @@ public class DetaildedViewField extends HttpServlet {
 
 		try {
 
-			logger.debug("Buscando información del complejo con id " + id);
-			request.setAttribute("complex", service.getById(id));
+			logger.debug("Buscando información de la cancha con id " + id);
+			request.setAttribute("field", service.getById(id));
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
 
 		} catch (Exception e) {
-			logger.error("Error buscando información del complejo con id " + id);
+			logger.error("Error buscando información de la cancha con id " + id);
 			e.printStackTrace();
 		}
 
