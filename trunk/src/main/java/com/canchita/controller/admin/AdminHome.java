@@ -51,7 +51,7 @@ public class AdminHome extends HttpServlet {
 					user, password));
 		}
 
-		UrlMapper.getInstance().redirectSuccess(this, request, response,
+		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.POST);
 		
 		logger.debug("Saliendo del controlador");
