@@ -64,17 +64,18 @@ public class UrlMapper {
 
 		
 		successForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
-		successForward.put("DeleteComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+
 		successForward.put("AddComplexGET", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
 		successForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
 		successForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
 		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR + "admin/AdminHome.jsp");
 		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
+		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR + "complex/ModifyComplex.jsp");
 
 		this.successRedirect = new HashMap<String, String>();
 		
 		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
-		
+		this.successRedirect.put("DeleteComplexPOST", "/tp-pod/ListComplex");
 	}
 
 	/**
