@@ -66,7 +66,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		Place place = new Place.Builder("Madero 339", "Puerto Madero").town(
 				"CABA").state("Buenos Aires").country("Argentina").latitude(
 				"-34.030303").longitude("-58.3665").telephone("4343-4334")
-				.telephone("5555-5555").build();
+				.telephone("5555-5555").zipCode("234").build();
 
 		aComplex.setPlace(place);
 		aComplex.setDescription("El complejo mas divertido");
@@ -113,7 +113,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		roca_expiran.setDepositLimit(5);
 		
 		Place anotherPlace = new Place.Builder("Roca 339", "Vicente Lopez").town(
-				"Vicente Lopez").state("Buenos Aires").country("Argentina").latitude(
+				"Vicente Lopez").zipCode("234").state("Buenos Aires").country("Argentina").latitude(
 				"-34.030303").longitude("-58.3665").telephone("4791-2234")
 				.build();
 
