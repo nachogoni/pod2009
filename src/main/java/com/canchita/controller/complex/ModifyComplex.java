@@ -41,7 +41,10 @@ public class ModifyComplex extends HttpServlet {
 		
 		ComplexService service = new ComplexService();
 		Long id = null;
-
+		
+		/*Get Form*/
+		formulario = new FormAddComplex();
+		
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
