@@ -141,7 +141,6 @@ public class AddField extends HttpServlet {
 		}
 
 		FieldServiceProtocol fieldService = new FieldService();
-		System.out.println(name);
 		try {
 			fieldService.saveField(name, description, idComplex, hasRoof, floor);
 		} catch (PersistenceException e) {
