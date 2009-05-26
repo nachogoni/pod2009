@@ -88,7 +88,7 @@
 		<display-name>addField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.addField</servlet-class>
+		com.canchita.controller.field.AddField</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ModifyField</servlet-name>
@@ -133,6 +133,22 @@
 		<url-pattern>/field/getavailablehours</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>addField</servlet-name>
+		<url-pattern>/field/add</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModifyField</servlet-name>
+		<url-pattern>/field/modify</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteField</servlet-name>
+		<url-pattern>/field/delete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DetaildedViewField</servlet-name>
+		<url-pattern>/field/detailedview</url-pattern>	
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>AdminHome</servlet-name>
 		<url-pattern>/admin/home</url-pattern>
 	</servlet-mapping>
@@ -146,7 +162,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListField</servlet-name>
-		<url-pattern>/ListField</url-pattern>
+		<url-pattern>/field/list</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Error404</servlet-name>
@@ -160,22 +176,7 @@
 		<servlet-name>ErrorException</servlet-name>
 		<url-pattern>/error/servererror</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>addField</servlet-name>
-		<url-pattern>/addField</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ModifyField</servlet-name>
-		<url-pattern>/ModifyField</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>DeleteField</servlet-name>
-		<url-pattern>/DeleteField</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>DetaildedViewField</servlet-name>
-		<url-pattern>/DetaildedViewField</url-pattern>
-	</servlet-mapping>
+
 	
 <!-- BEGIN Error Handling -->
 	<!-- TODO agregar HTTP error 500 server error -->

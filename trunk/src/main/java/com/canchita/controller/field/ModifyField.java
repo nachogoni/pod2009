@@ -10,6 +10,7 @@ import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.booking.Expiration;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.field.FloorType;
 import com.canchita.service.FieldService;
 
@@ -38,20 +39,35 @@ public class ModifyField extends HttpServlet {
 
 		try {
 			id = Long.parseLong((request.getParameter("id")));
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			ErrorManager error = new ErrorManager();
+			
+			error.add(e);
+			
+			request.setAttribute("error", error);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			return;
 		}
 
 		try {
-		
 			request.setAttribute("field", service.getById(id));
-			UrlMapper.getInstance().forwardSuccess(this, request, response,
+		} catch (ElementNotExistsException e) {
+			ErrorManager error = new ErrorManager();
+			
+			error.add(e);
+			
+			request.setAttribute("error", error);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.GET);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			return;
 		}
 
+
+		UrlMapper.getInstance().forwardSuccess(this, request, response,
+				UrlMapperType.GET);
 	}
 
 	/**
@@ -66,8 +82,6 @@ public class ModifyField extends HttpServlet {
 		FloorType floor = FloorType.CONCRETE;
 		Expiration expiration = null;
 		
-		//TODO: Migrar a ComplexForm
-		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
 		ErrorManager error = new ErrorManager();
 
 		String name = request.getParameter("name");
@@ -115,11 +129,19 @@ public class ModifyField extends HttpServlet {
 		}*/	
 		
 		if (error.size() != 0) {
-			//this.failure(request, response, error);
+			request.setAttribute("error", error);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
 
-		modifyService.updateField(id, name, description, idComplex, hasRoof, floor, expiration);
+		try {
+			modifyService.updateField(id, name, description, idComplex, hasRoof, floor, expiration);
+		} catch (ElementNotExistsException e) {
+			error.add(e);
+			request.setAttribute("error", error);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
+		}
 
 		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
 		

@@ -53,6 +53,20 @@ public class ListField extends HttpServlet {
 			return;
 		}
 
+		if( (search.trim()).equals("") ) {
+			
+			ErrorManager errorManager = new ErrorManager();
+			
+			errorManager.add("El criterio de búsqueda no puede estar vacío");
+			
+			request.setAttribute("searchError", errorManager);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			
+			return;
+		}
+		
 		try {
 			
 			fields = fieldService.listField(search);
@@ -68,7 +82,7 @@ public class ListField extends HttpServlet {
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.GET);
 			
-			return;			
+			return;
 			
 		}
 		catch(Exception e) {

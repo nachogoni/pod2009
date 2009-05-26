@@ -66,7 +66,21 @@ public class ListComplex extends HttpServlet {
 			
 			return;
 		}
-
+		
+		if( (search.trim()).equals("") ) {
+			
+			ErrorManager errorManager = new ErrorManager();
+			
+			errorManager.add("El criterio de búsqueda no puede estar vacío");
+			
+			request.setAttribute("searchError", errorManager);
+			
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.GET);
+			
+			return;
+		}
+		
 		try {
 			logger.debug("Realizando búsqueda: " + search);
 			
@@ -94,7 +108,7 @@ public class ListComplex extends HttpServlet {
 			logger.error("Error en la búsqueda");
 		}
 
-		request.setAttribute("complexes", complexesSize);
+		request.setAttribute("complexes", complexes);
 		
 		/*
 		 * TODO se hizo esto porque no funcionaba el tag

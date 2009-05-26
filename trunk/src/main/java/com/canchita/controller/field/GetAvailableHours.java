@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
 
@@ -70,7 +71,18 @@ public class GetAvailableHours extends HttpServlet {
 
 		FieldServiceProtocol fieldService = new FieldService();
 
-		Iterator<Schedule> schedules = fieldService.getAvailableHours(id, date);
+		Iterator<Schedule> schedules = null;
+		try {
+			schedules = fieldService.getAvailableHours(id, date);
+		} catch (ElementNotExistsException e1) {
+			try {
+				json.put("success", false);
+			} catch (JSONException e) {
+				this.sendJSON(json, response);
+			}
+
+		}
+		
 		JSONArray values = new JSONArray();
 		JSONArray names = new JSONArray();
 		int i = 0;

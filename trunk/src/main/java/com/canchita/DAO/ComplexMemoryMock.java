@@ -148,4 +148,9 @@ public class ComplexMemoryMock implements ComplexDAO {
 		ComplexMemoryMock.complexMocks.put(complex.getId(),complex);
 	}
 
+	@Override
+	public boolean exists(Long idComplex) {
+		return ComplexMemoryMock.complexMocks.containsKey(idComplex);
+	}
+
 }
