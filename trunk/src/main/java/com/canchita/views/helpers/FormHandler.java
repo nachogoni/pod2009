@@ -46,7 +46,7 @@ public abstract class FormHandler {
 
 		ret = "";
 		
-		ret += String.format("<form name=\"\" action=\"\" method=\"%s\" %s>",
+		ret += String.format("<form name=\"%s\" action=\"\" method=\"%s\" %s>",
 				this.name, this.method, this.getAttributesString());
 		
 		for (FormElement e : formElements) {
