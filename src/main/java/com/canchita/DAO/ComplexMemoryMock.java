@@ -16,6 +16,7 @@ import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
 import com.canchita.model.location.Place;
 
@@ -87,8 +88,13 @@ public class ComplexMemoryMock implements ComplexDAO {
 		return ComplexMemoryMock.complexMocks.values();
 	}
 
-	public Complex getById(Long id) {
-		return ComplexMemoryMock.complexMocks.get(id);
+	public Complex getById(Long id) throws PersistenceException {
+		Complex aComplex = ComplexMemoryMock.complexMocks.get(id);
+		
+		if(aComplex == null)
+			throw new PersistenceException("Complejo no encontrado en la base de datos");
+		
+		return aComplex;
 	}
 
 	public List<Complex> getFiltered(String name, Locatable location) {
@@ -116,21 +122,15 @@ public class ComplexMemoryMock implements ComplexDAO {
 
 	}
 
-	public void save(Complex complex) {
+	public void save(Complex complex) throws PersistenceException {
 		
 		Collection<Complex> complexes = ComplexMemoryMock.complexMocks.values();
-		
-//		List administrators = getAdministrators();
-//
-//		for (Iterator iter = administrators.iterator(); iter.hasNext();) {
-//		   Administrator administrator = (Administrator) iter.next();
-//		   //rest of the code block removed
-//		}
+
 		for(Iterator iter = complexes.iterator(); iter.hasNext();){
 			Complex aComplex = (Complex)iter.next();
 			
 			if(aComplex.getName()== complex.getName()){
-				return;
+				throw new PersistenceException("Ya existe un complejo con ese nombre");
 			}
 		}
 		complex.setId(setPrimaryKey());

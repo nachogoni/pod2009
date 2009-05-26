@@ -119,12 +119,15 @@ public class AddComplex extends HttpServlet {
 			return;
 		}
 
+		try{
 		Long id = addService.saveComplex(name, description, address, zipCode,
 										neighbourhood, town, state, country);
 
 		addService.addScoreSystem(id, booking, deposit, pay, downBooking,
 															downDeposit);
-		
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		
 		UrlMapper.getInstance().redirectSuccess(this, request, response,
