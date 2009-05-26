@@ -90,7 +90,7 @@ public class UrlMapper {
 		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR
 				+ "admin/AdminHome.jsp");
 		successForward.put("AdminHomePOST", FORWARD_ROOT_DIR
-				+ "field/ListField.jsp");
+				+ "admin/AdminHome.jsp");
 
 		successForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");

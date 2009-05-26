@@ -42,6 +42,12 @@ public class Field implements Bookable {
 	private ScoreSystem scoreSystem;
 	private Expiration expiration;
 
+	@Override
+	public String toString() {
+
+		return "Nombre: " + name + " Descripción: " + description;
+	}
+
 	public Complex getComplex() {
 		return complex;
 	}
@@ -104,12 +110,13 @@ public class Field implements Bookable {
 		this.hasRoof = hasRoof;
 		this.floor = floor;
 		this.expiration = expiration;
-		this.id = -1L; // TODO: Esta bien que tenga este id? -> cuando inserto,
-		// tomo un id segun la DB
 	}
 
 	public Field(Complex complex, String name) {
-		// TODO: ir a buscar al complex un determinado field
+		
+		this.complex = complex;
+		this.name = name;
+		
 	}
 
 	public Booking book(Schedule hour) throws PersistenceException,
@@ -217,9 +224,9 @@ public class Field implements Bookable {
 	}
 
 	public Iterator<Booking> getBookings() {
-		
+
 		BookingDAO bookingDAO = new BookingMemoryMock();
-		
+
 		return bookingDAO.getFieldBookings(this.id);
 	}
 
