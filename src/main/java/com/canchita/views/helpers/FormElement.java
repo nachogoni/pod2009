@@ -9,6 +9,7 @@ public class FormElement {
 	private String value;
 	private Decorator deco;
 	protected ArrayList<String> validators;
+	protected ArrayList<FormElementSelect> options;
 	private boolean required;
 	
 
@@ -19,7 +20,15 @@ public class FormElement {
 		label = "";
 		value = "";
 		validators = new ArrayList<String>();
+		options = new ArrayList<FormElementSelect>();
 		deco = new Decorator();
+	}
+	
+	public FormElement addValue(String name, String Value){
+		if (this.type == "select"){
+			options.add(new FormElementSelect(name,Value));
+		}
+		return this;
 	}
 
 	public FormElement setRequired(boolean flag) {
@@ -30,7 +39,10 @@ public class FormElement {
 	public String toString() {
 		String ret = "";
 		
-		ret = this.genLabel()+this.genInput();
+		if (this.type.equals("select"))
+			ret = this.genLabel()+this.genSelect();
+		else
+			ret = this.genLabel()+this.genInput();
 		
 		if (!deco.getFieldset().isEmpty())
 		{
@@ -45,6 +57,15 @@ public class FormElement {
 	private String genInput() {
 		return String.format("<input type=\"%s\" name=\"%s\" value=\"%s\">",
 							this.type, this.name, this.value);
+	}
+	
+	private String genSelect(){
+		String ret = "";
+		for (FormElementSelect e : options){
+			ret += e.toString();
+		}
+		
+		return String.format("<select name=\"%s\"> %s </select>", this.name, ret);
 	}
 	
 	public FormElement setLabel(String aLabel) {
