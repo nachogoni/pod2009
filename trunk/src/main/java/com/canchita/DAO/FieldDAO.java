@@ -17,7 +17,7 @@ public interface FieldDAO {
 	
 	public Collection<Field> getAll();
 	
-	public List<Field> getFiltered(String filter);
+	public Collection<Field> getFiltered(String filter);
 
 	public boolean exists(Field field);
 	
