@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -21,35 +23,39 @@ import com.canchita.service.FieldServiceProtocol;
  */
 public class ListField extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListField() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	Logger logger = Logger.getLogger(ListField.class.getName());
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ListField() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		logger.debug("GET request");
 		String search = request.getParameter("search");
 		Collection<Field> fields = null;
 		int fieldsSize = 0;
-		
+
 		FieldServiceProtocol fieldService = new FieldService();
-		
-		if( search == null ) {
-			
+
+		if (search == null) {
+
 			fields = fieldService.listField();
-			
+
 			request.setAttribute("fields", fields);
-			
+
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
-			
+
 			return;
 		}
 
@@ -68,42 +74,40 @@ public class ListField extends HttpServlet {
 		}
 		
 		try {
-			
+
 			fields = fieldService.listField(search);
 			fieldsSize = fields.size();
-		}
-		catch(ValidationException e) {
+		} catch (ValidationException e) {
+			logger.debug("Error realizando búsqueda");
 			ErrorManager errorManager = new ErrorManager();
-			
+
 			errorManager.add(e);
-			
+
 			request.setAttribute("searchError", errorManager);
-			
+
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.GET);
-			
-			return;
-			
-		}
-		catch(Exception e) {
+
+		} catch (Exception e) {
+			logger.error("Error realizando búsqueda");
 			fields = null;
 			fieldsSize = -1;
 		}
 
 		request.setAttribute("fields", fields);
-		
+
 		/*
-		 * TODO se hizo esto porque no funcionaba el tag
-		 * fn:length de jstl. Investigar!
+		 * TODO se hizo esto porque no funcionaba el tag fn:length de jstl.
+		 * Investigar!
 		 */
-		
+
 		request.setAttribute("fieldsLength", fieldsSize);
-		
+
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
-		
+
 		return;
-		
+
 	}
 
 }

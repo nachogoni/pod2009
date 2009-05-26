@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -23,6 +25,8 @@ import com.canchita.views.helpers.FormHandler;
 public class AddField extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	Logger logger = Logger.getLogger(AddField.class.getName());
+	
 	private FormHandler formulario;
 
 	/**
@@ -40,6 +44,8 @@ public class AddField extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		logger.debug("GET request");
+		
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
@@ -52,6 +58,8 @@ public class AddField extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		logger.debug("POST request");
+		
 		FieldService addService = new FieldService();
 
 		Long idComplex = -1L;
@@ -101,14 +109,17 @@ public class AddField extends HttpServlet {
 		}*/		
 
 		if (error.size() != 0) {
+			logger.debug("Formulario inválido");
 			request.setAttribute("error", error);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
 
 		try {
+			logger.debug("Guardando cancha");
 			addService.saveField(name, description, idComplex, hasRoof, floor, expiration);
 		} catch (PersistenceException e) {
+			logger.error("Error guardando cancha");
 			error.add(e);
 			request.setAttribute("error", error);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);

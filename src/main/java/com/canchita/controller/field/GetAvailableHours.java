@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -29,6 +30,7 @@ import com.canchita.service.FieldServiceProtocol;
  */
 public class GetAvailableHours extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Logger logger = Logger.getLogger(GetAvailableHours.class.getName());
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -37,6 +39,8 @@ public class GetAvailableHours extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		logger.debug("GET request");
+		
 		Long id = null;
 		DateTime date = null;
 		JSONObject json = new JSONObject();
@@ -44,9 +48,11 @@ public class GetAvailableHours extends HttpServlet {
 		try {
 			id = Long.parseLong(request.getParameter("id"));
 		} catch (NumberFormatException nfe) {
+			logger.error("Error leyendo id");
 			try {
 				json.put("success", false);
 			} catch (JSONException e) {
+				logger.error("Error leyendo id");
 				this.sendJSON(json, response);
 			}
 
@@ -59,9 +65,11 @@ public class GetAvailableHours extends HttpServlet {
 		try {
 			date = parser.parseDateTime(dateParameter);
 		} catch (IllegalArgumentException iae) {
+			logger.error("Error parseando fecha");
 			try {
 				json.put("success", false);
 			} catch (JSONException e) {
+				logger.error("Error parseando fecha (json)");
 				this.sendJSON(json, response);
 			}
 
@@ -94,7 +102,7 @@ public class GetAvailableHours extends HttpServlet {
 					+ " - " + schedule.getEndTime().toString("HH:mm");
 
 			System.out.println(representation);
-			
+
 			values.put(representation);
 			names.put(i++);
 		}
@@ -103,6 +111,7 @@ public class GetAvailableHours extends HttpServlet {
 			json.put("availability", values.toJSONObject(names));
 			json.put("success", true);
 		} catch (JSONException e) {
+			logger.error("Excepción seteando disponibilidad");
 		} finally {
 			this.sendJSON(json, response);
 		}
