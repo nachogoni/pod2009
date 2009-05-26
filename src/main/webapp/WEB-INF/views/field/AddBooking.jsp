@@ -35,6 +35,14 @@
 		<span class="block">* No hay horarios disponibles para este día</span>
 	</div>
 
+	<div id="whenJSONError" class="ui-state-error ui-corner-all hidden error"> 
+	
+		<span class="ui-icon ui-icon-alert errorIcon"></span>
+		<span><strong>Alerta:</strong></span>
+		<span id="whenJSONErrorMsg" class="block"></span>
+	</div>
+
+
 	
 	<fieldset id="whenForm" >
 	<legend>Ahora, seleccione el horario de entre los disponibles</legend>
@@ -75,8 +83,8 @@
 	<input type="submit" value="Agregar" class="submit-go" />
 </form>
 
-<script src="/tp-pod/js/jquery/js/jquery-1.3.2.min.js" type="text/javascript"/></script>
-<script src="/tp-pod/js/jquery/js/jquery-ui-1.7.1.custom.min.js" type="text/javascript"/></script>
+<jsp:include page="/WEB-INF/views/general/js.jsp"
+	flush="true" />
 <script src="/tp-pod/js/util/calendar.js" type="text/javascript"/></script>
 <script src="/tp-pod/js/field/book/init.js" type="text/javascript"/></script>
 

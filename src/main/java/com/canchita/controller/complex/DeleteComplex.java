@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
 
 /**
@@ -46,15 +49,29 @@ public class DeleteComplex extends HttpServlet {
 			logger.error("Error leyendo identificador");
 		}
 
+		ErrorManager error = new ErrorManager();
+		
 		try {
 			logger.debug("Eliminando complejo " + id);
 			delService.deleteComplex(id);
 			UrlMapper.getInstance().redirectSuccess(this, request, response,
-					UrlMapperType.GET);
+					UrlMapperType.POST);
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ElementNotExistsException e) {
+			error.add(e);
+		} catch (PersistenceException e) {
+			error.add(e);
+		}
+		
+		/*
+		 * TODO cambiar esto a un forward a la pagina get que ṕide confirmacion
+		 */
+		
+		if( error.size() != 0 ) {
 			logger.error("Error eliminando complejo con id: " + id);
+			UrlMapper.getInstance().redirectFailure(this, request, response,
+					UrlMapperType.POST);
+
 		}
 	}
 

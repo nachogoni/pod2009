@@ -26,10 +26,10 @@
 			</form>
 		</td>
 		<td>
-			<form action="/tp-pod/ModifyComplex" method="post">
+			<form action="/tp-pod/field/add" method="get">
 			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-			<input type="submit" name="modify" value="Agregar Canchas" />
+			<input type="submit" name="add" value="Agregar Canchas" />
 			</form>
 		</td>
 	</tr>

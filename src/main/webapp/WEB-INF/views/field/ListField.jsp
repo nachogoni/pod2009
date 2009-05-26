@@ -44,7 +44,7 @@
 					<td><strong>Nombre</strong></td>
 					<td><strong>Lugar</strong></td>
 					<td><strong>Descipción</strong></td>
-					<td><a href="/tp-pod/AddField">Agregar Nuevo</a></td>
+					<td><a href="/tp-pod/field/add">Agregar Nuevo</a></td>
 				</tr>
 				<c:forEach items="${fields}" var="field" varStatus="rowCounter">
 						

@@ -8,8 +8,24 @@
 
 <h1>Agregar un nuevo Complejo</h1>
 
+<c:if test="${(errorManager != null)}">
+<div class="ui-state-error ui-corner-all error"> 
+
+<span class="ui-icon ui-icon-alert errorIcon"></span>
+<span>
+<strong>Alerta:</strong>
+</span>
+		<c:forEach items="${errorManager.errors}" var="error">
+			<span class="block">* <c:out value="${error}"/></span>
+		</c:forEach>
+</div>
+</c:if>
 
 <c:out value="${formulario}" escapeXml="false" />
+
+<jsp:include page="/WEB-INF/views/general/js.jsp"
+	flush="true" />
+<script src="/tp-pod/js/complex/add/init.js" type="text/javascript"/></script>
 
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
 	flush="true" />

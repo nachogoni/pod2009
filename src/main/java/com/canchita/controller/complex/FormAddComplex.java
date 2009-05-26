@@ -15,6 +15,7 @@ public class FormAddComplex extends FormHandler {
 		ArrayList<String> scomplejo = new ArrayList<String>();
 		ArrayList<String> subicacion = new ArrayList<String>();
 		ArrayList<String> spuntos = new ArrayList<String>();
+		ArrayList<String> sexpiration = new ArrayList<String>();
 
 		this.setName("Complejo")
 	  		.setMethod("post");
@@ -90,6 +91,18 @@ public class FormAddComplex extends FormHandler {
 			.setRequired(true)
 			.addValidator("IsNumeric"));
 
+		this.addElement(new FormElementInput("text","depositLimit")
+		.setLabel("Límite de seña")
+		.setId("depositLimit")
+		.setRequired(true)
+		.addValidator("IsNumeric"));
+		
+		this.addElement(new FormElementInput("text","bookingLimit")
+		.setLabel("Límite de pago")
+		.setId("bookingLimit")
+		.setRequired(true)
+		.addValidator("IsNumeric"));
+		
 		/* agrego los grupos */
 		scomplejo.add("name");
 		scomplejo.add("description");
@@ -112,6 +125,11 @@ public class FormAddComplex extends FormHandler {
 		spuntos.add("downBooking");
 		spuntos.add("downDeposit");
 		this.addDisplayGroup(spuntos, "Sistema de Puntos");
+
+		sexpiration.add("depositLimit");
+		sexpiration.add("bookingLimit");
+		this.addDisplayGroup(sexpiration, "Seña y Pago de Reservas");
+
 		
 	}
 }

@@ -55,6 +55,13 @@ function getHours() {
 
 			$("#whenForm").removeClass("hidden");
 
+		} else {
+			
+			var errorMsg = data['error'] ? data['error'] : "Error al buscar la disponibilidad de la cancha"; 
+			
+			$("#whenJSONErrorMsg").empty();
+			$("#whenJSONErrorMsg").append("* " + errorMsg);
+			$("#whenJSONError").removeClass("hidden");
 		}
 	}
 

@@ -102,6 +102,7 @@ public class UrlMapper {
 		this.failureForward = new HashMap<String, String>();
 
 		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+		failureForward.put("ListComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
 		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
 		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR + "field/ListField.jsp");

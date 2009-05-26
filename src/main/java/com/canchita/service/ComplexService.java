@@ -23,7 +23,7 @@ import com.canchita.model.location.Place;
 
 public class ComplexService implements ComplexServiceProtocol {
 
-	public void deleteComplex(Long id) {
+	public void deleteComplex(Long id) throws PersistenceException {
 
 		(new ComplexMemoryMock()).delete(id);
 	}
@@ -222,12 +222,19 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 
 	@Override
-	public void addExpiration(Long id, Integer bookingLimit, Integer depositLimit) throws PersistenceException, InvalidParameterException {
+	public void addExpiration(Long id, Integer bookingLimit,
+			Integer depositLimit) throws PersistenceException {
 		Expiration anExpiration = new Expiration();
-		
-		if(bookingLimit == null || bookingLimit < 0 || depositLimit == null || depositLimit < 0)
-			throw new InvalidParameterException("Valores de caducidad invalidos");
-		
+
+		if (bookingLimit == null || bookingLimit < 0 || depositLimit == null
+				|| depositLimit < 0)
+			throw new IllegalArgumentException("Valores de caducidad invalidos");
+
+		if (depositLimit < bookingLimit) {
+			throw new IllegalArgumentException(
+					"El valor de caducidad de seña no puede ser menor al valor de caducidad de la reserva");
+		}
+
 		anExpiration.setBookingLimit(bookingLimit);
 		anExpiration.setDepositLimit(depositLimit);
 
@@ -240,7 +247,6 @@ public class ComplexService implements ComplexServiceProtocol {
 			throw new PersistenceException("Complejo no encontrado");
 		}
 
-		
 	}
 
 }

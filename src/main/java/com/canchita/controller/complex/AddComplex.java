@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
 import com.canchita.views.helpers.FormHandler;
 import com.canchita.controller.helper.ErrorManager;
@@ -64,8 +67,6 @@ public class AddComplex extends HttpServlet {
 		{
 			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
-			//UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
-			//UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.GET);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
@@ -89,6 +90,7 @@ public class AddComplex extends HttpServlet {
 		String country = request.getParameter("country");
 		String address = request.getParameter("address");
 
+		
 		if (name == null) {
 			error.add("Falta el nombre del Complejo");
 		}	
@@ -101,6 +103,8 @@ public class AddComplex extends HttpServlet {
 		if(state == null){
 			error.add("Falta la provincia/estado donde se encuentra el complejo");
 		}		
+
+
 		
 		Integer booking = null;
 		Integer deposit = null; 
@@ -121,19 +125,53 @@ public class AddComplex extends HttpServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
+			request.setAttribute("formulario", formulario);
 			this.failure(request, response, error);
 			return;
 		}
 
+		Integer depositLimit = null;
+		Integer bookingLimit = null;
+		
 		try{
-		Long id = addService.saveComplex(name, description, address, zipCode,
-										neighbourhood, town, state, country);
+			
+			depositLimit = Integer.parseInt(request.getParameter("depositLimit"));
+			bookingLimit = Integer.parseInt(request.getParameter("bookingLimit"));
+		} catch (NumberFormatException nfe) {
+			error.add("Valores para el sistema de reservas incorrectos");
+		}
 
-		addService.addScoreSystem(id, booking, deposit, pay, downBooking,
-															downDeposit);
-		}catch (Exception e) {
-			logger.error("Error guardando complejo");
-			// TODO: handle exception
+		if (error.size() != 0) {
+			logger.debug("Error en el formulario");
+			request.setAttribute("formulario", formulario);
+			this.failure(request, response, error);
+			return;
+		}
+		
+		try{
+			Long id = addService.saveComplex(name, description, address, zipCode,
+											neighbourhood, town, state, country);
+			addService.addScoreSystem(id, booking, deposit, pay, downBooking,
+																downDeposit);
+			
+			addService.addExpiration(id, bookingLimit, depositLimit);
+		}
+		catch(ElementExistsException ee) {
+			
+			error.add(ee);
+
+		} catch (PersistenceException e) {
+			error.add(e);
+		}
+		catch(IllegalArgumentException e) {
+			error.add(e);
+		}
+		
+		if (error.size() != 0) {
+			logger.debug("Error al guardar el complejo");
+			request.setAttribute("formulario", formulario);
+			this.failure(request, response, error);
+			return;
 		}
 
 		
@@ -149,7 +187,7 @@ public class AddComplex extends HttpServlet {
 		request.setAttribute("errorManager", error);
 
 		UrlMapper.getInstance().forwardFailure(this, request, response,
-				UrlMapperType.GET);
+				UrlMapperType.POST);
 
 	}
 
