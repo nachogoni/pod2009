@@ -2,6 +2,7 @@ package com.canchita.controller.field;
 
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.field.FloorType;
+import com.canchita.views.helpers.Decorator;
 import com.canchita.views.helpers.FormElementInput;
 import com.canchita.views.helpers.FormElementSelect;
 import com.canchita.views.helpers.FormHandler;
@@ -26,8 +27,8 @@ public class FormField extends FormHandler {
 		this.addElement(new FormElementSelect("hasRoof")
 			.setLabel("Techada")
 			.setRequired(true)
-			.addValue("Sí", "Sí")
-			.addValue("No", "No"));
+			.addValue("Sí", "True")
+			.addValue("No", "False"));
 		
 		this.addElement(new FormElementSelect("floor")
 			.setLabel("Piso")
@@ -36,9 +37,16 @@ public class FormField extends FormHandler {
 			.addValue("Césped Sintético", "ARTIFICIAL_GRASS")
 			.addValue("Césped", "GRASS"));
 		
-		//(String name, String description, Long idComplex,
-			//	Boolean hasRoof, FloorType floor, Expiration expiration)
+		Decorator decorator = new Decorator()
+		.setSclass("submit-go"); 
 		
+	    this.addElement(new FormElementInput("submit","submit")
+           .setValue("Confirmar")
+           .setDecorator(decorator));
+      
+        this.addElement(new FormElementInput("reset","reset")
+           .setValue("Reset")
+           .setDecorator(decorator));
 	}
 
 }

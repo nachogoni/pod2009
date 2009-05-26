@@ -7,6 +7,11 @@
 	margin-top:2em;
 }
 
+.errors {
+color: #D63301;
+background-color: #FFCCBA;
+}
+
 .error, .info {
 	padding:2em;
 	margin-top: 1em;

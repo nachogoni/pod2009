@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.canchita.controller.field.AddBooking;
+
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -33,7 +35,7 @@ public class UrlMapper {
 	private static final UrlMapper mapper = new UrlMapper();
 	private static final String DEFAULT = "DEFAULT";
 	private static final String FORWARD_ROOT_DIR = "/WEB-INF/views/";
-	
+
 	private Map<String, String> successForward;
 	private Map<String, String> failureForward;
 	private Map<String, String> successRedirect;
@@ -61,38 +63,59 @@ public class UrlMapper {
 
 		this.successForward = new HashMap<String, String>();
 
-		/*Field*/
-		successForward.put("ListFieldGET", FORWARD_ROOT_DIR + "field/ListField.jsp");
-		successForward.put("AddFieldGET", FORWARD_ROOT_DIR + "field/AddFieldForm.jsp");
-		successForward.put("AddFieldPOST", FORWARD_ROOT_DIR + "field/ListField.jsp");
-		successForward.put("ModifyFieldGET", FORWARD_ROOT_DIR + "field/ModifyField.jsp");
-		successForward.put("DetailedViewFieldGET", FORWARD_ROOT_DIR + "field/ViewField.jsp");
-		/*Complex*/
-		successForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
-		successForward.put("AddComplexGET", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
-		successForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
-		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR + "complex/ModifyComplex.jsp");
-		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
+		/* Field */
+		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
+				+ "field/ListField.jsp");
+		successForward.put("AddFieldGET", FORWARD_ROOT_DIR
+				+ "field/AddFieldForm.jsp");
+		successForward.put("AddFieldPOST", FORWARD_ROOT_DIR
+				+ "field/ListField.jsp");
+		successForward.put("ModifyFieldGET", FORWARD_ROOT_DIR
+				+ "field/ModifyField.jsp");
+		successForward.put("DetailedViewFieldGET", FORWARD_ROOT_DIR
+				+ "field/ViewField.jsp");
+		/* Complex */
+		successForward.put("ListComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ListComplex.jsp");
+		successForward.put("AddComplexGET", FORWARD_ROOT_DIR
+				+ "complex/AddComplexForm.jsp");
+		successForward.put("AddComplexPOST", FORWARD_ROOT_DIR
+				+ "complex/ListComplex.jsp");
+		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ModifyComplex.jsp");
+		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ViewComplex.jsp");
 
-		/*Admin home*/
-		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR + "admin/AdminHome.jsp");
-		successForward.put("AdminHomePOST", FORWARD_ROOT_DIR + "field/ListField.jsp");
-		
-		successForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
-		successForward.put("Error404GET" , FORWARD_ROOT_DIR + "error/404.jsp");
-		successForward.put("Error500GET" , FORWARD_ROOT_DIR + "error/500.jsp");
-		successForward.put("ErrorExceptionGET" , FORWARD_ROOT_DIR + "error/exception.jsp");
-		
+		/* Admin home */
+		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR
+				+ "admin/AdminHome.jsp");
+		successForward.put("AdminHomePOST", FORWARD_ROOT_DIR
+				+ "field/ListField.jsp");
+
+		successForward.put("AddBookingGET", FORWARD_ROOT_DIR
+				+ "field/AddBooking.jsp");
+		successForward.put("Error404GET", FORWARD_ROOT_DIR + "error/404.jsp");
+		successForward.put("Error500GET", FORWARD_ROOT_DIR + "error/500.jsp");
+		successForward.put("ErrorExceptionGET", FORWARD_ROOT_DIR
+				+ "error/exception.jsp");
+
 		this.successRedirect = new HashMap<String, String>();
-		
-		/*Field*/
-		successRedirect.put("AddFieldPOST","/tp-pod/field/list");
-		successRedirect.put("DeleteFieldPOST", "/tp-pod/field/list?delete=true");
-		successRedirect.put("ModifyFieldPOST", "/tp-pod/field/list");
-		/*Complex*/
-		successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
-		successRedirect.put("DeleteComplexPOST", "/tp-pod/ListComplex?delete=true");
-		successRedirect.put("ModifyComplexPOST", "/tp-pod/ListComplex");
+
+		/* Field */
+		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
+		successRedirect
+				.put("DeleteFieldPOST", "/tp-pod/field/list?delete=true");
+		successRedirect
+				.put("ModifyFieldPOST", "/tp-pod/field/list?modify=true");
+		/* Complex */
+		successRedirect.put("AddComplexPOST", "/tp-pod/ListComplex?add=true");
+		successRedirect.put("DeleteComplexPOST",
+				"/tp-pod/ListComplex?delete=true");
+		successRedirect.put("ModifyComplexPOST",
+				"/tp-pod/ListComplex?modify=true");
+		successRedirect.put("AddBookingPOST",
+		"/tp-pod/DetailedViewComplex");
+
 	}
 
 	/**
@@ -101,18 +124,34 @@ public class UrlMapper {
 	private void initializeFailure() {
 		this.failureForward = new HashMap<String, String>();
 
-		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
-		failureForward.put("ListComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
-		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
-		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
-		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR + "field/ListField.jsp");
-		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR + "error/500.jsp");
+		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ListComplex.jsp");
+		failureForward.put("ListComplexPOST", FORWARD_ROOT_DIR
+				+ "complex/ListComplex.jsp");
+		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR
+				+ "complex/AddComplexForm.jsp");
+		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR
+				+ "field/AddBooking.jsp");
 
+		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR
+				+ "field/ListField.jsp");
+		failureForward.put("AddFieldPOST", FORWARD_ROOT_DIR
+				+ "field/AddFieldForm.jsp");
+
+		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
+				+ "error/500.jsp");
+
+		failureForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ViewComplex.jsp");
+		
 		this.failureRedirect = new HashMap<String, String>();
 
-		failureRedirect.put("DeleteComplexPOST", "/tp-pod/ListComplex?delete=false");
-		failureRedirect.put("DeleteFieldPOST", "/tp-pod/field/list?delete=false");
-		failureRedirect.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR + "error/500.jsp");
+		failureRedirect.put("DeleteComplexPOST",
+				"/tp-pod/ListComplex?delete=false");
+		failureRedirect.put("DeleteFieldPOST",
+				"/tp-pod/field/list?delete=false");
+		failureRedirect.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
+				+ "error/500.jsp");
 
 	}
 
@@ -207,33 +246,29 @@ public class UrlMapper {
 
 	}
 
-	public void redirectSuccess(HttpServlet servlet, HttpServletRequest request,
-			HttpServletResponse response, UrlMapperType type)
-			throws IOException {
+	public void redirectSuccess(HttpServlet servlet,
+			HttpServletRequest request, HttpServletResponse response,
+			UrlMapperType type) throws IOException {
 
 		this.redirect(servlet, request, response, type, successRedirect);
 
 	}
 
-
-	public void redirectFailure(HttpServlet servlet, HttpServletRequest request,
-			HttpServletResponse response, UrlMapperType type)
-			throws IOException {
+	public void redirectFailure(HttpServlet servlet,
+			HttpServletRequest request, HttpServletResponse response,
+			UrlMapperType type) throws IOException {
 
 		this.redirect(servlet, request, response, type, failureRedirect);
 
 	}
 
-
-	
 	private void forward(HttpServlet servlet, HttpServletRequest request,
 			HttpServletResponse response, UrlMapperType type,
 			Map<String, String> map) throws ServletException, IOException {
 
 		String url = this.findUrl(map, servlet, type);
 
-		request.getRequestDispatcher(url).forward(
-				request, response);
+		request.getRequestDispatcher(url).forward(request, response);
 
 	}
 
@@ -245,6 +280,44 @@ public class UrlMapper {
 
 		response.sendRedirect(url);
 
+	}
+
+	public void redirectSuccess(HttpServlet servlet,
+			HttpServletRequest request, HttpServletResponse response,
+			UrlMapperType type, Map<String, String> params) throws IOException {
+
+		this.redirect(servlet, request, response, type, successRedirect,params);
+
+	}
+
+	private void redirect(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type,
+			Map<String, String> map, Map<String, String> paramsMap) throws IOException {
 		
+		String params = this.buildParams(paramsMap);
+		
+		String url = this.findUrl(map, servlet, type);
+
+		response.sendRedirect(url + "?" + params);
+	}
+
+	private String buildParams(Map<String, String> paramsMap) {
+		
+		String params = "";
+		boolean isFirst = true;
+		
+		for (String key : paramsMap.keySet()) {
+			
+			if( isFirst ) {
+				isFirst = false;
+			}
+			else {
+				params += "&";
+			}
+			
+			params += key + "=" + paramsMap.get(key); 
+		}
+		
+		return params;
 	}
 }

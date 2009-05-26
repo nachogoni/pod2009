@@ -13,6 +13,47 @@
 
 <h1>Listado de Complejos</h1>
 
+<%-- TODO generalizar esto --%>
+
+<c:if test="${(param.add != null)}">
+
+	<c:choose>
+	  <c:when test="${param.add}">
+	    <c:set var="addMsg" scope="page" value="El complejo fue agregado exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="addMsg" scope="page" value="Error al agregar el complejo"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${addMsg}" /></span>
+	</div>
+</c:if>
+
+<c:if test="${(param.modify != null)}">
+
+	<c:choose>
+	  <c:when test="${param.modify}">
+	    <c:set var="modifyMsg" scope="page" value="El complejo fue modificado exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="modifyMsg" scope="page" value="Error al modificar el complejo"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${modifyMsg}" /></span>
+	</div>
+</c:if>
+
+
 <c:if test="${(param.delete != null)}">
 
 	<c:choose>
