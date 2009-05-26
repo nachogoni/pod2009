@@ -37,7 +37,6 @@ public class FormAddComplex extends FormHandler {
 		
 		this.addElement(new FormElementInclude("/WEB-INF/resources/countries_es.html"));
 
-
 		elements.add("name");
 		this.addDisplayGroup(elements, "posta");
 		
