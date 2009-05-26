@@ -58,7 +58,7 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	public Long saveField(String name, String description, Long idComplex,
-			Boolean hasRoof, FloorType floor, Expiration expiration) throws PersistenceException
+			Boolean hasRoof, FloorType floor) throws PersistenceException
 			  {
 
 		Field aField = new Field((new ComplexMemoryMock()).getById(idComplex),
@@ -67,7 +67,7 @@ public class FieldService implements FieldServiceProtocol {
 		aField.setDescription(description);
 		aField.setHasRoof(hasRoof);
 		aField.setFloor(floor);
-		aField.setExpiration(expiration);
+		
 
 		(new FieldMemoryMock()).save(aField);
 
@@ -76,8 +76,7 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	public void updateField(Long id, String name, String description,
-			Long idComplex, Boolean hasRoof, FloorType floor,
-			Expiration expiration) throws PersistenceException {
+			Long idComplex, Boolean hasRoof, FloorType floor) throws PersistenceException {
 
 		Field aField = getById(id);
 
@@ -93,9 +92,7 @@ public class FieldService implements FieldServiceProtocol {
 		if (floor != null) {
 			aField.setFloor(floor);
 		}
-		if (expiration != null) {
-			aField.setExpiration(expiration);
-		}
+
 
 		(new FieldMemoryMock()).update(aField);
 	}

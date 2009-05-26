@@ -7,7 +7,6 @@ import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
-import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -25,12 +24,11 @@ public interface FieldServiceProtocol {
 	public void deleteField(Long id) throws ElementNotExistsException;
 
 	public Long saveField(String name, String description, Long idComplex,
-			Boolean hasRoof, FloorType floor, Expiration expiration)
+			Boolean hasRoof, FloorType floor)
 			throws PersistenceException;
 
 	public void updateField(Long id, String name, String description,
-			Long idComplex, Boolean hasRoof, FloorType floor,
-			Expiration expiration) throws ElementNotExistsException, PersistenceException;
+			Long idComplex, Boolean hasRoof, FloorType floor) throws ElementNotExistsException, PersistenceException;
 
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws ElementNotExistsException;

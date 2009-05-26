@@ -136,7 +136,7 @@ public class ModifyField extends HttpServlet {
 		}
 
 		try {
-			modifyService.updateField(id, name, description, idComplex, hasRoof, floor, expiration);
+			modifyService.updateField(id, name, description, idComplex, hasRoof, floor);
 		} catch (ElementNotExistsException e) {
 			error.add(e);
 			request.setAttribute("error", error);
