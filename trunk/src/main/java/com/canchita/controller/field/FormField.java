@@ -24,25 +24,25 @@ public class FormField extends FormHandler {
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
 			.setRequired(true)
-			.addValidator("IsAlphaNum"));
+			.addValidator("IsAlphaNumS"));
 		
 		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
 			.setRequired(false)
-			.addValidator("IsAlphaNum"));
+			.addValidator("IsAlphaNumS"));
 		
 		this.addElement(new FormElementSelect("hasRoof")
-			.setLabel("Techadaaa")
+			.setLabel("Techada")
 			.setRequired(false)
-			.addValue("Sí", (new Boolean(true)).toString())
-			.addValue("No", (new Boolean(false)).toString()));
+			.addValue("Sí", "True")
+			.addValue("No", "False"));
 		
 		this.addElement(new FormElementSelect("floor")
 			.setLabel("Piso")
 			.setRequired(false)
-			.addValue(FloorType.CONCRETE.toString(), FloorType.CONCRETE.toString())
-			.addValue(FloorType.ARTIFICIAL_GRASS.toString(), FloorType.ARTIFICIAL_GRASS.toString())
-			.addValue(FloorType.GRASS.toString(), FloorType.GRASS.toString()));
+			.addValue(FloorType.CONCRETE.toString(), "CONCRETE")
+			.addValue(FloorType.ARTIFICIAL_GRASS.toString(), "ARTIFICIAL_GRASS")
+			.addValue(FloorType.GRASS.toString(), "GRASS"));
 		
 		this.addElement(new FormElementInput("hidden","idComplex"));
 
