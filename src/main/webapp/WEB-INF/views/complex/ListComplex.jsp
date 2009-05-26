@@ -9,11 +9,11 @@
 
 <h1>Listado de Complejos</h1>
 
-<form action="/tp-pod/ListComplex" method="get">
+<form action="" method="get">
 	<fieldset>
 	<legend>Búsqueda de complejos</legend>
 	<label for="search">Nombre: </label>
-	<input id="complexName" type="text" name="search" value="<c:out value="${param.name}" />"/>
+	<input id="complexName" type="text" name="search" value="<c:out value="${param.search}" />"/>
 	</fieldset>
 
 	<input type="submit" value="Buscar" class="submit-go" />

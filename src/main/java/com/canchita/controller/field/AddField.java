@@ -10,6 +10,7 @@ import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.booking.Expiration;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
 import com.canchita.service.ComplexService;
 import com.canchita.service.FieldService;
@@ -17,9 +18,9 @@ import com.canchita.views.helpers.ComplexForm;
 import com.canchita.views.helpers.FormHandler;
 
 /**
- * Servlet implementation class addField
+ * Servlet implementation class AddField
  */
-public class addField extends HttpServlet {
+public class AddField extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private FormHandler formulario;
@@ -27,7 +28,7 @@ public class addField extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public addField() {
+	public AddField() {
 		super();
 		formulario = new ComplexForm();
 	}
@@ -39,7 +40,6 @@ public class addField extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		//TODO: Migrar a FieldForm
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
@@ -59,8 +59,6 @@ public class addField extends HttpServlet {
 		FloorType floor = FloorType.CONCRETE;
 		Expiration expiration = null;
 		
-		//TODO: Migrar a FieldForm
-		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
 		ErrorManager error = new ErrorManager();
 
 		String name = request.getParameter("name");
@@ -103,24 +101,22 @@ public class addField extends HttpServlet {
 		}*/		
 
 		if (error.size() != 0) {
-			this.failure(request, response, error);
+			request.setAttribute("error", error);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
 
-		Long id = addService.saveField(name, description, idComplex, hasRoof, floor, expiration);
+		try {
+			addService.saveField(name, description, idComplex, hasRoof, floor, expiration);
+		} catch (PersistenceException e) {
+			error.add(e);
+			request.setAttribute("error", error);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
+		}
 		
 		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
 		
-	}
-	
-	private void failure(HttpServletRequest request,
-			HttpServletResponse response, ErrorManager error)
-			throws ServletException, IOException {
-		request.setAttribute("errorManager", error);
-
-		UrlMapper.getInstance().forwardFailure(this, request, response,
-				UrlMapperType.GET);
-
 	}
 
 }

@@ -8,11 +8,11 @@
 </jsp:include>
 
 <h1>Listado de Canchas</h1>
-<form action="/tp-pod/ListField" method="get">
+<form action="" method="get">
 	<fieldset>
 	<legend>Búsqueda de canchas</legend>
 	<label for="search">Nombre: </label>
-	<input id="fieldName" type="text" name="search" value="<c:out value="${param.name}" />"/>
+	<input id="fieldName" type="text" name="search" value="<c:out value="${param.search}" />"/>
 	</fieldset>
 
 	<input type="submit" value="Buscar" class="submit-go" />

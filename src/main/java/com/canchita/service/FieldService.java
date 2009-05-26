@@ -13,13 +13,15 @@ import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
 
 public class FieldService implements FieldServiceProtocol {
 
-	public void deleteField(Long id) {
+	public void deleteField(Long id) throws ElementNotExistsException {
 		(new FieldMemoryMock()).delete(id);
 	}
 
@@ -28,16 +30,18 @@ public class FieldService implements FieldServiceProtocol {
 		System.out.println(fields.toString());
 		return fields;
 	}
-	
-	public Collection<Field> listField(Long idComplex) throws ValidationException {
-		
+
+	public Collection<Field> listField(Long idComplex)
+			throws ValidationException, ElementNotExistsException {
+
 		FieldDAO fieldDAO = new FieldMemoryMock();
 
 		return fieldDAO.getFiltered(idComplex);
-		
+
 	}
 
-	public Collection<Field> listField(String filter) throws ValidationException {
+	public Collection<Field> listField(String filter)
+			throws ValidationException {
 
 		Validator validator = new IsAlphaNum(true);
 
@@ -52,23 +56,28 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
-	public Long saveField(String name, String description, Long idComplex, Boolean hasRoof, FloorType floor, Expiration expiration) {
-		
-		Field aField = new Field((new ComplexMemoryMock()).getById(idComplex), name);
-		
+	public Long saveField(String name, String description, Long idComplex,
+			Boolean hasRoof, FloorType floor, Expiration expiration) throws PersistenceException
+			  {
+
+		Field aField = new Field((new ComplexMemoryMock()).getById(idComplex),
+				name);
+
 		aField.setDescription(description);
 		aField.setHasRoof(hasRoof);
 		aField.setFloor(floor);
 		aField.setExpiration(expiration);
 
 		(new FieldMemoryMock()).save(aField);
-		
+
 		return aField.getId();
-		
+
 	}
-	
-	public void updateField(Long id, String name, String description, Long idComplex, Boolean hasRoof, FloorType floor, Expiration expiration) {
-		
+
+	public void updateField(Long id, String name, String description,
+			Long idComplex, Boolean hasRoof, FloorType floor,
+			Expiration expiration) throws ElementNotExistsException {
+
 		Field aField = getById(id);
 
 		if (name != null) {
@@ -86,12 +95,13 @@ public class FieldService implements FieldServiceProtocol {
 		if (expiration != null) {
 			aField.setExpiration(expiration);
 		}
-		
-		(new FieldMemoryMock()).update(aField);		
+
+		(new FieldMemoryMock()).update(aField);
 	}
-	
+
 	@Override
-	public Iterator<Schedule> getAvailableHours(Long id, DateTime date) {
+	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
+			throws ElementNotExistsException {
 
 		FieldDAO fieldDAO = new FieldMemoryMock();
 
@@ -102,17 +112,18 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
-	public Field getById(Long id) {
+	public Field getById(Long id) throws ElementNotExistsException {
 		return (new FieldMemoryMock()).getById(id);
 	}
 
 	@Override
-	public Iterator<Booking> getBookings(Long fieldId) {
+	public Iterator<Booking> getBookings(Long fieldId)
+			throws ElementNotExistsException {
 
 		FieldDAO fieldDAO = new FieldMemoryMock();
-		
+
 		Field field = fieldDAO.getById(fieldId);
-		
+
 		return field.getBookings();
 	}
 

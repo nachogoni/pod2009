@@ -46,7 +46,7 @@ public class DeleteField extends HttpServlet {
 			delService.deleteField(id);
 			
 			UrlMapper.getInstance().redirectSuccess(this, request, response,
-					UrlMapperType.GET);
+					UrlMapperType.POST);
 
 		} catch (Exception e) {
 			e.printStackTrace();
