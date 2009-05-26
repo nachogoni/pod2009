@@ -35,10 +35,11 @@ public class FormAddComplex extends FormHandler {
 						.setLabel("selectlabel")
 						.addValue("sarasa", "sarasa"));
 		
-		this.addElement(new FormElementInclude("/WEB-INF/resources/countries_es.html"));
+		this.addElement(new FormElementInclude("cmbPaises","/home/pabloks/countries_es.html")
+						.setLabel("Pais"));
 
 		elements.add("name");
-		elements.add("/WEB-INF/resources/countries_es.html");
+		elements.add("cmbPaises");
 		this.addDisplayGroup(elements, "posta");
 		
 		elements.add("description");
