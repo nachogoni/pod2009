@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.canchita.service.ComplexService;
-import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElement;
 import com.canchita.views.helpers.FormHandler;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
@@ -50,7 +48,7 @@ public class AddComplex extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		ComplexService addService = new ComplexService();
+		
 		
 		/*Errors from the past are deleted.*/
 		this.formulario.unsetErrors();
@@ -61,12 +59,16 @@ public class AddComplex extends HttpServlet {
 		if (!this.formulario.isValid())
 		{
 			request.setAttribute("formulario", formulario);
-			UrlMapper.getInstance().forwardSuccess(this, request, response,
-					UrlMapperType.GET);
+			//UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
+			//UrlMapper.getInstance().forwardSuccess(this, request, response, UrlMapperType.GET);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
+		else
+		{
+		
+		ComplexService addService = new ComplexService();
 
-		/*Form is valid.*/
 		
 		//TODO: Migrar a ComplexForm
 		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
@@ -128,7 +130,7 @@ public class AddComplex extends HttpServlet {
 		UrlMapper.getInstance().redirectSuccess(this, request, response,
 													UrlMapperType.POST);
 		
-		
+		}
 	}
 	
 	private void failure(HttpServletRequest request,
