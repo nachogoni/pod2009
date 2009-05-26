@@ -77,10 +77,6 @@ public class FormField extends FormHandler {
 		String aux;
 		HashMap<String, String> dataPopu = new HashMap<String, String>();
 		
-		ArrayList<String> sfield = new ArrayList<String>();
-		ArrayList<String> sprops = new ArrayList<String>();
-		ArrayList<String> sconfirm = new ArrayList<String>();
-		
 		aux = aField.getName();
 		if (aux != null)
 			dataPopu.put("name", aux);
@@ -96,18 +92,6 @@ public class FormField extends FormHandler {
 		aux = aField.getFloor().toString();
 		if (aux != null)
 			dataPopu.put("floor", aux);
-		
-		sfield.add("name");
-		sfield.add("description");
-		this.addDisplayGroup(sfield, "Cancha");
-		
-		sprops.add("hasRoof");
-		sprops.add("floor");
-		this.addDisplayGroup(sprops, "Caracteristicas");
-		
-		sconfirm.add("submit");
-		sconfirm.add("reset");
-		this.addDisplayGroup(sconfirm, "Confirmacion");
 
 		this.populate(dataPopu);
 	}
