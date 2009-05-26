@@ -88,7 +88,6 @@ public abstract class FormHandler {
 				ret += "<div class='errors'>" + err + "</div>";
 		}
 			
-		ret += "<input type=\"submit\" value=\"Agregar\">";
 		ret += "</form>";
 		
 		return ret;
@@ -115,7 +114,6 @@ public abstract class FormHandler {
 			ret += "</fieldset>";
 		}
 
-		ret += "<input type=\"submit\" value=\"Agregar\">";
 		ret += "</form>";
 		
 
