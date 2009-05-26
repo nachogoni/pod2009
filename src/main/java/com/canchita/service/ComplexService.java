@@ -14,7 +14,8 @@ import com.canchita.model.location.Place;
 public class ComplexService implements ComplexServiceProtocol {
 
 	public void deleteComplex(Long id) {
-		(new ComplexMemoryMock()).delete(null);
+		
+		(new ComplexMemoryMock()).delete(id);
 	}
 
 	public Collection<Complex> listComplex() {

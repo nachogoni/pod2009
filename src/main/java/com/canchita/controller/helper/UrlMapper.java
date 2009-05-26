@@ -75,7 +75,7 @@ public class UrlMapper {
 		this.successRedirect = new HashMap<String, String>();
 		
 		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
-		this.successRedirect.put("DeleteComplexPOST", "/tp-pod/ListComplex");
+		this.successRedirect.put("DeleteComplexGET", "/tp-pod/ListComplex");
 	}
 
 	/**

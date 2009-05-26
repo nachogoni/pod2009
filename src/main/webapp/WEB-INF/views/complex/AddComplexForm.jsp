@@ -15,7 +15,7 @@
 
 	<fieldset>
 		<legend>Complejo</legend>
-		<label for="name">Nombre: </label>
+		<label for="name">* Nombre: </label>
 		<input type="text" name="name" size="30"/>
 		<label for="description">Descripción: </label>
 		<input type="text" name="description" size="30"/>
@@ -23,15 +23,15 @@
 
 	<fieldset>
 		<legend>Ubicación</legend>
-		<label for="address">Direccion: </label>
+		<label for="address">* Direccion: </label>
 		<input type="text" name="address" size="60"/>
-		<label for="neighbourhood">Barrio: </label>
+		<label for="neighbourhood">* Barrio: </label>
 		<input type="text" name="neighbourhood" size="30"/>
-		<label for="town">Ciudad: </label>
+		<label for="town">* Ciudad: </label>
 		<input type="text" name="town" size="30"/>
-		<label for="state">Provincia: </label>
+		<label for="state">* Provincia: </label>
 		<input type="text" name="state" size="30"/>
-		<label for="zipcode">Código Postal: </label>
+		<label for="zipcode">* Código Postal: </label>
 		<input type="text" name="zipcode" size="30"/>
 		<label for="latitude">Latitud: </label>
 		<input type="text" name="latitude" size="30"/>
@@ -45,15 +45,15 @@
 
 	<fieldset>
 		<legend>Sistema de Puntos</legend>
-		<label for="address">Reservar: </label>
+		<label for="address">* Reservar: </label>
 		<input type="text" name="booking" size="30"/>
-		<label for="neighbourhood">Seniar: </label>
+		<label for="neighbourhood">* Seniar: </label>
 		<input type="text" name="deposit" size="30"/>
-		<label for="town">Pagar: </label>
+		<label for="town">* Pagar: </label>
 		<input type="text" name="pay" size="30"/>
-		<label for="state">Cancelar Reserva: </label>
+		<label for="state">* Cancelar Reserva: </label>
 		<input type="text" name="downBooking" size="30"/>
-		<label for="zipcode">Cancelar Deposito: </label>
+		<label for="zipcode">* Cancelar Deposito: </label>
 		<input type="text" name="downDeposit" size="30"/>
    	</fieldset>   	
    	
