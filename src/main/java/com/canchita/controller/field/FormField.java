@@ -68,7 +68,7 @@ public class FormField extends FormHandler {
 		sconfirm.add("reset");
 		this.addDisplayGroup(sconfirm, "Confirmacion");
 	}
-
+	
 	public FormField(Field aField) {
 		this();
 
