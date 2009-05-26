@@ -34,7 +34,7 @@ public class FormAddComplex extends FormHandler {
 		this.addElement(new FormElementInput("text","address")
 			.setLabel("Dirección")
 			.setRequired(true)
-			.addValidator("IsAlphaNum"));
+			.addValidator("IsAddress"));
 
 		this.addElement(new FormElementInput("text","neighbourhood")
 			.setLabel("Barrio")
@@ -54,7 +54,7 @@ public class FormAddComplex extends FormHandler {
 		this.addElement(new FormElementInput("text","zipcode")
 			.setLabel("Código Postal")
 			.setRequired(true)
-			.addValidator("IsAlphaNum"));
+			.addValidator("IsNumeric"));
 
 		this.addElement(new FormElementInput("text","latitude")
 			.setLabel("Latitud"));
@@ -106,7 +106,7 @@ public class FormAddComplex extends FormHandler {
 			.addValidator("IsNumeric"));
 		
 		Decorator decoBotones = new Decorator()
-								.setSclass("submit-go"); 
+			.setSclass("submit-go"); 
 		
 		this.addElement(new FormElementButton("submit","submit")
 			.setValue("Confirmar")
