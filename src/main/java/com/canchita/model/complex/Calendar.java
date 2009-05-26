@@ -100,7 +100,15 @@ public class Calendar {
 		for (Availability availability : availabilities) {
 			
 			if( availability.inDay(date) ) {
-				collection.add(availability.getSchedule());
+				
+				/*
+				 * As the schedule was added with a random day,
+				 * we adjust it
+				 */
+				
+				Schedule schedule = availability.getSchedule();
+				
+				collection.add(schedule.setSameDay(date));
 			}
 			
 		}
