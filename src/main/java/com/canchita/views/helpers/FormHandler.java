@@ -133,17 +133,21 @@ public abstract class FormHandler {
 
 	public void loadValues(HttpServletRequest request) {
 		for (FormElement e : this.formElements) {
-			e.setValue(request.getParameter(e.getName()));
+			/* si es un input solamente tiene que recargar los values */
+			if (e instanceof FormElementInput)
+				e.setValue(request.getParameter(e.getName()));
 		}
 			
 	}
 
+	/*
 	public void loadValues(HashMap<String, String> dict) {
 		for (FormElement e : this.formElements) {
 			e.setValue(dict.get(e.getName()));
-		}
-			
+		}			
 	}
+	*/
+	
 	/*
 	 * Llena el formulario con los parametros pasados
 	 * 

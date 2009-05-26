@@ -1,8 +1,11 @@
 package com.canchita.controller.field;
 
+import java.util.ArrayList;
+
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.field.FloorType;
 import com.canchita.views.helpers.Decorator;
+import com.canchita.views.helpers.FormElementButton;
 import com.canchita.views.helpers.FormElementInput;
 import com.canchita.views.helpers.FormElementSelect;
 import com.canchita.views.helpers.FormHandler;
@@ -10,7 +13,10 @@ import com.canchita.views.helpers.FormHandler;
 public class FormField extends FormHandler {
 
 	public FormField() {
-
+		ArrayList<String> sfield = new ArrayList<String>();
+		ArrayList<String> sprops = new ArrayList<String>();
+		ArrayList<String> sconfirm = new ArrayList<String>();
+		
 		this.setName("Cancha")
   		.setMethod("post");
 
@@ -38,15 +44,27 @@ public class FormField extends FormHandler {
 			.addValue("Césped", "GRASS"));
 		
 		Decorator decorator = new Decorator()
-		.setSclass("submit-go"); 
+			.setSclass("submit-go"); 
 		
-	    this.addElement(new FormElementInput("submit","submit")
-           .setValue("Confirmar")
-           .setDecorator(decorator));
-      
-        this.addElement(new FormElementInput("reset","reset")
-           .setValue("Reset")
-           .setDecorator(decorator));
+		this.addElement(new FormElementButton("submit","submit")
+			.setValue("Confirmar")
+			.setDecorator(decorator));
+	
+		this.addElement(new FormElementButton("reset","reset")
+			.setValue("Reset")
+			.setDecorator(decorator));
+        
+        sfield.add("name");
+        sfield.add("description");
+        this.addDisplayGroup(sfield, "Cancha");
+        
+        sprops.add("hasRoof");
+        sprops.add("floor");
+        this.addDisplayGroup(sprops, "Caracteristicas");
+        
+        sconfirm.add("submit");
+		sconfirm.add("reset");
+		this.addDisplayGroup(sconfirm, "Confirmacion");
 	}
 
 }
