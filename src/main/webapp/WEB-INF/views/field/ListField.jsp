@@ -129,12 +129,12 @@
 							<td><c:out value="${field.complex.description}" /></td>
 							
 							<td>
-								<form action="/tp-pod/DeleteField" method="post">
+								<form action="/tp-pod/field/delete" method="post">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" class="delete" name="delete" value="Eliminar" />
 								</form>
-								<form action="/tp-pod/ModifyField" method="get">
+								<form action="/tp-pod/field/modify" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" name="modify" value="Modificar" />
