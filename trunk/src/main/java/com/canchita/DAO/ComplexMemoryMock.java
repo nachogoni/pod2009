@@ -60,6 +60,9 @@ public class ComplexMemoryMock implements ComplexDAO {
 		ScoreSystem titos_scores = new ScoreSystem(10, 20, 30, 10, 20);
 		Expiration titos_expiran = new Expiration();
 
+		titos_expiran.setBookingLimit(10);
+		titos_expiran.setDepositLimit(5);
+		
 		Place place = new Place.Builder("Madero 339", "Puerto Madero").town(
 				"CABA").state("Buenos Aires").country("Argentina").latitude(
 				"-34.030303").longitude("-58.3665").telephone("4343-4334")
@@ -105,7 +108,10 @@ public class ComplexMemoryMock implements ComplexDAO {
 
 		ScoreSystem roca_scores = new ScoreSystem(10, 20, 30, 10, 20);
 		Expiration roca_expiran = new Expiration();
-
+		
+		roca_expiran.setBookingLimit(10);
+		roca_expiran.setDepositLimit(5);
+		
 		Place anotherPlace = new Place.Builder("Roca 339", "Vicente Lopez").town(
 				"Vicente Lopez").state("Buenos Aires").country("Argentina").latitude(
 				"-34.030303").longitude("-58.3665").telephone("4791-2234")
