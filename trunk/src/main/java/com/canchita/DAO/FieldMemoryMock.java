@@ -14,7 +14,6 @@ import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
-import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
@@ -27,6 +26,7 @@ public class FieldMemoryMock implements FieldDAO {
 	static {
 		// Initialize an element for mocking purposes - cable guy with
 		// ComplexDAO
+		
 		Complex aComplex = new Complex("Lo de Tincho");
 		Field aField;
 
@@ -69,7 +69,7 @@ public class FieldMemoryMock implements FieldDAO {
 		aComplex.setScoreSystem(titos_scores);
 		// aComplex.setFields(fields);
 		aComplex.setExpiration(titos_expiran);
-		aComplex.setId(1L);
+		aComplex.setId(0L);
 
 		// complex = (new ComplexMemoryMock()).getById(1L);
 
