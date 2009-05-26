@@ -32,31 +32,6 @@ public class FieldMemoryMock implements FieldDAO {
 
 		Field aField;
 
-		Calendar titos_horarios = new Calendar();
-
-		Schedule schedule = new Schedule(
-				new DateTime(2009, 5, 25, 10, 0, 0, 0), new DateTime(2009, 5,
-						25, 13, 0, 0, 0));
-		Availability availability = new Availability(DayOfWeek.MONDAY, schedule);
-
-		titos_horarios.add(availability);
-
-		schedule = new Schedule(new DateTime(2009, 5, 25, 13, 0, 0, 0),
-				new DateTime(2009, 5, 25, 14, 0, 0, 0));
-		availability = new Availability(DayOfWeek.MONDAY, schedule);
-
-		titos_horarios.add(availability);
-
-		schedule = new Schedule(new DateTime(2009, 5, 25, 16, 0, 0, 0),
-				new DateTime(2009, 5, 25, 21, 0, 0, 0));
-		availability = new Availability(DayOfWeek.MONDAY, schedule);
-		titos_horarios.add(availability);
-
-		schedule = new Schedule(new DateTime(2009, 5, 25, 3, 0, 0, 0),
-				new DateTime(2009, 5, 25, 5, 0, 0, 0));
-		availability = new Availability(DayOfWeek.TUESDAY, schedule);
-		titos_horarios.add(availability);
-
 		Complex aComplex = null;
 		try {
 			aComplex = complexDAO.getById(1L);
