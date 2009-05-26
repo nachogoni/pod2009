@@ -86,13 +86,13 @@ public class UrlMapper {
 		this.successRedirect = new HashMap<String, String>();
 		
 		/*Field*/
-		this.successRedirect.put("AddFieldPOST","/tp-pod/field/list");
-		this.successRedirect.put("DeleteFieldPOST", "/tp-pod/field/list");
-		this.successRedirect.put("ModifyFieldPOST", "/tp-pod/field/list");
+		successRedirect.put("AddFieldPOST","/tp-pod/field/list");
+		successRedirect.put("DeleteFieldPOST", "/tp-pod/field/list?delete=true");
+		successRedirect.put("ModifyFieldPOST", "/tp-pod/field/list");
 		/*Complex*/
-		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
-		this.successRedirect.put("DeleteComplexGET", "/tp-pod/ListComplex");
-		this.successRedirect.put("ModifyComplexPOST", "/tp-pod/ListComplex");
+		successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
+		successRedirect.put("DeleteComplexPOST", "/tp-pod/ListComplex?delete=true");
+		successRedirect.put("ModifyComplexPOST", "/tp-pod/ListComplex");
 	}
 
 	/**
@@ -110,6 +110,8 @@ public class UrlMapper {
 
 		this.failureRedirect = new HashMap<String, String>();
 
+		failureRedirect.put("DeleteComplexPOST", "/tp-pod/ListComplex?delete=false");
+		failureRedirect.put("DeleteFieldPOST", "/tp-pod/field/list?delete=false");
 		failureRedirect.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR + "error/500.jsp");
 
 	}

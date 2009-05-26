@@ -1,8 +1,9 @@
 $(document).ready( function() {
 
-	$('#depositLimit').tooltip('Horas antes del partido hasta la que se puede señar una reserva');
+	canchita.setTpp
 	
-	$('#bookingLimit').tooltip('Horas antes del partido hasta la que se puede pagar una reserva');
+	canchita.setTooltip('#depositLimit','Horas antes del partido hasta la que se puede señar una reserva');
 	
-	$("#whenForm").addClass("hidden");
+	canchita.setTooltip('#bookingLimit','Horas antes del partido hasta la que se puede pagar una reserva');
+	
 });

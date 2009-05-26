@@ -128,11 +128,15 @@ public class ComplexMemoryMock implements ComplexDAO {
 
 	public void delete(Long id) throws PersistenceException {
 
-		if (!this.exists(id)) {
+		System.out.println("Voy a ver si existe el id " + id);
+		
+		if (! this.exists(id)) {
+			System.out.println("No existe");
 			throw new ElementNotExistsException("El complejo no existe");
 		}
 
 		ComplexMemoryMock.complexMocks.remove(id);
+		System.out.println("Lo borre");
 	}
 
 	public Collection<Complex> getAll() {

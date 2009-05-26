@@ -13,6 +13,25 @@
 
 <h1>Listado de Complejos</h1>
 
+<c:if test="${(param.delete != null)}">
+
+	<c:choose>
+	  <c:when test="${param.delete}">
+	    <c:set var="deleteMsg" scope="page" value="El complejo fue borrado exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="deleteMsg" scope="page" value="Error al borrar el complejo"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${deleteMsg}" /></span>
+	</div>
+</c:if>
+
 <form action="" method="get">
 	<fieldset>
 	<legend>Búsqueda de complejos</legend>

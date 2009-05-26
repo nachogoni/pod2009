@@ -1,5 +1,3 @@
-canchita = new Canchita();
-
 function Canchita() {
 	
 }
@@ -8,7 +6,6 @@ Canchita.prototype = {
 		
 		setTooltip: function(element,tooltipMsg) {
 			
-		alert('a')
 			$(element).tooltip({ 
 			    track: true, 
 			    delay: 0, 
@@ -18,8 +15,13 @@ Canchita.prototype = {
 			    showBody: " - ", 
 			    extraClass: "pretty fancy", 
 			    top: -15, 
-			    left: 5 
+			    left: 5,
+			    bodyHandler: function() { 
+			        return tooltipMsg; 
+			    }
 			}); 
 	
 		}
 }
+
+canchita = new Canchita();
