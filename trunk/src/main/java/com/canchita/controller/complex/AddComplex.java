@@ -23,7 +23,6 @@ public class AddComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	Logger logger = Logger.getLogger(AddComplex.class.getName());
-	
 	private FormHandler formulario;
 
 	public AddComplex() {

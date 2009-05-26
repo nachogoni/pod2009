@@ -1,6 +1,9 @@
 package com.canchita.controller.complex;
 
 import java.util.ArrayList;
+
+import com.canchita.model.complex.Complex;
+import com.canchita.views.helpers.FormElement;
 import com.canchita.views.helpers.FormElementInput;
 import com.canchita.views.helpers.FormHandler;
 
@@ -138,5 +141,67 @@ public class FormAddComplex extends FormHandler {
 		sconfirm.add("reset");
 		this.addDisplayGroup(sconfirm, "Confirmacion");
 		
+	}
+
+	public FormAddComplex(Complex aComplex) {
+		this();
+
+		String val, aux;
+		
+		aux = aComplex.getName();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("name")
+			.setValue(val);
+
+		aux = aComplex.getDescription();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("description")
+		   .setValue(val);
+
+		aux = aComplex.getPlace().getAddress();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("address")
+            .setValue(val);
+
+		aux = aComplex.getPlace().getNeighbourhood();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("neighbourhood")
+            .setValue(val);
+
+		aux = aComplex.getPlace().getTown();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("town")
+	        .setValue(val);
+
+		aux = aComplex.getPlace().getState();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("state")
+	        .setValue(val);
+
+		aux = aComplex.getPlace().getZipCode();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("zipcode")
+	        .setValue(val);
+
+		aux = aComplex.getPlace().getLatitude();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("latitude")
+	        .setValue(val);
+
+		aux = aComplex.getPlace().getLongitude();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("longitude")
+	        .setValue(val);
+
+		aux = aComplex.getPlace().getTelephones().get(0);
+		val = (aux== null) ? "":aux;
+		this.formValues.get("telephone")
+	        .setValue(val);
+
+		aux = aComplex.getPlace().getCountry();
+		val = (aux== null) ? "":aux;
+		this.formValues.get("country")
+	        .setValue(val);
+
 	}
 }
