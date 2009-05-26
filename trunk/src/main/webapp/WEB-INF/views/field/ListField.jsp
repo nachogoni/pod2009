@@ -7,6 +7,11 @@
 	<jsp:param name="header" value="admin" />
 </jsp:include>
 
+
+<jsp:include page="/WEB-INF/views/general/js.jsp"
+	flush="true" />
+<script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
+
 <h1>Listado de Canchas</h1>
 
 <%-- TODO generalizar esto --%>
@@ -127,7 +132,7 @@
 								<form action="/tp-pod/DeleteField" method="post">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-								<input type="submit" name="delete" value="Eliminar" />
+								<input type="submit" class="delete" name="delete" value="Eliminar" />
 								</form>
 								<form action="/tp-pod/ModifyField" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->

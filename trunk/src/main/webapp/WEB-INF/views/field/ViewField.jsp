@@ -7,6 +7,10 @@
 	<jsp:param name="header" value="admin" />
 </jsp:include>
 
+
+<jsp:include page="/WEB-INF/views/general/js.jsp"
+	flush="true" />
+<script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
 <h1>Vista Detallada</h1>
 
 <table>
