@@ -138,6 +138,13 @@ public abstract class FormHandler {
 			
 	}
 
+	public void loadValues(HashMap<String, String> dict) {
+		for (FormElement e : this.formElements) {
+			e.setValue(dict.get(e.getName()));
+		}
+			
+	}
+	
 	/**
 	 * Valida que un formulario sea correcto
 	 * 

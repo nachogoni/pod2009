@@ -14,6 +14,7 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
+import com.canchita.views.helpers.FormHandler;
 
 /**
  * Servlet implementation class ModifyComplex
@@ -22,13 +23,13 @@ public class ModifyComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	Logger logger = Logger.getLogger(ModifyComplex.class.getName());
-	
+	private FormHandler formulario;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ModifyComplex() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -39,7 +40,6 @@ public class ModifyComplex extends HttpServlet {
 		logger.debug("GET request");
 		
 		ComplexService service = new ComplexService();
-
 		Long id = null;
 
 		try {
@@ -51,15 +51,22 @@ public class ModifyComplex extends HttpServlet {
 
 		try {
 			logger.debug("Buscando información del complejo " + id);
-			request.setAttribute("complex", service.getById(id));
-			UrlMapper.getInstance().forwardSuccess(this, request, response,
-					UrlMapperType.GET);
+			formulario = new FormAddComplex(service.getById(id));
+			//request.setAttribute("complex", service.getById(id));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Error buscando información del complejo " + id);
 		}
 		
+		/* Form is sent to the view*/
+		request.setAttribute("formulario", this.formulario);
+
+
+		UrlMapper.getInstance().forwardSuccess(this, request, response,
+				UrlMapperType.GET);
+
+		logger.debug("Saliendo del controlador");
 
 	}
 
