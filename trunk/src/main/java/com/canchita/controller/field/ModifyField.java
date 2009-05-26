@@ -11,6 +11,7 @@ import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
 import com.canchita.service.FieldService;
 
@@ -137,6 +138,11 @@ public class ModifyField extends HttpServlet {
 		try {
 			modifyService.updateField(id, name, description, idComplex, hasRoof, floor, expiration);
 		} catch (ElementNotExistsException e) {
+			error.add(e);
+			request.setAttribute("error", error);
+			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			return;
+		}catch (PersistenceException e) {
 			error.add(e);
 			request.setAttribute("error", error);
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);

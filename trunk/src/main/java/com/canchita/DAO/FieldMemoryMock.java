@@ -15,6 +15,7 @@ import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
 import com.canchita.model.location.Place;
@@ -22,12 +23,13 @@ import com.canchita.model.location.Place;
 public class FieldMemoryMock implements FieldDAO {
 
 	private static Map<Long, Field> FieldMocks = new HashMap<Long, Field>();
+	private static Long autoincrementalPk = 0L;
 
 	static {
-		// Initialize an element for mocking purposes - cable guy with
-		// ComplexDAO
-		
-		Complex aComplex = new Complex("Lo de Tincho");
+
+		autoincrementalPk = 0L;
+		ComplexMemoryMock complexDAO = new ComplexMemoryMock();
+
 		Field aField;
 
 		Calendar titos_horarios = new Calendar();
@@ -55,57 +57,44 @@ public class FieldMemoryMock implements FieldDAO {
 		availability = new Availability(DayOfWeek.TUESDAY, schedule);
 		titos_horarios.add(availability);
 
-		ScoreSystem titos_scores = new ScoreSystem();
-		Expiration titos_expiran = new Expiration();
-
-		Place place = new Place.Builder("Madero 339", "Puerto Madero").town(
-				"CABA").state("Buenos Aires").country("Argentina").latitude(
-				"-34.030303").longitude("-58.3665").telephone("4343-4334")
-				.telephone("5555-5555").build();
-
-		aComplex.setPlace(place);
-		aComplex.setDescription("El complejo mas divertido");
-		aComplex.setTimeTable(titos_horarios);
-		aComplex.setScoreSystem(titos_scores);
-		// aComplex.setFields(fields);
-		aComplex.setExpiration(titos_expiran);
-		aComplex.setId(0L);
-
-		// complex = (new ComplexMemoryMock()).getById(1L);
+		Complex aComplex = null;
+		try {
+			aComplex = complexDAO.getById(1L);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// now the fields
 
-		aField = new Field("Cancha_1", "La de adelante", aComplex, true,
+		aField = new Field("Cancha1", "La de adelante", aComplex, true,
 				FloorType.ARTIFICIAL_GRASS, aComplex.getExpiration());
-		aField.setId(1L);
+		aField.setId(FieldMemoryMock.autoincrementalPk++);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
-		aField = new Field("Cancha_2", "La del fondo", aComplex, false,
+		aField = new Field("Cancha2", "La del fondo", aComplex, false,
 				FloorType.CONCRETE, aComplex.getExpiration());
-		aField.setId(2L);
+		aField.setId(FieldMemoryMock.autoincrementalPk++);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
-		// aComplex = (new ComplexMemoryMock()).getById(2L);
-		// aComplex = new Complex("La casa de la nona");
-
-		aField = new Field("Cancha_3", "Adelante, izquierda", aComplex, true,
+		aField = new Field("Cancha3", "Adelante, izquierda", aComplex, true,
 				FloorType.ARTIFICIAL_GRASS, aComplex.getExpiration());
-		aField.setId(3L);
+		aField.setId(FieldMemoryMock.autoincrementalPk++);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
-		aField = new Field("Cancha_4", "Adelante, derecha", aComplex, true,
+		aField = new Field("Cancha4", "Adelante, derecha", aComplex, true,
 				FloorType.CONCRETE, aComplex.getExpiration());
-		aField.setId(4L);
+		aField.setId(FieldMemoryMock.autoincrementalPk++);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
-		aField = new Field("Cancha_5", "Atras, izquierda", aComplex, false,
+		aField = new Field("Cancha5", "Atras, izquierda", aComplex, false,
 				FloorType.CONCRETE, aComplex.getExpiration());
-		aField.setId(5L);
+		aField.setId(FieldMemoryMock.autoincrementalPk++);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
-		aField = new Field("Cancha_6", "Atras, derecha", aComplex, true,
+		aField = new Field("Cancha6", "Atras, derecha", aComplex, true,
 				FloorType.CONCRETE, aComplex.getExpiration());
-		aField.setId(6L);
+		aField.setId(FieldMemoryMock.autoincrementalPk++);
 		FieldMemoryMock.FieldMocks.put(aField.getId(), aField);
 
 	}
@@ -141,10 +130,10 @@ public class FieldMemoryMock implements FieldDAO {
 
 		ComplexDAO complexDao = new ComplexMemoryMock();
 
-		if( ! complexDao.exists(idComplex) ) {
+		if (!complexDao.exists(idComplex)) {
 			throw new ElementNotExistsException("El complejo no existe");
 		}
-		
+
 		Collection<Field> collection = new ArrayList<Field>();
 
 		for (Field field : FieldMocks.values()) {
@@ -177,16 +166,20 @@ public class FieldMemoryMock implements FieldDAO {
 		return collection;
 	}
 
-	public void save(Field field) {
+	public void save(Field field) throws PersistenceException {
+		if (FieldMemoryMock.FieldMocks.containsKey(field.getId()) || this.exists(field)) {
+			throw new PersistenceException("Ya existe la cancha en el sistema");
+		}
+
 		FieldMemoryMock.FieldMocks.put(field.getId(), field);
 	}
 
-	public void update(Field field) throws ElementNotExistsException {
+	public void update(Field field) throws PersistenceException {
 
-		if (!this.exists(field)) {
+		if (!FieldMemoryMock.FieldMocks.containsKey(field.getId())) {
 			throw new ElementNotExistsException("La cancha no existe");
 		}
-
+		
 		save(field);
 	}
 

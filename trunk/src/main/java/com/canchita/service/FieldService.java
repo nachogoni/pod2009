@@ -77,7 +77,7 @@ public class FieldService implements FieldServiceProtocol {
 
 	public void updateField(Long id, String name, String description,
 			Long idComplex, Boolean hasRoof, FloorType floor,
-			Expiration expiration) throws ElementNotExistsException {
+			Expiration expiration) throws PersistenceException {
 
 		Field aField = getById(id);
 
