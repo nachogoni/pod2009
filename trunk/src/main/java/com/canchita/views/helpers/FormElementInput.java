@@ -19,6 +19,29 @@ public class FormElementInput extends FormElement {
 		
 		return this;
 	}
+	
+	@Override
+	public FormElementInput setLabel(String label) {
+		super.setLabel(label);
+		
+		return this;
+	}
+	
+	@Override
+	public FormElementInput setRequired(boolean flag) {
+		super.setRequired(flag);
+
+		return this;
+	}
+	
+	@Override
+	public FormElementInput addValidator(String validator) {
+		// TODO Auto-generated method stub
+		super.addValidator(validator);
+		
+		return this;
+	}
+	
 
 	public String toString() {
 		String ret = "";
