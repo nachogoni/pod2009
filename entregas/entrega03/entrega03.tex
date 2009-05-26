@@ -17,7 +17,7 @@
         Grupo 3. \\
         46099 - Abramowicz, Pablo Federico \\
         46281 - Cabral, Martín Esteban \\
-        47031 - Gomez, Vidal Darío Maximiliano \\
+        47031 - Gomez Vidal, Darío Maximiliano \\
         46383 - Goñi, Juan Ignacio \\
         46233 - Palombo, Martín \\
         46069 - Sessa, Carlos Manuel
@@ -31,7 +31,8 @@
 \pagebreak
 
 \section{Introducción}
-En este documento se detallan decisiones tomadas para la implementación de los
+En este documento se detallan algunas de las decisiones tomadas para la 
+implementación de los
 casos de uso \emph{Administrar Canchas}, \emph{Administrar Complejos},
 \emph{Hacer Reserva}, \emph{Listar Reservas}. Asimismo, se comentan agregados
 que se realizaron para la mejor escalabilidad del proyecto y un más eficiente y
@@ -62,9 +63,9 @@ a un archivo, minimizando efectos colaterales.
 
 \section{FormHandler}
 Cuando escribimos un formulario en JSP y el mismo quedo de unas aproximadas
-mil lineas \emph{hardcodeadas}. Nos dimos cuenta que algo no estaba bien,
-porque estabamos frente a algo inmantenible en el tiempo.
-Se desarrollo para subsanar este problema un FormHandler, inspirado en su
+mil lineas \emph{hardcodeadas}, nos dimos cuenta que algo no estaba bien,
+porque estábamos frente a algo inmantenible en el tiempo.
+Se desarrolló para subsanar este problema un FormHandler, inspirado en su
 totalidad en ZendForm, un elemento formulario que provee Zend framework
 para PHP \footnote{http://framework.zend.com/manual/en/zend.form.html}.
 Aprovechando que la totalidad de los integrantes lo habían usado,
@@ -103,5 +104,12 @@ Implementaciones:
 \section{Log4J}
 No era requisito de esta entrega, pero decidimos tener Log4J funcionando
 desde el primer día. Esto nos ayudó mucho a la hora de debuggear el código.
+
+
+Se decidió escribir los registros en un archivo de log, con un tamaño máximo
+de 100 kb y una rotación máxima de 3 archivos. Para no cablear estos valores
+se utiliza un archivo de configuración \emph{log4j.properties}, donde editando
+una única línea se decide desde el formato a utilizar hasta el nivel que quiere
+registrarse (DEBUG, INFO, etc.).
 
 \end{document}
