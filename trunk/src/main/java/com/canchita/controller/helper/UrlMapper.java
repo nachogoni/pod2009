@@ -34,9 +34,12 @@ public class UrlMapper {
 
 	private static final UrlMapper mapper = new UrlMapper();
 	private static final String DEFAULT = "DEFAULT";
-	private static final String ROOT_DIR = "/WEB-INF/views/";
-	private Map<String, String> success;
-	private Map<String, String> failure;
+	private static final String FORWARD_ROOT_DIR = "/WEB-INF/views/";
+	
+	private Map<String, String> successForward;
+	private Map<String, String> failureForward;
+	private Map<String, String> successRedirect;
+	private Map<String, String> failureRedirect;
 
 	private UrlMapper() {
 
@@ -57,32 +60,39 @@ public class UrlMapper {
 	 * Initializes the success map
 	 */
 	private void initializeSuccess() {
-		this.success = new HashMap<String, String>();
+		this.successForward = new HashMap<String, String>();
 
-		success.put("ListComplexGET", ROOT_DIR + "complex/ListComplex.jsp");
-		success.put("DeleteComplexPOST", ROOT_DIR + "complex/ListComplex.jsp");
-		success.put("AddComplexGET", ROOT_DIR + "complex/AddComplexForm.jsp");
-		success.put("AddComplexPOST", ROOT_DIR + "complex/ListComplex.jsp");
-		success.put("AddBookingGET", ROOT_DIR + "field/AddBooking.jsp");
-		success.put("AdminHomeGET", ROOT_DIR + "admin/AdminHome.jsp");
-		success.put("DetailedViewComplexGET", ROOT_DIR + "complex/ViewComplex.jsp");
+		
+		successForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+		successForward.put("DeleteComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+		successForward.put("AddComplexGET", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
+		successForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+		successForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
+		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR + "admin/AdminHome.jsp");
+		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
 
+		this.successRedirect = new HashMap<String, String>();
+		
+		this.successRedirect.put("AddComplexPOST","/tp-pod/ListComplex");
+		
 	}
 
 	/**
 	 * Initializes the failure map
 	 */
 	private void initializeFailure() {
-		this.failure = new HashMap<String, String>();
+		this.failureForward = new HashMap<String, String>();
 
-		failure.put("ListComplexGET", ROOT_DIR + "complex/ListComplex.jsp");
-		failure.put("AddComplexPOST", ROOT_DIR + "complex/AddComplexForm.jsp");
-		failure.put("AddBookingGET", ROOT_DIR + "field/AddBooking.jsp");
+		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR + "complex/ListComplex.jsp");
+		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR + "complex/AddComplexForm.jsp");
+		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
+
+		this.failureRedirect = new HashMap<String, String>();
 
 	}
 
 	/**
-	 * Finds success server path.
+	 * Finds successForward server path.
 	 * 
 	 * @param servlet
 	 *            who needs to find its success url.
@@ -93,7 +103,7 @@ public class UrlMapper {
 	 */
 	public String onSuccess(HttpServlet servlet, UrlMapperType type) {
 
-		return this.findUrl(this.success, servlet, type);
+		return this.findUrl(this.successForward, servlet, type);
 
 	}
 
@@ -107,7 +117,7 @@ public class UrlMapper {
 	 */
 	public String onFailure(HttpServlet servlet, UrlMapperType type) {
 
-		return this.findUrl(this.failure, servlet, type);
+		return this.findUrl(this.failureForward, servlet, type);
 
 	}
 
@@ -160,7 +170,7 @@ public class UrlMapper {
 			HttpServletResponse response, UrlMapperType type)
 			throws ServletException, IOException {
 
-		this.forward(servlet, request, response, type, success);
+		this.forward(servlet, request, response, type, successForward);
 
 	}
 
@@ -168,10 +178,29 @@ public class UrlMapper {
 			HttpServletResponse response, UrlMapperType type)
 			throws ServletException, IOException {
 
-		this.forward(servlet, request, response, type, failure);
+		this.forward(servlet, request, response, type, failureForward);
 
 	}
 
+	public void redirectSuccess(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type)
+			throws IOException {
+
+		this.redirect(servlet, request, response, type, successRedirect);
+
+	}
+
+
+	public void redirectFailure(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type)
+			throws IOException {
+
+		this.redirect(servlet, request, response, type, failureRedirect);
+
+	}
+
+
+	
 	private void forward(HttpServlet servlet, HttpServletRequest request,
 			HttpServletResponse response, UrlMapperType type,
 			Map<String, String> map) throws ServletException, IOException {
@@ -183,4 +212,14 @@ public class UrlMapper {
 
 	}
 
+	private void redirect(HttpServlet servlet, HttpServletRequest request,
+			HttpServletResponse response, UrlMapperType type,
+			Map<String, String> map) throws IOException {
+
+		String url = this.findUrl(map, servlet, type);
+
+		response.sendRedirect(url);
+
+		
+	}
 }

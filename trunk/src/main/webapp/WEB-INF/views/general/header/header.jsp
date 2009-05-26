@@ -17,11 +17,9 @@
 	media="print, projection, screen">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%="Canchita - " + request.getParameter("title")%></title>
+<title>Canchita - <c:out value="${param.title}"/></title>
 </head>
 <body class="bloggerStyle">
 <jsp:include
 	page='<%="/WEB-INF/views/general/header/" + request.getParameter("header") + ".jsp"%>'
-	flush="true">
-	<jsp:param name="title" value="Listado de Complejos" />
-</jsp:include>
+	flush="true" />	
