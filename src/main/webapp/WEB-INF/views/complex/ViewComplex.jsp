@@ -70,10 +70,10 @@
 									
 					<c:choose>
 						
-						<c:when test="${complex.fields != null}">
+						<c:when test="${fields != null}">
 							
-							<c:forEach items="${complex.fields}" var="field" varStatus="rowCounter">
-						        
+							<c:forEach items="${fields}" var="field" varStatus="rowCounter">
+						        <!--
 						        <c:choose>
 						          <c:when test="${rowCounter.count % 2 == 0}">
 						            <c:set var="rowStyle" scope="page" value="odd"/>
@@ -82,9 +82,12 @@
 						            <c:set var="rowStyle" scope="page" value=""/>
 						          </c:otherwise>
 						        </c:choose>
+						        -->
 								
-								<tr class="<c:out value="${rowStyle}" />">
+								<!--  <tr class="<c:out value="${rowStyle}" />"> -->
+								<tr>
 									<td><c:out value="${field.name}" /></td>
+									<td><a href=<c:out value="field/book?id=${field.id}" />>Reservar</a></td>
 								</tr>
 								
 							</c:forEach>

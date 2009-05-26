@@ -28,7 +28,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 	static {
 		// Initialize an element for mocking purposes
 		autoincrementalPk = 0L;
-		
+
 		Complex aComplex = new Complex("Lo de Tincho");
 
 		Calendar titos_horarios = new Calendar();
@@ -56,7 +56,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		availability = new Availability(DayOfWeek.TUESDAY, schedule);
 		titos_horarios.add(availability);
 
-		ScoreSystem titos_scores = new ScoreSystem(10,20,30,10,20);
+		ScoreSystem titos_scores = new ScoreSystem(10, 20, 30, 10, 20);
 		Expiration titos_expiran = new Expiration();
 
 		Place place = new Place.Builder("Madero 339", "Puerto Madero").town(
@@ -71,8 +71,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		// aComplex.setFields(fields);
 		aComplex.setExpiration(titos_expiran);
 		aComplex.setId(ComplexMemoryMock.autoincrementalPk);
-		
-		
+
 		ComplexMemoryMock.complexMocks.put(aComplex.getId(), aComplex);
 	}
 
@@ -90,10 +89,11 @@ public class ComplexMemoryMock implements ComplexDAO {
 
 	public Complex getById(Long id) throws PersistenceException {
 		Complex aComplex = ComplexMemoryMock.complexMocks.get(id);
-		
-		if(aComplex == null)
-			throw new PersistenceException("Complejo no encontrado en la base de datos");
-		
+
+		if (aComplex == null)
+			throw new PersistenceException(
+					"Complejo no encontrado en la base de datos");
+
 		return aComplex;
 	}
 
@@ -105,12 +105,12 @@ public class ComplexMemoryMock implements ComplexDAO {
 	public Collection<Complex> getFiltered(String filter) {
 
 		Collection<Complex> collection = new ArrayList<Complex>();
-		
+
 		filter = filter.toLowerCase();
-		
+
 		for (Complex complex : complexMocks.values()) {
 
-			String name = complex.getName().toLowerCase(); 
+			String name = complex.getName().toLowerCase();
 
 			if (name.indexOf(filter) != -1) {
 				collection.add(complex);
@@ -123,29 +123,30 @@ public class ComplexMemoryMock implements ComplexDAO {
 	}
 
 	public void save(Complex complex) throws PersistenceException {
-		
+
 		Collection<Complex> complexes = ComplexMemoryMock.complexMocks.values();
 
-		for(Iterator<Complex> iter = complexes.iterator(); iter.hasNext();){
-			Complex aComplex = (Complex)iter.next();
-			
-			if(aComplex.getName()== complex.getName()){
-				throw new PersistenceException("Ya existe un complejo con ese nombre");
+		for (Iterator<Complex> iter = complexes.iterator(); iter.hasNext();) {
+			Complex aComplex = (Complex) iter.next();
+
+			if (aComplex.getName() == complex.getName()) {
+				throw new PersistenceException(
+						"Ya existe un complejo con ese nombre");
 			}
 		}
 		complex.setId(setPrimaryKey());
-		
+
 		ComplexMemoryMock.complexMocks.put(complex.getId(), complex);
 	}
 
 	private Long setPrimaryKey() {
-		
+
 		ComplexMemoryMock.autoincrementalPk++;
 		return ComplexMemoryMock.autoincrementalPk;
 	}
 
 	public void update(Complex complex) {
-		ComplexMemoryMock.complexMocks.put(complex.getId(),complex);
+		ComplexMemoryMock.complexMocks.put(complex.getId(), complex);
 	}
 
 	@Override
