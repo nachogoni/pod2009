@@ -68,6 +68,19 @@ public abstract class FormHandler {
 		this.errors = new HashMap<String, String>();
 	}
 	
+	/**
+	 * Setea el value de un elemento del form
+	 * 
+	 * @param name nombre del elemento
+	 * @param value valor a asignar
+	 */
+	public void setElementValue(String name, String value) {
+		// TODO Auto-generated method stub
+		FormElement e = formValues.get(name);
+		if (e != null)
+			e.setValue(value);	
+	}
+	
 	public String toString() {
 
 		String ret;

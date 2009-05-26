@@ -147,7 +147,6 @@ public class FormAddComplex extends FormHandler {
 		sconfirm.add("submit");
 		sconfirm.add("reset");
 		this.addDisplayGroup(sconfirm, "Confirmacion");
-		
 	}
 
 	public FormAddComplex(Complex aComplex) {
