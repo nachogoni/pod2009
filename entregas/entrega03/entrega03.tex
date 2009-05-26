@@ -1,0 +1,107 @@
+% Defino el tipo de documento.
+\documentclass[a4paper,11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Este es para poder poner graficos y diagramas.
+\usepackage{graphicx}
+% Este paquete me permite poner grados celsius.
+\usepackage{textcomp}
+
+\title{
+        Programación de Objetos Distribuidos \\
+        Entrega \#3: \\
+        Implementación de Casos de Uso
+    }
+
+\author{
+        Grupo 3. \\
+        46099 - Abramowicz, Pablo Federico \\
+        46281 - Cabral, Martín Esteban \\
+        47031 - Gomez, Vidal Darío Maximiliano \\
+        46383 - Goñi, Juan Ignacio \\
+        46233 - Palombo, Martín \\
+        46069 - Sessa, Carlos Manuel
+        }
+\date{}
+
+% Empieza el documento.
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\section{Introducción}
+En este documento se detallan decisiones tomadas para la implementación de los
+casos de uso \emph{Administrar Canchas}, \emph{Administrar Complejos},
+\emph{Hacer Reserva}, \emph{Listar Reservas}. Asimismo, se comentan agregados
+que se realizaron para la mejor escalabilidad del proyecto y un más eficiente y
+rápido desarrollo.
+
+\section{URLMapper}
+Al enfrentarnos con el problema de explicitar URLs en cada controlador
+surgieron varias preguntas.
+\begin{itemize}
+ \item ¿Qué pasa si el día de mañana cambiamos el nombre o la ubicación
+del controlador?
+ \item ¿Qué sucede con la ubicación de los JSP?
+ \item ¿Comó impactará el cambio de un archivo o el renombramiento del mismo?
+ \item ¿Qué pasa si cambiamos la raíz de la aplicación?
+\end{itemize}
+
+No nos pareció correcto explicitar las rutas completas (o relativas desde
+algún punto) en cada controlador para su respectivo \emph{redirect} o
+\emph{forward}. Suponiendo que cambiamos la carpeta con los JSP de
+lugar, teníamos que editar todos los \emph{paths} que usabamos antes.
+
+Surgió la idea de crear un \emph{helper} que se encargue de hacer los
+mapeos de recurso a URL por nosotros. Así surgió URLMapper.
+Basta registrar una entrada indicando el URL destino y el método
+(POST o GET) y ya podemos redireccionar o forwardear a la ubicación
+deseada. Ante alguna modificación de ubicación el cambio sólo afectaría
+a un archivo, minimizando efectos colaterales.
+
+\section{FormHandler}
+Cuando escribimos un formulario en JSP y el mismo quedo de unas aproximadas
+mil lineas \emph{hardcodeadas}. Nos dimos cuenta que algo no estaba bien,
+porque estabamos frente a algo inmantenible en el tiempo.
+Se desarrollo para subsanar este problema un FormHandler, inspirado en su
+totalidad en ZendForm, un elemento formulario que provee Zend framework
+para PHP \footnote{http://framework.zend.com/manual/en/zend.form.html}.
+Aprovechando que la totalidad de los integrantes lo habían usado,
+implementamos la misma API acelerando el proceso de aprendizaje.
+
+FormHandler es un contenedor de \emph{FormElement}.
+Zend Form cuenta con más de 10 tipos de elementos.
+Para esta entrega implementamos tres tipos de elementos:
+
+\begin{itemize}
+ \item Campo de Texto.
+ \item Select.
+ \item Botones de Submit.
+\end{itemize}
+
+Tanto el formulario en sí como sus FormElement cuentan con los helpers
+de Zend Form. Entre ellos:
+\begin{itemize}
+ \item \emph{Validators} a las entradas.
+\item \emph{Decorators} genéricos.
+\item \emph{Display Groups} para imprimir los elementos en \emph{fieldsets}.
+\end{itemize}
+
+Con FormHandler nos aseguramos de no tener que escribir código
+HTML reiteradamente.
+Hizo que los JSP tengan un código mucho más mantenible.
+
+\section{JQuery}
+Para facilitar todo el manejo de JavaScript utilizamos la librería JQuery.
+Implementaciones:
+\begin{itemize}
+ \item \emph{Calendars}.
+\item \emph{Alerts}.
+\end{itemize}
+
+\section{Log4J}
+No era requisito de esta entrega, pero decidimos tener Log4J funcionando
+desde el primer día. Esto nos ayudó mucho a la hora de debuggear el código.
+
+\end{document}
