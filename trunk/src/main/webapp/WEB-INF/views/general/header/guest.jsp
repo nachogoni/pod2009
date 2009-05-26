@@ -8,9 +8,9 @@
         </div>
 
         <div class="loginForm">
-                <FORM action="user2.html" method="post" >
-                        <INPUT type="text" id="username" value="Usuario" class="loginInputElement gray">
-                        <INPUT type="password" id="password" value="********" class="loginInputElement gray">
+                <FORM action="/tp-pod/admin/home" method="post" >
+                        <INPUT type="text" name="username" value="Usuario" class="loginInputElement gray">
+                        <INPUT type="password" name="password" value="********" class="loginInputElement gray">
                         <INPUT class="submit-go" type="submit" value="Ingresar" class="loginButtonElement">
                 </FORM>
         </div>

@@ -74,8 +74,11 @@ public class UrlMapper {
 		successForward.put("ModifyComplexGET", FORWARD_ROOT_DIR + "complex/ModifyComplex.jsp");
 		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR + "complex/ViewComplex.jsp");
 
-		successForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
+		/*Admin home*/
 		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR + "admin/AdminHome.jsp");
+		successForward.put("AdminHomePOST", FORWARD_ROOT_DIR + "field/ListField.jsp");
+		
+		successForward.put("AddBookingGET", FORWARD_ROOT_DIR + "field/AddBooking.jsp");
 		successForward.put("Error404GET" , FORWARD_ROOT_DIR + "error/404.jsp");
 		successForward.put("Error500GET" , FORWARD_ROOT_DIR + "error/500.jsp");
 		successForward.put("ErrorExceptionGET" , FORWARD_ROOT_DIR + "error/exception.jsp");
