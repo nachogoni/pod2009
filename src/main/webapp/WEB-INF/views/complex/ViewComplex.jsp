@@ -3,7 +3,7 @@
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp"
 	flush="true">
-	<jsp:param name="title" value="Listado de Complejos" />
+	<jsp:param name="title" value="Detalle de Complejo" />
 	<jsp:param name="header" value="admin" />
 </jsp:include>
 
@@ -49,7 +49,7 @@
 			<form action="/tp-pod/DeleteComplex" method="post">
 			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-			<input type="submit" name="delete" value="Eliminar" />
+			<input type="submit" class="delete" name="delete" value="Eliminar" />
 			</form>
 		</td>
 		<td>
@@ -81,7 +81,7 @@
 					<td><c:out value="${complex.place}" /></td>
 				</tr>
 				<tr>
-					<td><strong>Descipción</strong></td>
+					<td><strong>Descripción</strong></td>
 					<td><c:out value="${complex.description}" /></td>
 				</tr>
 				<tr>
