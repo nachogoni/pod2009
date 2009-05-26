@@ -126,7 +126,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		
 		Collection<Complex> complexes = ComplexMemoryMock.complexMocks.values();
 
-		for(Iterator iter = complexes.iterator(); iter.hasNext();){
+		for(Iterator<Complex> iter = complexes.iterator(); iter.hasNext();){
 			Complex aComplex = (Complex)iter.next();
 			
 			if(aComplex.getName()== complex.getName()){
