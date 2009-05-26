@@ -8,8 +8,14 @@ public class FormElementInput extends FormElement {
 	}
 
 	protected String genInput() {
-		return String.format("<input id=\"%s\" type=\"%s\" name=\"%s\" value=\"%s\">",
-							super.id,super.type, super.name, super.value);
+		String strclass = "";
+		
+		if (!this.deco.getSclass().equals("")){
+			strclass = String.format(" class=\"%s\"", this.deco.getSclass());
+		}
+		
+		return String.format("<input id=\"%s\" type=\"%s\" name=\"%s\" value=\"%s\" %s>",
+							super.id,super.type, super.name, super.value, strclass);
 	}
 	
 	@Override
@@ -56,6 +62,14 @@ public class FormElementInput extends FormElement {
 		
 		return ret;
 		
+	}
+	
+	@Override
+	public FormElementInput setDecorator(Decorator deco) {
+		// TODO Auto-generated method stub
+		super.setDecorator(deco);
+		
+		return this;
 	}
 	
 }

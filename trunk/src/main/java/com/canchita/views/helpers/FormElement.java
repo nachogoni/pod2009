@@ -73,5 +73,11 @@ public abstract class FormElement {
 		
 		return this;
 	}
+
+	public FormElement setDecorator(Decorator deco) {
+		this.deco = deco;
+		
+		return this;
+	}
 }
 
