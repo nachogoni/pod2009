@@ -37,15 +37,17 @@ public class AddComplex extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		logger.debug("GET request");
-		
+
+		/*Get Form*/
+		formulario = new FormAddComplex();
+
 		/* Form is sent to the view*/
 		request.setAttribute("formulario", this.formulario);
-		
-		logger.debug("Saliendo del controlador");
 		
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
+		logger.debug("Saliendo del controlador");
 	}
 
 	/**
