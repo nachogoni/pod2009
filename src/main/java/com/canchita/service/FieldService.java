@@ -7,8 +7,10 @@ import org.joda.time.DateTime;
 
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.FieldMemoryMock;
-import com.canchita.model.booking.Booking;
+import com.canchita.helper.validator.IsAlphaNum;
+import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
 
 public class FieldService implements FieldServiceProtocol {
@@ -23,10 +25,21 @@ public class FieldService implements FieldServiceProtocol {
 		return fields;
 	}
 
-	public Collection<Field> listField(String filter) {
-		return null; // TODO:
-	}
+	public Collection<Field> listField(String filter) throws ValidationException {
 
+		Validator validator = new IsAlphaNum(true);
+
+		if (!validator.validate(filter)) {
+			throw new ValidationException(
+					"Error en el criterio de búsqueda, el mismo debe ser alfanumérico");
+		}
+
+		FieldDAO fieldDAO = new FieldMemoryMock();
+
+		return fieldDAO.getFiltered(filter);
+
+	}
+	
 	public void saveField(Field field) {
 		(new FieldMemoryMock()).save(field);
 	}
