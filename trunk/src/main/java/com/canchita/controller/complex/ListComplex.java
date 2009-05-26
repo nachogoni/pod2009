@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -25,6 +29,8 @@ import com.canchita.service.ComplexServiceProtocol;
 public class ListComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	Logger logger = Logger.getLogger(ListComplex.class.getName());
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,6 +45,8 @@ public class ListComplex extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		logger.debug("GET request");
+		
 		String search = request.getParameter("search");
 		Collection<Complex> complexes = null;
 		int complexesSize = 0;
@@ -51,6 +59,8 @@ public class ListComplex extends HttpServlet {
 			
 			request.setAttribute("complexes", complexes);
 			
+			logger.debug("Saliendo del controlador");
+			
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
 			
@@ -58,6 +68,7 @@ public class ListComplex extends HttpServlet {
 		}
 
 		try {
+			logger.debug("Realizando búsqueda: " + search);
 			
 			complexes = complexService.listComplex(search);
 			complexesSize = complexes.size();
@@ -69,6 +80,8 @@ public class ListComplex extends HttpServlet {
 			
 			request.setAttribute("searchError", errorManager);
 			
+			logger.error("Error en la búsqueda");
+			
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.GET);
 			
@@ -78,6 +91,7 @@ public class ListComplex extends HttpServlet {
 		catch(Exception e) {
 			complexes = null;
 			complexesSize = -1;
+			logger.error("Error en la búsqueda");
 		}
 
 		request.setAttribute("complexes", complexesSize);

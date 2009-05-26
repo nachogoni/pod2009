@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.service.ComplexService;
@@ -16,6 +18,8 @@ import com.canchita.service.ComplexService;
 public class DetailedViewComplex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	Logger logger = Logger.getLogger(DetailedViewComplex.class.getName());
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,6 +33,8 @@ public class DetailedViewComplex extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		logger.debug("GET request");
+		
 		ComplexService service = new ComplexService();
 
 		Long id = null;
@@ -36,26 +42,21 @@ public class DetailedViewComplex extends HttpServlet {
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
+			logger.error("Error leyendo id");
 			e.printStackTrace();
 		}
 
 		try {
-
+			logger.debug("Buscando detalles del complejo con id " + id);
 			request.setAttribute("complex", service.getById(id));
 			UrlMapper.getInstance().forwardSuccess(this, request, response,
 					UrlMapperType.GET);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Error buscando detalles del complejo con id " + id);
 		}
 
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
