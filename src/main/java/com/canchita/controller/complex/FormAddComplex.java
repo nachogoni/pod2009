@@ -1,6 +1,7 @@
 package com.canchita.controller.complex;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.Decorator;
@@ -16,7 +17,7 @@ public class FormAddComplex extends FormHandler {
 		ArrayList<String> spuntos = new ArrayList<String>();
 		ArrayList<String> sexpiration = new ArrayList<String>();
 		ArrayList<String> sconfirm = new ArrayList<String>();
-
+		
 		this.setName("Complejo")
 	  		.setMethod("post");
 			     
@@ -151,62 +152,85 @@ public class FormAddComplex extends FormHandler {
 	public FormAddComplex(Complex aComplex) {
 		this();
 
-		String val, aux;
+		String aux;
+		Integer iaux;
+		HashMap<String, String> dataPopu = new HashMap<String, String>();
+		
 		
 		aux = aComplex.getName();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("name")
-			.setValue(val);
-
+		if (aux != null)
+			dataPopu.put("name", aux);
+		
 		aux = aComplex.getDescription();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("description")
-		   .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("description", aux);
+		
 		aux = aComplex.getPlace().getAddress();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("address")
-            .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("address", aux);
+		
 		aux = aComplex.getPlace().getNeighbourhood();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("neighbourhood")
-            .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("neighbourhood", aux);
+		
 		aux = aComplex.getPlace().getTown();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("town")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("town", aux);
+		
 		aux = aComplex.getPlace().getState();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("state")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("state", aux);
+		
 		aux = aComplex.getPlace().getZipCode();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("zipcode")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("zipcode", aux);
+		
 		aux = aComplex.getPlace().getLatitude();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("latitude")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("latitude", aux);
+		
 		aux = aComplex.getPlace().getLongitude();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("longitude")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("longitude", aux);
+		
 		aux = aComplex.getPlace().getTelephones().get(0);
-		val = (aux== null) ? "":aux;
-		this.formValues.get("telephone")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("telephone", aux);
+		
 		aux = aComplex.getPlace().getCountry();
-		val = (aux== null) ? "":aux;
-		this.formValues.get("country")
-	        .setValue(val);
-
+		if (aux != null)
+			dataPopu.put("country", aux);
+		
+		iaux = aComplex.getScoreSystem().getBooking();
+		if (iaux != null)
+			dataPopu.put("booking", iaux.toString());
+		
+		iaux = aComplex.getScoreSystem().getDeposit();
+		if (iaux != null)
+			dataPopu.put("deposit", iaux.toString());
+		
+		iaux = aComplex.getScoreSystem().getPay();
+		if (iaux != null)
+			dataPopu.put("pay", iaux.toString());
+		
+		iaux = aComplex.getScoreSystem().getDownBooking();
+		if (iaux != null)
+			dataPopu.put("downBooking", iaux.toString());
+		
+		iaux = aComplex.getScoreSystem().getDownDeposit();
+		if (iaux != null)
+			dataPopu.put("downDeposit", iaux.toString());
+		
+		iaux = aComplex.getExpiration().getDepositLimit();
+		if (iaux != null)
+			dataPopu.put("depositLimit", iaux.toString());
+		
+		
+		iaux = aComplex.getExpiration().getBookingLimit();
+		if (iaux != null)
+			dataPopu.put("bookingLimit", iaux.toString());
+		
+		
+		this.populate(dataPopu);
 	}
 }
