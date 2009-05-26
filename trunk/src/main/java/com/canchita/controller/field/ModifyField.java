@@ -47,7 +47,8 @@ public class ModifyField extends HttpServlet {
 		
 		FieldService service = new FieldService();
 		Long id = null;
-
+		formulario = new FormField();
+		
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
