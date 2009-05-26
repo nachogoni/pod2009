@@ -14,6 +14,7 @@ import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Complex;
+import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
@@ -38,10 +39,23 @@ public class Field implements Bookable {
 	private Complex complex;
 	private boolean hasRoof;
 	private FloorType floor;
+	private ScoreSystem scoreSystem;
 	private Expiration expiration;
 
 	public Complex getComplex() {
 		return complex;
+	}
+
+	public ScoreSystem getScoreSystem() {
+		return scoreSystem;
+	}
+
+	public void setScoreSystem(ScoreSystem scoreSystem) {
+		this.scoreSystem = scoreSystem;
+	}
+
+	public void setComplex(Complex complex) {
+		this.complex = complex;
 	}
 
 	public void setName(String name) {
