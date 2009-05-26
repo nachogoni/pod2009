@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
+import com.canchita.controller.complex.AddComplex;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.service.ComplexService;
@@ -17,6 +20,7 @@ import com.canchita.service.FieldService;
 public class DeleteField extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	Logger logger = Logger.getLogger(DeleteField.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,6 +36,7 @@ public class DeleteField extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		logger.debug("POST request");
 		FieldService delService = new FieldService();
 
 		Long id = null;
@@ -40,15 +45,18 @@ public class DeleteField extends HttpServlet {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Error leyendo id");
 		}
 
 		try {
+			logger.debug("Eliminando cancha con id " + id);
 			delService.deleteField(id);
 			
 			UrlMapper.getInstance().redirectSuccess(this, request, response,
 					UrlMapperType.POST);
 
 		} catch (Exception e) {
+			logger.error("Error eliminando cancha con id " + id);
 			e.printStackTrace();
 		}
 	}

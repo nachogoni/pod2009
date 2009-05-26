@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.canchita.controller.error.ErrorException;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -27,6 +29,8 @@ import com.canchita.service.BookingServiceProtocol;
 public class AddBooking extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	Logger logger = Logger.getLogger(AddBooking.class.getName());
+
 	/**
 	 * Sets the form parameters for the view
 	 */
@@ -34,6 +38,8 @@ public class AddBooking extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		// Obtener los horarios de la cancha y pasarselos a la vista
+
+		logger.debug("GET request");
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -47,17 +53,18 @@ public class AddBooking extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		logger.debug("POST request");
+
 		/*
-		 * TODO falta agregar el manejo de 23:00 00:00
-		 * igual creo que el jugo es poner que atiende de 23:00 a
-		 * 00:00 siendo 00:00 el mismo dia en el horario de la cancha
-		 * (o quizas no) VERLO BIEN
+		 * TODO falta agregar el manejo de 23:00 00:00 igual creo que el jugo es
+		 * poner que atiende de 23:00 a 00:00 siendo 00:00 el mismo dia en el
+		 * horario de la cancha (o quizas no) VERLO BIEN
 		 */
-		
+
 		Long id = null;
 		DateTime date = null;
 		DateTime startTime, endTime;
-		
+
 		String idParameter = request.getParameter("id");
 		String dateParameter = request.getParameter("date");
 		String whenParameter = request.getParameter("when");
@@ -77,6 +84,7 @@ public class AddBooking extends HttpServlet {
 		}
 
 		if (error.size() != 0) {
+			logger.debug("Error en el formulario");
 			this.failure(request, response, error);
 			return;
 		}
@@ -97,6 +105,7 @@ public class AddBooking extends HttpServlet {
 		}
 
 		if (error.size() != 0) {
+			logger.debug("Error en el formulario");
 			this.failure(request, response, error);
 			return;
 		}
@@ -108,6 +117,7 @@ public class AddBooking extends HttpServlet {
 		} catch (Exception e) {
 			error
 					.add("El horario de reserva está malformado, debe ser de la forma \"hh:mm hh:mm\"");
+			logger.debug("Error en el formulario, horario inválido");
 			this.failure(request, response, error);
 			return;
 		}
@@ -127,6 +137,7 @@ public class AddBooking extends HttpServlet {
 		}
 
 		if (error.size() != 0) {
+			logger.debug("Error en el formulario");
 			this.failure(request, response, error);
 			return;
 		}
