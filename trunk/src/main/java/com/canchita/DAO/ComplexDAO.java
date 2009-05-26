@@ -13,9 +13,9 @@ public interface ComplexDAO {
 	
 	public Complex getById(Long id) throws PersistenceException;
 	
-	public void update(Complex aComplex);
+	public void update(Complex aComplex) throws PersistenceException;
 	
-	public void delete(Long id);
+	public void delete(Long id) throws PersistenceException;
 	
 	public Collection<Complex> getAll();
 	

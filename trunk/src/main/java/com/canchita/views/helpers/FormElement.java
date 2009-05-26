@@ -7,6 +7,7 @@ public abstract class FormElement {
 	protected String type;
 	protected String name;
 	protected String value;
+	protected String id;
 	protected Decorator deco;
 	protected ArrayList<String> validators;
 	private boolean required;
@@ -18,6 +19,7 @@ public abstract class FormElement {
 		required = false;
 		label = "";
 		value = "";
+		id = "";
 		validators = new ArrayList<String>();
 		deco = new Decorator();
 	}
@@ -32,6 +34,11 @@ public abstract class FormElement {
 		return this;
 	}
 	
+	public FormElement setId(String aId) {
+		this.id = aId;
+		return this;
+	}
+		
 	protected String genLabel() {
 		String nameFixed = this.label;
 		if (this.required)

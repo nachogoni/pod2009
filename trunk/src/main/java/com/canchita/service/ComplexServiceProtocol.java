@@ -21,7 +21,7 @@ public interface ComplexServiceProtocol {
 	public Collection<Complex> listComplex(String filter)
 			throws ValidationException;
 
-	public void deleteComplex(Long id);
+	public void deleteComplex(Long id) throws PersistenceException;
 
 	public Long saveComplex(String name, String description, String address,
 			String zipCode, String neighbourhood, String town, String state,

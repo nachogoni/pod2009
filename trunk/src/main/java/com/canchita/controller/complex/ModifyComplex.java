@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
 
 /**
@@ -69,8 +71,7 @@ public class ModifyComplex extends HttpServlet {
 		
 		logger.debug("POST request");
 		
-		//TODO: Migrar a ComplexForm
-		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
+	
 		ErrorManager error = new ErrorManager();
 
 		String name = request.getParameter("name");
@@ -116,21 +117,32 @@ public class ModifyComplex extends HttpServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
-			//this.failure(request, response, error);
+			this.failure(request, response, error);
 			return;
 		}
 
 		try{
-		modifyService.updateComplex(id,name, description, address, zipCode, neighbourhood, town, state, country);
-		modifyService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
-		}catch (Exception e) {
-			// TODO: handle exception
+			modifyService.updateComplex(id,name, description, address, zipCode, neighbourhood, town, state, country);
+			modifyService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
+		} catch (PersistenceException e) {
 			logger.error("Error modificando el complejo con id " + id);
+			error.add(e);
+			this.failure(request, response, error);
+			return;
 		}
-
 		
 		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
 		
+	}
+	
+	private void failure(HttpServletRequest request,
+			HttpServletResponse response, ErrorManager error)
+			throws ServletException, IOException {
+		request.setAttribute("errorManager", error);
+
+		UrlMapper.getInstance().forwardFailure(this, request, response,
+				UrlMapperType.POST);
+
 	}
 
 }

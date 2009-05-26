@@ -8,7 +8,18 @@
 
 <h1>Modificar Complejo</h1>
 
+<c:if test="${(errorManager != null)}">
+<div class="ui-state-error ui-corner-all error"> 
 
+<span class="ui-icon ui-icon-alert errorIcon"></span>
+<span>
+<strong>Alerta:</strong>
+</span>
+		<c:forEach items="${errorManager.errors}" var="error">
+			<span class="block">* <c:out value="${error}"/></span>
+		</c:forEach>
+</div>
+</c:if>
 
 <form action="" method="post">
 
@@ -54,7 +65,16 @@
 		<input type="text" name="downBooking" value="<c:out value="${complex.scoreSystem.downBooking}" />" size="30"/>
 		<label for="zipcode">Cancelar Deposito: </label>
 		<input type="text" name="downDeposit" value="<c:out value="${complex.scoreSystem.downDeposit}" />" size="30"/>
-   	</fieldset>   	
+   	</fieldset>
+   	
+   	<fieldset>
+   		<legend>Seña y Pago de Reservas</legend>
+   		<label for="depositLimit"> *Límite de seña</label>
+   		<input type="text" value="<c:out value="${complex.expiration.depositLimit}" />" name="depositLimit" id="depositLimit" alt=""/>
+   		<label for="bookingLimit"> *Límite de pago</label>
+   		<input type="text" value="<c:out value="${complex.expiration.bookingLimit}" />" name="bookingLimit" id="bookingLimit" alt=""/>
+   	</fieldset>
+   	
    	<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 	<input type="submit" value="Actualizar" class="submit-go">
 </form>

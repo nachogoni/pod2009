@@ -8,8 +8,8 @@ public class FormElementInput extends FormElement {
 	}
 
 	protected String genInput() {
-		return String.format("<input type=\"%s\" name=\"%s\" value=\"%s\">",
-							super.type, super.name, super.value);
+		return String.format("<input id=\"%s\" type=\"%s\" name=\"%s\" value=\"%s\">",
+							super.id,super.type, super.name, super.value);
 	}
 	
 	@Override

@@ -51,9 +51,13 @@ public class GetAvailableHours extends HttpServlet {
 			logger.error("Error leyendo id");
 			try {
 				json.put("success", false);
+				json.put("error", "El identificador de la cancha debe ser numérico");
+				this.sendJSON(json, response);
+				return;
 			} catch (JSONException e) {
 				logger.error("Error leyendo id");
 				this.sendJSON(json, response);
+				return;
 			}
 
 		}
@@ -68,9 +72,13 @@ public class GetAvailableHours extends HttpServlet {
 			logger.error("Error parseando fecha");
 			try {
 				json.put("success", false);
+				json.put("error", "La fecha debe ser en formato dd/mm/yyyy");
+				this.sendJSON(json, response);
+				return;
 			} catch (JSONException e) {
 				logger.error("Error parseando fecha (json)");
 				this.sendJSON(json, response);
+				return;
 			}
 
 		}
@@ -85,8 +93,12 @@ public class GetAvailableHours extends HttpServlet {
 		} catch (ElementNotExistsException e1) {
 			try {
 				json.put("success", false);
+				json.put("error", e1.getMessage());
+				this.sendJSON(json, response);
+				return;
 			} catch (JSONException e) {
 				this.sendJSON(json, response);
+				return;
 			}
 
 		}
@@ -123,6 +135,7 @@ public class GetAvailableHours extends HttpServlet {
 
 		out.println(json);
 		out.flush();
+		out.close();
 
 	}
 
