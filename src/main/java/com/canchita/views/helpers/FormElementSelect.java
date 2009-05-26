@@ -61,5 +61,13 @@ public class FormElementSelect extends FormElement {
 		
 		return this;
 	}
+	
+	@Override
+	public FormElementSelect setDecorator(Decorator deco) {
+		// TODO Auto-generated method stub
+		super.setDecorator(deco);
+		
+		return this;
+	}
 
 }

@@ -3,6 +3,7 @@ package com.canchita.controller.complex;
 import java.util.ArrayList;
 
 import com.canchita.model.complex.Complex;
+import com.canchita.views.helpers.Decorator;
 import com.canchita.views.helpers.FormElement;
 import com.canchita.views.helpers.FormElementInput;
 import com.canchita.views.helpers.FormHandler;
@@ -103,11 +104,16 @@ public class FormAddComplex extends FormHandler {
 			.setRequired(true)
 			.addValidator("IsNumeric"));
 		
+		Decorator decoBotones = new Decorator()
+								.setSclass("submit-go"); 
+		
 		this.addElement(new FormElementInput("submit","submit")
-			.setValue("Confirmar"));
+			.setValue("Confirmar")
+			.setDecorator(decoBotones));
 		
 		this.addElement(new FormElementInput("reset","reset")
-			.setValue("Reset"));
+			.setValue("Reset")
+			.setDecorator(decoBotones));
 		
 		
 		/* agrego los grupos */
