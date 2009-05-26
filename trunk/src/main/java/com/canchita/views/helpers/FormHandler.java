@@ -9,6 +9,8 @@ import com.canchita.helper.validator.*;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;
+	protected ArrayList<String> groupsOrder;
+	protected HashMap<String,ArrayList<FormElement>> groups;
 	protected HashMap<String, FormElement> formValues;
 	protected HashMap<String, String> errors;
 	protected ArrayList<String> attributes;
@@ -21,10 +23,36 @@ public abstract class FormHandler {
 		formValues = new HashMap<String, FormElement>();
 		formElements = new ArrayList<FormElement>();
 		attributes = new ArrayList<String>();
+		groups = new HashMap<String, ArrayList<FormElement>>();
+		groupsOrder = new ArrayList<String>();
 		formDecorator = new Decorator();
 		name = "form";
 	}
 	
+
+	public FormHandler addDisplayGroup(ArrayList<String> elements,
+			String group) {
+		ArrayList<FormElement> temp;
+
+		this.groupsOrder.add(group);
+		
+		if ( (temp = this.groups.get(group)) == null) {
+			this.groups.put(group, new ArrayList<FormElement>());
+		}
+		
+		temp = this.groups.get(group);
+		
+		for (String aName:elements) {
+			FormElement e = this.formValues.get(aName);
+			temp.add(e);
+		}
+
+		return this;
+	}
+	
+	private boolean hasGroups() {
+		return !this.groups.isEmpty();
+	}
 	public FormElement addElement(FormElement e) {
 		this.formElements.add(e);
 		this.formValues.put(e.getName(), e);
@@ -44,6 +72,10 @@ public abstract class FormHandler {
 		String ret;
 		String err;
 
+		if (this.hasGroups()) {
+			return this.printGroups();
+		}
+		
 		ret = "";
 		
 		ret += String.format("<form name=\"%s\" action=\"\" method=\"%s\" %s>",
@@ -58,14 +90,37 @@ public abstract class FormHandler {
 		ret += "<input type=\"submit\" value=\"Agregar\">";
 		ret += "</form>";
 		
-		if (!this.formDecorator.getFieldset().isEmpty())
-		{
-			ret = String.format("<fieldset><legend> %s</legend>%s</fieldset>",
-					this.name, ret);
-		}
-		
 		return ret;
 	}
+
+	private String printGroups() {
+		String err;
+		String ret = "";
+
+		ret += String.format("<form name=\"%s\" action=\"\" method=\"%s\" %s>",
+				this.name, this.method, this.getAttributesString());
+
+		for (String aName : this.groupsOrder) {
+			ArrayList<FormElement> elements;
+			elements = this.groups.get(aName);
+
+			ret += 	String.format("<fieldset><legend>%s</legend>", aName);
+			
+			for (FormElement e : elements) {
+				ret += e;
+				if ((err = this.errors.get(e.getName())) != null)
+					ret += "<div class='errors'>" + err + "</div>";
+			}
+			ret += "</fieldset>";
+		}
+
+		ret += "<input type=\"submit\" value=\"Agregar\">";
+		ret += "</form>";
+		
+
+		return ret;
+	}
+
 
 	private Object getAttributesString() {
 		String ret = "";
