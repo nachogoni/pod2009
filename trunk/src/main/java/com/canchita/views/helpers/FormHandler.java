@@ -151,8 +151,6 @@ public abstract class FormHandler {
 	 * String: value a setear
 	 */
 	public void populate(HashMap<String, String> data){
-		String value;
-		
 		for (FormElement e : formElements){
 			if (data.get(e.getName()) != null){
 				e.setValue(data.get(e.getName()));

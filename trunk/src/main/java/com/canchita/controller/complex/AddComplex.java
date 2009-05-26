@@ -1,6 +1,7 @@
 package com.canchita.controller.complex;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class AddComplex extends HttpServlet {
 
 		/*Get Form*/
 		formulario = new FormAddComplex();
-
+		
 		/* Form is sent to the view*/
 		request.setAttribute("formulario", this.formulario);
 		
@@ -126,7 +127,7 @@ public class AddComplex extends HttpServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
-			request.setAttribute("formulario", formulario);
+			request.setAttribute("formulario", formulario);			
 			this.failure(request, response, error);
 			return;
 		}
