@@ -30,7 +30,7 @@ public interface FieldServiceProtocol {
 
 	public void updateField(Long id, String name, String description,
 			Long idComplex, Boolean hasRoof, FloorType floor,
-			Expiration expiration) throws ElementNotExistsException;
+			Expiration expiration) throws ElementNotExistsException, PersistenceException;
 
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws ElementNotExistsException;
