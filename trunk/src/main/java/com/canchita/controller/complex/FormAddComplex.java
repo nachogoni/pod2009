@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.Decorator;
+import com.canchita.views.helpers.FormElementButton;
 import com.canchita.views.helpers.FormElementInput;
 import com.canchita.views.helpers.FormHandler;
 
@@ -107,11 +108,11 @@ public class FormAddComplex extends FormHandler {
 		Decorator decoBotones = new Decorator()
 								.setSclass("submit-go"); 
 		
-		this.addElement(new FormElementInput("submit","submit")
+		this.addElement(new FormElementButton("submit","submit")
 			.setValue("Confirmar")
 			.setDecorator(decoBotones));
 		
-		this.addElement(new FormElementInput("reset","reset")
+		this.addElement(new FormElementButton("reset","reset")
 			.setValue("Reset")
 			.setDecorator(decoBotones));
 		
