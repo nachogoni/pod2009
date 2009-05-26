@@ -1,11 +1,7 @@
 package com.canchita.controller.complex;
 
 import java.util.ArrayList;
-
-import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElementInclude;
 import com.canchita.views.helpers.FormElementInput;
-import com.canchita.views.helpers.FormElementSelect;
 import com.canchita.views.helpers.FormHandler;
 
 public class FormAddComplex extends FormHandler {
@@ -30,7 +26,7 @@ public class FormAddComplex extends FormHandler {
 			.setRequired(false));
 		
 		this.addElement(new FormElementInput("text","address")
-			.setLabel("Direccion")
+			.setLabel("Dirección")
 			.setRequired(true)
 			.addValidator("IsAlphaNum"));
 
@@ -50,7 +46,7 @@ public class FormAddComplex extends FormHandler {
 			.addValidator("IsAlphaNum"));
 
 		this.addElement(new FormElementInput("text","zipcode")
-			.setLabel("Codigo Postal")
+			.setLabel("Código Postal")
 			.setRequired(true)
 			.addValidator("IsAlphaNum"));
 
@@ -61,10 +57,10 @@ public class FormAddComplex extends FormHandler {
 			.setLabel("Longitud"));
 
 		this.addElement(new FormElementInput("text","telephone")
-			.setLabel("Telefono"));
+			.setLabel("Teléfono"));
 
 		this.addElement(new FormElementInput("text","country")
-			.setLabel("Pais"));
+			.setLabel("País"));
 		
 		this.addElement(new FormElementInput("text","booking")
 			.setLabel("Reservar")
