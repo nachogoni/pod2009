@@ -98,14 +98,16 @@ public class Field implements Bookable {
 		// TODO: ir a buscar al complex un determinado field
 	}
 
-	public Booking book(Schedule hour) throws PersistenceException, BookingException {
+	public Booking book(Schedule hour) throws PersistenceException,
+			BookingException {
 
 		Booking booking = new Booking(this, hour);
 
-		if( ! this.inAvailableHours(booking) ) {
-			throw new BookingException("La cancha no está disponible en este horario");
+		if (!this.inAvailableHours(booking)) {
+			throw new BookingException(
+					"La cancha no está disponible en este horario");
 		}
-		
+
 		BookingDAO bookingDAO = new BookingMemoryMock();
 
 		bookingDAO.save(booking);
@@ -115,7 +117,7 @@ public class Field implements Bookable {
 
 	private boolean inAvailableHours(Booking booking) {
 		return complex.inAvailableHours(booking.getSchedule());
-	
+
 	}
 
 	public Iterator<Schedule> getAvailableHours(DateTime date) {
@@ -146,15 +148,10 @@ public class Field implements Bookable {
 			int startHour = schedule.getStartTime().getHourOfDay();
 			int endHour = schedule.getEndTime().getHourOfDay();
 
-			System.out.println("Horario de atencion: " + startHour + " "
-					+ endHour);
-
 			for (int i = startHour; i < endHour; i++) {
 				possibleValues.add(i);
 			}
 		}
-
-		System.out.println("Vienen los bookings");
 
 		while (bookings.hasNext() && possibleValues.size() != 0) {
 
@@ -206,9 +203,11 @@ public class Field implements Bookable {
 		return Schedule.createHourlySchedule(date, possibleValues);
 	}
 
-	public List<Booking> getBookings() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<Booking> getBookings() {
+		
+		BookingDAO bookingDAO = new BookingMemoryMock();
+		
+		return bookingDAO.getFieldBookings(this.id);
 	}
 
 	public String getDescription() {
@@ -232,8 +231,13 @@ public class Field implements Bookable {
 	}
 
 	public boolean viewAvailability(Schedule hour) {
-		// TODO A QUIEN LE PREGUNTO SI ES DISPONIBLE O NO?
-		return false;
+
+		BookingDAO bookingDAO = new BookingMemoryMock();
+
+		Booking booking = new Booking(this, hour);
+
+		return this.complex.inAvailableHours(hour)
+				&& bookingDAO.viewAvailability(booking);
 	}
 
 	public boolean isHasRoof() {
