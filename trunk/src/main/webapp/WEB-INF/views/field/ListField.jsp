@@ -109,6 +109,8 @@
 					<td><strong>Nombre</strong></td>
 					<td><strong>Lugar</strong></td>
 					<td><strong>Descipción</strong></td>
+					<td><strong>Techada</strong></td>
+					<td><strong>Tipo de piso</strong></td>
 					<td></td>
 				</tr>
 				<c:forEach items="${fields}" var="field" varStatus="rowCounter">
@@ -125,7 +127,15 @@
 						<tr class="<c:out value="${rowStyle}" />">
 							<td><c:out value="${field.name}" /></td>
 							<td><c:out value="${field.complex.place}" /></td>
-							<td><c:out value="${field.complex.description}" /></td>
+							<td><c:out value="${field.description}" /></td>
+							<c:if test="${(field.hasRoof)}">
+								<td><c:out value="Sí" /></td>
+							</c:if>
+							<c:if test="${!(field.hasRoof)}">
+								<td><c:out value="No" /></td>
+							</c:if>
+							
+							<td><c:out value="${field.floor}" /></td>
 							
 							<td>
 								<form action="/tp-pod/field/delete" method="post">

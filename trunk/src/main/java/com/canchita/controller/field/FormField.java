@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.canchita.model.field.Field;
+import com.canchita.model.field.FloorType;
 import com.canchita.views.helpers.Decorator;
 import com.canchita.views.helpers.FormElementButton;
 import com.canchita.views.helpers.FormElementInput;
@@ -31,17 +32,17 @@ public class FormField extends FormHandler {
 			.addValidator("IsAlphaNum"));
 		
 		this.addElement(new FormElementSelect("hasRoof")
-			.setLabel("Techada")
-			.setRequired(true)
-			.addValue("Sí", "True")
-			.addValue("No", "False"));
+			.setLabel("Techadaaa")
+			.setRequired(false)
+			.addValue("Sí", (new Boolean(true)).toString())
+			.addValue("No", (new Boolean(false)).toString()));
 		
 		this.addElement(new FormElementSelect("floor")
 			.setLabel("Piso")
-			.setRequired(true)
-			.addValue("Cemento", "CONCRETE")
-			.addValue("Césped Sintético", "ARTIFICIAL_GRASS")
-			.addValue("Césped", "GRASS"));
+			.setRequired(false)
+			.addValue(FloorType.CONCRETE.toString(), FloorType.CONCRETE.toString())
+			.addValue(FloorType.ARTIFICIAL_GRASS.toString(), FloorType.ARTIFICIAL_GRASS.toString())
+			.addValue(FloorType.GRASS.toString(), FloorType.GRASS.toString()));
 		
 		this.addElement(new FormElementInput("hidden","idComplex"));
 
