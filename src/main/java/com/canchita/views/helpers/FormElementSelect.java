@@ -1,39 +1,65 @@
 package com.canchita.views.helpers;
 
-public class FormElementSelect {
-	private String name;
-	private String value;
-	
-	public FormElementSelect(String aName, String aValue) {
-		name = aName;
-		value = aValue;
-	}
-	
-	public FormElementSelect() {
-		// TODO Auto-generated constructor stub
-		name = "";
-		value = "";
+import java.util.ArrayList;
+
+public class FormElementSelect extends FormElement {
+
+	protected ArrayList<FormElementSelectValue> options;
+
+	public FormElementSelect(String name) {
+		super("select", name);
+		options = new ArrayList<FormElementSelectValue>();
+
 	}
 
-	public String getName() {
-		return name;
+	public FormElementSelect addValue(String name, String Value) {
+		options.add(new FormElementSelectValue(name, Value));
+
+		return this;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
 	public String toString() {
-		return String.format("<option value=\"%s\">%s</option>",
-				this.value, this.name);
+		String ret = "";
+		
+		for (FormElementSelectValue e : options) {
+			ret += e.toString();
+		}
+
+		return String.format("%s<select name=\"%s\"> %s </select>", 
+				super.genLabel(), super.getName(), ret);
 	}
 	
+	@Override
+	public FormElementSelect setValue(String value) {
+		// TODO Auto-generated method stub
+		super.setValue(value);
+		
+		return this;
+	}
+	
+	@Override
+	public FormElementSelect setLabel(String label) {
+		// TODO Auto-generated method stub
+		super.setLabel(label);
+		
+		return this;
+	}
+	
+	@Override
+	public FormElementSelect setRequired(boolean flag) {
+		// TODO Auto-generated method stub
+		super.setRequired(flag);
+		
+		return this;
+	}
+	
+	
+	@Override
+	public FormElementSelect addValidator(String validator) {
+		// TODO Auto-generated method stub
+		super.addValidator(validator);
+		
+		return this;
+	}
+
 }

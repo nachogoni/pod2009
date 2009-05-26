@@ -3,7 +3,9 @@ package com.canchita.controller.complex;
 import java.util.ArrayList;
 
 import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElement;
+import com.canchita.views.helpers.FormElementInclude;
+import com.canchita.views.helpers.FormElementInput;
+import com.canchita.views.helpers.FormElementSelect;
 import com.canchita.views.helpers.FormHandler;
 
 public class FormAddComplex extends FormHandler {
@@ -20,19 +22,21 @@ public class FormAddComplex extends FormHandler {
 	  		.setFormDecorator(deco)
 	  		.setMethod("post");
 			      
-		this.addElement(new FormElement("text","name")
+		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
 			.setRequired(true)
 			.addValidator("IsAlphaNum"));
 
-		this.addElement(new FormElement("text","description")
+		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
 			.setRequired(true));
 		
-		this.addElement(new FormElement("select","country")
-			.setLabel("Pais")
-			.addValue("lalal", "jeropa")
-			.addValue("lalal2", "jeropa2"));
+		this.addElement(new FormElementSelect("select")
+						.setLabel("selectlabel")
+						.addValue("sarasa", "sarasa"));
+		
+		this.addElement(new FormElementInclude("/WEB-INF/resources/countries_es.html"));
+
 
 		elements.add("name");
 		this.addDisplayGroup(elements, "posta");
@@ -41,7 +45,6 @@ public class FormAddComplex extends FormHandler {
 		this.addDisplayGroup(elements, "posta2");
 		elements.add("country");
 		this.addDisplayGroup(elements, "posta3");
-
 		
 		/*
 		this.addElement(new FormElement("text","name")
