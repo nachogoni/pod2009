@@ -105,11 +105,18 @@
 		com.canchita.controller.field.DeleteField</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>DetailedViewField</servlet-name>
-		<display-name>DetailedViewField</display-name>
+		<servlet-name>DetaildedViewField</servlet-name>
+		<display-name>DetaildedViewField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.DetailedViewField</servlet-class>
+		com.canchita.controller.field.DetaildedViewField</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DB</servlet-name>
+		<display-name>DB</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.service.DB</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
@@ -145,7 +152,7 @@
 		<url-pattern>/field/delete</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>DetailedViewField</servlet-name>
+		<servlet-name>DetaildedViewField</servlet-name>
 		<url-pattern>/field/detailedview</url-pattern>	
 	</servlet-mapping>
 	<servlet-mapping>
@@ -175,6 +182,10 @@
 	<servlet-mapping>
 		<servlet-name>ErrorException</servlet-name>
 		<url-pattern>/error/servererror</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DB</servlet-name>
+		<url-pattern>/db</url-pattern>
 	</servlet-mapping>
 
 	

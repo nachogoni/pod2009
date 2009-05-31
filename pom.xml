@@ -8,6 +8,11 @@
 	<name>tp-pod Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
+        <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>14</version>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
