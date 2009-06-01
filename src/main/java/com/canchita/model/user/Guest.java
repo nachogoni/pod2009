@@ -1,5 +1,7 @@
 package com.canchita.model.user;
 
+import com.canchita.model.exception.LoginException;
+
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -12,17 +14,24 @@ package com.canchita.model.user;
  */
 public class Guest extends User {
 
-	public boolean isAuthenticated() {
+	public boolean getIsAuthenticated() {
 		return false;
 	}
 
-	public boolean isGuest() {
+	public boolean getIsGuest() {
 		return true;
 	}
 
-	public Registered login(String username, String password) {
+	public Registered login(String username, String password) throws LoginException {
 		//TODO implementame
-		return null;
+		
+		if(username.equals("admin")) {
+			return new Administrator();
+		} else if( username.equals("Usuario") ) {
+			return new CommonUser();
+		}
+		
+		throw new LoginException("Usuario y/o contraseña incorrectos"); 
 	}
 	
 	public void register(String username, String password, String email) {

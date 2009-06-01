@@ -4,7 +4,6 @@
 <jsp:include page="/WEB-INF/views/general/header/header.jsp"
 	flush="true">
 	<jsp:param name="title" value="Listado de Canchas" />
-	<jsp:param name="header" value="admin" />
 </jsp:include>
 
 
@@ -165,10 +164,6 @@
 					<span class="ui-icon ui-icon-info infoIcon"></span>
 					<span><strong>Información:</strong></span>
 					<span class="block">* No se encontraron canchas</span>
-				</div>
-			
-				<div class="submit-go">
-					<a href="/tp-pod/AddField" >Agregar</a>
 				</div>
 			
 			</c:otherwise>

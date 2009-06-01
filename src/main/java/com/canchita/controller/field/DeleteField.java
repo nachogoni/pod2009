@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.complex.AddComplex;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
@@ -19,10 +20,9 @@ import com.canchita.service.FieldService;
 /**
  * Servlet implementation class DeleteField
  */
-public class DeleteField extends HttpServlet {
+public class DeleteField extends GenericServlet {
 	private static final long serialVersionUID = 1L;
        
-	Logger logger = Logger.getLogger(DeleteField.class.getName());
     /**
      * @see HttpServlet#HttpServlet()
      */

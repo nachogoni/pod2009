@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.error.ErrorException;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
@@ -30,10 +31,8 @@ import com.canchita.service.FieldServiceProtocol;
 /**
  * Servlet implementation class AddBooking
  */
-public class AddBooking extends HttpServlet {
+public class AddBooking extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-
-	Logger logger = Logger.getLogger(AddBooking.class.getName());
 
 	/**
 	 * Sets the form parameters for the view

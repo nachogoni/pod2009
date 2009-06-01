@@ -3,13 +3,12 @@
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp"
 	flush="true">
-	<jsp:param name="title" value="Panel de administración" />
-	<jsp:param name="header" value="admin" />
+	<jsp:param name="title" value="Página Inicial" />
 </jsp:include>
 
-<h1>Panel de administración</h1>
+<h1>Página Inicial</h1>
 
-<h3>¡Bienvenido a la canchita! Aquí podrá administrar sus complejos.</h3>
+<h3>¡Hola <c:out value="${user.username}" />! Bienvenido a la canchita. Aquí podrá realizar reservas para sus canchas preferidas.</h3>
 
 <form action="/tp-pod/ListComplex" method="get">
 	<fieldset>

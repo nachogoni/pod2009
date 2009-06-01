@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -20,10 +21,8 @@ import com.canchita.service.FieldService;
 /**
  * Servlet implementation class DetailedViewComplex
  */
-public class DetailedViewField extends HttpServlet {
+public class DetailedViewField extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-
-	Logger logger = Logger.getLogger(DetailedViewField.class.getName());
 
 	/**
 	 * @see HttpServlet#HttpServlet()

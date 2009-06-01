@@ -3,7 +3,6 @@
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
 	<jsp:param name="title" value="Realizar reserva" />
-	<jsp:param name="header" value="logged" />
 </jsp:include>
 
 <h1>Realizar la reserva de la cancha</h1>

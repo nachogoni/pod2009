@@ -3,7 +3,6 @@
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
 	<jsp:param name="title" value="Agregar un nuevo complejo" />
-	<jsp:param name="header" value="admin" />
 </jsp:include>
 
 <h1>Agregar un nuevo Complejo</h1>

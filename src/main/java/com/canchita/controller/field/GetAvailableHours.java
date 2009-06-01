@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.service.FieldService;
@@ -28,9 +29,8 @@ import com.canchita.service.FieldServiceProtocol;
 /**
  * Servlet implementation class GetAttendingHours
  */
-public class GetAvailableHours extends HttpServlet {
+public class GetAvailableHours extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-	Logger logger = Logger.getLogger(GetAvailableHours.class.getName());
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

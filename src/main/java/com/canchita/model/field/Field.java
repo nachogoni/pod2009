@@ -8,7 +8,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
-import com.canchita.DAO.BookingMemoryMock;
+import com.canchita.DAO.memorymock.BookingMemoryMock;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;

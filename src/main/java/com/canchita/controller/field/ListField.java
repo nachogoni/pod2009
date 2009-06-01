@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -21,9 +22,8 @@ import com.canchita.service.FieldServiceProtocol;
 /**
  * Servlet implementation class ListField
  */
-public class ListField extends HttpServlet {
+public class ListField extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-	Logger logger = Logger.getLogger(ListField.class.getName());
 
 	/**
 	 * @see HttpServlet#HttpServlet()

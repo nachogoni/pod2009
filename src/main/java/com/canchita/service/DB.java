@@ -7,13 +7,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.canchita.controller.GenericServlet;
+
 import java.sql.*;
 
 
 /**
  * Servlet implementation class DB
  */
-public class DB extends HttpServlet {
+public class DB extends GenericServlet {
 	private static final long serialVersionUID = 1L;
        
     /**

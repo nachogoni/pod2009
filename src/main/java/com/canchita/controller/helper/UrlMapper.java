@@ -63,6 +63,12 @@ public class UrlMapper {
 
 		this.successForward = new HashMap<String, String>();
 
+		//User
+		successForward.put("LoginGET", FORWARD_ROOT_DIR
+				+ "user/guest/Login.jsp");
+		successForward.put("HomeGET", FORWARD_ROOT_DIR
+				+ "user/registered/Home.jsp");
+		
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
@@ -86,12 +92,6 @@ public class UrlMapper {
 		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ViewComplex.jsp");
 
-		/* Admin home */
-		successForward.put("AdminHomeGET", FORWARD_ROOT_DIR
-				+ "admin/AdminHome.jsp");
-		successForward.put("AdminHomePOST", FORWARD_ROOT_DIR
-				+ "admin/AdminHome.jsp");
-
 		successForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
 		successForward.put("Error404GET", FORWARD_ROOT_DIR + "error/404.jsp");
@@ -101,6 +101,10 @@ public class UrlMapper {
 
 		this.successRedirect = new HashMap<String, String>();
 
+		//User
+		successRedirect.put("LogoutGET", "/tp-pod/");
+		successRedirect.put("LoginPOST", "/tp-pod/user/home");
+		
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
 		successRedirect
@@ -114,9 +118,7 @@ public class UrlMapper {
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
 		successRedirect.put("AddBookingPOST",
-		"/tp-pod/field/detailedview");
-		successRedirect.put("AdminHomePOST", FORWARD_ROOT_DIR
-				+ "admin/AdminHome.jsp");
+		"/tp-pod/field/detailedview");		
 
 	}
 
@@ -126,6 +128,14 @@ public class UrlMapper {
 	private void initializeFailure() {
 		this.failureForward = new HashMap<String, String>();
 
+		//User
+		failureForward.put("LoginGET", FORWARD_ROOT_DIR
+				+ "user/guest/Login.jsp");
+		failureForward.put("LoginPOST", FORWARD_ROOT_DIR
+				+ "user/guest/Login.jsp");
+		
+		//Complex
+		
 		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ListComplex.jsp");
 		failureForward.put("ListComplexPOST", FORWARD_ROOT_DIR
@@ -137,9 +147,15 @@ public class UrlMapper {
 
 		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR
 				+ "complex/AddComplexForm.jsp");
+		
+		failureForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
+				+ "complex/ViewComplex.jsp");
+		//Booking
+		
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
 
+		//Field
 		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
 		failureForward.put("AddFieldPOST", FORWARD_ROOT_DIR
@@ -156,8 +172,6 @@ public class UrlMapper {
 		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
 				+ "error/500.jsp");
 
-		failureForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
-				+ "complex/ViewComplex.jsp");
 
 		this.failureRedirect = new HashMap<String, String>();
 
@@ -165,8 +179,7 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=false");
 		failureRedirect.put("DeleteFieldPOST",
 				"/tp-pod/field/list?delete=false");
-		failureRedirect.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
-				+ "error/500.jsp");
+		failureRedirect.put(UrlMapper.DEFAULT, "/tp-pod/error/500");
 
 	}
 
@@ -282,7 +295,6 @@ public class UrlMapper {
 			Map<String, String> map) throws ServletException, IOException {
 
 		String url = this.findUrl(map, servlet, type);
-
 		request.getRequestDispatcher(url).forward(request, response);
 
 	}

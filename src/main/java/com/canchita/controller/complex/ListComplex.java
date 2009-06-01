@@ -13,6 +13,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -26,10 +27,9 @@ import com.canchita.service.ComplexServiceProtocol;
 /**
  * Servlet implementation class ListComplex
  */
-public class ListComplex extends HttpServlet {
+public class ListComplex extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
-	Logger logger = Logger.getLogger(ListComplex.class.getName());
 	
 	/**
 	 * @see HttpServlet#HttpServlet()

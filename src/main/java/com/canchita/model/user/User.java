@@ -12,8 +12,8 @@ package com.canchita.model.user;
  */
 public abstract class User {
 
-	public abstract boolean isGuest();
+	public abstract boolean getIsGuest();
 	
-	public abstract boolean isAuthenticated();
+	public abstract boolean getIsAuthenticated();
 	
 }

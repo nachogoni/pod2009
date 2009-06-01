@@ -12,7 +12,7 @@ package com.canchita.model.user;
  */
 public class Administrator extends Registered {
 
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return true;
 	}
 

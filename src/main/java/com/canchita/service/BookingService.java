@@ -6,9 +6,9 @@ import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
-import com.canchita.DAO.BookingMemoryMock;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.FieldMemoryMock;
+import com.canchita.DAO.memorymock.BookingMemoryMock;
+import com.canchita.DAO.memorymock.FieldMemoryMock;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
