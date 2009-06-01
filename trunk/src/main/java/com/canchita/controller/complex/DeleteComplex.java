@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -18,10 +19,9 @@ import com.canchita.service.ComplexService;
 /**
  * Servlet implementation class DeleteComplex
  */
-public class DeleteComplex extends HttpServlet {
+public class DeleteComplex extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
-	Logger logger = Logger.getLogger(DeleteComplex.class.getName());
 	
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -5,9 +5,9 @@ import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
-import com.canchita.DAO.ComplexMemoryMock;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.FieldMemoryMock;
+import com.canchita.DAO.memorymock.ComplexMemoryMock;
+import com.canchita.DAO.memorymock.FieldMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;

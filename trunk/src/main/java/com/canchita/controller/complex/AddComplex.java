@@ -13,6 +13,7 @@ import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
 import com.canchita.views.helpers.FormHandler;
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -20,10 +21,9 @@ import com.canchita.controller.helper.UrlMapperType;
 /**
  * Servlet implementation class AddComplex
  */
-public class AddComplex extends HttpServlet {
+public class AddComplex extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
-	Logger logger = Logger.getLogger(AddComplex.class.getName());
 	private FormHandler formulario;
 
 	public AddComplex() {

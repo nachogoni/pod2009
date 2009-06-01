@@ -1,4 +1,4 @@
-package com.canchita.DAO;
+package com.canchita.DAO.memorymock;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.FieldDAO;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;

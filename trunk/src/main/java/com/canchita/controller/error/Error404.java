@@ -8,16 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 
 /**
  * Servlet implementation class Error404
  */
-public class Error404 extends HttpServlet {
+public class Error404 extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-
-	Logger logger = Logger.getLogger(Error404.class.getName());
 
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -2,10 +2,10 @@
 <%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
-	<jsp:param name="title" value="Modificar Complejo" />
+	<jsp:param name="title" value="Ingresar al sistema" />
 </jsp:include>
 
-<h1>Modificar Complejo</h1>
+<h1>Ingresar al sistema</h1>
 
 <c:if test="${(errorManager != null)}">
 <div class="ui-state-error ui-corner-all error"> 
@@ -20,11 +20,12 @@
 </div>
 </c:if>
 
-<c:out value="${formulario}" escapeXml="false" />
-
-<jsp:include page="/WEB-INF/views/general/js.jsp"
-    flush="true" />
-<script src="/tp-pod/js/complex/add/init.js" type="text/javascript"/></script>
-
+    <div class="loginForm">
+            <FORM action="" method="post" >
+                    <INPUT type="text" name="username" value="Usuario" class="loginInputElement gray">
+                    <INPUT type="password" name="password" value="********" class="loginInputElement gray">
+                    <INPUT class="submit-go" type="submit" value="Ingresar" class="loginButtonElement">
+            </FORM>
+    </div>
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
     flush="true" />

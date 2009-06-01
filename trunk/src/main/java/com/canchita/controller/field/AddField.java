@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
@@ -21,9 +22,8 @@ import com.canchita.views.helpers.FormHandler;
 /**
  * Servlet implementation class AddField
  */
-public class AddField extends HttpServlet {
+public class AddField extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-	Logger logger = Logger.getLogger(AddField.class.getName());
 	private FormHandler formulario;
 
 	/**

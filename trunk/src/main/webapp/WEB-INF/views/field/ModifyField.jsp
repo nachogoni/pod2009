@@ -3,7 +3,6 @@
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
 	<jsp:param name="title" value="Modificar Cancha" />
-	<jsp:param name="header" value="admin" />
 </jsp:include>
 
 <h1>Modificar Cancha</h1>

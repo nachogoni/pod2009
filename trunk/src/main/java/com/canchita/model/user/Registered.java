@@ -22,17 +22,17 @@ public abstract class Registered extends User {
 	 */
 	private boolean active = true;
 	
-	public boolean isActive() {
+	public abstract boolean getIsAdmin();
+
+	public boolean getIsActive() {
 		return this.active;
 	}
 	
-	public abstract boolean isAdmin();
-	
-	public boolean isAuthenticated() {
+	public boolean getIsAuthenticated() {
 		return true;
 	}
 
-	public boolean isGuest() {
+	public boolean getIsGuest() {
 		return false;
 	}
 

@@ -36,12 +36,6 @@
 		<servlet-class>com.canchita.controller.field.GetAvailableHours</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>AdminHome</servlet-name>
-		<display-name>AdminHome</display-name>
-		<description></description>
-		<servlet-class>com.canchita.controller.admin.AdminHome</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>DetailedViewComplex</servlet-name>
 		<display-name>DetailedViewComplex</display-name>
 		<description></description>
@@ -118,6 +112,34 @@
 		<servlet-class>
 		com.canchita.service.DB</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<display-name>Login</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.user.guest.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GenericServlet</servlet-name>
+		<display-name>GenericServlet</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.GenericServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Home</servlet-name>
+		<display-name>Home</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.user.registered.Home</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<display-name>Logout</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.user.registered.Logout</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -156,10 +178,6 @@
 		<url-pattern>/field/detailedview</url-pattern>	
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AdminHome</servlet-name>
-		<url-pattern>/admin/home</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>DetailedViewComplex</servlet-name>
 		<url-pattern>/DetailedViewComplex</url-pattern>
 	</servlet-mapping>
@@ -184,16 +202,31 @@
 		<url-pattern>/error/servererror</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/user/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Home</servlet-name>
+		<url-pattern>/user/home</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>DB</servlet-name>
 		<url-pattern>/db</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/user/logout</url-pattern>
 	</servlet-mapping>
 
 	
 <!-- BEGIN Error Handling -->
-	<!-- TODO agregar HTTP error 500 server error -->
 	
 	<error-page>
 		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
 		<location>/error/404</location>
 	</error-page>
 	<error-page>
@@ -207,5 +240,19 @@
 		<location>/error/servererror</location>
 	</error-page>
 <!-- END Error Handling -->
+
+<!-- BEGIN filters -->
+<filter>
+  <filter-name>Authentication Filter</filter-name>
+  <filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
+</filter>
+
+<filter-mapping>
+           <filter-name>Authentication Filter</filter-name>
+           <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+
+<!-- END filters -->
 
 </web-app>

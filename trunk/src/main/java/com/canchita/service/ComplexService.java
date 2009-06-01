@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.ComplexDAO;
-import com.canchita.DAO.ComplexMemoryMock;
+import com.canchita.DAO.memorymock.ComplexMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Expiration;

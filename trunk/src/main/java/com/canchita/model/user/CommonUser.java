@@ -12,7 +12,7 @@ package com.canchita.model.user;
  */
 public class CommonUser extends Registered {
 
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return false;
 	}
 
