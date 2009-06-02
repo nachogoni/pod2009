@@ -3,6 +3,7 @@ package com.canchita.model.db;
 public class TestDBClass {
 	private String name;
 	public String hola;
+	int akaka;
 	
 	public TestDBClass() {
 		// TODO Auto-generated constructor stub
@@ -14,6 +15,10 @@ public class TestDBClass {
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getKaka(){
+		return akaka;
 	}
 
 	public void setName(String name) {
