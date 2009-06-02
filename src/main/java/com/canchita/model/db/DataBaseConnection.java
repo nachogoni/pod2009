@@ -123,18 +123,18 @@ public class DataBaseConnection {
 		}
 	}
 	
-	public Object loadInstance(TestDBModel model){
+	public Object loadInstance(TestDBModel model, ArrayList<String> dataWhere){
 		Object anObject = null;
-		String sFields = "", sSql = "";
+		String sFields = "", sSql = "", sWhere="1=1";
 		int i=0;
 		ArrayList<DBField> fields;
 		ResultSet rs;
-		Object parametrosSet[];
-		Class[] parametrosMethod; 
-		Method cMethod;
+		//Object parametrosSet[];
+		//Class[] parametrosMethod; 
+		//Method cMethod;
 		Field campos[], campo;
 		
-		// armo el sql
+		//Obtengo los campos de la clase
 		fields = model.getFields();
 		
 		for(i=0; i<fields.size()-1;i++){
@@ -142,14 +142,25 @@ public class DataBaseConnection {
 		}
 		sFields = sFields.concat(fields.get(i).getDBName());
 		
-		sSql = String.format("SELECT %s FROM %s", sFields, model.getTable());
+		//genero el where
+		if (!dataWhere.isEmpty()){
+			i=0;
+			//Recorro buscando las pk y armo el where
+			for(DBField e : fields){
+				if (e.isPK() && (i<dataWhere.size())){
+					sWhere = sWhere.concat(" AND " + e.getDBName() + "='" + dataWhere.get(i++) +"'");
+				}
+			}
+			//Si no mando la cantidad exacta de paramentros salgo
+			if (i != dataWhere.size())
+				return null;
+		}
+		
+		//Genero el sql
+		sSql = String.format("SELECT %s FROM %s WHERE %s", sFields, model.getTable(), sWhere);
 		
 		System.out.println(sSql);
 		
-		System.out.println("open" + this.open());
-		
-			
-		//clase = Class.forName();
 		try{
 			//Obtengo la clase
 			Class clase = Class.forName("com.canchita.model.db." + model.getObjClass());
@@ -157,37 +168,37 @@ public class DataBaseConnection {
 			//Genero una instancia de la clase
 			anObject = clase.newInstance();
 			
-			//Creo los parametros del metodo (String)
-			parametrosMethod = new Class[1];
-			parametrosMethod[0] = Class.forName("java.lang.String");
-			
-			//Obtengo el metodo
-			cMethod = clase.getMethod("setName", parametrosMethod);
-			
-			//Creo los parametros del metodo
-			
-			//Obtengo los datos de la base de datos
+			//Obtengo los datos de la db
+			//this.open();
+			//ejecuto el query
 			rs = this.executeQuery(sSql);
+			
+			//Si no devuelve ningun dato no devuelvo instancia
+			if(rs == null){
+				return null;
+			}
+			
+			//muevo al primero
 			rs.next();	
-			System.out.println(rs.toString());
+
+			//Recorro todos los campos que tengo que cargar en la instancia
+			for(DBField e : fields){
+				campo = clase.getDeclaredField(e.getClassName());
+				campo.setAccessible(true);
+				switch(e.getType()){
+					case DB_INT:
+						campo.set(anObject, rs.getInt(e.getDBName()));
+						break;
+					case DB_STRING:
+						campo.set(anObject, rs.getString(e.getDBName()));
+						break;
+					default:
+						//todo
+						;
+				}
+			}
 			
-			parametrosSet = new Object[1];
-			//parametrosSet[0] = rs.getString("nombre");
-			parametrosSet[0] = "sarasa";
-			
-			//termino el query
 			this.endQuery();
-			
-			//Invoco al metodo
-			cMethod.invoke(anObject, parametrosSet);
-			
-			campo = clase.getDeclaredField("name");
-			campo.setAccessible(true);
-			campo.set(anObject, "jeropa");
-			
-			campo = clase.getDeclaredField("hola");
-			campo.setAccessible(true);
-			campo.set(anObject, "JOIJ");
 			
 		}catch (ClassNotFoundException e) {
 			System.out.println("ClassNotFoundException:" + e.getMessage());
@@ -197,10 +208,10 @@ public class DataBaseConnection {
 			System.out.println("IllegalAccessException:" + e.getMessage());
 		}catch (InstantiationException e) {
 			System.out.println("InstantiationException:" + e.getMessage());
-		}catch (NoSuchMethodException e) {
+/*		}catch (NoSuchMethodException e) {
 			System.out.println("NoSuchMethodException:" + e.getMessage());
 		}catch (InvocationTargetException e) {
-			System.out.println("NoSuchMethodException:" + e.getMessage());
+			System.out.println("NoSuchMethodException:" + e.getMessage());*/
 		}catch (NoSuchFieldException e) {
 			System.out.println("NoSuchFieldException:" + e.getMessage());
 		}

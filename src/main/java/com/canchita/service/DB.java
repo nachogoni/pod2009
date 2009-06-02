@@ -12,6 +12,7 @@ import com.canchita.model.db.TestDBClass;
 import com.canchita.model.db.TestDBModel;
 import com.canchita.controller.GenericServlet;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 /**
@@ -52,9 +53,12 @@ public class DB extends GenericServlet {
 	    out.println("<h1>¡Hemos conectado!</h1>");
 	    
 	    try{
-	    	testclass = (TestDBClass)db.loadInstance(new TestDBModel());
+	    	ArrayList<String> aPk = new ArrayList<String>();
+	    	aPk.add("1");
+	    	testclass = (TestDBClass)db.loadInstance(new TestDBModel(), aPk);
 	    	System.out.println(testclass.getName());
 	    	System.out.println(testclass.getHola());
+	    	System.out.println(testclass.getKaka());
 	    	
 	    	ResultSet rcursor = db.executeQuery("SELECT * FROM \"COMPLEX\"");
 	    	

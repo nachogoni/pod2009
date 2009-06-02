@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class TestDBModel {
 	
 	static String getTable(){
-		return "TESTTABLE";
+		return "test2";
 	}
 	
 	static String getObjClass(){
@@ -17,7 +17,9 @@ public class TestDBModel {
 	static ArrayList<DBField> getFields(){
 		ArrayList<DBField> data = new ArrayList<DBField>();
 		
-		data.add(new DBField("Name","nombre","String", false));
+		data.add(new DBField("name","nombre", DbTypes.DB_STRING, false));
+		data.add(new DBField("hola","lala", DbTypes.DB_STRING, false));
+		data.add(new DBField("akaka","lala", DbTypes.DB_INT, true));
 		
 		return data;
 	}

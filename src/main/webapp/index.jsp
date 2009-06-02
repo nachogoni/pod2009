@@ -1,26 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
-<%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
-<jsp:include page="/WEB-INF/views/general/header/header.jsp"
-	flush="true">
-	<jsp:param name="title" value="micanchita.com" />
-	<jsp:param name="header" value="guest" />
-</jsp:include>
-
-<h1>Estás entrando en la canchita...</h1>
-
-<h3>¡Buscá un complejo amigo y reservá tu cancha en segundos!</h3>
-
-<img alt="micanchita.com" class="image" src="img/fieldPortada.jpg" />
-<form action="/tp-pod/ListComplex" method="get">
-	<fieldset>
-	<legend>Búsqueda de complejos</legend>
-	<label for="search">Nombre: </label>
-	<input id="complexName" type="text" name="search"/>
-	<input type="submit" value="Buscar" class="submit-go" />
-	</fieldset>
-</form>
-
-
-<jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
-	flush="true" />
+<%@page import="com.canchita.model.user.CommonUser"%><html>
+<body>
+<h2>Hello World!</h2>
+<% CommonUser lal = new CommonUser();%>
+<% System.out.println(lal.getIsGuest()); %>
+</body>
+</html>
