@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
@@ -47,4 +48,11 @@ public interface FieldServiceProtocol {
 			throws PersistenceException;
 
 	public Long getComplexId(Long id) throws ElementNotExistsException;
+
+	void addTimeTable(Long id, DateTime startMon, DateTime endMon,
+			DateTime startTues, DateTime endTues, DateTime startWed,
+			DateTime endWed, DateTime startThurs, DateTime endThurs,
+			DateTime startFri, DateTime endFri, DateTime startSat,
+			DateTime endSat, DateTime startSun, DateTime endSun)
+			throws InvalidScheduleException, PersistenceException;
 }
