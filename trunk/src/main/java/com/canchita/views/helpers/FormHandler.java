@@ -54,6 +54,7 @@ public abstract class FormHandler {
 	private boolean hasGroups() {
 		return !this.groups.isEmpty();
 	}
+	
 	public FormElement addElement(FormElement e) {
 		this.formElements.add(e);
 		this.formValues.put(e.getName(), e);

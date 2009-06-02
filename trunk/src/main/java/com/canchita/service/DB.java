@@ -7,9 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.canchita.model.db.DataBaseConnection;
+import com.canchita.model.db.TestDBClass;
+import com.canchita.model.db.TestDBModel;
 import com.canchita.controller.GenericServlet;
-
 import java.sql.*;
 
 
@@ -37,44 +38,46 @@ public class DB extends GenericServlet {
 		    
 	    response.setContentType("text/html");
 	    PrintWriter out = response.getWriter();
+	    Statement stmt = null;
+	    DataBaseConnection db;
+	    TestDBClass testclass;
 
-	    try {
-			//Leemos el driver de Oracle
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-			//Nos conectamos a la BD local
-			conexion = DriverManager.getConnection (
-					"jdbc:oracle:thin:@localhost:1521:itba",
-					"dgomezvi","tppod");
-
-
-	        //Decimos que nos hemos conectado 
-	    	out.println("<html>");
-	    	out.println("<body>");
-	    	out.println("<h1>¡Hemos conectado!</h1>");
-	    	out.println("</body>");
-			out.println("</html>");
-
-		} 
-		catch (ClassNotFoundException e1) {
-			//Error si no puedo leer el driver de Oracle 
-			out.println("ERROR:No encuentro el driver de la BD: "+
-						e1.getMessage());
+	    db = new DataBaseConnection();
+		if (db.open()){
+				
+			
+	       //Decimos que nos hemos conectado 
+	    out.println("<html>");
+	    out.println("<body>");
+	    out.println("<h1>¡Hemos conectado!</h1>");
+	    
+	    try{
+	    	testclass = (TestDBClass)db.loadInstance(new TestDBModel());
+	    	System.out.println(testclass.getName());
+	    	System.out.println(testclass.getHola());
+	    	
+	    	ResultSet rcursor = db.executeQuery("SELECT * FROM \"COMPLEX\"");
+	    	
+	    	while(rcursor.next()){
+	    		out.println("Nombre: " + rcursor.getString("name") + "<br/>");
+	    	}
+	    	
+	    	db.endQuery();
+	    }catch (SQLException e1) {
+			// TODO: handle exception
+	    	System.out.println(e1.getMessage());
+	    	out.println("ERROR: " + e1.getMessage());
+		}catch (Exception e) {
+			// TODO: handle exception
+	    	out.println("Error!");
+	    	System.out.println(e.getMessage());
 		}
-		catch (SQLException e2) {
-			//Error SQL: login/passwd mal
-			out.println("ERROR:Fallo en SQL: "+e2.getMessage());
+	    
+	    out.println("</body>");
+		out.println("</html>");
 		}
-		finally {
-			//Finalmente desconecto de la BD
-			try {
-				if (conexion!=null)
-					conexion.close();
-			} catch (SQLException e3) {
-				out.println("ERROR:Fallo al desconectar de la BD: "+
-					e3.getMessage());
-			}
-		}
+
+		db.close();
 	}
 
 	/**
