@@ -140,6 +140,20 @@
 		<servlet-class>
 		com.canchita.controller.user.registered.Logout</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>LastFields</servlet-name>
+		<display-name>LastFields</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.rss.LastFields</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DeadBooking</servlet-name>
+		<display-name>DeadBooking</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.rss.DeadBooking</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -216,6 +230,14 @@
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/user/logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LastFields</servlet-name>
+		<url-pattern>/LastFields</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeadBooking</servlet-name>
+		<url-pattern>/DeadBooking</url-pattern>
 	</servlet-mapping>
 
 	
