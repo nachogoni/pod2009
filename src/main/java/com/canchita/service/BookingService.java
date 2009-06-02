@@ -33,13 +33,13 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public Iterator<Booking> getBookenBookings(Long complexId) {
+	public Iterator<Booking> getBookedBookings(Long complexId) {
 
 		return bookingDAO.getComplexBookings(complexId);
 	}
 
 	@Override
-	public Iterator<Booking> getBookeableBookings(Long fieldId) {
+	public Iterator<Booking> getBookableBookings(Long fieldId) {
 
 		return bookingDAO.getFieldBookings(fieldId);
 	}

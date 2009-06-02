@@ -17,8 +17,8 @@ public interface BookingServiceProtocol {
 
 	public void deleteBooking(Long id);
 
-	public Iterator<Booking> getBookenBookings(Long bookerId);
+	public Iterator<Booking> getBookedBookings(Long bookerId);
 
-	public Iterator<Booking> getBookeableBookings(Long bookeableId);
+	public Iterator<Booking> getBookableBookings(Long bookeableId);
 
 }
