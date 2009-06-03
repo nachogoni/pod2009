@@ -19,12 +19,19 @@ public class FormAddComplex extends FormHandler {
 		ArrayList<String> sexpiration = new ArrayList<String>();
 		ArrayList<String> sconfirm = new ArrayList<String>();
 		
+		ArrayList<String> horas = new ArrayList<String>();
+		
+		for(int i=0;i<24;i++){
+			horas.add(String.format("%d:%d", i, ((i%2)==0)?0:1));
+		}
+		
 		this.setName("Complejo")
 	  		.setMethod("post");
 			     
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
 			.setRequired(true)
+			.addValidator("MaxLength", "20")
 			.addValidator("IsAlphaNumS"));
 
 		this.addElement(new FormElementInput("text","description")
@@ -67,6 +74,8 @@ public class FormAddComplex extends FormHandler {
 
 		this.addElement(new FormElementInput("text","country")
 			.setLabel("País"));
+		
+		//this.addElement(new FormElementInput)
 		
 		this.addElement(new FormElementInput("text","booking")
 			.setLabel("Reservar")

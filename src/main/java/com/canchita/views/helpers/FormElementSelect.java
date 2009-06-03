@@ -1,78 +1,129 @@
 package com.canchita.views.helpers;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.canchita.model.db.DataBaseConnection;
 
 public class FormElementSelect extends FormElement {
 
 	protected ArrayList<FormElementSelectValue> options;
+	Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 
+	/**
+	 * Constructor
+	 * 
+	 * @param name nombre del select
+	 */
 	public FormElementSelect(String name) {
 		super("select", name);
 		options = new ArrayList<FormElementSelectValue>();
-
 	}
 
-	public FormElementSelect addValue(String name, String Value) {
-		options.add(new FormElementSelectValue(name, Value));
+	/**
+	 * Agrega un valor al select
+	 * 
+	 * @param name
+	 * @param value
+	 * @return
+	 */
+	public FormElementSelect addValue(String name, String value) {
+		options.add(new FormElementSelectValue(name, value));
 
 		return this;
 	}
 
+	/**
+	 * Agrega un listado de pares nombre-valor al select
+	 * 
+	 * @param names
+	 * @param values
+	 * @return
+	 */
+	public FormElementSelect addValues(List<String> names, List<String> values) {
+		int i=0;
+		
+		//Si los sizes son distintos salgo
+		if ((names.size() != values.size()) && !names.isEmpty() && !values.isEmpty()){
+			logger.debug("Los sizes del names y values son distintos");
+			return null;
+		}
+		
+		//no uso un iterador por que tengo que recorrer las dos listas al mismo tiempo
+		for(i=0;i<names.size();i++){
+			this.options.add(new FormElementSelectValue(names.get(i),values.get(i)));
+		}
+
+		return this;
+	}
+
+	/**
+	 * Hace el html del select
+	 */
 	public String toString() {
 		String ret = "";
-		
+
 		for (FormElementSelectValue e : options) {
 			ret += e.toString();
 		}
 
-		return String.format("%s<select name=\"%s\"> %s </select>", 
-				super.genLabel(), super.getName(), ret);
+		return String.format("%s<select name=\"%s\"> %s </select>", super
+				.genLabel(), super.getName(), ret);
 	}
-	
-	@Override
+
+	/**
+	 * Setea default al elemento con name @value
+	 * 
+	 * @param value
+	 */
 	public FormElementSelect setValue(String value) {
-		// TODO Auto-generated method stub
 		super.setValue(value);
-		
-		for(FormElementSelectValue e : options){
-			if (e.getName().equals(value)){
+
+		//Busco al elemento de name @value
+		for (FormElementSelectValue e : options) {
+			if (e.getName().equals(value)) {
 				e.setDefault(true);
 			}
 		}
-		
+
 		return this;
 	}
-	
-	@Override
+
+	/**
+	 * Setea el label del elemento
+	 */
 	public FormElementSelect setLabel(String label) {
-		// TODO Auto-generated method stub
 		super.setLabel(label);
-		
+
 		return this;
 	}
-	
-	@Override
+
+	/**
+	 * Si es requerido o no
+	 */
 	public FormElementSelect setRequired(boolean flag) {
-		// TODO Auto-generated method stub
 		super.setRequired(flag);
-		
+
 		return this;
 	}
-	
-	
-	@Override
+
+	/**
+	 * Agrega un validador al elemento
+	 */
 	public FormElementSelect addValidator(String validator) {
-		// TODO Auto-generated method stub
 		super.addValidator(validator);
-		
+
 		return this;
 	}
-	
-	@Override
+
+	/**
+	 * Setea un decorador al elemento
+	 */
 	public FormElementSelect setDecorator(Decorator deco) {
-		// TODO Auto-generated method stub
 		super.setDecorator(deco);
-		
+
 		return this;
 	}
 
