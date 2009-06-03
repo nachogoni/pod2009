@@ -5,23 +5,16 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.joda.time.DateTime;
-
 import com.canchita.DAO.ComplexDAO;
+import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.model.booking.Expiration;
-import com.canchita.model.booking.Schedule;
-import com.canchita.model.complex.Availability;
-import com.canchita.model.complex.Calendar;
+import com.canchita.DAO.DAOFactory.DAO;
 import com.canchita.model.complex.Complex;
-import com.canchita.model.complex.DayOfWeek;
-import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
-import com.canchita.model.location.Place;
 
 public class FieldMemoryMock implements FieldDAO {
 
@@ -31,7 +24,12 @@ public class FieldMemoryMock implements FieldDAO {
 	static {
 
 		autoincrementalPk = 0L;
-		ComplexMemoryMock complexDAO = new ComplexMemoryMock();
+		ComplexDAO complexDAO = null;
+		try {
+			complexDAO = DAOFactory.get(DAO.COMPLEX);
+		} catch (PersistenceException e) {
+			e.printStackTrace();			
+		}
 
 		Field aField;
 
@@ -81,6 +79,10 @@ public class FieldMemoryMock implements FieldDAO {
 
 	}
 
+	public static FieldDAO getInstance() {
+		return new FieldMemoryMock();
+	}
+	
 	public void delete(Long id) throws ElementNotExistsException {
 
 		if (!FieldMocks.containsKey(id)) {
@@ -104,9 +106,9 @@ public class FieldMemoryMock implements FieldDAO {
 	}
 
 	public Collection<Field> getFiltered(Long idComplex)
-			throws ElementNotExistsException {
+			throws PersistenceException {
 
-		ComplexDAO complexDao = new ComplexMemoryMock();
+		ComplexDAO complexDao = DAOFactory.get(DAO.COMPLEX);
 
 		if (!complexDao.exists(idComplex)) {
 			throw new ElementNotExistsException("El complejo no existe");

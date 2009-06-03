@@ -7,18 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import com.canchita.controller.GenericServlet;
-import com.canchita.controller.complex.FormAddComplex;
-import com.canchita.controller.complex.ModifyComplex;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
-import com.canchita.service.ComplexService;
 import com.canchita.service.FieldService;
 import com.canchita.views.helpers.FormHandler;
 
@@ -62,7 +57,7 @@ public class ModifyField extends GenericServlet {
 			
 		try {
 			formulario = new FormField(service.getById(id));
-		} catch (ElementNotExistsException e) {
+		} catch (PersistenceException e) {
 			logger.error("Error buscando información del cancha " + id);
 			error.add(e);
 		}

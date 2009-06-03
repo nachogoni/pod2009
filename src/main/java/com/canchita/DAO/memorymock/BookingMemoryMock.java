@@ -1,6 +1,5 @@
 package com.canchita.DAO.memorymock;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,7 +9,9 @@ import java.util.Map;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
+import com.canchita.DAO.DAOFactory.DAO;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -27,6 +28,10 @@ public class BookingMemoryMock implements BookingDAO {
 
 	}
 
+	public static BookingDAO getInstance() {
+		return new BookingMemoryMock();
+	}
+	
 	@Override
 	public void delete(Long id) {
 		bookingMocks.remove(id);
@@ -72,7 +77,7 @@ public class BookingMemoryMock implements BookingDAO {
 		 * esas porque sino pasan estos casteos horribles
 		 */
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		if (!fieldDAO.exists((Field) booking.getItem())) {
 			throw new ElementNotExistsException(

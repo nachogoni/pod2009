@@ -16,10 +16,10 @@ import com.canchita.model.field.Field;
 
 public interface ComplexServiceProtocol {
 
-	public Collection<Complex> listComplex();
+	public Collection<Complex> listComplex() throws PersistenceException;
 
 	public Collection<Complex> listComplex(String filter)
-			throws ValidationException;
+			throws ValidationException, PersistenceException;
 
 	public void deleteComplex(Long id) throws PersistenceException;
 

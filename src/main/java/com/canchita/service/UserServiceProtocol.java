@@ -17,4 +17,8 @@ public interface UserServiceProtocol {
 	Registered login(String username, String password) throws LoginException;
 
 	void logout(Registered registered);
+	
+	void register(String username, String password, String email);
+	
+	Registered confirmateHash(String hash);
 }

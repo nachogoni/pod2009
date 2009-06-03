@@ -1,20 +1,16 @@
 package com.canchita.controller.field;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import com.canchita.controller.GenericServlet;
-import com.canchita.controller.complex.AddComplex;
-import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
-import com.canchita.model.exception.ElementNotExistsException;
-import com.canchita.service.ComplexService;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.FieldService;
 
 /**
@@ -53,7 +49,7 @@ public class DeleteField extends GenericServlet {
 			logger.debug("Eliminando cancha con id " + id);
 			try {
 				delService.deleteField(id);
-			} catch (ElementNotExistsException e) {
+			} catch (PersistenceException e) {
 				
 				UrlMapper.getInstance().redirectFailure(this, request, response,
 						UrlMapperType.POST);

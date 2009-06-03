@@ -2,9 +2,6 @@ package com.canchita.controller.field;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -22,7 +18,7 @@ import org.json.JSONObject;
 
 import com.canchita.controller.GenericServlet;
 import com.canchita.model.booking.Schedule;
-import com.canchita.model.exception.ElementNotExistsException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
 
@@ -90,7 +86,7 @@ public class GetAvailableHours extends GenericServlet {
 		Iterator<Schedule> schedules = null;
 		try {
 			schedules = fieldService.getAvailableHours(id, date);
-		} catch (ElementNotExistsException e1) {
+		} catch (PersistenceException e1) {
 			try {
 				json.put("success", false);
 				json.put("error", e1.getMessage());

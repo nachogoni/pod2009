@@ -133,6 +133,10 @@ public class ComplexMemoryMock implements ComplexDAO {
 
 	}
 
+	public static ComplexDAO getInstance() {
+		return new ComplexMemoryMock();
+	}
+	
 	public void delete(Long id) throws PersistenceException {
 
 		

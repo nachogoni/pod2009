@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.canchita.controller.GenericServlet;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
@@ -82,7 +83,14 @@ public class LastFields extends GenericServlet {
 		String baseURL = url;
 
 		// TODO: Tomar solo las ultimas canchas
-		Collection<Field> fields = fieldService.listField();
+		Collection<Field> fields = null;
+		try {
+			fields = fieldService.listField();
+		} catch (PersistenceException e) {
+			logger.error("RSS Feed - LastFieds error at " + (new Date()).toString() + e.getMessage());
+			e.printStackTrace();
+			return;
+		}
 
 		try {
 			// Informacion del RSS

@@ -5,9 +5,10 @@ import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.ComplexDAO;
+import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.memorymock.ComplexMemoryMock;
-import com.canchita.DAO.memorymock.FieldMemoryMock;
+import com.canchita.DAO.DAOFactory.DAO;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
@@ -15,10 +16,8 @@ import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Availability;
 import com.canchita.model.complex.Calendar;
-import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
-import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -27,26 +26,31 @@ import com.canchita.model.field.FloorType;
 
 public class FieldService implements FieldServiceProtocol {
 
-	public void deleteField(Long id) throws ElementNotExistsException {
-		(new FieldMemoryMock()).delete(id);
+	public void deleteField(Long id) throws PersistenceException {
+		
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+		
+		fieldDAO.delete(id);
 	}
 
-	public Collection<Field> listField() {
-		Collection<Field> fields = (new FieldMemoryMock()).getAll();
+	public Collection<Field> listField() throws PersistenceException {
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+		Collection<Field> fields = fieldDAO.getAll();
 		return fields;
 	}
 
 	public Collection<Field> listField(Long idComplex)
-			throws ValidationException, ElementNotExistsException {
+			throws ValidationException, PersistenceException {
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		return fieldDAO.getFiltered(idComplex);
 
 	}
 
 	public Collection<Field> listField(String filter)
-			throws ValidationException {
+			throws ValidationException, PersistenceException {
 
 		Validator validator = new IsAlphaNum(true);
 
@@ -55,7 +59,8 @@ public class FieldService implements FieldServiceProtocol {
 					"Error en el criterio de búsqueda, el mismo debe ser alfanumérico");
 		}
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
 
 		return fieldDAO.getFiltered(filter);
 
@@ -64,14 +69,19 @@ public class FieldService implements FieldServiceProtocol {
 	public Long saveField(String name, String description, Long idComplex,
 			Boolean hasRoof, FloorType floor) throws PersistenceException {
 
-		Field aField = new Field((new ComplexMemoryMock()).getById(idComplex),
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
+		
+		Field aField = new Field(complexDAO.getById(idComplex),
 				name);
 
 		aField.setDescription(description);
 		aField.setHasRoof(hasRoof);
 		aField.setFloor(floor);
 
-		(new FieldMemoryMock()).save(aField);
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+		
+		fieldDAO.save(aField);
 
 		return aField.getId();
 
@@ -95,7 +105,9 @@ public class FieldService implements FieldServiceProtocol {
 			aField.setFloor(floor);
 		}
 
-		(new FieldMemoryMock()).update(aField);
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+		
+		fieldDAO.update(aField);
 	}
 
 	public void addScoreSystem(Long id, Integer booking, Integer deposit,
@@ -107,7 +119,10 @@ public class FieldService implements FieldServiceProtocol {
 		try {
 			Field aField = getById(id);
 			aField.setScoreSystem(scoreSystem);
-			(new FieldMemoryMock()).update(aField);
+			
+			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+			
+			fieldDAO.update(aField);
 		} catch (PersistenceException e) {
 			throw e;
 		}
@@ -131,10 +146,11 @@ public class FieldService implements FieldServiceProtocol {
 		anExpiration.setDepositLimit(depositLimit);
 
 		try {
-			FieldMemoryMock fieldPersistor = new FieldMemoryMock();
-			Field aField = fieldPersistor.getById(id);
+			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+			Field aField = fieldDAO.getById(id);
 			aField.setExpiration(anExpiration);
-			fieldPersistor.update(aField);
+			fieldDAO.update(aField);
 		} catch (Exception e) {
 			throw new PersistenceException("Cancha no encontrado");
 		}
@@ -143,9 +159,9 @@ public class FieldService implements FieldServiceProtocol {
 
 	@Override
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
-			throws ElementNotExistsException {
+			throws PersistenceException {
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		Field field = fieldDAO.getById(id);
 
@@ -154,15 +170,18 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
-	public Field getById(Long id) throws ElementNotExistsException {
-		return (new FieldMemoryMock()).getById(id);
+	public Field getById(Long id) throws PersistenceException {
+		
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+		
+		return fieldDAO.getById(id);
 	}
 
 	@Override
 	public Iterator<Booking> getBookings(Long fieldId)
-			throws ElementNotExistsException {
+			throws PersistenceException {
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		Field field = fieldDAO.getById(fieldId);
 
@@ -170,9 +189,9 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
-	public Long getComplexId(Long id) throws ElementNotExistsException {
+	public Long getComplexId(Long id) throws PersistenceException {
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		Field field = fieldDAO.getById(id);
 
@@ -255,10 +274,11 @@ public class FieldService implements FieldServiceProtocol {
 		aCalendar.add(sunAvailability);
 
 		try {
-			FieldMemoryMock fieldPersistor = new FieldMemoryMock();
-			Field aField = fieldPersistor.getById(id);
+			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+			Field aField = fieldDAO.getById(id);
 			aField.setTimeTable(aCalendar);
-			fieldPersistor.update(aField);
+			fieldDAO.update(aField);
 		} catch (Exception e) {
 			throw new PersistenceException("Complejo no encontrado");
 		}

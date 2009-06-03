@@ -6,6 +6,9 @@ import java.util.Collection;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.ComplexDAO;
+import com.canchita.DAO.DAOFactory;
+import com.canchita.DAO.FieldDAO;
+import com.canchita.DAO.DAOFactory.DAO;
 import com.canchita.DAO.memorymock.ComplexMemoryMock;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
@@ -25,16 +28,21 @@ public class ComplexService implements ComplexServiceProtocol {
 
 	public void deleteComplex(Long id) throws PersistenceException {
 
-		(new ComplexMemoryMock()).delete(id);
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		
+		complexDAO.delete(id);
 	}
 
-	public Collection<Complex> listComplex() {
-		Collection<Complex> complexes = (new ComplexMemoryMock()).getAll();
+	public Collection<Complex> listComplex() throws PersistenceException {
+		
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		
+		Collection<Complex> complexes = complexDAO.getAll();
 		return complexes;
 	}
 
 	public Collection<Complex> listComplex(String filter)
-			throws ValidationException {
+			throws ValidationException, PersistenceException {
 
 		Validator validator = new IsAlphaNum(true);
 
@@ -45,7 +53,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
-		ComplexDAO complexDAO = new ComplexMemoryMock();
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
 		return complexDAO.getFiltered(filter);
 
@@ -69,7 +77,10 @@ public class ComplexService implements ComplexServiceProtocol {
 		aComplex.setPlace(complexLocation);
 
 		try {
-			(new ComplexMemoryMock()).save(aComplex);
+			
+			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+			
+			complexDAO.save(aComplex);
 		} catch (PersistenceException e) {
 			throw e;
 		}
@@ -110,13 +121,19 @@ public class ComplexService implements ComplexServiceProtocol {
 		}
 
 		aComplex.setPlace(location);
-		(new ComplexMemoryMock()).update(aComplex);
+		
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		
+		complexDAO.update(aComplex);
 
 	}
 
 	@Override
 	public Complex getById(Long id) throws PersistenceException {
-		return (new ComplexMemoryMock()).getById(id);
+		
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		
+		return complexDAO.getById(id);
 	}
 
 	@Override
@@ -126,13 +143,13 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
 				downBooking, downDeposit);
-		try {
+
 			Complex aComplex = getById(id);
 			aComplex.setScoreSystem(scoreSystem);
-			(new ComplexMemoryMock()).update(aComplex);
-		} catch (PersistenceException e) {
-			throw e;
-		}
+
+			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+			
+			complexDAO.update(aComplex);
 
 	}
 
@@ -212,10 +229,11 @@ public class ComplexService implements ComplexServiceProtocol {
 		aCalendar.add(sunAvailability);
 
 		try {
-			ComplexMemoryMock complexPersistor = new ComplexMemoryMock();
-			Complex aComplex = complexPersistor.getById(id);
+			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
+			Complex aComplex = complexDAO.getById(id);
 			aComplex.setTimeTable(aCalendar);
-			complexPersistor.update(aComplex);
+			complexDAO.update(aComplex);
 		} catch (Exception e) {
 			throw new PersistenceException("Complejo no encontrado");
 		}
@@ -239,10 +257,11 @@ public class ComplexService implements ComplexServiceProtocol {
 		anExpiration.setDepositLimit(depositLimit);
 
 		try {
-			ComplexMemoryMock complexPersistor = new ComplexMemoryMock();
-			Complex aComplex = complexPersistor.getById(id);
+			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
+			Complex aComplex = complexDAO.getById(id);
 			aComplex.setExpiration(anExpiration);
-			complexPersistor.update(aComplex);
+			complexDAO.update(aComplex);
 		} catch (Exception e) {
 			throw new PersistenceException("Complejo no encontrado");
 		}
