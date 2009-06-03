@@ -68,6 +68,8 @@ public class UrlMapper {
 				+ "user/guest/Login.jsp");
 		successForward.put("HomeGET", FORWARD_ROOT_DIR
 				+ "user/registered/Home.jsp");
+		successForward.put("RegisterGET", FORWARD_ROOT_DIR
+				+ "user/guest/Register.jsp");
 		
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
@@ -104,6 +106,7 @@ public class UrlMapper {
 		//User
 		successRedirect.put("LogoutGET", "/tp-pod/");
 		successRedirect.put("LoginPOST", "/tp-pod/user/home");
+		successRedirect.put("RegisterPOST", "/tp-pod/");
 		
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
@@ -133,6 +136,8 @@ public class UrlMapper {
 				+ "user/guest/Login.jsp");
 		failureForward.put("LoginPOST", FORWARD_ROOT_DIR
 				+ "user/guest/Login.jsp");
+		failureForward.put("RegisterGET", FORWARD_ROOT_DIR
+				+ "user/guest/Register.jsp");
 		
 		//Complex
 		

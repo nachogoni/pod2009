@@ -1,8 +1,8 @@
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">  
-<!--  
-	Copyright 2002, 2003 Sun Microsystems, Inc. All Rights Reserved.  
---> 
- 
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+	<!--
+		Copyright 2002, 2003 Sun Microsystems, Inc. All Rights Reserved.
+	-->
+
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
@@ -40,112 +40,119 @@
 		<display-name>DetailedViewComplex</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.complex.DetailedViewComplex</servlet-class>
+			com.canchita.controller.complex.DetailedViewComplex</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ModifyComplex</servlet-name>
 		<display-name>ModifyComplex</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.complex.ModifyComplex</servlet-class>
+			com.canchita.controller.complex.ModifyComplex</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ListField</servlet-name>
 		<display-name>ListField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.ListField</servlet-class>
+			com.canchita.controller.field.ListField</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Error404</servlet-name>
 		<display-name>Error404</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.error.Error404</servlet-class>
+			com.canchita.controller.error.Error404</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Error500</servlet-name>
 		<display-name>Error500</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.error.Error500</servlet-class>
+			com.canchita.controller.error.Error500</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ErrorException</servlet-name>
 		<display-name>ErrorException</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.error.ErrorException</servlet-class>
+			com.canchita.controller.error.ErrorException</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>addField</servlet-name>
 		<display-name>addField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.AddField</servlet-class>
+			com.canchita.controller.field.AddField</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ModifyField</servlet-name>
 		<display-name>ModifyField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.ModifyField</servlet-class>
+			com.canchita.controller.field.ModifyField</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DeleteField</servlet-name>
 		<display-name>DeleteField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.DeleteField</servlet-class>
+			com.canchita.controller.field.DeleteField</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DetailedViewField</servlet-name>
 		<display-name>DetailedViewField</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.field.DetailedViewField</servlet-class>
+			com.canchita.controller.field.DetailedViewField</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DB</servlet-name>
 		<display-name>DB</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.service.DB</servlet-class>
+			com.canchita.service.DB</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<display-name>Login</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.user.guest.Login</servlet-class>
+			com.canchita.controller.user.guest.Login</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GenericServlet</servlet-name>
 		<display-name>GenericServlet</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.GenericServlet</servlet-class>
+			com.canchita.controller.GenericServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Home</servlet-name>
 		<display-name>Home</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.user.registered.Home</servlet-class>
+			com.canchita.controller.user.registered.Home</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<display-name>Logout</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.user.registered.Logout</servlet-class>
+			com.canchita.controller.user.registered.Logout</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LastFields</servlet-name>
 		<display-name>LastFields</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.rss.LastFields</servlet-class>
+			com.canchita.controller.rss.LastFields</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Register</servlet-name>
+		<display-name>Register</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.user.guest.Register</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DeadBooking</servlet-name>
@@ -189,7 +196,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DetailedViewField</servlet-name>
-		<url-pattern>/field/detailedview</url-pattern>	
+		<url-pattern>/field/detailedview</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DetailedViewComplex</servlet-name>
@@ -235,6 +242,15 @@
 		<servlet-name>LastFields</servlet-name>
 		<url-pattern>/LastFields</url-pattern>
 	</servlet-mapping>
+<<<<<<< .mine
+	<servlet-mapping>
+		<servlet-name>Register</servlet-name>
+		<url-pattern>/user/register</url-pattern>
+	</servlet-mapping>
+
+	<!-- BEGIN Error Handling -->
+
+=======
 	<servlet-mapping>
 		<servlet-name>DeadBooking</servlet-name>
 		<url-pattern>/DeadBooking</url-pattern>
@@ -242,6 +258,7 @@
 	
 <!-- BEGIN Error Handling -->
 	
+>>>>>>> .r182
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404</location>
@@ -260,23 +277,23 @@
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/error/servererror</location>
 	</error-page>
-<!-- END Error Handling -->
+	<!-- END Error Handling -->
 
-<!-- BEGIN filters -->
-<filter>
-  <filter-name>Authentication Filter</filter-name>
-  <filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
-</filter>
+	<!-- BEGIN filters -->
+	<filter>
+		<filter-name>Authentication Filter</filter-name>
+		<filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
+	</filter>
 
-<filter-mapping>
-           <filter-name>Authentication Filter</filter-name>
-           <url-pattern>/*</url-pattern>
-</filter-mapping>
+	<filter-mapping>
+		<filter-name>Authentication Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
-<listener>
-	<listener-class>com.canchita.listener.JDBCListener</listener-class>
-</listener>
+	<listener>
+		<listener-class>com.canchita.listener.JDBCListener</listener-class>
+	</listener>
 
-<!-- END filters -->
+	<!-- END filters -->
 
 </web-app>

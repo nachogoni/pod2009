@@ -1,5 +1,8 @@
 package com.canchita.model.user;
 
+import java.security.NoSuchAlgorithmException;
+
+import com.canchita.DAO.DAOFactory;
 import com.canchita.model.exception.LoginException;
 
 /**
@@ -35,7 +38,21 @@ public class Guest extends User {
 	}
 	
 	public void register(String username, String password, String email) {
-		//TODO implementame
+		
+		byte[] hash;
+		
+		try {
+			hash = HashGenerator.getHash(username, "SHA-1");
+		} catch (NoSuchAlgorithmException e) {
+			//Should never happen
+			hash = (username + email + password).getBytes();
+		}
+		
+		System.out.println("El hash es " + hash);
+		
+		//UserDAO userDAO = DAOFactory.get(DAO.USER);
+		//userDAO.saveHash(username,password,mail,hash);
+		
 	}
 
 	public Registered confirmateHash(String hash) {
