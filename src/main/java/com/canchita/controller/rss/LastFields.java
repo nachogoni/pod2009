@@ -23,6 +23,8 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
+import com.sun.syndication.feed.synd.SyndImage;
+import com.sun.syndication.feed.synd.SyndImageImpl;
 import com.sun.syndication.io.SyndFeedOutput;
 
 /**
@@ -86,6 +88,14 @@ public class LastFields extends GenericServlet {
 			// Informacion del RSS
 			feed.setTitle("Ultimas canchas ingresadas - RSS Feed");
 			feed.setLink(baseURL);
+			feed.setCopyright("Copyright 2009 Canchita - All rights reserved");
+			feed.setLanguage("es-ar");
+			SyndImage image = new SyndImageImpl();
+			image.setUrl(baseURL + "/img/fieldPortada.jpg");
+			image.setDescription("Canchita");
+			image.setLink(baseURL);
+			image.setTitle("Canchita");
+			feed.setImage(image);
 			feed.setDescription("RSS Feed con las ultimas canchas ingresadas en canchita.com!");
 			feed.setPublishedDate(new Date());
 
