@@ -7,6 +7,7 @@ import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.Decorator;
 import com.canchita.views.helpers.FormElementButton;
 import com.canchita.views.helpers.FormElementInput;
+import com.canchita.views.helpers.FormElementSelect;
 import com.canchita.views.helpers.FormHandler;
 
 public class FormAddComplex extends FormHandler {
@@ -16,13 +17,23 @@ public class FormAddComplex extends FormHandler {
 		ArrayList<String> scomplejo = new ArrayList<String>();
 		ArrayList<String> subicacion = new ArrayList<String>();
 		ArrayList<String> spuntos = new ArrayList<String>();
+		
+		ArrayList<String> slunes = new ArrayList<String>();
+		ArrayList<String> smartes = new ArrayList<String>();
+		ArrayList<String> smiercoles = new ArrayList<String>();
+		ArrayList<String> sjueves = new ArrayList<String>();
+		ArrayList<String> sviernes = new ArrayList<String>();
+		ArrayList<String> ssabado = new ArrayList<String>();
+		ArrayList<String> sdomingo = new ArrayList<String>();
+		
+		
 		ArrayList<String> sexpiration = new ArrayList<String>();
 		ArrayList<String> sconfirm = new ArrayList<String>();
 		
 		ArrayList<String> horas = new ArrayList<String>();
 		
 		for(int i=0;i<24;i++){
-			horas.add(String.format("%d:%d", i, ((i%2)==0)?0:1));
+			horas.add(String.format("%02d:%02d", i, ((i%2)==0)?0:30));
 		}
 		
 		this.setName("Complejo")
@@ -75,7 +86,77 @@ public class FormAddComplex extends FormHandler {
 		this.addElement(new FormElementInput("text","country")
 			.setLabel("País"));
 		
-		//this.addElement(new FormElementInput)
+		/* Horarios lunes */
+		this.addElement(new FormElementSelect("fecha_lunes_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_lunes_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin lunes */
+		
+		/* Horarios martes */
+		this.addElement(new FormElementSelect("fecha_martes_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_martes_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin martes */
+		
+		/* Horarios miercoles */
+		this.addElement(new FormElementSelect("fecha_miercoles_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_miercoles_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin miercoles */
+		
+		/* Horarios jueves */
+		this.addElement(new FormElementSelect("fecha_jueves_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_jueves_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin jueves */
+		
+		/* Horarios viernes */
+		this.addElement(new FormElementSelect("fecha_viernes_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_viernes_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin viernes */
+		
+		/* Horarios sabado */
+		this.addElement(new FormElementSelect("fecha_sabado_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_sabado_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin sabado  */
+		
+		/* Horarios domingo */
+		this.addElement(new FormElementSelect("fecha_domingo_inicio")
+			.setLabel("Inicio")
+			.addValues(horas, horas));
+		
+		this.addElement(new FormElementSelect("fecha_domingo_fin")
+			.setLabel("Fin")
+			.addValues(horas, horas));
+		/* fin domingo */
+		
+		
 		
 		this.addElement(new FormElementInput("text","booking")
 			.setLabel("Reservar")
@@ -141,6 +222,36 @@ public class FormAddComplex extends FormHandler {
 		subicacion.add("telephone");
 		subicacion.add("country");
 		this.addDisplayGroup(subicacion, "Ubicación");
+		
+		slunes.add("fecha_lunes_inicio");
+		slunes.add("fecha_lunes_fin");
+		this.addDisplayGroup(slunes, "Lunes");
+		
+		smartes.add("fecha_martes_inicio");
+		smartes.add("fecha_martes_fin");
+		this.addDisplayGroup(smartes, "Martes");
+		
+		smiercoles.add("fecha_miercoles_inicio");
+		smiercoles.add("fecha_miercoles_fin");
+		this.addDisplayGroup(smiercoles, "Miercoles");
+		
+		sjueves.add("fecha_jueves_inicio");
+		sjueves.add("fecha_jueves_fin");
+		this.addDisplayGroup(sjueves, "Jueves");
+		
+		sviernes.add("fecha_viernes_inicio");
+		sviernes.add("fecha_viernes_fin");
+		this.addDisplayGroup(sviernes, "viernes");
+		
+		ssabado.add("fecha_sabado_inicio");
+		ssabado.add("fecha_sabado_fin");
+		this.addDisplayGroup(ssabado, "Sabado");
+		
+		sdomingo.add("fecha_domingo_inicio");
+		sdomingo.add("fecha_domingo_fin");
+		this.addDisplayGroup(sdomingo, "Domingo");
+		
+		
 		
 		spuntos.add("booking");
 		spuntos.add("deposit");
