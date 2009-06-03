@@ -7,7 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.db.DataBaseConnection;
+import com.canchita.model.db.ScoreSystemDbModel;
 import com.canchita.model.db.TestDBClass;
 import com.canchita.model.db.TestDBModel;
 import com.canchita.controller.GenericServlet;
@@ -54,11 +57,16 @@ public class DB extends GenericServlet {
 	    
 	    try{
 	    	ArrayList<String> aPk = new ArrayList<String>();
-	    	aPk.add("1");
+	    	aPk.add("3");
 	    	testclass = (TestDBClass)db.loadInstance(new TestDBModel(), aPk);
 	    	System.out.println(testclass.getName());
 	    	System.out.println(testclass.getHola());
 	    	System.out.println(testclass.getKaka());
+	    	
+	    	ScoreSystem stest;
+	    	
+	    	stest = (ScoreSystem)db.loadInstance(new ScoreSystemDbModel(), aPk);
+	    	System.out.println(stest.getBooking());
 	    	
 	    	ResultSet rcursor = db.executeQuery("SELECT * FROM \"COMPLEX\"");
 	    	
