@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import com.canchita.helper.validator.*;
 import com.canchita.model.db.DataBaseConnection;
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;

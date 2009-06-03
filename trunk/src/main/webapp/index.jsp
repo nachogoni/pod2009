@@ -10,6 +10,17 @@
 
 <h1>Estás entrando en la canchita...</h1>
 
+<c:if test="${(param.register == true)}">
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* La registración se completo exitosamente, consulta tu correo electrónico para confirmarlo</span>
+	</div>
+</c:if>
+
+
 <h3>¡Buscá un complejo amigo y reservá tu cancha en segundos!</h3>
 
 <img alt="micanchita.com" class="image" src="img/fieldPortada.jpg" />
