@@ -1,46 +1,47 @@
 package com.canchita.service;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.memorymock.BookingMemoryMock;
-import com.canchita.DAO.memorymock.FieldMemoryMock;
+import com.canchita.DAO.DAOFactory.DAO;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.BookingException;
-import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
-import com.canchita.model.field.Field;
 
 public class BookingService implements BookingServiceProtocol {
 
-	private BookingMemoryMock bookingDAO;
-
 	public BookingService() {
-		bookingDAO = new BookingMemoryMock();
+
 	}
 
 	@Override
-	public void deleteBooking(Long id) {
+	public void deleteBooking(Long id) throws PersistenceException {
 
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		
 		bookingDAO.delete(id);
 
 	}
 
 	@Override
-	public Iterator<Booking> getBookedBookings(Long complexId) {
+	public Iterator<Booking> getBookedBookings(Long complexId) throws PersistenceException {
 
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		
 		return bookingDAO.getComplexBookings(complexId);
 	}
 
 	@Override
-	public Iterator<Booking> getBookableBookings(Long fieldId) {
+	public Iterator<Booking> getBookableBookings(Long fieldId) throws PersistenceException {
 
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		
 		return bookingDAO.getFieldBookings(fieldId);
 	}
 
@@ -48,7 +49,7 @@ public class BookingService implements BookingServiceProtocol {
 	public void saveBooking(Long bookeableId, DateTime startTime, DateTime endTime)
 			throws PersistenceException, BookingException {
 
-		FieldDAO fieldDAO = new FieldMemoryMock();
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 		
 		Bookable bookable = fieldDAO.getById(bookeableId);
 				

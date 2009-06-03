@@ -26,4 +26,20 @@ public class UserService implements UserServiceProtocol {
 		
 	}
 
+	@Override
+	public void register(String username, String password, String email) {
+		
+		Guest guest = new Guest();
+		
+		guest.register(username, password, email);
+		
+	}
+
+	@Override
+	public Registered confirmateHash(String hash) {
+		
+		Guest guest = new Guest();
+		
+		return guest.confirmateHash(hash);
+	}
 }

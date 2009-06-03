@@ -21,7 +21,7 @@ public interface FieldDAO {
 	public Collection<Field> getFiltered(String filter);
 
 	public Collection<Field> getFiltered(Long idComplex)
-			throws ElementNotExistsException;
+			throws PersistenceException;
 
 	public boolean exists(Field field);
 

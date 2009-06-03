@@ -8,7 +8,8 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
-import com.canchita.DAO.memorymock.BookingMemoryMock;
+import com.canchita.DAO.DAOFactory;
+import com.canchita.DAO.DAOFactory.DAO;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
@@ -132,7 +133,7 @@ public class Field implements Bookable {
 					"La cancha no está disponible en este horario");
 		}
 
-		BookingDAO bookingDAO = new BookingMemoryMock();
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
 		bookingDAO.save(booking);
 
@@ -144,9 +145,9 @@ public class Field implements Bookable {
 
 	}
 
-	public Iterator<Schedule> getAvailableHours(DateTime date) {
+	public Iterator<Schedule> getAvailableHours(DateTime date) throws PersistenceException {
 
-		BookingDAO bookingDAO = new BookingMemoryMock();
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
 		Iterator<Booking> bookings = bookingDAO.getFieldBookings(this.id, date);
 
@@ -226,9 +227,8 @@ public class Field implements Bookable {
 		return Schedule.createHourlySchedule(date, possibleValues);
 	}
 
-	public Iterator<Booking> getBookings() {
-
-		BookingDAO bookingDAO = new BookingMemoryMock();
+	public Iterator<Booking> getBookings() throws PersistenceException {
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
 		return bookingDAO.getFieldBookings(this.id);
 	}
@@ -253,9 +253,9 @@ public class Field implements Bookable {
 		return this.name;
 	}
 
-	public boolean viewAvailability(Schedule hour) {
+	public boolean viewAvailability(Schedule hour) throws PersistenceException {
 
-		BookingDAO bookingDAO = new BookingMemoryMock();
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
 		Booking booking = new Booking(this, hour);
 

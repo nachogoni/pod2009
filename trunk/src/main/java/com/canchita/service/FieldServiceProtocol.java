@@ -8,7 +8,6 @@ import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
-import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -17,27 +16,26 @@ import com.canchita.model.field.FloorType;
 
 public interface FieldServiceProtocol {
 
-	public Collection<Field> listField();
+	public Collection<Field> listField() throws PersistenceException;
 
 	public Collection<Field> listField(String filter)
-			throws ValidationException;
+			throws ValidationException, PersistenceException;
 
-	public void deleteField(Long id) throws ElementNotExistsException;
+	public void deleteField(Long id) throws PersistenceException;
 
 	public Long saveField(String name, String description, Long idComplex,
 			Boolean hasRoof, FloorType floor) throws PersistenceException;
 
 	public void updateField(Long id, String name, String description,
-			Boolean hasRoof, FloorType floor) throws ElementNotExistsException,
-			PersistenceException;
+			Boolean hasRoof, FloorType floor) throws PersistenceException;
 
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
-			throws ElementNotExistsException;
+			throws PersistenceException;
 
-	public Field getById(Long id) throws ElementNotExistsException;
+	public Field getById(Long id) throws PersistenceException;
 
 	Iterator<Booking> getBookings(Long fieldId)
-			throws ElementNotExistsException;
+			throws PersistenceException;
 
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException,
@@ -47,7 +45,7 @@ public interface FieldServiceProtocol {
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException;
 
-	public Long getComplexId(Long id) throws ElementNotExistsException;
+	public Long getComplexId(Long id) throws PersistenceException;
 
 	void addTimeTable(Long id, DateTime startMon, DateTime endMon,
 			DateTime startTues, DateTime endTues, DateTime startWed,
