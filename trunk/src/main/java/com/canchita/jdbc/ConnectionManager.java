@@ -24,9 +24,10 @@ public class ConnectionManager {
 					"jdbc:oracle:thin:@localhost:1521:itba", "dgomezvi",
 					"tppod");
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println("No hiciste el tunel!");
+			throw new RuntimeException("Error conectando a la db");
 		}
-		;
+		
 		this.opened = false;
 	}
 
