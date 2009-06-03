@@ -30,18 +30,17 @@ public class DataBaseConnection {
 	public boolean open() {
 		boolean ret = true;
 
-		//Si la conexion no fue abierta
-		if (this.conexion == null)
-		{
+		// Si la conexion no fue abierta
+		if (this.conexion == null) {
 			try {
 				// Leemos el driver de Oracle
 				Class.forName("oracle.jdbc.driver.OracleDriver");
-	
+
 				// Nos conectamos a la BD local
 				conexion = DriverManager.getConnection(
 						"jdbc:oracle:thin:@localhost:1521:itba", "dgomezvi",
 						"tppod");
-				
+
 			} catch (ClassNotFoundException e1) {
 				// Error si no puedo leer el driver de Oracle
 				logger.error("ERROR:No encuentro el driver de la BD: "
@@ -53,33 +52,31 @@ public class DataBaseConnection {
 				ret = false;
 			}
 		}
-			
+
 		return ret;
 	}
-	
-	public ResultSet executeQuery(String sSql){
+
+	public ResultSet executeQuery(String sSql) {
 		ResultSet ret = null;
-		
-		if (this.conexion != null)
-		{
-			try{
+
+		if (this.conexion != null) {
+			try {
 				stmt = conexion.createStatement();
-				
+
 				ret = stmt.executeQuery(sSql);
-				
-			}catch(Exception e){
+
+			} catch (Exception e) {
 				logger.error("Error al ejecutar la sentencia: " + sSql);
 			}
 		}
-		
+
 		return ret;
 	}
-	
-	public void endQuery()
-	{
-		try{
-			stmt.close();					
-		}catch (SQLException e) {
+
+	public void endQuery() {
+		try {
+			stmt.close();
+		} catch (SQLException e) {
 			logger.error("Error al finalizar el statement");
 		}
 	}
@@ -88,26 +85,30 @@ public class DataBaseConnection {
 	 * Ejecuta una sentencia SQL
 	 * 
 	 * @param sSql
-	 * @return 
+	 * @return
 	 */
-	public boolean execute(String sSql){
+	public boolean execute(String sSql) {
 		boolean ret;
-		
-		try{
-			/* creo el statement*/
+
+		try {
+			/* creo el statement */
 			stmt = conexion.createStatement();
-			
+
 			ret = stmt.execute(sSql);
-						
-			stmt.close();			
-		}catch(Exception e){
+
+			stmt.close();
+		} catch (Exception e) {
 			logger.error("Error al ejecutar la sentencia: " + sSql);
 			ret = false;
 		}
-		
+
 		return ret;
 	}
-	
+
+	public boolean isOpened() {
+		return conexion != null;
+	}
+
 	/**
 	 * Cierra la conexion a la db
 	 */
@@ -122,70 +123,75 @@ public class DataBaseConnection {
 
 		}
 	}
-	
-	public Object loadInstance(TestDBModel model, ArrayList<String> dataWhere){
+
+	public Object loadInstance(DbModel model, ArrayList<String> dataWhere) {
 		Object anObject = null;
-		String sFields = "", sSql = "", sWhere="1=1";
-		int i=0;
+		String sFields = "", sSql = "", sWhere = "1=1";
+		int i = 0;
 		ArrayList<DBField> fields;
 		ResultSet rs;
-		//Object parametrosSet[];
-		//Class[] parametrosMethod; 
-		//Method cMethod;
-		Field campos[], campo;
-		
-		//Obtengo los campos de la clase
+		Field campo;
+
+		// Obtengo los campos de la clase
 		fields = model.getFields();
-		
-		for(i=0; i<fields.size()-1;i++){
-			sFields = sFields.concat(fields.get(i).getDBName() + ", ");
+
+		// agarro todos menos el ultimo por la ','
+		for (i = 0; i < fields.size() - 1; i++) {
+			// si no quiero cargar la clase no la traigo
+			if (fields.get(i).getClassName() != null)
+				sFields = sFields.concat(fields.get(i).getDBName() + ", ");
 		}
 		sFields = sFields.concat(fields.get(i).getDBName());
-		
-		//genero el where
-		if (!dataWhere.isEmpty()){
-			i=0;
-			//Recorro buscando las pk y armo el where
-			for(DBField e : fields){
-				if (e.isPK() && (i<dataWhere.size())){
-					sWhere = sWhere.concat(" AND " + e.getDBName() + "='" + dataWhere.get(i++) +"'");
+
+		// genero el where
+		if (!dataWhere.isEmpty()) {
+			i = 0;
+			// Recorro buscando las pk y armo el where
+			for (DBField e : fields) {
+				if (e.isPK() && (i < dataWhere.size())) {
+					sWhere = sWhere.concat(" AND " + e.getDBName() + "='"
+							+ dataWhere.get(i++) + "'");
 				}
 			}
-			//Si no mando la cantidad exacta de paramentros salgo
+			// Si no mando la cantidad exacta de paramentros salgo
 			if (i != dataWhere.size())
 				return null;
 		}
-		
-		//Genero el sql
-		sSql = String.format("SELECT %s FROM %s WHERE %s", sFields, model.getTable(), sWhere);
-		
-		System.out.println(sSql);
-		
-		try{
-			//Obtengo la clase
-			Class clase = Class.forName("com.canchita.model.db." + model.getObjClass());
 
-			//Genero una instancia de la clase
+		// Genero el sql
+		sSql = String.format("SELECT %s FROM %s WHERE %s", sFields, model
+				.getTable(), sWhere);
+
+		try {
+			// Obtengo la clase
+			Class clase = Class.forName(model.getObjClass());
+
+			// Genero una instancia de la clase
 			anObject = clase.newInstance();
-			
-			//Obtengo los datos de la db
-			//this.open();
-			//ejecuto el query
-			rs = this.executeQuery(sSql);
-			
-			//Si no devuelve ningun dato no devuelvo instancia
-			if(rs == null){
+
+			// Obtengo los datos de la db
+			// this.open();
+			if (!this.isOpened()) {
+				logger.error("La conexion a la base de datos no esta hecha");
 				return null;
 			}
-			
-			//muevo al primero
-			rs.next();	
+			// ejecuto el query
+			rs = this.executeQuery(sSql);
 
-			//Recorro todos los campos que tengo que cargar en la instancia
-			for(DBField e : fields){
-				campo = clase.getDeclaredField(e.getClassName());
-				campo.setAccessible(true);
-				switch(e.getType()){
+			// Si no devuelve ningun dato no devuelvo instancia
+			if (rs == null) {
+				return null;
+			}
+
+			// muevo al primero
+			rs.next();
+
+			// Recorro todos los campos que tengo que cargar en la instancia
+			for (DBField e : fields) {
+				if (e.getClassName() != null) {
+					campo = clase.getDeclaredField(e.getClassName());
+					campo.setAccessible(true);
+					switch (e.getType()) {
 					case DB_INT:
 						campo.set(anObject, rs.getInt(e.getDBName()));
 						break;
@@ -193,35 +199,27 @@ public class DataBaseConnection {
 						campo.set(anObject, rs.getString(e.getDBName()));
 						break;
 					default:
-						//todo
+						// todo
 						;
+					}
 				}
 			}
-			
+
+		} catch (ClassNotFoundException e) {
+			logger.error("ClassNotFoundException:" + e.getMessage());
+		} catch (SQLException e) {
+			logger.error("SQLException:" + e.getMessage());
+		} catch (IllegalAccessException e) {
+			logger.error("IllegalAccessException:" + e.getMessage());
+		} catch (InstantiationException e) {
+			logger.error("InstantiationException:" + e.getMessage());
+		} catch (NoSuchFieldException e) {
+			logger.error("NoSuchFieldException:" + e.getMessage());
+		} finally {
 			this.endQuery();
-			
-		}catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e.getMessage());
-		}catch (SQLException e) {
-			System.out.println("SQLException:" + e.getMessage());
-		}catch (IllegalAccessException e) {
-			System.out.println("IllegalAccessException:" + e.getMessage());
-		}catch (InstantiationException e) {
-			System.out.println("InstantiationException:" + e.getMessage());
-/*		}catch (NoSuchMethodException e) {
-			System.out.println("NoSuchMethodException:" + e.getMessage());
-		}catch (InvocationTargetException e) {
-			System.out.println("NoSuchMethodException:" + e.getMessage());*/
-		}catch (NoSuchFieldException e) {
-			System.out.println("NoSuchFieldException:" + e.getMessage());
 		}
-		//anObject = clase.newInstance();
-					
-		
-		
-		System.out.println("close");
-		
-		
+		// anObject = clase.newInstance();
+
 		return anObject;
 	}
 }

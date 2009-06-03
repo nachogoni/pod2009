@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class TestDBModel {
+public class TestDBModel extends DbModel{
 	
-	static String getTable(){
+	public String getTable(){
 		return "test2";
 	}
 	
-	static String getObjClass(){
-		return "TestDBClass";
+	public String getObjClass(){
+		return "com.canchita.model.db.TestDBClass";
 	}
 	
-	static ArrayList<DBField> getFields(){
+	public ArrayList<DBField> getFields(){
 		ArrayList<DBField> data = new ArrayList<DBField>();
 		
 		data.add(new DBField("name","nombre", DbTypes.DB_STRING, false));
