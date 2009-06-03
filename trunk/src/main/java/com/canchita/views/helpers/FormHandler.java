@@ -5,7 +5,11 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.canchita.helper.validator.*;
+import com.canchita.model.db.DataBaseConnection;
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;
@@ -17,6 +21,7 @@ public abstract class FormHandler {
 	protected String method;
 	private Decorator formDecorator;
 	private String name;
+	Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 	
 	public FormHandler() {
 		errors = new HashMap<String, String>();
@@ -207,23 +212,24 @@ public abstract class FormHandler {
 							try{
 								aVal = (Validator)cvalidator.newInstance();
 							}catch (IllegalAccessException exp) {
-								// TODO: handle exception
-								System.out.println("Error 1");
+								logger.error("IllegalAccessException: al crear el validador " + val);
 							}catch (InstantiationException e2) {
-								// TODO: handle exception
-								System.out.println("Error 2");
+								logger.error("InstantiationException: al crear el validador " + val);
 							}
 						} catch (ClassNotFoundException except) {
-							// TODO: handle exception
-							System.out.println("Error 3");
+							logger.error("ClassNotFoundException: al crear el validador " + val + " se crea el default");
 							aVal = new IsEmpty();
 						}
 
+						//Si tiene parametros lo seteo
+						if (aVal instanceof ValidatorWParam){
+							((ValidatorWParam) aVal).setParam(e.validatorValues.get(val));
+						}
+						
 						if ( !aVal.validate(e.getValue()) ){
 							this.errors.put(e.getName(), aVal.getError());
 							ret = false;
-						}
-							
+						}	
 					}
 				}
 			}

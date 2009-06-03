@@ -124,6 +124,13 @@ public class DataBaseConnection {
 		}
 	}
 
+	public Object loadInstance(DbModel model, String pk) {
+		ArrayList<String> aPk = new ArrayList<String>();
+    	aPk.add(pk);
+    	
+    	return loadInstance(model, aPk);
+	}
+	
 	public Object loadInstance(DbModel model, ArrayList<String> dataWhere) {
 		Object anObject = null;
 		String sFields = "", sSql = "", sWhere = "1=1";

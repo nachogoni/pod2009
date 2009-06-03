@@ -1,7 +1,6 @@
 package com.canchita.helper.validator;
 
-public class CustomRegex extends Validator {
-
+public class CustomRegex extends ValidatorWParam {
 	private String regex;
 	
 	@Override
@@ -28,4 +27,7 @@ public class CustomRegex extends Validator {
 		this.regex = aRegex;
 	}
 	
+	public void setParam(String param) {
+		this.regex = param; 
+	}
 }

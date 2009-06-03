@@ -1,6 +1,9 @@
 package com.canchita.views.helpers;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class FormElement {
 	protected String label;
@@ -9,7 +12,8 @@ public abstract class FormElement {
 	protected String value;
 	protected String id;
 	protected Decorator deco;
-	protected ArrayList<String> validators;
+	protected Set<String> validators;
+	protected Map<String, String> validatorValues;
 	private boolean required;
 	
 
@@ -20,7 +24,8 @@ public abstract class FormElement {
 		label = "";
 		value = "";
 		id = "";
-		validators = new ArrayList<String>();
+		validators = new HashSet<String>();
+		validatorValues = new HashMap<String, String>();
 		deco = new Decorator();
 	}
 	
@@ -57,6 +62,12 @@ public abstract class FormElement {
 	
 	public FormElement addValidator(String aValidator){
 		this.validators.add(aValidator);
+		return this;
+	}
+	
+	public FormElement addValidator(String aValidator, String aParam){
+		this.validators.add(aValidator);
+		this.validatorValues.put(aValidator, aParam);
 		return this;
 	}
 	
