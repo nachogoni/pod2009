@@ -242,15 +242,10 @@
 		<servlet-name>LastFields</servlet-name>
 		<url-pattern>/LastFields</url-pattern>
 	</servlet-mapping>
-<<<<<<< .mine
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
 		<url-pattern>/user/register</url-pattern>
 	</servlet-mapping>
-
-	<!-- BEGIN Error Handling -->
-
-=======
 	<servlet-mapping>
 		<servlet-name>DeadBooking</servlet-name>
 		<url-pattern>/DeadBooking</url-pattern>
@@ -258,7 +253,6 @@
 	
 <!-- BEGIN Error Handling -->
 	
->>>>>>> .r182
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404</location>
