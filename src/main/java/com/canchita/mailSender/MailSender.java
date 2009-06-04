@@ -26,6 +26,8 @@ public class MailSender {
 	// private String smtpServerPort = "25";
 	private String smtpServer = "localhost";
 	private String smtpServerPort = "2525";
+//	private String smtpServer = "smtp.alu.itba.edu.ar";
+//	private String smtpServerPort = "25";
 	private String user = "canchita.noreply";
 	private String from = "canchita.noreply@fibertel.com.ar";
 	private String passwd = "mil33t";
