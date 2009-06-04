@@ -10,9 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.user.CommonUser;
+import com.canchita.model.user.Guest;
+import com.canchita.model.user.Registered;
 import com.canchita.service.ComplexService;
 import com.canchita.views.helpers.FormHandler;
+import com.canchita.DAO.db.UserDB;
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
@@ -36,6 +41,16 @@ public class AddComplex extends GenericServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+        
+    	// TODO BORRAME
+//        Registered lala = new CommonUser();
+//    	UserDB usuario = UserDB.getInstance();
+//    	lala.setUsername("pepe2");
+//    	
+//    	System.out.println(usuario.exists(lala));
+    	// TODO BORRAME
+    	
+    	
 		logger.debug("GET request");
 
 		/*Get Form*/

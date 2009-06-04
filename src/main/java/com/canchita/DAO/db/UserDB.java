@@ -1,10 +1,10 @@
 package com.canchita.DAO.db;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
+import java.util.List;
 
 import com.canchita.DAO.UserDAO;
 import com.canchita.jdbc.ConnectionManager;
@@ -15,7 +15,7 @@ import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Registered;
 import com.canchita.model.user.User;
 
-public class UserDB implements UserDAO {
+public class UserDB extends AllDB implements UserDAO {
 
 	private static UserDB instance;
 	private String tableName = "USERS";
@@ -25,7 +25,7 @@ public class UserDB implements UserDAO {
 	}
 
 	private UserDB() {
-
+		// No hace nada :D
 	}
 
 	public static UserDB getInstance() {
@@ -57,35 +57,13 @@ public class UserDB implements UserDAO {
 
 	@Override
 	public boolean exists(Registered user) {
-		ConnectionManager manager = ConnectionPool.getInstance()
-				.getConnectionManager();
-		Connection connection = manager.getConnection();
+		String query = "SELECT COUNT(*) AS COUNT FROM USERS WHERE \"name\" = ?";
 
-		Statement stmt;
-		ResultSet results = null;
-		Boolean ret = false;
+		List<Integer> results = executeQuery(query, new Object[] { user
+				.getUsername() }, this.getCounter());
 
-		String query = String.format(
-				"SELECT COUNT(*) FROM %s WHERE \"name\" = '%s'", tableName,
-				user.getUsername());
+		return results.get(0) > 0;
 
-		try {
-			stmt = connection.createStatement();
-			results = stmt.executeQuery(query);
-
-			if (results != null) {
-				results.next();
-				ret = results.getInt(1) > 0;
-			}
-
-		} catch (SQLException e) {
-			// TODO agregar log4j
-			e.printStackTrace();
-		} finally {
-			ConnectionPool.getInstance().releaseConnectionManager(manager);
-		}
-
-		return ret;
 	}
 
 	@Override
@@ -95,27 +73,11 @@ public class UserDB implements UserDAO {
 	}
 
 	@Override
-	public CommonUser getByUserName(String userName) throws ElementNotExistsException {
-		ConnectionManager manager = ConnectionPool.getInstance()
-				.getConnectionManager();
-		Connection connection = manager.getConnection();
+	public CommonUser getByUserName(String userName)
+			throws ElementNotExistsException {
+		String query = "SELECT * FROM USERS WHERE \"name\" = ?";
 
-		Statement stmt;
-		
-		String query = String.format("SELECT * FROM %s WHERE \"name\" = '%s'",
-				tableName, userName);
-
-		try {
-			stmt = connection.createStatement();
-			if (stmt.executeUpdate(query) == 0)
-				throw new ElementNotExistsException("El usuario no existe.");
-		} catch (SQLException e) {
-			// TODO agregar log4j
-			e.printStackTrace();
-		} finally {
-			ConnectionPool.getInstance().releaseConnectionManager(manager);
-		}
-		
+		// TODO COMPLETAME
 		return null;
 
 	}
