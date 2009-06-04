@@ -18,7 +18,7 @@ public interface UserServiceProtocol {
 
 	void logout(Registered registered);
 	
-	void register(String username, String password, String email);
+	void register(String username, String password, String email, String baseUrl);
 	
 	Registered confirmateHash(String hash);
 }

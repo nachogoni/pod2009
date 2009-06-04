@@ -9,7 +9,7 @@
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
-<script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/util/delete.js" type="text/javascript"/></script>
 
 <h1>Vista Detallada de la Cancha</h1>
 
@@ -35,16 +35,16 @@
 <table>
 	<tr>
 		<td>
-			<form action="/tp-pod/field/delete" method="post">
+			<form action="<c:out value="${baseURI}" />/field/delete" method="post">
 			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 			<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 			<input type="submit" class="delete" name="delete" value="Eliminar" />
 			</form>
 		</td>
-		<td><a href=<c:out value="/tp-pod/field/book?id=${field.id}" />>Reservar</a></td>
+		<td><a href=<c:out value="<c:out value="${baseURI}" />/field/book?id=${field.id}" />>Reservar</a></td>
 		<!-- 
 		<td>
-			<form action="/tp-pod/ModifyField" method="get">
+			<form action="<c:out value="${baseURI}" />/ModifyField" method="get">
 			<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 			<input type="submit" name="modify" value="Modificar" />
 			</form>

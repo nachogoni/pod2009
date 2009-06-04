@@ -24,7 +24,7 @@
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
-<script src="/tp-pod/js/complex/add/init.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/complex/add/init.js" type="text/javascript"/></script>
 
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
 	flush="true" />

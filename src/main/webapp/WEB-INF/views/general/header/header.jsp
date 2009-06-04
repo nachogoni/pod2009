@@ -21,7 +21,7 @@
 	type="text/css" media="print, projection, screen">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Canchita - <c:out value="${param.title}" /> - <c:out value="${user}" /></title>
+<title>Canchita - <c:out value="${param.title}" /></title>
 </head>
 <body class="bloggerStyle">
 

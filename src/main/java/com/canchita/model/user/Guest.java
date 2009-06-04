@@ -37,26 +37,32 @@ public class Guest extends User {
 		throw new LoginException("Usuario y/o contraseña incorrectos"); 
 	}
 	
-	public void register(String username, String password, String email) {
+	public String register(String username, String password, String email) {
 		
-		byte[] hash;
+		String hash;
 		
 		try {
 			hash = HashGenerator.getHash(username, "SHA-1");
 		} catch (NoSuchAlgorithmException e) {
 			//Should never happen
-			hash = (username + email + password).getBytes();
+			hash = (username + email + password).getBytes().toString();
 		}
-		
-		System.out.println("El hash es " + hash);
 		
 		//UserDAO userDAO = DAOFactory.get(DAO.USER);
 		//userDAO.saveHash(username,password,mail,hash);
 		
+		return hash;
 	}
 
 	public Registered confirmateHash(String hash) {
-		//TODO implementame
+		
+		//UserDAO userDAO = DAOFactory.get(DAO.USER);
+		
+		//TODO si todo sale bien loguear al usuario con un internal login
+		
+		//return userDAO.getHash(hash);
+		
+		
 		return null;
 	}
 }
