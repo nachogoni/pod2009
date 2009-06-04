@@ -165,7 +165,7 @@ public class MailSender {
             }
 
             message.setSubject(subject);
-			message.setText(body.toString());
+            message.setContent(body.toString(), "text/html");
 
 			// Lo enviamos.
 			Transport t = session.getTransport("smtp");
