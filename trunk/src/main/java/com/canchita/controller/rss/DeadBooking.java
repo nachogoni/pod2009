@@ -43,7 +43,11 @@ public class DeadBooking extends GenericServlet {
 		mail.appendBody("\n Para usar el envio de mail, tienen que hacer un tunnel:");
 		mail.appendBody("ssh -L2525:smtp.fibertel.com.ar:25 pampero");
 		mail.appendBody("(o pampero.itba.edu.ar depende donde esten)\n");
-		
+
+		mail.appendBody("\n\n Mail enviado desde:");
+		mail.appendBody(mail.getSmtpServer() + mail.getSmtpServerPort()
+				+ mail.getFrom());
+
 		mail.send();
 
 	}
