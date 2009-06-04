@@ -179,8 +179,8 @@ public class MailSender {
 					+ "', asunto: '" + subject + "', cuerpo: '" + body + "'.");
 		} catch (Exception e) {
 			logger.error("Error al enviar el mail para '" + to + "', asunto: '"
-					+ subject + "', cuerpo: '" + body + "'.");
-			e.printStackTrace();
+					+ subject + "', cuerpo: '" + body + "'." + e.getMessage());
+			return false;
 		}
 
 		return true;
