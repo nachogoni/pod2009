@@ -13,7 +13,7 @@ import org.apache.log4j.PropertyConfigurator;
 public class GenericServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String LOG4J_PROPERTIES = "log4j.properties";
-
+	
 	protected Logger logger;
 
 	/**
@@ -26,6 +26,7 @@ public class GenericServlet extends HttpServlet {
 		PropertyConfigurator.configure(url);
 
 		this.logger = Logger.getLogger(this.getClass().getName());
+		
 	}
 
 }

@@ -9,6 +9,10 @@ import com.canchita.views.helpers.FormHandler;
 
 public class FormRegister extends FormHandler {
 
+	/*
+	 * TODO chequear realmente los valores de Min y MaxLength
+	 */
+	
 	public FormRegister() {
 		super();
 		ArrayList<String> register = new ArrayList<String>();
@@ -20,21 +24,31 @@ public class FormRegister extends FormHandler {
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre de Usuario")
 			.setRequired(true)
-			.addValidator("IsAlphaNumS"));
+			.addValidator("IsAlphaNumS")
+			.addValidator("MaxLength", "40")
+			.addValidator("MinLength","2")
+			);
 
 		this.addElement(new FormElementInput("text","email")
-			.setLabel("Nombre de Usuario")
+			.setLabel("Correo Electrónico")
 			.setRequired(true)
-			.addValidator("IsEMailAddress"));
+			.addValidator("IsEMailAddress")
+			);
 
 		
 		this.addElement(new FormElementInput("password","pass")
 			.setLabel("Contraseña")
-			.setRequired(true));
+			.setRequired(true)
+			.addValidator("MaxLength", "40")
+			.addValidator("MinLength","4")
+			);
 		
 		this.addElement(new FormElementInput("password","passAgain")
 			.setLabel("Repita Contraseña")
-			.setRequired(true));
+			.setRequired(true)
+			.addValidator("MaxLength", "40")
+			.addValidator("MinLength","4")
+			);
 		
 		Decorator decoBotones = new Decorator()
 			.setSclass("submit-go"); 

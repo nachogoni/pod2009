@@ -9,7 +9,7 @@
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
-<script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/util/delete.js" type="text/javascript"/></script>
 
 <h1>Vista Detallada del Complejo</h1>
 
@@ -50,21 +50,21 @@
 <table>
 	<tr>
 		<td>
-			<form action="/tp-pod/DeleteComplex" method="post">
+			<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
 			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 			<input type="submit" class="delete" name="delete" value="Eliminar" />
 			</form>
 		</td>
 		<td>
-			<form action="/tp-pod/ModifyComplex" method="get">
+			<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
 			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 			<input type="submit" name="modify" value="Modificar" />
 			</form>
 		</td>
 		<td>
-			<form action="/tp-pod/field/add" method="get">
+			<form action="<c:out value="${baseURI}" />/field/add" method="get">
 			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 			<input type="submit" name="add" value="Agregar Canchas" />

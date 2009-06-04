@@ -84,8 +84,8 @@
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
-<script src="/tp-pod/js/util/calendar.js" type="text/javascript"/></script>
-<script src="/tp-pod/js/field/book/init.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI} escapeXml="false"" />/js/util/calendar.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/field/book/init.js" type="text/javascript"/></script>
 
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
 	flush="true" />

@@ -10,7 +10,7 @@
 
 <h3>¡Hola <c:out value="${user.username}" />! Bienvenido a la canchita. Aquí podrá realizar reservas para sus canchas preferidas.</h3>
 
-<form action="/tp-pod/ListComplex" method="get">
+<form action="<c:out value="${baseURI}" />/ListComplex" method="get">
 	<fieldset>
 	<legend>Búsqueda de complejos</legend>
 	<label for="search">Nombre: </label>

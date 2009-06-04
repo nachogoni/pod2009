@@ -63,14 +63,14 @@ public class UrlMapper {
 
 		this.successForward = new HashMap<String, String>();
 
-		//User
+		// User
 		successForward.put("LoginGET", FORWARD_ROOT_DIR
 				+ "user/guest/Login.jsp");
 		successForward.put("HomeGET", FORWARD_ROOT_DIR
 				+ "user/registered/Home.jsp");
 		successForward.put("RegisterGET", FORWARD_ROOT_DIR
 				+ "user/guest/Register.jsp");
-		
+
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
@@ -103,11 +103,12 @@ public class UrlMapper {
 
 		this.successRedirect = new HashMap<String, String>();
 
-		//User
+		// User
 		successRedirect.put("LogoutGET", "/tp-pod/");
 		successRedirect.put("LoginPOST", "/tp-pod/user/home");
 		successRedirect.put("RegisterPOST", "/tp-pod/");
-		
+		successRedirect.put("FinishRegisterGET", "/tp-pod/user/home");
+
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
 		successRedirect
@@ -120,8 +121,7 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=true");
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
-		successRedirect.put("AddBookingPOST",
-		"/tp-pod/field/detailedview");		
+		successRedirect.put("AddBookingPOST", "/tp-pod/field/detailedview");
 
 	}
 
@@ -131,16 +131,18 @@ public class UrlMapper {
 	private void initializeFailure() {
 		this.failureForward = new HashMap<String, String>();
 
-		//User
+		// User
 		failureForward.put("LoginGET", FORWARD_ROOT_DIR
 				+ "user/guest/Login.jsp");
 		failureForward.put("LoginPOST", FORWARD_ROOT_DIR
 				+ "user/guest/Login.jsp");
 		failureForward.put("RegisterGET", FORWARD_ROOT_DIR
 				+ "user/guest/Register.jsp");
-		
-		//Complex
-		
+		failureForward.put("RegisterPOST", FORWARD_ROOT_DIR
+				+ "user/guest/Register.jsp");
+
+		// Complex
+
 		failureForward.put("ListComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ListComplex.jsp");
 		failureForward.put("ListComplexPOST", FORWARD_ROOT_DIR
@@ -152,15 +154,15 @@ public class UrlMapper {
 
 		failureForward.put("AddComplexPOST", FORWARD_ROOT_DIR
 				+ "complex/AddComplexForm.jsp");
-		
+
 		failureForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ViewComplex.jsp");
-		//Booking
-		
+		// Booking
+
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
 
-		//Field
+		// Field
 		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
 		failureForward.put("AddFieldPOST", FORWARD_ROOT_DIR
@@ -173,13 +175,15 @@ public class UrlMapper {
 		failureForward.put("ModifyFieldPOST", FORWARD_ROOT_DIR
 				+ "field/ModifyField.jsp");
 
-		
 		failureForward.put(UrlMapper.DEFAULT, FORWARD_ROOT_DIR
 				+ "error/500.jsp");
 
-
 		this.failureRedirect = new HashMap<String, String>();
 
+		//User
+		failureRedirect.put("FinishRegisterGET",
+		"/tp-pod/");
+		
 		failureRedirect.put("DeleteComplexPOST",
 				"/tp-pod/ListComplex?delete=false");
 		failureRedirect.put("DeleteFieldPOST",
@@ -320,6 +324,16 @@ public class UrlMapper {
 
 		this
 				.redirect(servlet, request, response, type, successRedirect,
+						params);
+
+	}
+
+	public void redirectFailure(HttpServlet servlet,
+			HttpServletRequest request, HttpServletResponse response,
+			UrlMapperType type, Map<String, String> params) throws IOException {
+
+		this
+				.redirect(servlet, request, response, type, failureRedirect,
 						params);
 
 	}

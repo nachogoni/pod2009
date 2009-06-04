@@ -9,7 +9,7 @@
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
-<script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/util/delete.js" type="text/javascript"/></script>
 
 <h1>Listado de Canchas</h1>
 
@@ -137,17 +137,17 @@
 							<td><c:out value="${field.floor}" /></td>
 							
 							<td>
-								<form action="/tp-pod/field/delete" method="post">
+								<form action="<c:out value="${baseURI}" />/field/delete" method="post">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" class="delete" name="delete" value="Eliminar" />
 								</form>
-								<form action="/tp-pod/field/modify" method="get">
+								<form action="<c:out value="${baseURI}" />/field/modify" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" name="modify" value="Modificar" />
 								</form>
-								<form action="/tp-pod/field/detailedview" method="get">
+								<form action="<c:out value="${baseURI}" />/field/detailedview" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" name="viewDetails" value="Detalles" />

@@ -70,6 +70,7 @@ public class Register extends GenericServlet {
 		{
 			logger.debug("Formulario inválido");
 			request.setAttribute("form", form);
+			System.out.println("me voy");
 			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
 			return;
 		}
@@ -77,8 +78,10 @@ public class Register extends GenericServlet {
 		{
 		ErrorManager error = new ErrorManager();
 
+		System.out.println("pase");
+		
 		String username = request.getParameter("name");
-		String email = request.getParameter("mail");
+		String email = request.getParameter("email");
 		
 		String password = request.getParameter("pass");
 		String passwordAgain = request.getParameter("passAgain");
@@ -107,10 +110,13 @@ public class Register extends GenericServlet {
 			return;
 		}
 	
-
+		System.out.println("Lo registro");
+		
+		String baseUrl = (String) request.getAttribute("baseURL");
+		
 		UserServiceProtocol userService = new UserService();
 		
-		userService.register(username, password, email);
+		userService.register(username, password, email, baseUrl);
 		
 		//TODO usar cunado register tire excepciones
 		if (error.size() != 0) {

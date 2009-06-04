@@ -1,7 +1,5 @@
 package com.canchita.helper.validator;
 
-import org.apache.commons.validator.EmailValidator;
-
 public class IsEMailAddress extends Validator {
 
 	@Override
@@ -12,7 +10,7 @@ public class IsEMailAddress extends Validator {
 	@Override
 	public boolean validate(String data) {
 		
-		return EmailValidator.getInstance().isValid(data);
+		return true;
 	}
 
 }

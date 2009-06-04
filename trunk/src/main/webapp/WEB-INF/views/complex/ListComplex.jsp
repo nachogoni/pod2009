@@ -9,7 +9,7 @@
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
-<script src="/tp-pod/js/util/delete.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false"/>/js/util/delete.js" type="text/javascript"/></script>
 
 <h1>Listado de Complejos</h1>
 
@@ -108,7 +108,7 @@
 					<td><strong>Nombre</strong></td>
 					<td><strong>Lugar</strong></td>
 					<td><strong>Descipción</strong></td>
-					<td><a href="/tp-pod/AddComplex">Agregar Nuevo</a></td>
+					<td><a href="<c:out value="${baseURI}" />/AddComplex">Agregar Nuevo</a></td>
 				</tr>
 				<c:forEach items="${complexes}" var="complex" varStatus="rowCounter">
 						
@@ -127,17 +127,17 @@
 							<td><c:out value="${complex.description}" /></td>
 							
 							<td>
-								<form action="/tp-pod/DeleteComplex" method="post">
+								<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" class="delete" name="delete" value="Eliminar" />
 								</form>
-								<form action="/tp-pod/ModifyComplex" method="get">
+								<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="modify" value="Modificar" />
 								</form>
-								<form action="/tp-pod/DetailedViewComplex" method="get">
+								<form action="<c:out value="${baseURI}" />/DetailedViewComplex" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="viewDetails" value="Detalles" />
@@ -157,7 +157,7 @@
 				</div>
 			
 				<div class="submit-go">
-					<a href="/tp-pod/AddComplex" >Agregar</a>
+					<a href="<c:out value="${baseURI}" />/AddComplex" >Agregar</a>
 				</div>
 			
 			</c:otherwise>
