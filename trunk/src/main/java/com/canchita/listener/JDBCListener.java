@@ -13,5 +13,8 @@ public class JDBCListener implements ServletContextListener {
 
    public void contextDestroyed(ServletContextEvent event) {
 	  ConnectionPool.getInstance().cleanConnections();
+	  
+	  // TODO borrar syso
+	  System.out.println("CERRO TODAS LAS CONEXIONES A LA DB");
    }
 }
