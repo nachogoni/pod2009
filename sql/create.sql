@@ -7,11 +7,17 @@ DROP SEQUENCE field_sequence;
 DROP TABLE "TIMETABLE" CASCADE CONSTRAINTS;
 DROP SEQUENCE timetable_sequence;
 
+DROP TABLE "EMAIL" CASCADE CONSTRAINTS;
+DROP SEQUENCE email_sequence;
+
 DROP TABLE "USERS" CASCADE CONSTRAINTS;
 DROP SEQUENCE user_sequence;
 
 DROP TABLE "EXPIRATION_POLICY" CASCADE CONSTRAINTS;
 DROP SEQUENCE expiration_policy_sequence;
+
+DROP TABLE "PHONE" CASCADE CONSTRAINTS;
+DROP SEQUENCE phone_sequence;
 
 DROP TABLE "COMPLEX" CASCADE CONSTRAINTS;
 DROP SEQUENCE complex_sequence;
@@ -50,7 +56,6 @@ CREATE  TABLE "COMPLEX" (
   "city" VARCHAR2(50) NOT NULL ,
   "state" VARCHAR2(50) NOT NULL ,
   "country" VARCHAR2(50) NOT NULL ,
-  "phone" VARCHAR2(50) NULL ,
   "fax" VARCHAR2(50) NULL ,
   "email" VARCHAR2(50) NULL ,
   "picture" BLOB NULL ,
@@ -72,6 +77,27 @@ REFERENCING NEW AS NEW
 FOR EACH ROW
 BEGIN
 SELECT complex_sequence.nextval INTO :NEW."complex_id" FROM dual;
+END;
+/
+
+CREATE  TABLE "PHONE" (
+  "phone_id" INT NOT NULL ,
+  "phone" VARCHAR2(50) NOT NULL ,
+  "complex_id" INT NOT NULL ,
+  PRIMARY KEY ("phone_id"),
+  CONSTRAINT "fk_PHONE_COMPLEX"
+    FOREIGN KEY ("complex_id" )
+    REFERENCES "COMPLEX" ("complex_id"));
+
+CREATE SEQUENCE phone_sequence START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER phone_trigger
+BEFORE INSERT
+ON "PHONE" 
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT phone_sequence.nextval INTO :NEW."phone_id" FROM dual;
 END;
 /
 
@@ -160,7 +186,6 @@ CREATE  TABLE "USERS" (
   "user_id" INT NOT NULL ,
   "name" VARCHAR2(50) NOT NULL ,
   "password" VARCHAR2(50) NOT NULL ,
-  "email" VARCHAR2(50) NOT NULL ,
   "score" INT NOT NULL ,
   "notify_before_expiration" INT NOT NULL ,
   "is_admin" NUMBER(1) NOT NULL ,
@@ -175,6 +200,28 @@ REFERENCING NEW AS NEW
 FOR EACH ROW
 BEGIN
 SELECT user_sequence.nextval INTO :NEW."user_id" FROM dual;
+END;
+/
+
+CREATE  TABLE "EMAIL" (
+  "email_id" INT NOT NULL ,
+  "email" VARCHAR2(50) NOT NULL ,
+  "user_id" INT NOT NULL ,
+  CONSTRAINT email_unique UNIQUE ("email"),
+  PRIMARY KEY ("email_id"),
+  CONSTRAINT "fk_EMAIL_USERS"
+    FOREIGN KEY ("user_id" )
+    REFERENCES "USERS" ("user_id"));
+
+CREATE SEQUENCE email_sequence START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER email_trigger
+BEFORE INSERT
+ON "EMAIL" 
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT email_sequence.nextval INTO :NEW."email_id" FROM dual;
 END;
 /
 

@@ -34,7 +34,6 @@ public class CommonUserBuilder implements QueryProcessor<CommonUser> {
 			aUser = new CommonUser(resultSet.getLong("user_id"),
 					resultSet.getString("name"),
 					resultSet.getString("password"),
-					resultSet.getString("email"),
 					resultSet.getLong("score"),
 					resultSet.getLong("notify_before_expiration")
 					);

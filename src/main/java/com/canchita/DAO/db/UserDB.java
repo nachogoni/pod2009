@@ -9,6 +9,7 @@ import java.util.List;
 import com.canchita.DAO.UserDAO;
 import com.canchita.DAO.db.builders.CommonUserBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
+import com.canchita.DAO.db.builders.EmailBuilder;
 import com.canchita.jdbc.ConnectionManager;
 import com.canchita.jdbc.ConnectionPool;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -77,6 +78,8 @@ public class UserDB extends AllDB implements UserDAO {
 	@Override
 	public CommonUser getByUserName(String userName)
 			throws ElementNotExistsException {
+
+		// CommonUser list gets loaded.
 		String query = "SELECT * FROM USERS WHERE \"name\" = ? AND \"is_admin\" = '0'";
 
 		List<CommonUser> results = executeQuery(query,
@@ -84,9 +87,24 @@ public class UserDB extends AllDB implements UserDAO {
 
 		if (results.isEmpty())
 			return null;
-		else
-			return results.get(0);
 
+		for (CommonUser cu : results) {
+			List<String> emails = this.getEmails(cu);
+
+			for (String email : emails) {
+				cu.setEmail(email);
+			}
+		}
+
+		return results.get(0);
+
+	}
+
+	@Override
+	public List<String> getEmails(Registered user) {
+		String query = "SELECT \"email\" FROM EMAIL WHERE \"user_id\" = ?";
+		return executeQuery(query, new Object[] { user.getId() }, EmailBuilder
+				.getInstance());
 	}
 
 	@Override
