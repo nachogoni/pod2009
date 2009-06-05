@@ -186,8 +186,8 @@ CREATE  TABLE "USERS" (
   "user_id" INT NOT NULL ,
   "name" VARCHAR2(50) NOT NULL ,
   "password" VARCHAR2(50) NOT NULL ,
-  "score" INT NOT NULL ,
-  "notify_before_expiration" INT NOT NULL ,
+  "score" INT NOT NULL DEFAULT 0,
+  "notify_before_expiration" INT NOT NULL DEFAULT 10,
   "is_admin" NUMBER(1) NOT NULL ,
   PRIMARY KEY ("user_id") );
 
@@ -211,7 +211,7 @@ CREATE  TABLE "EMAIL" (
   PRIMARY KEY ("email_id"),
   CONSTRAINT "fk_EMAIL_USERS"
     FOREIGN KEY ("user_id" )
-    REFERENCES "USERS" ("user_id"));
+    REFERENCES "USERS" ("user_id") ON DELETE CASCADE);
 
 CREATE SEQUENCE email_sequence START WITH 1 INCREMENT BY 1;
 

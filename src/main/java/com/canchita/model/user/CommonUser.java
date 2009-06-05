@@ -14,8 +14,6 @@ import java.util.ArrayList;
  */
 public class CommonUser extends Registered {
 
-	private Long notifyBeforeExpiration;
-
 	public CommonUser(Long id, String name, String pass, Long score,
 			Long notifyBeforeExpiration) {
 		super();
@@ -53,13 +51,4 @@ public class CommonUser extends Registered {
 	public boolean getIsAdmin() {
 		return false;
 	}
-
-	public void setNotifyBeforeExpiration(Long notifyBeforeExpiration) {
-		this.notifyBeforeExpiration = notifyBeforeExpiration;
-	}
-
-	public Long getNotifyBeforeExpiration() {
-		return notifyBeforeExpiration;
-	}
-
 }
