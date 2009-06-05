@@ -6,9 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.canchita.DAO.ComplexDAO;
-import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.DAOFactory.DAO;
+import com.canchita.DAO.factory.DAOFactory;
+import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -79,6 +80,7 @@ public class FieldMemoryMock implements FieldDAO {
 
 	}
 
+	@FactoryMethod
 	public static FieldDAO getInstance() {
 		return new FieldMemoryMock();
 	}

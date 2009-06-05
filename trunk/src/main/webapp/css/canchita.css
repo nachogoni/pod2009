@@ -179,3 +179,11 @@ div.submit-go {
 .registerButton{
 	float:right;
 }
+
+.profileMails {
+	width:12em;
+}
+
+.profileMailForm {
+	padding:0 1.5em 1.5em;
+}

@@ -70,6 +70,8 @@ public class UrlMapper {
 				+ "user/registered/Home.jsp");
 		successForward.put("RegisterGET", FORWARD_ROOT_DIR
 				+ "user/guest/Register.jsp");
+		successForward.put("ProfileGET", FORWARD_ROOT_DIR
+				+ "user/registered/Profile.jsp");
 
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
@@ -108,7 +110,9 @@ public class UrlMapper {
 		successRedirect.put("LoginPOST", "/tp-pod/user/home");
 		successRedirect.put("RegisterPOST", "/tp-pod/");
 		successRedirect.put("FinishRegisterGET", "/tp-pod/user/home");
+		successRedirect.put("ProfilePOST", "/tp-pod/user/profile");
 
+		
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
 		successRedirect
@@ -140,6 +144,8 @@ public class UrlMapper {
 				+ "user/guest/Register.jsp");
 		failureForward.put("RegisterPOST", FORWARD_ROOT_DIR
 				+ "user/guest/Register.jsp");
+		failureForward.put("ProfilePOST", FORWARD_ROOT_DIR
+				+ "user/registered/Profile.jsp");
 
 		// Complex
 
@@ -304,6 +310,9 @@ public class UrlMapper {
 			Map<String, String> map) throws ServletException, IOException {
 
 		String url = this.findUrl(map, servlet, type);
+		
+		System.out.println(url);
+		
 		request.getRequestDispatcher(url).forward(request, response);
 
 	}

@@ -9,9 +9,10 @@ import java.util.Map;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
-import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.DAOFactory.DAO;
+import com.canchita.DAO.factory.DAOFactory;
+import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -28,6 +29,7 @@ public class BookingMemoryMock implements BookingDAO {
 
 	}
 
+	@FactoryMethod
 	public static BookingDAO getInstance() {
 		return new BookingMemoryMock();
 	}

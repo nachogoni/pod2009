@@ -1,5 +1,8 @@
 package com.canchita.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.canchita.mailSender.mail.RegisterMail;
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.user.Guest;
@@ -46,5 +49,16 @@ public class UserService implements UserServiceProtocol {
 		Guest guest = new Guest();
 		
 		return guest.confirmateHash(hash);
+	}
+
+	@Override
+	public List<String> getMails(Registered user) {
+		
+		return user.getMails();
+	}
+
+	@Override
+	public void updateMails(Registered user, Map<String, String> mailsToUpdate) {
+		user.updateMails(mailsToUpdate);
 	}
 }
