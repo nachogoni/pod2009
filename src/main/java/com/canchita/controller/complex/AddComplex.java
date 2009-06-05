@@ -43,12 +43,20 @@ public class AddComplex extends GenericServlet {
 
         
     	// TODO BORRAME
-//        Registered lala = new CommonUser();
-//    	UserDB usuario = UserDB.getInstance();
-//    	lala.setUsername("pepe2");
-//    	
-//    	System.out.println(usuario.exists(lala));
+//		Registered lala = new CommonUser();
+//		UserDB usuario = UserDB.getInstance();
+//		lala.setUsername("pepe2");
+//
+//		System.out.println(usuario.exists(lala));
+
+//		try {
+//			Registered lala = UserDB.getInstance().getByUserName("admin");
+//			System.out.println(lala);
+//		} catch (ElementNotExistsException e) {
+//			System.out.println("El usuario no existe.");
+//		}
     	// TODO BORRAME
+		
     	
     	
 		logger.debug("GET request");
