@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.List;
 
 import com.canchita.DAO.UserDAO;
+import com.canchita.DAO.db.builders.CommonUserBuilder;
+import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.jdbc.ConnectionManager;
 import com.canchita.jdbc.ConnectionPool;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -60,7 +62,7 @@ public class UserDB extends AllDB implements UserDAO {
 		String query = "SELECT COUNT(*) AS COUNT FROM USERS WHERE \"name\" = ?";
 
 		List<Integer> results = executeQuery(query, new Object[] { user
-				.getUsername() }, this.getCounter());
+				.getUsername() }, CountBuilder.getInstance());
 
 		return results.get(0) > 0;
 
@@ -75,10 +77,15 @@ public class UserDB extends AllDB implements UserDAO {
 	@Override
 	public CommonUser getByUserName(String userName)
 			throws ElementNotExistsException {
-		String query = "SELECT * FROM USERS WHERE \"name\" = ?";
+		String query = "SELECT * FROM USERS WHERE \"name\" = ? AND \"is_admin\" = '0'";
 
-		// TODO COMPLETAME
-		return null;
+		List<CommonUser> results = executeQuery(query,
+				new Object[] { userName }, CommonUserBuilder.getInstance());
+
+		if (results.isEmpty())
+			return null;
+		else
+			return results.get(0);
 
 	}
 

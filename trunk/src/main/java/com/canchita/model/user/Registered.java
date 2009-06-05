@@ -17,11 +17,12 @@ import java.util.Map;
  */
 public abstract class Registered extends User {
 
-	private String username;
-	private List<String> emails;
-	private String password;
-	private Long score;
-	
+	protected Long id;
+	protected String username;
+	protected List<String> emails;
+	protected String password;
+	protected Long score;
+
 	/* Our model does not support user
 	 * removal..yet
 	 */
@@ -95,6 +96,14 @@ public abstract class Registered extends User {
 			System.out.println("Clave : " + key + " Valor: " + mailsToUpdate.get(key));
 		}
 		
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
 	}
 	
 }

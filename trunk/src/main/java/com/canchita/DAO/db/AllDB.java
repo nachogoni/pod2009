@@ -12,26 +12,6 @@ import com.canchita.jdbc.ConnectionPool;
 
 public abstract class AllDB {
 
-	private static final QueryProcessor<Integer> Counter;
-
-	static {
-		Counter = new QueryProcessor<Integer>() {
-
-			@Override
-			public List<Integer> buildCollection(ResultSet resultSet)
-					throws SQLException {
-
-				List<Integer> results = new ArrayList<Integer>();
-
-				resultSet.next();
-				results.add(resultSet.getInt("COUNT"));
-
-				return results;
-
-			}
-		};
-	}
-
 	ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	public <E> List<E> executeQuery(String query, Object[] params,
@@ -42,7 +22,6 @@ public abstract class AllDB {
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			for (int i = 0; i < params.length; i++) {
-				System.out.println("agrego param " + params[i]);
 				statement.setObject(i + 1, params[i]);
 			}
 
@@ -85,11 +64,6 @@ public abstract class AllDB {
 		results.add(resultSet.getInt("COUNT"));
 
 		return results;
-
-	}
-
-	public QueryProcessor<Integer> getCounter() {
-		return Counter;
 
 	}
 }
