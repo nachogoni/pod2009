@@ -1,8 +1,5 @@
 package com.canchita.DAO.db;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,10 +7,9 @@ import com.canchita.DAO.UserDAO;
 import com.canchita.DAO.db.builders.CommonUserBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.EmailBuilder;
-import com.canchita.jdbc.ConnectionManager;
-import com.canchita.jdbc.ConnectionPool;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.user.Administrator;
 import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Registered;
 import com.canchita.model.user.User;
@@ -21,7 +17,6 @@ import com.canchita.model.user.User;
 public class UserDB extends AllDB implements UserDAO {
 
 	private static UserDB instance;
-	private String tableName = "USERS";
 
 	static {
 		instance = new UserDB();
@@ -37,25 +32,12 @@ public class UserDB extends AllDB implements UserDAO {
 
 	@Override
 	public void delete(Registered user) throws ElementNotExistsException {
-		ConnectionManager manager = ConnectionPool.getInstance()
-				.getConnectionManager();
-		Connection connection = manager.getConnection();
+		String query = "DELETE FROM USERS WHERE \"name\" = ?";
 
-		Statement stmt;
-		String query = String.format("DELETE FROM %s WHERE \"name\" = '%s'",
-				tableName, user.getUsername());
-
-		try {
-			stmt = connection.createStatement();
-			if (stmt.executeUpdate(query) == 0)
-				throw new ElementNotExistsException("El usuario no existe.");
-		} catch (SQLException e) {
-			// TODO agregar log4j
-			e.printStackTrace();
-		} finally {
-			ConnectionPool.getInstance().releaseConnectionManager(manager);
-		}
-
+		if (this.exists(user))
+			executeUpdate(query, new Object[] { user.getUsername() });
+		else
+			throw new ElementNotExistsException();
 	}
 
 	@Override
@@ -113,10 +95,11 @@ public class UserDB extends AllDB implements UserDAO {
 		return null;
 	}
 
-	@Override
-	public void save(User user) throws PersistenceException {
-		// TODO Auto-generated method stub
-
+	public void save(Registered user) throws PersistenceException {
+		String query = "INSERT into USERS VALUES (1, ?, ?, ?, ?, ?)";
+		executeUpdate(query, new Object[] { user.getUsername(),
+				user.getPassword(), user.getScore(),
+				user.getNotifyBeforeExpiration(), user.getIsAdmin()});
 	}
 
 	@Override

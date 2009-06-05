@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Juan Ignacio Goñi
  * @author Martín Palombo
  * @author Carlos Manuel Sessa
- *
+ * 
  */
 public abstract class Registered extends User {
 
@@ -22,23 +22,24 @@ public abstract class Registered extends User {
 	protected List<String> emails;
 	protected String password;
 	protected Long score;
+	protected Long notifyBeforeExpiration;
 
-	/* Our model does not support user
-	 * removal..yet
+	/*
+	 * Our model does not support user removal..yet
 	 */
-	
+
 	protected Registered() {
 		this.emails = new LinkedList<String>();
 	}
-	
+
 	private boolean active = true;
-	
+
 	public abstract boolean getIsAdmin();
 
 	public boolean getIsActive() {
 		return this.active;
 	}
-	
+
 	public boolean getIsAuthenticated() {
 		return true;
 	}
@@ -50,11 +51,11 @@ public abstract class Registered extends User {
 	public boolean checkPassword(String password) {
 		return this.password.equals(password);
 	}
-	
+
 	public void logout() {
-		//TODO implementame
+		// TODO implementame
 	}
-	
+
 	public String getUsername() {
 		return this.username;
 	}
@@ -75,27 +76,40 @@ public abstract class Registered extends User {
 		this.password = password;
 	}
 
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setNotifyBeforeExpiration(Long notifyBeforeExpiration) {
+		this.notifyBeforeExpiration = notifyBeforeExpiration;
+	}
+
+	public Long getNotifyBeforeExpiration() {
+		return notifyBeforeExpiration;
+	}
+	
 	public List<String> getMails() {
-		
-		//TODO llamar al DAO
-		//Devolver un tonto
+
+		// TODO llamar al DAO
+		// Devolver un tonto
 		List<String> s = new ArrayList<String>();
-		
+
 		s.add("hola");
 		s.add("chau");
 		s.add("si");
-		
+
 		return s;
 	}
 
 	public void updateMails(Map<String, String> mailsToUpdate) {
 		// TODO llamar al DAO
-		//Devolver un tonto
-		
+		// Devolver un tonto
+
 		for (String key : mailsToUpdate.keySet()) {
-			System.out.println("Clave : " + key + " Valor: " + mailsToUpdate.get(key));
+			System.out.println("Clave : " + key + " Valor: "
+					+ mailsToUpdate.get(key));
 		}
-		
+
 	}
 
 	public void setId(Long id) {
@@ -105,5 +119,5 @@ public abstract class Registered extends User {
 	public Long getId() {
 		return id;
 	}
-	
+
 }

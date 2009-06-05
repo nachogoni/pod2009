@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.user.Administrator;
 import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
@@ -43,11 +44,6 @@ public class AddComplex extends GenericServlet {
 
         
     	// TODO BORRAME
-//		Registered lala = new CommonUser();
-//		UserDB usuario = UserDB.getInstance();
-//		lala.setUsername("pepe2");
-//
-//		System.out.println(usuario.exists(lala));
 
 //		try {
 //			Registered lala = UserDB.getInstance().getByUserName("pepe");
@@ -55,7 +51,26 @@ public class AddComplex extends GenericServlet {
 //		} catch (ElementNotExistsException e) {
 //			System.out.println("El usuario no existe.");
 //		}
-    	// TODO BORRAME
+
+//		try {
+//			Registered lala = UserDB.getInstance().getByUserName("pepe");
+//			UserDB.getInstance().delete(lala);
+//		} catch (ElementNotExistsException e) {
+//			System.out.println("El usuario no existe");
+//		}
+
+//		Administrator lala = new Administrator();
+//		lala.setUsername("admin");
+//		lala.setPassword("admin");
+//		lala.setEmail("admin@email.com");
+//		lala.setEmail("admin@email2.com");
+//		try {
+//			UserDB.getInstance().save(lala);
+//		} catch (PersistenceException e) {
+//			System.out.println("Fallo el insert");
+//		}
+
+		// TODO BORRAME
 		
     	
     	
