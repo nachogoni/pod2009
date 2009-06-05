@@ -2,7 +2,7 @@ package com.canchita.model.user;
 
 import java.security.NoSuchAlgorithmException;
 
-import com.canchita.DAO.DAOFactory;
+import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.model.exception.LoginException;
 
 /**

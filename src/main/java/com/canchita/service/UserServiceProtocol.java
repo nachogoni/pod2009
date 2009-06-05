@@ -1,5 +1,8 @@
 package com.canchita.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
@@ -21,4 +24,8 @@ public interface UserServiceProtocol {
 	void register(String username, String password, String email, String baseUrl);
 	
 	Registered confirmateHash(String hash);
+
+	List<String> getMails(Registered user);
+
+	void updateMails(Registered user, Map<String, String> mailsToUpdate);
 }

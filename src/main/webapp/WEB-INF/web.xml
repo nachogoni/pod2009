@@ -168,6 +168,13 @@
 		<servlet-class>
 		com.canchita.controller.user.guest.FinishRegister</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Profile</servlet-name>
+		<display-name>Profile</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.user.registered.Profile</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -260,6 +267,10 @@
 	<servlet-mapping>
 		<servlet-name>FinishRegister</servlet-name>
 		<url-pattern>/user/finishregister</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Profile</servlet-name>
+		<url-pattern>/user/profile</url-pattern>
 	</servlet-mapping>
 	
 <!-- BEGIN Error Handling -->

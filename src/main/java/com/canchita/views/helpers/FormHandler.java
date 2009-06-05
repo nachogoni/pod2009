@@ -2,6 +2,7 @@ package com.canchita.views.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -94,7 +95,6 @@ public abstract class FormHandler {
 		if (this.hasGroups()) {
 			return this.printGroups();
 		}
-		
 		ret = "";
 		
 		ret += String.format("<form name=\"%s\" action=\"\" method=\"%s\" %s>",
@@ -119,9 +119,10 @@ public abstract class FormHandler {
 				this.name, this.method, this.getAttributesString());
 
 		for (String aName : this.groupsOrder) {
+			
 			ArrayList<FormElement> elements;
 			elements = this.groups.get(aName);
-
+			
 			ret += 	String.format("<fieldset><legend>%s</legend>", aName);
 			
 			for (FormElement e : elements) {
@@ -263,4 +264,5 @@ public abstract class FormHandler {
 		this.name = name;
 		return this;
 	}
+
 }

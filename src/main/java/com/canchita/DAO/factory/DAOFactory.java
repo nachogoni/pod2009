@@ -1,5 +1,6 @@
-package com.canchita.DAO;
+package com.canchita.DAO.factory;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import com.canchita.DAO.memorymock.BookingMemoryMock;
@@ -26,14 +27,24 @@ public class DAOFactory {
 		FIELD(FieldMemoryMock.class),
 		COMPLEX(ComplexMemoryMock.class);
 		
-		private Class<?> clazz;
+		private Method factoryMethod;
 		
 		DAO(Class<?> clazz) {
-			this.clazz = clazz;
+			this.factoryMethod = this.getFactoryMethod(clazz);
 		}
 		
-		public Class<?> getDAOClass() {
-			return this.clazz;
+		private Method getFactoryMethod(Class<?> clazz) {
+			
+			for (Method m : clazz.getDeclaredMethods()) {
+				if( m.isAnnotationPresent(FactoryMethod.class) ) {
+					return m;
+				}
+			}
+			return null;
+		}
+
+		public Method getFactoryMethod() {
+			return this.factoryMethod;
 		}
 	}
 	
@@ -49,11 +60,8 @@ public class DAOFactory {
 	public static <E> E get(DAO dao) throws PersistenceException {
 
 		E instance;
-		Class<? extends E> clazz = (Class<? extends E>) dao.getDAOClass();
+		Method m = dao.getFactoryMethod();
 		try {
-			
-			Method m = clazz.getDeclaredMethod("getInstance");
-		
 			instance = (E) m.invoke(null);
 		}
 		catch(Exception e) {

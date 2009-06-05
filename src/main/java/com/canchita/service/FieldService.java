@@ -6,9 +6,9 @@ import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.ComplexDAO;
-import com.canchita.DAO.DAOFactory;
 import com.canchita.DAO.FieldDAO;
-import com.canchita.DAO.DAOFactory.DAO;
+import com.canchita.DAO.factory.DAOFactory;
+import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.helper.validator.IsAlphaNum;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;

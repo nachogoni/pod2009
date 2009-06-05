@@ -1,5 +1,10 @@
 package com.canchita.model.user;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -13,13 +18,18 @@ package com.canchita.model.user;
 public abstract class Registered extends User {
 
 	private String username;
-	private String email;
+	private List<String> emails;
 	private String password;
 	private Long score;
 	
 	/* Our model does not support user
 	 * removal..yet
 	 */
+	
+	protected Registered() {
+		this.emails = new LinkedList<String>();
+	}
+	
 	private boolean active = true;
 	
 	public abstract boolean getIsAdmin();
@@ -56,16 +66,35 @@ public abstract class Registered extends User {
 		return this.score;
 	}
 
-	public String getEmail() {
-		return this.email;
-	}
-
 	public void setEmail(String email) {
-		this.email = email;
+		this.emails.add(email);
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<String> getMails() {
+		
+		//TODO llamar al DAO
+		//Devolver un tonto
+		List<String> s = new ArrayList<String>();
+		
+		s.add("hola");
+		s.add("chau");
+		s.add("si");
+		
+		return s;
+	}
+
+	public void updateMails(Map<String, String> mailsToUpdate) {
+		// TODO llamar al DAO
+		//Devolver un tonto
+		
+		for (String key : mailsToUpdate.keySet()) {
+			System.out.println("Clave : " + key + " Valor: " + mailsToUpdate.get(key));
+		}
+		
 	}
 	
 }
