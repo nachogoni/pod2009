@@ -16,16 +16,12 @@ public class CommonUser extends Registered {
 
 	private Long notifyBeforeExpiration;
 
-	public CommonUser(Long id, String name, String pass, String email,
-			Long score, Long notifyBeforeExpiration) {
+	public CommonUser(Long id, String name, String pass, Long score,
+			Long notifyBeforeExpiration) {
 		super();
 		this.id = id;
 		this.username = name;
 		this.password = pass;
-
-		this.emails = new ArrayList<String>();
-		this.emails.add(email);
-
 		this.score = score;
 		this.notifyBeforeExpiration = notifyBeforeExpiration;
 

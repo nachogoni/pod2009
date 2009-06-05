@@ -12,6 +12,8 @@ public interface UserDAO {
 	public void save(User aUser) throws PersistenceException;
 
 	public CommonUser getByUserName(String userName) throws ElementNotExistsException;
+	
+	public Collection<String> getEmails(Registered user);
 
 	public void update(User aUser) throws ElementNotExistsException, PersistenceException;
 

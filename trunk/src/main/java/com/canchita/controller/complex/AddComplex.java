@@ -50,7 +50,7 @@ public class AddComplex extends GenericServlet {
 //		System.out.println(usuario.exists(lala));
 
 //		try {
-//			Registered lala = UserDB.getInstance().getByUserName("admin");
+//			Registered lala = UserDB.getInstance().getByUserName("pepe");
 //			System.out.println(lala);
 //		} catch (ElementNotExistsException e) {
 //			System.out.println("El usuario no existe.");
