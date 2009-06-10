@@ -7,22 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
-import com.canchita.model.exception.ElementExistsException;
-import com.canchita.model.exception.ElementNotExistsException;
-import com.canchita.model.exception.PersistenceException;
-import com.canchita.model.user.Administrator;
-import com.canchita.model.user.CommonUser;
-import com.canchita.model.user.Guest;
-import com.canchita.model.user.Registered;
-import com.canchita.service.ComplexService;
-import com.canchita.views.helpers.FormHandler;
-import com.canchita.DAO.db.UserDB;
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.PersistenceException;
+import com.canchita.service.ComplexService;
+import com.canchita.views.helpers.FormHandler;
 
 /**
  * Servlet implementation class AddComplex
@@ -35,6 +27,7 @@ public class AddComplex extends GenericServlet {
 	public AddComplex() {
 		formulario = new FormAddComplex();
 	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -42,85 +35,113 @@ public class AddComplex extends GenericServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-        
-    	// TODO BORRAME
-		// Testeos de UserDB.java
-//		try {
-//			Registered lala = UserDB.getInstance().getByUserName("pepe");
-//			System.out.println(lala);
-//		} catch (ElementNotExistsException e) {
-//			System.out.println("El usuario no existe.");
-//		}
-
-//		try {
-//			Registered lala = UserDB.getInstance().getByUserName("pepe");
-//			UserDB.getInstance().delete(lala);
-//		} catch (ElementNotExistsException e) {
-//			System.out.println("El usuario no existe");
-//		}
-
-//		Administrator lala = new Administrator();
-//		lala.setUsername("admin");
-//		lala.setPassword("admin");
-//		lala.setEmail("admin@email.com");
-//		lala.setEmail("admin@email2.com");
-//		try {
-//			UserDB.getInstance().save(lala);
-//		} catch (PersistenceException e) {
-//			System.out.println("Fallo el insert");
-//		}
-
-//		Registered lala = null;
-//		try {
-//			lala = UserDB.getInstance().getByUserName("mili2");
-//			System.out.println(lala);
-//			
-//		} catch (ElementNotExistsException e) {
-//			System.out.println("El usuario no existe.");
-//		}
-//
-//		lala.setUsername("mili182");
-//		lala.setPassword("passNueva");
-//		lala.setScore(182L);
-//		lala.setNotifyBeforeExpiration(182L);
-//
-//		try {
-//			UserDB.getInstance().update(lala);
-//		} catch (ElementNotExistsException e) {
-//			System.out.println("El usuario no existe.");
-//			e.printStackTrace();
-//		} catch (PersistenceException e) {
-//			System.out.println("Persistence!.");
-//			e.printStackTrace();
-//		}
-
-//		Registered lala = null;
-//		try {
-//			lala = UserDB.getInstance().getByUserName("mili182");
-//			System.out.println(lala);
-//			
-//		} catch (ElementNotExistsException e) {
-//			System.out.println("El usuario no existe.");
-//		}
-//
-//		try {
-//			UserDB.getInstance().updateEmail(lala, "cambio@ccc.com", "m@mili.com");
-//		} catch (Exception e) {
-//			System.out.println("Falló update de email.");
-//			e.printStackTrace();
-//		}
 		// TODO BORRAME
-		
-    	
-    	
+		// Testeos de UserDB.java
+		// try {
+		// Registered lala = UserDB.getInstance().getByUserName("pepe");
+		// System.out.println(lala);
+		// } catch (ElementNotExistsException e) {
+		// System.out.println("El usuario no existe.");
+		// }
+
+		// try {
+		// Registered lala = UserDB.getInstance().getByUserName("pepe");
+		// UserDB.getInstance().delete(lala);
+		// } catch (ElementNotExistsException e) {
+		// System.out.println("El usuario no existe");
+		// }
+
+		// Administrator lala = new Administrator();
+		// lala.setUsername("admin");
+		// lala.setPassword("admin");
+		// lala.setEmail("admin@email.com");
+		// lala.setEmail("admin@email2.com");
+		// try {
+		// UserDB.getInstance().save(lala);
+		// } catch (PersistenceException e) {
+		// System.out.println("Fallo el insert");
+		// }
+
+		// Registered lala = null;
+		// try {
+		// lala = UserDB.getInstance().getByUserName("mili2");
+		// System.out.println(lala);
+		//			
+		// } catch (ElementNotExistsException e) {
+		// System.out.println("El usuario no existe.");
+		// }
+		//
+		// lala.setUsername("mili182");
+		// lala.setPassword("passNueva");
+		// lala.setScore(182L);
+		// lala.setNotifyBeforeExpiration(182L);
+		//
+		// try {
+		// UserDB.getInstance().update(lala);
+		// } catch (ElementNotExistsException e) {
+		// System.out.println("El usuario no existe.");
+		// e.printStackTrace();
+		// } catch (PersistenceException e) {
+		// System.out.println("Persistence!.");
+		// e.printStackTrace();
+		// }
+
+		// Registered lala = null;
+		// try {
+		// lala = UserDB.getInstance().getByUserName("mili182");
+		// System.out.println(lala);
+		//			
+		// } catch (ElementNotExistsException e) {
+		// System.out.println("El usuario no existe.");
+		// }
+		//
+		// try {
+		// UserDB.getInstance().updateEmail(lala, "cambio@ccc.com",
+		// "m@mili.com");
+		// } catch (Exception e) {
+		// System.out.println("Falló update de email.");
+		// e.printStackTrace();
+		// }
+
+		// Administrator lala = null;
+		// try {
+		// lala = UserDB.getInstance().getByAdminName("admin");
+		// System.out.println(lala);
+		//			
+		// } catch (ElementNotExistsException e) {
+		// System.out.println("El admin no existe.");
+		// }
+
+		// Collection<Administrator> admins =
+		// UserDB.getInstance().getAllAdmins();
+		// System.out.println("Cantidad de admins: " + admins.size());
+		// for (Administrator admin : admins) {
+		// System.out.println(admin);
+		// }
+		//
+		// Collection<CommonUser> users = UserDB.getInstance().getAllUsers();
+		// System.out.println("Cantidad de users: " + users.size());
+		// for (CommonUser user : users) {
+		// System.out.println(user);
+		// }
+		// Administrator lala = null;
+		// try {
+		// lala = UserDB.getInstance().getByAdminName("admin1");
+		// UserDB.getInstance().addEmail(lala, "mailUltranuevo@new.com");
+		// System.out.println(lala);
+		// } catch (Exception e) {
+		// System.out.println("Error al agregar email.");
+		// }
+		// TODO BORRAME
+
 		logger.debug("GET request");
 
-		/*Get Form*/
+		/* Get Form */
 		formulario = new FormAddComplex();
-		
-		/* Form is sent to the view*/
+
+		/* Form is sent to the view */
 		request.setAttribute("formulario", this.formulario);
-		
+
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
@@ -135,131 +156,128 @@ public class AddComplex extends GenericServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		logger.debug("POST request");
-		
-		/*Errors from the past are deleted.*/
+
+		/* Errors from the past are deleted. */
 		this.formulario.unsetErrors();
 
-		/*Load form with request values*/
+		/* Load form with request values */
 		this.formulario.loadValues(request);
-		
-		if (!this.formulario.isValid())
-		{
+
+		if (!this.formulario.isValid()) {
 			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
-			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.POST);
 			return;
-		}
-		else
-		{
-		
-		ComplexService addService = new ComplexService();
+		} else {
 
-		
-		//TODO: Migrar a ComplexForm
-		//TODO: Arreglar el manejo de excepcion y redireccionar a pagina de error.
-		ErrorManager error = new ErrorManager();
+			ComplexService addService = new ComplexService();
 
-		String name = request.getParameter("name");
-		String description = request.getParameter("description");
-		
-		String zipCode = request.getParameter("zipCode");
-		String town = request.getParameter("town");
-		String state = request.getParameter("state");
-		String neighbourhood = request.getParameter("neighbourhood");
-		String country = request.getParameter("country");
-		String address = request.getParameter("address");
+			// TODO: Migrar a ComplexForm
+			// TODO: Arreglar el manejo de excepcion y redireccionar a pagina de
+			// error.
+			ErrorManager error = new ErrorManager();
 
-		
-		if (name == null) {
-			error.add("Falta el nombre del Complejo");
-		}	
-		if(address == null){
-			error.add("Falta la direccion del complejo");
-		}
-		if(town == null){
-			error.add("Falta la cuidad donde se encuentra el complejo");
-		}
-		if(state == null){
-			error.add("Falta la provincia/estado donde se encuentra el complejo");
-		}		
+			String name = request.getParameter("name");
+			String description = request.getParameter("description");
 
+			String zipCode = request.getParameter("zipCode");
+			String town = request.getParameter("town");
+			String state = request.getParameter("state");
+			String neighbourhood = request.getParameter("neighbourhood");
+			String country = request.getParameter("country");
+			String address = request.getParameter("address");
 
-		
-		Integer booking = null;
-		Integer deposit = null; 
-		Integer pay = null; 
-		Integer downDeposit = null;
-		Integer downBooking = null;
+			if (name == null) {
+				error.add("Falta el nombre del Complejo");
+			}
+			if (address == null) {
+				error.add("Falta la direccion del complejo");
+			}
+			if (town == null) {
+				error.add("Falta la cuidad donde se encuentra el complejo");
+			}
+			if (state == null) {
+				error
+						.add("Falta la provincia/estado donde se encuentra el complejo");
+			}
 
-		try{
-		
-			booking = Integer.parseInt(request.getParameter("booking"));
-			deposit = Integer.parseInt(request.getParameter("deposit"));
-			pay = Integer.parseInt(request.getParameter("pay"));
-			downBooking = Integer.parseInt(request.getParameter("downBooking"));
-			downDeposit = Integer.parseInt(request.getParameter("downDeposit"));
-		} catch (NumberFormatException nfe) {
-			error.add("Valores para el sistema de puntos incorrectos");
-		}
+			Integer booking = null;
+			Integer deposit = null;
+			Integer pay = null;
+			Integer downDeposit = null;
+			Integer downBooking = null;
 
-		if (error.size() != 0) {
-			logger.debug("Error en el formulario");
-			request.setAttribute("formulario", formulario);			
-			this.failure(request, response, error);
-			return;
-		}
+			try {
 
-		Integer depositLimit = null;
-		Integer bookingLimit = null;
-		
-		try{
-			
-			depositLimit = Integer.parseInt(request.getParameter("depositLimit"));
-			bookingLimit = Integer.parseInt(request.getParameter("bookingLimit"));
-		} catch (NumberFormatException nfe) {
-			error.add("Valores para el sistema de reservas incorrectos");
-		}
+				booking = Integer.parseInt(request.getParameter("booking"));
+				deposit = Integer.parseInt(request.getParameter("deposit"));
+				pay = Integer.parseInt(request.getParameter("pay"));
+				downBooking = Integer.parseInt(request
+						.getParameter("downBooking"));
+				downDeposit = Integer.parseInt(request
+						.getParameter("downDeposit"));
+			} catch (NumberFormatException nfe) {
+				error.add("Valores para el sistema de puntos incorrectos");
+			}
 
-		if (error.size() != 0) {
-			logger.debug("Error en el formulario");
-			request.setAttribute("formulario", formulario);
-			this.failure(request, response, error);
-			return;
-		}
-		
-		try{
-			Long id = addService.saveComplex(name, description, address, zipCode,
-											neighbourhood, town, state, country);
-			addService.addScoreSystem(id, booking, deposit, pay, downBooking,
-																downDeposit);
-			
-			addService.addExpiration(id, bookingLimit, depositLimit);
-		}
-		catch(ElementExistsException ee) {
-			
-			error.add(ee);
+			if (error.size() != 0) {
+				logger.debug("Error en el formulario");
+				request.setAttribute("formulario", formulario);
+				this.failure(request, response, error);
+				return;
+			}
 
-		} catch (PersistenceException e) {
-			error.add(e);
-		}
-		catch(IllegalArgumentException e) {
-			error.add(e);
-		}
-		
-		if (error.size() != 0) {
-			logger.debug("Error al guardar el complejo");
-			request.setAttribute("formulario", formulario);
-			this.failure(request, response, error);
-			return;
-		}
+			Integer depositLimit = null;
+			Integer bookingLimit = null;
 
-		
-		UrlMapper.getInstance().redirectSuccess(this, request, response,
-													UrlMapperType.POST);
-		
+			try {
+
+				depositLimit = Integer.parseInt(request
+						.getParameter("depositLimit"));
+				bookingLimit = Integer.parseInt(request
+						.getParameter("bookingLimit"));
+			} catch (NumberFormatException nfe) {
+				error.add("Valores para el sistema de reservas incorrectos");
+			}
+
+			if (error.size() != 0) {
+				logger.debug("Error en el formulario");
+				request.setAttribute("formulario", formulario);
+				this.failure(request, response, error);
+				return;
+			}
+
+			try {
+				Long id = addService.saveComplex(name, description, address,
+						zipCode, neighbourhood, town, state, country);
+				addService.addScoreSystem(id, booking, deposit, pay,
+						downBooking, downDeposit);
+
+				addService.addExpiration(id, bookingLimit, depositLimit);
+			} catch (ElementExistsException ee) {
+
+				error.add(ee);
+
+			} catch (PersistenceException e) {
+				error.add(e);
+			} catch (IllegalArgumentException e) {
+				error.add(e);
+			}
+
+			if (error.size() != 0) {
+				logger.debug("Error al guardar el complejo");
+				request.setAttribute("formulario", formulario);
+				this.failure(request, response, error);
+				return;
+			}
+
+			UrlMapper.getInstance().redirectSuccess(this, request, response,
+					UrlMapperType.POST);
+
 		}
 	}
-	
+
 	private void failure(HttpServletRequest request,
 			HttpServletResponse response, ErrorManager error)
 			throws ServletException, IOException {

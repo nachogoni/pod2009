@@ -186,9 +186,10 @@ CREATE  TABLE "USERS" (
   "user_id" INT NOT NULL ,
   "name" VARCHAR2(50) NOT NULL ,
   "password" VARCHAR2(50) NOT NULL ,
-  "score" INT NOT NULL DEFAULT 0,
-  "notify_before_expiration" INT NOT NULL DEFAULT 10,
+  "score" INT NOT NULL,
+  "notify_before_expiration" INT NOT NULL,
   "is_admin" NUMBER(1) NOT NULL ,
+  CONSTRAINT name_unique UNIQUE ("name"),
   PRIMARY KEY ("user_id") );
 
 CREATE SEQUENCE user_sequence START WITH 1 INCREMENT BY 1;
