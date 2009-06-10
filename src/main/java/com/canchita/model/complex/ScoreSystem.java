@@ -8,7 +8,7 @@ package com.canchita.model.complex;
  * @author Juan Ignacio Goñi
  * @author Martín Palombo
  * @author Carlos Manuel Sessa
- *
+ * 
  */
 public class ScoreSystem {
 
@@ -17,49 +17,60 @@ public class ScoreSystem {
 	private Integer pay;
 	private Integer downBooking;
 	private Integer downDeposit;
-	
-	public ScoreSystem(){
+
+	public ScoreSystem() {
 	}
-	
-	public ScoreSystem(Integer booking, Integer deposit, Integer pay, Integer downBooking, Integer downDeposit){
+
+	public ScoreSystem(Integer booking, Integer deposit, Integer pay,
+			Integer downBooking, Integer downDeposit) {
 		this.booking = booking;
 		this.deposit = deposit;
 		this.pay = pay;
 		this.downBooking = downBooking;
 		this.downDeposit = downDeposit;
-	
+
 	}
+
 	public Integer getBooking() {
 		return booking;
 	}
+
 	public void setBooking(Integer booking) {
 		this.booking = booking;
 	}
+
 	public Integer getDeposit() {
 		return deposit;
 	}
+
 	public void setDeposit(Integer deposit) {
 		this.deposit = deposit;
 	}
+
 	public Integer getPay() {
 		return pay;
 	}
+
 	public void setPay(Integer pay) {
 		this.pay = pay;
 	}
+
 	public Integer getDownBooking() {
 		return downBooking;
 	}
+
 	public void setDownBooking(Integer downBooking) {
 		this.downBooking = downBooking;
 	}
+
 	public Integer getDownDeposit() {
 		return downDeposit;
 	}
+
 	public void setDownDeposit(Integer downDeposit) {
 		this.downDeposit = downDeposit;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,6 +84,7 @@ public class ScoreSystem {
 		result = prime * result + ((pay == null) ? 0 : pay.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -109,6 +121,12 @@ public class ScoreSystem {
 			return false;
 		return true;
 	}
-	
-	
+
+	public String toString() {
+		return "Reserva: " + booking + " Sena: " + deposit + " Pago: " + pay
+				+ " Caida reservada: " + downBooking + " Caida senada: "
+				+ downDeposit;
+
+	}
+
 }

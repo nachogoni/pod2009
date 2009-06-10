@@ -18,6 +18,9 @@ public class Administrator extends Registered {
 		this.id = id;
 	}
 
+	public Administrator() {
+	}
+
 	public boolean getIsAdmin() {
 		return true;
 	}
