@@ -31,16 +31,21 @@ public class CommonUserBuilder implements QueryProcessor<CommonUser> {
 		CommonUser aUser;
 
 		while (resultSet.next()) {
-			aUser = new CommonUser(resultSet.getLong("user_id"),
-					resultSet.getString("name"),
-					resultSet.getString("password"),
-					resultSet.getLong("score"),
-					resultSet.getLong("notify_before_expiration")
-					);
+			
+			aUser = this.buildCommonUser(resultSet);
 
 			results.add(aUser);
 		}
 
 		return results;
+	}
+
+	public CommonUser buildCommonUser(ResultSet resultSet) throws SQLException {
+		return new CommonUser(resultSet.getLong("user_id"),
+				resultSet.getString("name"),
+				resultSet.getString("password"),
+				resultSet.getLong("score"),
+				resultSet.getLong("notify_before_expiration")
+		);
 	}
 }
