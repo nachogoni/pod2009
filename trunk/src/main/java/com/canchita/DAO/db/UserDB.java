@@ -8,6 +8,7 @@ import com.canchita.DAO.db.builders.AdministratorBuilder;
 import com.canchita.DAO.db.builders.CommonUserBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.EmailBuilder;
+import com.canchita.DAO.db.builders.RegisteredBuilder;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.user.Administrator;
@@ -182,6 +183,27 @@ public class UserDB extends AllDB implements UserDAO {
 			throws ElementNotExistsException, PersistenceException {
 		String query = "INSERT INTO EMAIL VALUES(NULL, ?, ?)";
 		executeUpdate(query, new Object[] {email, user.getId()});
+	}
+
+	@Override
+	public Registered login(String username, String password) {
+		
+		String query = "SELECT * " +
+				"FROM users " +
+				"WHERE \"name\" = ? AND " +
+				"\"password\" = ?";
+
+		//TODO FIJARSE QUE ESE RUNTIME NO ME DEJE VER QUE
+		//NO EXISTE EL USUARIO O QUE LE PIFIO A LA PASS
+		
+		executeQuery(query, new Object[] { "asd" }, EmailBuilder
+				.getInstance());
+		
+		List<Registered> results = executeQuery(query,
+				new Object[] { username,password }, RegisteredBuilder.getInstance());
+			
+		
+		return results.get(0);
 	}
 
 }

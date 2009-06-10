@@ -31,13 +31,19 @@ public class AdministratorBuilder implements QueryProcessor<Administrator> {
 		Administrator anAdmin;
 
 		while (resultSet.next()) {
-			anAdmin = new Administrator(resultSet.getLong("user_id"),
-					resultSet.getString("name"),
-					resultSet.getString("password"));
+			
+			anAdmin = this.buildAdministrator(resultSet);
+			
 
 			results.add(anAdmin);
 		}
 
 		return results;
+	}
+
+	public Administrator buildAdministrator(ResultSet resultSet) throws SQLException {
+		return new Administrator(resultSet.getLong("user_id"),
+				resultSet.getString("name"),
+				resultSet.getString("password"));
 	}
 }

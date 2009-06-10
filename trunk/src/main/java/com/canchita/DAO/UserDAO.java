@@ -37,4 +37,6 @@ public interface UserDAO {
 	public void updateEmail(Registered user, String oldEmail, String newEmail)
 			throws ElementNotExistsException, PersistenceException;
 
+	public Registered login(String username, String password);
+
 }
