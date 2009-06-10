@@ -14,6 +14,7 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
+import com.canchita.service.ComplexService.ComplexBuilder;
 import com.canchita.views.helpers.FormHandler;
 
 /**
@@ -171,8 +172,6 @@ public class AddComplex extends GenericServlet {
 			return;
 		} else {
 
-			ComplexService addService = new ComplexService();
-
 			// TODO: Migrar a ComplexForm
 			// TODO: Arreglar el manejo de excepcion y redireccionar a pagina de
 			// error.
@@ -249,12 +248,15 @@ public class AddComplex extends GenericServlet {
 			}
 
 			try {
-				Long id = addService.saveComplex(name, description, address,
+				ComplexBuilder.Build(name, description, address,
 						zipCode, neighbourhood, town, state, country);
-				addService.addScoreSystem(id, booking, deposit, pay,
+				ComplexBuilder.addScoreSystem(booking, deposit, pay,
 						downBooking, downDeposit);
 
-				addService.addExpiration(id, bookingLimit, depositLimit);
+				ComplexBuilder.addExpiration(bookingLimit, depositLimit);
+				
+				ComplexBuilder.saveComplex();
+				
 			} catch (ElementExistsException ee) {
 
 				error.add(ee);
