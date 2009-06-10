@@ -68,6 +68,10 @@ public abstract class Registered extends User {
 		return this.score;
 	}
 
+	public void setScore(long score) {
+		this.score = score;
+	}
+
 	public void setEmail(String email) {
 		this.emails.add(email);
 	}

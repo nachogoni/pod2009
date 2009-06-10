@@ -68,7 +68,7 @@ public class UserDB extends AllDB implements UserDAO {
 				new Object[] { userName }, CommonUserBuilder.getInstance());
 
 		if (results.isEmpty())
-			return null;
+			throw new ElementNotExistsException();
 
 		for (CommonUser cu : results) {
 			List<String> emails = this.getEmails(cu);
@@ -99,14 +99,31 @@ public class UserDB extends AllDB implements UserDAO {
 		String query = "INSERT into USERS VALUES (1, ?, ?, ?, ?, ?)";
 		executeUpdate(query, new Object[] { user.getUsername(),
 				user.getPassword(), user.getScore(),
-				user.getNotifyBeforeExpiration(), user.getIsAdmin()});
+				user.getNotifyBeforeExpiration(), user.getIsAdmin() });
 	}
 
 	@Override
-	public void update(User user) throws ElementNotExistsException,
+	public void update(Registered user) throws ElementNotExistsException,
 			PersistenceException {
-		// TODO Auto-generated method stub
 
+		String query = "UPDATE USERS set \"name\" = ?, \"password\" = ?, "
+				+ "\"score\" = ?, \"notify_before_expiration\" = ?, "
+				+ "\"is_admin\" = ? where \"user_id\" = ?";
+
+		executeUpdate(query, new Object[] { user.getUsername(),
+				user.getPassword(), user.getScore(),
+				user.getNotifyBeforeExpiration(), user.getIsAdmin(),
+				user.getId() });
+	}
+
+	public void updateEmail(Registered user, String oldEmail, String newEmail)
+			throws ElementNotExistsException, PersistenceException {
+
+		//TODO: Se podría agregar al último where un user_id = user.getId();
+		String query = "UPDATE EMAIL set \"email\" = ? where \"email_id\" = "
+				+ "(SELECT \"email_id\" from EMAIL where \"email\" = ?)";
+
+		executeUpdate(query, new Object[] { newEmail, oldEmail });
 	}
 
 }
