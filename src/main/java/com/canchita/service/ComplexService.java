@@ -58,6 +58,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 	}
 
+	@Deprecated
 	public Long saveComplex(String name, String description, String address,
 			String zipCode, String neighbourhood, String town, String state,
 			String country) throws PersistenceException {

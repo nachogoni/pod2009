@@ -65,6 +65,7 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
+	@Deprecated
 	public Long saveField(String name, String description, Long idComplex,
 			Boolean hasRoof, FloorType floor) throws PersistenceException {
 
