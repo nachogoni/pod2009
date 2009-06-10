@@ -107,28 +107,6 @@ public class FieldMemoryMock implements FieldDAO {
 		return FieldMemoryMock.FieldMocks.get(id);
 	}
 
-	public Collection<Field> getFiltered(Long idComplex)
-			throws PersistenceException {
-
-		ComplexDAO complexDao = DAOFactory.get(DAO.COMPLEX);
-
-		if (!complexDao.exists(idComplex)) {
-			throw new ElementNotExistsException("El complejo no existe");
-		}
-
-		Collection<Field> collection = new ArrayList<Field>();
-
-		for (Field field : FieldMocks.values()) {
-
-			if (field.getComplex().getId().equals(idComplex)) {
-				collection.add(field);
-			}
-
-		}
-
-		return collection;
-	}
-
 	public Collection<Field> getFiltered(String filter) {
 
 		Collection<Field> collection = new ArrayList<Field>();
@@ -183,6 +161,29 @@ public class FieldMemoryMock implements FieldDAO {
 	@Override
 	public boolean exists(Field field) {
 		return FieldMemoryMock.FieldMocks.containsValue(field);
+	}
+
+	@Override
+	public Collection<Field> getByComplex(Long idComplex)
+			throws PersistenceException {
+
+		ComplexDAO complexDao = DAOFactory.get(DAO.COMPLEX);
+
+		if (!complexDao.exists(idComplex)) {
+			throw new ElementNotExistsException("El complejo no existe");
+		}
+
+		Collection<Field> collection = new ArrayList<Field>();
+
+		for (Field field : FieldMocks.values()) {
+
+			if (field.getComplex().getId().equals(idComplex)) {
+				collection.add(field);
+			}
+
+		}
+
+		return collection;
 	}
 
 }
