@@ -27,9 +27,9 @@ import com.canchita.model.field.FloorType;
 public class FieldService implements FieldServiceProtocol {
 
 	public void deleteField(Long id) throws PersistenceException {
-		
+
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-		
+
 		fieldDAO.delete(id);
 	}
 
@@ -61,7 +61,6 @@ public class FieldService implements FieldServiceProtocol {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
-
 		return fieldDAO.getFiltered(filter);
 
 	}
@@ -71,21 +70,20 @@ public class FieldService implements FieldServiceProtocol {
 
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
-		
-		Field aField = new Field(complexDAO.getById(idComplex),
-				name);
+		Field aField = new Field(complexDAO.getById(idComplex), name);
 
 		aField.setDescription(description);
 		aField.setHasRoof(hasRoof);
 		aField.setFloor(floor);
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-		
+
 		fieldDAO.save(aField);
 
 		return aField.getId();
 
 	}
+
 
 	public void updateField(Long id, String name, String description,
 			Boolean hasRoof, FloorType floor) throws PersistenceException {
@@ -106,7 +104,7 @@ public class FieldService implements FieldServiceProtocol {
 		}
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-		
+
 		fieldDAO.update(aField);
 	}
 
@@ -119,9 +117,9 @@ public class FieldService implements FieldServiceProtocol {
 		try {
 			Field aField = getById(id);
 			aField.setScoreSystem(scoreSystem);
-			
+
 			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-			
+
 			fieldDAO.update(aField);
 		} catch (PersistenceException e) {
 			throw e;
@@ -171,9 +169,9 @@ public class FieldService implements FieldServiceProtocol {
 
 	@Override
 	public Field getById(Long id) throws PersistenceException {
-		
+
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-		
+
 		return fieldDAO.getById(id);
 	}
 
@@ -197,7 +195,7 @@ public class FieldService implements FieldServiceProtocol {
 
 		return field.getComplex().getId();
 	}
-	
+
 	@Override
 	public void addTimeTable(Long id, DateTime startMon, DateTime endMon,
 			DateTime startTues, DateTime endTues, DateTime startWed,
@@ -282,6 +280,142 @@ public class FieldService implements FieldServiceProtocol {
 		} catch (Exception e) {
 			throw new PersistenceException("Complejo no encontrado");
 		}
+	}
+
+	
+
+	public static class FieldBuilder {
+		static Field aField = null;
+
+		public static void Build(String name, String description,
+				Long idComplex, Boolean hasRoof, FloorType floor)
+				throws PersistenceException {
+
+			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
+			aField = new Field(complexDAO.getById(idComplex), name);
+
+			aField.setDescription(description);
+			aField.setHasRoof(hasRoof);
+			aField.setFloor(floor);
+
+			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+			fieldDAO.save(aField);
+
+		}
+
+		public static void addScoreSystem(Integer booking, Integer deposit,
+				Integer pay, Integer downBooking, Integer downDeposit)
+				throws PersistenceException {
+
+			ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
+					downBooking, downDeposit);
+			try {
+
+				aField.setScoreSystem(scoreSystem);
+
+			} catch (NullPointerException e) {
+				throw (new PersistenceException(
+						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
+			}
+
+		}
+
+		public static void addTimeTable(DateTime startMon, DateTime endMon,
+				DateTime startTues, DateTime endTues, DateTime startWed,
+				DateTime endWed, DateTime startThurs, DateTime endThurs,
+				DateTime startFri, DateTime endFri, DateTime startSat,
+				DateTime endSat, DateTime startSun, DateTime endSun)
+				throws InvalidScheduleException, PersistenceException {
+
+			if (startMon == null || endMon == null || startMon.isAfter(endMon)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Lunes incorrectas"));
+			}
+			if (startTues == null || endTues == null
+					|| startTues.isAfter(endTues)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Martes incorrectas"));
+			}
+			if (startThurs == null || endThurs == null
+					|| startThurs.isAfter(endThurs)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Jueves incorrectas"));
+			}
+			if (startWed == null || endWed == null || startWed.isAfter(endWed)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Miercoles incorrectas"));
+			}
+			if (startFri == null || endFri == null || startFri.isAfter(endFri)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Viernes incorrectas"));
+			}
+			if (startSat == null || endSat == null || startSat.isAfter(endSat)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Sabado incorrectas"));
+			}
+			if (startSun == null || endSun == null || startSun.isAfter(endSun)) {
+				throw (new InvalidScheduleException(
+						"Fechas de inicio para dia Domingo incorrectas"));
+			}
+
+			Calendar aCalendar = new Calendar();
+
+			Schedule monSchedule = new Schedule(startMon, endMon);
+			Availability monAvailability = new Availability(DayOfWeek.MONDAY,
+					monSchedule);
+			aCalendar.add(monAvailability);
+
+			Schedule tuesSchedule = new Schedule(startTues, endTues);
+			Availability tuesAvailability = new Availability(DayOfWeek.TUESDAY,
+					tuesSchedule);
+			aCalendar.add(tuesAvailability);
+
+			Schedule wedSchedule = new Schedule(startWed, endWed);
+			Availability wedAvailability = new Availability(
+					DayOfWeek.WEDNESDAY, wedSchedule);
+			aCalendar.add(wedAvailability);
+
+			Schedule thursSchedule = new Schedule(startThurs, endThurs);
+			Availability thursAvailability = new Availability(
+					DayOfWeek.THURSDAY, thursSchedule);
+			aCalendar.add(thursAvailability);
+
+			Schedule friSchedule = new Schedule(startFri, endFri);
+			Availability friAvailability = new Availability(DayOfWeek.FRIDAY,
+					friSchedule);
+			aCalendar.add(friAvailability);
+
+			Schedule satSchedule = new Schedule(startSat, endSat);
+			Availability satAvailability = new Availability(DayOfWeek.SATURDAY,
+					satSchedule);
+			aCalendar.add(satAvailability);
+
+			Schedule sunSchedule = new Schedule(startSun, endSun);
+			Availability sunAvailability = new Availability(DayOfWeek.SUNDAY,
+					sunSchedule);
+			aCalendar.add(sunAvailability);
+
+			try {
+
+				aField.setTimeTable(aCalendar);
+
+			} catch (NullPointerException e) {
+				throw (new PersistenceException(
+						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
+			}
+		}
+		
+		public static void saveField() throws PersistenceException {
+
+			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+			fieldDAO.save(aField);
+
+
+		}
+
 	}
 
 }

@@ -17,6 +17,7 @@ import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
+import com.canchita.service.FieldService.FieldBuilder;
 import com.canchita.views.helpers.FormHandler;
 
 /**
@@ -140,9 +141,10 @@ public class AddField extends GenericServlet {
 			return;
 		}
 
-		FieldServiceProtocol fieldService = new FieldService();
+		
 		try {
-			fieldService.saveField(name, description, idComplex, hasRoof, floor);
+			FieldBuilder.Build(name, description, idComplex, hasRoof, floor);
+			FieldBuilder.saveField();
 		} catch (PersistenceException e) {
 			error.add(e);
 			request.setAttribute("formulario", formulario);
