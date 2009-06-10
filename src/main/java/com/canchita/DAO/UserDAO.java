@@ -17,7 +17,7 @@ public interface UserDAO {
 
 	public Collection<String> getEmails(Registered user);
 
-	public void update(User aUser) throws ElementNotExistsException,
+	public void update(Registered aUser) throws ElementNotExistsException,
 			PersistenceException;
 
 	public void delete(Registered aUser) throws ElementNotExistsException;
@@ -27,5 +27,8 @@ public interface UserDAO {
 	public Collection<User> getFiltered(String filter);
 
 	public boolean exists(Registered aUser);
+	
+	public void updateEmail(Registered user, String oldEmail, String newEmail)
+	throws ElementNotExistsException, PersistenceException;
 
 }

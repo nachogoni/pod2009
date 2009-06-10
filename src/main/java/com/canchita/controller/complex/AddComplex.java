@@ -44,7 +44,7 @@ public class AddComplex extends GenericServlet {
 
         
     	// TODO BORRAME
-
+		// Testeos de UserDB.java
 //		try {
 //			Registered lala = UserDB.getInstance().getByUserName("pepe");
 //			System.out.println(lala);
@@ -70,6 +70,45 @@ public class AddComplex extends GenericServlet {
 //			System.out.println("Fallo el insert");
 //		}
 
+//		Registered lala = null;
+//		try {
+//			lala = UserDB.getInstance().getByUserName("mili2");
+//			System.out.println(lala);
+//			
+//		} catch (ElementNotExistsException e) {
+//			System.out.println("El usuario no existe.");
+//		}
+//
+//		lala.setUsername("mili182");
+//		lala.setPassword("passNueva");
+//		lala.setScore(182L);
+//		lala.setNotifyBeforeExpiration(182L);
+//
+//		try {
+//			UserDB.getInstance().update(lala);
+//		} catch (ElementNotExistsException e) {
+//			System.out.println("El usuario no existe.");
+//			e.printStackTrace();
+//		} catch (PersistenceException e) {
+//			System.out.println("Persistence!.");
+//			e.printStackTrace();
+//		}
+
+//		Registered lala = null;
+//		try {
+//			lala = UserDB.getInstance().getByUserName("mili182");
+//			System.out.println(lala);
+//			
+//		} catch (ElementNotExistsException e) {
+//			System.out.println("El usuario no existe.");
+//		}
+//
+//		try {
+//			UserDB.getInstance().updateEmail(lala, "cambio@ccc.com", "m@mili.com");
+//		} catch (Exception e) {
+//			System.out.println("Falló update de email.");
+//			e.printStackTrace();
+//		}
 		// TODO BORRAME
 		
     	
