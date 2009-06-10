@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.canchita.DAO.UserDAO;
+import com.canchita.DAO.db.builders.AdministratorBuilder;
 import com.canchita.DAO.db.builders.CommonUserBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.EmailBuilder;
@@ -12,7 +13,6 @@ import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.user.Administrator;
 import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Registered;
-import com.canchita.model.user.User;
 
 public class UserDB extends AllDB implements UserDAO {
 
@@ -52,9 +52,41 @@ public class UserDB extends AllDB implements UserDAO {
 	}
 
 	@Override
-	public Collection<User> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<CommonUser> getAllUsers() {
+
+		String query = "SELECT * FROM USERS WHERE \"is_admin\" = '0'";
+
+		List<CommonUser> results = executeQuery(query,
+				new Object[] { }, CommonUserBuilder.getInstance());
+
+		for (CommonUser cu : results) {
+			List<String> emails = this.getEmails(cu);
+
+			for (String email : emails) {
+				cu.setEmail(email);
+			}
+		}
+
+		return results;
+	}
+
+	@Override
+	public Collection<Administrator> getAllAdmins() {
+
+		String query = "SELECT * FROM USERS WHERE \"is_admin\" = '1'";
+
+		List<Administrator> results = executeQuery(query,
+				new Object[] { }, AdministratorBuilder.getInstance());
+
+		for (Administrator cu : results) {
+			List<String> emails = this.getEmails(cu);
+
+			for (String email : emails) {
+				cu.setEmail(email);
+			}
+		}
+
+		return results;
 	}
 
 	@Override
@@ -82,17 +114,35 @@ public class UserDB extends AllDB implements UserDAO {
 
 	}
 
+	public Administrator getByAdminName(String userName)
+			throws ElementNotExistsException {
+
+		// CommonUser list gets loaded.
+		String query = "SELECT * FROM USERS WHERE \"name\" = ? AND \"is_admin\" = '1'";
+
+		List<Administrator> results = executeQuery(query,
+				new Object[] { userName }, AdministratorBuilder.getInstance());
+
+		if (results.isEmpty())
+			throw new ElementNotExistsException();
+
+		for (Administrator cu : results) {
+			List<String> emails = this.getEmails(cu);
+
+			for (String email : emails) {
+				cu.setEmail(email);
+			}
+		}
+
+		return results.get(0);
+
+	}
+	
 	@Override
 	public List<String> getEmails(Registered user) {
 		String query = "SELECT \"email\" FROM EMAIL WHERE \"user_id\" = ?";
 		return executeQuery(query, new Object[] { user.getId() }, EmailBuilder
 				.getInstance());
-	}
-
-	@Override
-	public Collection<User> getFiltered(String filter) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void save(Registered user) throws PersistenceException {
@@ -124,6 +174,14 @@ public class UserDB extends AllDB implements UserDAO {
 				+ "(SELECT \"email_id\" from EMAIL where \"email\" = ?)";
 
 		executeUpdate(query, new Object[] { newEmail, oldEmail });
+	}
+
+
+	@Override
+	public void addEmail(Registered user, String email)
+			throws ElementNotExistsException, PersistenceException {
+		String query = "INSERT INTO EMAIL VALUES(NULL, ?, ?)";
+		executeUpdate(query, new Object[] {email, user.getId()});
 	}
 
 }

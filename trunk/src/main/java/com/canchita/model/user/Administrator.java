@@ -12,8 +12,28 @@ package com.canchita.model.user;
  */
 public class Administrator extends Registered {
 
+	public Administrator(long id, String userName, String password) {
+		this.password = password;
+		this.username = userName;
+		this.id = id;
+	}
+
 	public boolean getIsAdmin() {
 		return true;
 	}
 
+	public String toString() {
+		String ret = new String();
+
+		ret += String.format("Administrador %s:\n", this.username);
+		ret += String.format("id %s\n", this.id);
+		ret += String.format("password %s\n", this.password);
+		ret += String.format("Emails:\n");
+
+		for (String email : this.emails) {
+			ret += String.format("- %s\n", email);
+		}
+
+		return ret;
+	}
 }

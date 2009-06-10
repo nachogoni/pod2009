@@ -15,6 +15,9 @@ public interface UserDAO {
 	public CommonUser getByUserName(String userName)
 			throws ElementNotExistsException;
 
+	public Administrator getByAdminName(String userName)
+			throws ElementNotExistsException;
+
 	public Collection<String> getEmails(Registered user);
 
 	public void update(Registered aUser) throws ElementNotExistsException,
@@ -22,13 +25,16 @@ public interface UserDAO {
 
 	public void delete(Registered aUser) throws ElementNotExistsException;
 
-	public Collection<User> getAll();
+	public Collection<CommonUser> getAllUsers();
 
-	public Collection<User> getFiltered(String filter);
+	public Collection<Administrator> getAllAdmins();
 
 	public boolean exists(Registered aUser);
-	
+
+	public void addEmail(Registered aUser, String email)
+			throws ElementNotExistsException, PersistenceException;
+
 	public void updateEmail(Registered user, String oldEmail, String newEmail)
-	throws ElementNotExistsException, PersistenceException;
+			throws ElementNotExistsException, PersistenceException;
 
 }
