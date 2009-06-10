@@ -1,12 +1,12 @@
 package com.canchita.model.complex;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booker;
@@ -36,6 +36,8 @@ public class Complex implements Booker {
 	private List<Field> fields;
 	private Expiration expiration;
 	private Long id;
+	private String email;
+	private Blob picture;
 
 	public static List<Complex> list() {
 		// TODO Auto-generated method stub
@@ -44,6 +46,22 @@ public class Complex implements Booker {
 
 	public Complex(String name) {
 		this.setName(name);
+	}
+
+	public Complex(Integer id, ScoreSystem scoreSystem, String name,
+			String description, String address, String city, String state,
+			String country, String fax, String email, Blob picture,
+			String latitude, String longitude) {
+		this.id = new Long(id);
+		this.name = name;
+		this.description = description;
+		this.scoreSystem = scoreSystem;
+		this.place = (new Place.Builder(address, city).country(country)
+				.latitude(latitude).longitude(longitude).town(city)
+				.state(state)).build();
+		this.email = email;
+		this.setPicture(picture);
+
 	}
 
 	public Complex(long complexID) {
@@ -91,48 +109,48 @@ public class Complex implements Booker {
 	}
 
 	public boolean inAvailableHours(Schedule schedule) {
-		
-		DateTime startTime =  schedule.getStartTime();
+
+		DateTime startTime = schedule.getStartTime();
 		DateTime endTime = schedule.getEndTime();
 		Collection<Schedule> collection = new ArrayList<Schedule>();
-		
-		long startDay = startTime.getDayOfYear() + ( 365 * startTime.getYear() );
-		long endDay = endTime.getDayOfYear() + ( 365 * endTime.getYear() );
-		
+
+		long startDay = startTime.getDayOfYear() + (365 * startTime.getYear());
+		long endDay = endTime.getDayOfYear() + (365 * endTime.getYear());
+
 		long diffDays = endDay - startDay;
-		
+
 		/*
 		 * We get the schedule for every day in the schedule parameter
 		 */
-		for( int i = 0 ; i <= diffDays ; i++  ) {
-			
+		for (int i = 0; i <= diffDays; i++) {
+
 			DateTime day = startTime.plusDays(i);
-			
+
 			Iterator<Schedule> iterator = this.getScheduleForDay(day);
-			
-			while(iterator.hasNext()) {
+
+			while (iterator.hasNext()) {
 				Schedule aSchedule = (Schedule) iterator.next();
 				collection.add(aSchedule);
 			}
-			
+
 		}
-		
-		return this.inAvailableHours(collection,schedule);
-		
+
+		return this.inAvailableHours(collection, schedule);
+
 	}
-	
+
 	private boolean inAvailableHours(Collection<Schedule> collection,
 			Schedule schedule) {
-		
+
 		for (Schedule otherSchedule : collection) {
-			
-			if( otherSchedule.contains(schedule) ) {
+
+			if (otherSchedule.contains(schedule)) {
 				return true;
 			}
 		}
-		
+
 		return false;
-		
+
 	}
 
 	public String getName() {
@@ -230,8 +248,19 @@ public class Complex implements Booker {
 			return false;
 		return true;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Nombre: " + name + " Descripción: " + description + " Email: "
+				+ email;
+	}
+
+	public void setPicture(Blob picture) {
+		this.picture = picture;
+	}
+
+	public Blob getPicture() {
+		return picture;
+	}
 
 }

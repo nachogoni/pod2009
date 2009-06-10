@@ -50,4 +50,19 @@ public class ScoreSystemDB extends AllDB implements ScoreSystemDAO {
 				scoreSystem.getDownBooking(), scoreSystem.getDownDeposit() });
 
 	}
+
+	@Override
+	public void update(Long id, ScoreSystem scoreSystem)
+			throws PersistenceException {
+		String query = "UPDATE SCORE_SYSTEM set \"on_reserve\" = ?, \"on_half_payment\" = ?, "
+				+ "\"on_full_payment\" = ?, \"drop_reserved\" = ?, "
+				+ "\"drop_half_paid\" = ? where \"score_system_id\" = ?";
+
+		executeUpdate(query,
+				new Object[] { scoreSystem.getBooking(),
+						scoreSystem.getDeposit(), scoreSystem.getPay(),
+						scoreSystem.getDownBooking(),
+						scoreSystem.getDownDeposit(), id });
+
+	}
 }
