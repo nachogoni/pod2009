@@ -12,7 +12,8 @@ public interface FieldDAO {
 
 	public Field getById(Long id) throws ElementNotExistsException;
 
-	public void update(Field aField) throws ElementNotExistsException, PersistenceException;
+	public void update(Field aField) throws ElementNotExistsException,
+			PersistenceException;
 
 	public void delete(Long id) throws ElementNotExistsException;
 
@@ -20,7 +21,7 @@ public interface FieldDAO {
 
 	public Collection<Field> getFiltered(String filter);
 
-	public Collection<Field> getFiltered(Long idComplex)
+	public Collection<Field> getByComplex(Long idComplex)
 			throws PersistenceException;
 
 	public boolean exists(Field field);

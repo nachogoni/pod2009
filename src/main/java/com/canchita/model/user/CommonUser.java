@@ -1,6 +1,5 @@
 package com.canchita.model.user;
 
-import java.util.ArrayList;
 
 /**
  * 

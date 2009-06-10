@@ -45,7 +45,7 @@ public class FieldService implements FieldServiceProtocol {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
-		return fieldDAO.getFiltered(idComplex);
+		return fieldDAO.getByComplex(idComplex);
 
 	}
 

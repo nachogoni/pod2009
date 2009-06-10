@@ -108,7 +108,7 @@ CREATE  TABLE "FIELD" (
   "description" VARCHAR2(100) NULL ,
   "number_of_players" INT NOT NULL ,
   "has_roof" NUMBER(1) ,
-  "type" VARCHAR2(50) NULL ,
+  "type" INT NOT NULL ,
   "price" FLOAT NOT NULL ,
   "under_maintenance" NUMBER(1) NOT NULL ,
   "picture" BLOB NULL ,
@@ -140,7 +140,7 @@ CREATE  TABLE "TIMETABLE" (
   PRIMARY KEY ("timetable_id") ,
   CONSTRAINT "fk_TIMETABLE_COMPLEX"
     FOREIGN KEY ("complex_id" )
-    REFERENCES "COMPLEX" ("complex_id" ) );
+    REFERENCES "COMPLEX" ("complex_id" ) ON DELETE CASCADE);
 
 CREATE INDEX "fk_TIMETABLE_COMPLEX" ON "TIMETABLE" ("complex_id" ASC);
 

@@ -17,6 +17,9 @@ INSERT INTO EMAIL VALUES(NULL, '1@user2.com', 4);
 INSERT INTO EMAIL VALUES(NULL, '2@user2.com', 4);
 INSERT INTO EMAIL VALUES(NULL, '3@user2.com', 4);
 
+INSERT INTO FIELD VALUES(NULL,1,'cancha1', 'descripcion cancha1', 4, 1, 1, 22.4, 0, NULL);
+INSERT INTO FIELD VALUES(NULL,1,'cancha2', 'descripcion cancha2', 4, 1, 1, 30.4, 0, NULL);
+INSERT INTO FIELD VALUES(NULL,2,'cancha3', 'descripcion cancha3', 4, 1, 1, 30.4, 0, NULL);
 COMMIT;
 
 
