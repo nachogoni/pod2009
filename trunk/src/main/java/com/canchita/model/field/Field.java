@@ -1,5 +1,6 @@
 package com.canchita.model.field;
 
+import java.sql.Blob;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,21 +36,39 @@ import com.canchita.model.location.Locatable;
 public class Field implements Bookable {
 
 	private Long id;
-
+	
 	private String name;
 	private String description;
+	private Long numberOfPlayers;
 	private Complex complex;
 	private boolean hasRoof;
 	private FloorType floor;
+	private float price;
+	private Blob picture;
+	private boolean under_maintenance;
 	private ScoreSystem scoreSystem;
 	private Expiration expiration;
-
 	private Calendar timeTable;
+
+	public Field(long id, long complexID, String name, String description,
+			long numberOfPlayers, boolean hasRoof, long floor, float price,
+			Blob picture, boolean under_maintenance) {
+
+		this.id = id;
+		this.complex = new Complex(complexID);
+		this.name = name;
+		this.description = description;
+		this.numberOfPlayers = numberOfPlayers;
+		this.hasRoof = hasRoof;
+		this.floor = FloorType.values()[(int)floor];
+		this.price = price;
+		this.picture = picture;
+		this.under_maintenance = under_maintenance;
+	}
 
 	@Override
 	public String toString() {
-
-		return "Nombre: " + name + " Descripción: " + description;
+		return "Nombre: " + this.name + " Descripción: " + this.description;
 	}
 
 	public Complex getComplex() {
@@ -145,7 +164,8 @@ public class Field implements Bookable {
 
 	}
 
-	public Iterator<Schedule> getAvailableHours(DateTime date) throws PersistenceException {
+	public Iterator<Schedule> getAvailableHours(DateTime date)
+			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
@@ -309,6 +329,38 @@ public class Field implements Bookable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public void setNumberOfPlayers(Long numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
+	}
+
+	public Long getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+
+	public void setPicture(Blob picture) {
+		this.picture = picture;
+	}
+
+	public Blob getPicture() {
+		return picture;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setUnder_maintenance(boolean under_maintenance) {
+		this.under_maintenance = under_maintenance;
+	}
+
+	public boolean isUnder_maintenance() {
+		return under_maintenance;
 	}
 
 }

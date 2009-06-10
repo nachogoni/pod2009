@@ -46,6 +46,10 @@ public class Complex implements Booker {
 		this.setName(name);
 	}
 
+	public Complex(long complexID) {
+		this.id = complexID;
+	}
+
 	public List<Field> listFields() {
 		// TODO Auto-generated method stub
 		return fields;
