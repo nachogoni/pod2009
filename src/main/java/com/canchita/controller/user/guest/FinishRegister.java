@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.RegisterException;
 import com.canchita.model.user.Registered;
 import com.canchita.service.UserService;
 import com.canchita.service.UserServiceProtocol;
@@ -51,7 +52,18 @@ public class FinishRegister extends GenericServlet implements Servlet {
 		
 		UserServiceProtocol userService = new UserService();
 		
-		Registered user = userService.confirmateHash(hash);
+		Registered user;
+		try {
+			user = userService.confirmateHash(hash);
+		} catch (RegisterException e) {
+			Map<String,String> map = new HashMap<String, String>();
+			
+			map.put("register", "false");
+			
+			UrlMapper.getInstance().redirectFailure(this, request, response,
+														UrlMapperType.GET,map);
+			return;
+		}
 		
 		
 		//If everything was ok we login the user

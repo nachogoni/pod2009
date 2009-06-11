@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.canchita.model.exception.LoginException;
+import com.canchita.model.exception.RegisterException;
+import com.canchita.model.exception.UserException;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
 
@@ -21,11 +23,12 @@ public interface UserServiceProtocol {
 
 	void logout(Registered registered);
 	
-	void register(String username, String password, String email, String baseUrl);
+	void register(String username, String password, String email, String baseUrl) throws RegisterException;
 	
-	Registered confirmateHash(String hash);
+	Registered confirmateHash(String hash) throws RegisterException;
 
-	List<String> getMails(Registered user);
+	List<String> getEmails(Registered user) throws UserException;
 
-	void updateMails(Registered user, Map<String, String> mailsToUpdate);
+	void updateEmails(Registered user, Map<String, String> mailsToUpdate) throws UserException;
+
 }

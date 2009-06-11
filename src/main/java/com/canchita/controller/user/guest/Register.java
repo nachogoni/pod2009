@@ -1,23 +1,22 @@
 package com.canchita.controller.user.guest;
 
-import com.canchita.controller.GenericServlet;
-import com.canchita.controller.helper.ErrorManager;
-import com.canchita.controller.helper.UrlMapper;
-import com.canchita.controller.helper.UrlMapperType;
-import com.canchita.model.exception.ElementExistsException;
-import com.canchita.model.exception.PersistenceException;
-import com.canchita.service.ComplexService;
-import com.canchita.service.UserService;
-import com.canchita.service.UserServiceProtocol;
-import com.canchita.views.helpers.FormHandler;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.canchita.controller.GenericServlet;
+import com.canchita.controller.helper.ErrorManager;
+import com.canchita.controller.helper.UrlMapper;
+import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.RegisterException;
+import com.canchita.service.UserService;
+import com.canchita.service.UserServiceProtocol;
+import com.canchita.views.helpers.FormHandler;
 
 /**
  * Servlet implementation class Register
@@ -113,11 +112,19 @@ public class Register extends GenericServlet {
 		
 		UserServiceProtocol userService = new UserService();
 		
-		userService.register(username, password, email, baseUrl);
+		try {
+			userService.register(username, password, email, baseUrl);
+		} catch (RegisterException e) {
+			logger.debug("Error al realizar la registración");
+			error.add(e);
+			e.printStackTrace();
+			request.setAttribute("form", form);
+			this.failure(request, response, error);
+		}
 		
 		//TODO usar cunado register tire excepciones
 		if (error.size() != 0) {
-			logger.debug("Error al guardar el complejo");
+			logger.debug("Error al realizar la registración");
 			request.setAttribute("form", form);
 			this.failure(request, response, error);
 			return;

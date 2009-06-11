@@ -25,6 +25,9 @@ DROP SEQUENCE complex_sequence;
 DROP TABLE "SCORE_SYSTEM" CASCADE CONSTRAINTS;
 DROP SEQUENCE score_system_sequence;
 
+DROP TABLE "REGISTER" CASCADE CONSTRAINTS;
+DROP SEQUENCE register_sequence;
+
 
 CREATE  TABLE "SCORE_SYSTEM" (
   "score_system_id" INT NOT NULL ,
@@ -254,5 +257,29 @@ REFERENCING NEW AS NEW
 FOR EACH ROW
 BEGIN
 SELECT reservation_sequence.nextval INTO :NEW."reservation_id" FROM dual;
+END;
+/
+
+CREATE  TABLE "REGISTER" (
+  "id" INT NOT NULL ,
+  "name" VARCHAR2(50) NOT NULL ,
+  "password" VARCHAR2(50) NOT NULL ,
+  "email" VARCHAR2(50) NOT NULL ,
+  "is_admin" NUMBER(1) NOT NULL ,
+  "hash" VARCHAR2(40) NOT NULL ,
+  PRIMARY KEY ("id") ,
+  CONSTRAINT register_name_unique UNIQUE ("name"),
+  CONSTRAINT register_hash_unique UNIQUE ("hash")
+  );
+
+CREATE SEQUENCE register_sequence START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER register_trigger
+BEFORE INSERT
+ON "REGISTER"
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT register_sequence.nextval INTO :NEW."id" FROM dual;
 END;
 /

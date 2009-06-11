@@ -2,6 +2,11 @@ package com.canchita.model.exception;
 
 public class InvalidScheduleException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public InvalidScheduleException() {
 	}
 

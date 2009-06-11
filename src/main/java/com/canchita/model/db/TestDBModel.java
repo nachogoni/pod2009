@@ -1,8 +1,6 @@
 package com.canchita.model.db;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 
 public class TestDBModel extends DbModel{
 	

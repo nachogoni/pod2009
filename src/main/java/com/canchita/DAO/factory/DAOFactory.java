@@ -1,8 +1,8 @@
 package com.canchita.DAO.factory;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import com.canchita.DAO.db.RegisterDB;
 import com.canchita.DAO.db.UserDB;
 import com.canchita.DAO.memorymock.BookingMemoryMock;
 import com.canchita.DAO.memorymock.ComplexMemoryMock;
@@ -13,8 +13,8 @@ import com.canchita.model.exception.PersistenceException;
  * 
  * Class which acts as an entry point for all DAOs.
  * Each DAO must implement a static factory method
- * called getInstance which will be invoked by
- * the DAOFactory.
+ * and annotate it with the {@code FactoryMethod} annotation,
+ * which will be invoked by the DAOFactory.
  */
 public class DAOFactory {
 
@@ -27,7 +27,8 @@ public class DAOFactory {
 		BOOKING(BookingMemoryMock.class),
 		FIELD(FieldMemoryMock.class),
 		COMPLEX(ComplexMemoryMock.class),
-		USER(UserDB.class);
+		USER(UserDB.class),
+		REGISTER(RegisterDB.class);
 		
 		private Method factoryMethod;
 		
@@ -53,8 +54,8 @@ public class DAOFactory {
 	@SuppressWarnings("unchecked")
 	/**
 	 * This method returns a static factory indicated by
-	 * the dao enum. It supresses warnings as the line
-	 * {code}instance = (E) m.invoke(null, (Object[])null);{/code}
+	 * the dao enum. It suppresses warnings as the line
+	 * {@code instance = (E) m.invoke(null, (Object[])null);}
 	 * returns an E instance.
 	 * 
 	 * @param dao Enum which indicates the DAO to load

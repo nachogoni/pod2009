@@ -9,6 +9,7 @@ import com.canchita.DAO.db.builders.CommonUserBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.EmailBuilder;
 import com.canchita.DAO.db.builders.RegisteredBuilder;
+import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.user.Administrator;
@@ -17,18 +18,19 @@ import com.canchita.model.user.Registered;
 
 public class UserDB extends AllDB implements UserDAO {
 
-	private static UserDB instance;
+	private static final UserDB INSTANCE;
 
 	static {
-		instance = new UserDB();
+		INSTANCE = new UserDB();
 	}
 
 	private UserDB() {
 		// No hace nada :D
 	}
 
-	public static UserDB getInstance() {
-		return instance;
+	@FactoryMethod
+	public static UserDAO getInstance() {
+		return INSTANCE;
 	}
 
 	@Override
@@ -52,6 +54,17 @@ public class UserDB extends AllDB implements UserDAO {
 
 	}
 
+	@Override
+	public boolean exists(String username) {
+		String query = "SELECT COUNT(*) AS COUNT FROM USERS WHERE \"name\" = ?";
+
+		List<Integer> results = executeQuery(query, new Object[] { username }, CountBuilder.getInstance());
+		
+		return results.get(0) > 0;
+
+	}
+
+	
 	@Override
 	public Collection<CommonUser> getAllUsers() {
 
@@ -146,11 +159,29 @@ public class UserDB extends AllDB implements UserDAO {
 				.getInstance());
 	}
 
-	public void save(Registered user) throws PersistenceException {
-		String query = "INSERT into USERS VALUES (1, ?, ?, ?, ?, ?)";
-		executeUpdate(query, new Object[] { user.getUsername(),
-				user.getPassword(), user.getScore(),
-				user.getNotifyBeforeExpiration(), user.getIsAdmin() });
+	public Registered save(String username, String password, String email, boolean notifyBeforeExpiration, boolean isAdmin) throws PersistenceException {
+		String query = "INSERT into USERS(\"name\",\"password\",\"score\",\"notify_before_expiration\",\"is_admin\") VALUES (?, ?, ?, ?, ?)";
+		executeUpdate(query, new Object[] { username,
+				password, 0,
+				notifyBeforeExpiration, isAdmin });
+		
+		return this.getByUserName(username);
+		
+	}
+
+	public Registered getById(int id) {
+		
+		String query = "SELECT * FROM USERS where \"user_id\" = ?";
+		
+		List<Registered> results = executeQuery(query,
+				new Object[] { id }, RegisteredBuilder.getInstance());
+
+		if( results.isEmpty() ) {
+			return null;
+		}
+		
+		return results.get(0);
+		
 	}
 
 	@Override
@@ -181,27 +212,24 @@ public class UserDB extends AllDB implements UserDAO {
 	@Override
 	public void addEmail(Registered user, String email)
 			throws ElementNotExistsException, PersistenceException {
-		String query = "INSERT INTO EMAIL VALUES(NULL, ?, ?)";
+		String query = "INSERT INTO EMAIL(\"email\",\"user_id\") VALUES(?, ?)";
 		executeUpdate(query, new Object[] {email, user.getId()});
 	}
 
 	@Override
-	public Registered login(String username, String password) {
+	public Registered login(String username, String password){
 		
 		String query = "SELECT * " +
 				"FROM users " +
 				"WHERE \"name\" = ? AND " +
 				"\"password\" = ?";
 
-		//TODO FIJARSE QUE ESE RUNTIME NO ME DEJE VER QUE
-		//NO EXISTE EL USUARIO O QUE LE PIFIO A LA PASS
-		
-		executeQuery(query, new Object[] { "asd" }, EmailBuilder
-				.getInstance());
-		
 		List<Registered> results = executeQuery(query,
 				new Object[] { username,password }, RegisteredBuilder.getInstance());
-			
+		
+		if( results.isEmpty() ) {
+			return null;
+		}
 		
 		return results.get(0);
 	}

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.canchita.mailSender.mail.RegisterMail;
 import com.canchita.model.exception.LoginException;
+import com.canchita.model.exception.RegisterException;
+import com.canchita.model.exception.UserException;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
 
@@ -31,11 +33,13 @@ public class UserService implements UserServiceProtocol {
 	}
 
 	@Override
-	public void register(String username, String password, String email, String baseUrl) {
+	public void register(String username, String password, String email, String baseUrl) throws RegisterException {
 		
 		Guest guest = new Guest();
 		
 		String hash = guest.register(username, password, email);
+		
+		System.out.println("El hash me dio " + hash);
 		
 		//We send the mail to the user
 		
@@ -44,7 +48,7 @@ public class UserService implements UserServiceProtocol {
 	}
 
 	@Override
-	public Registered confirmateHash(String hash) {
+	public Registered confirmateHash(String hash) throws RegisterException {
 		
 		Guest guest = new Guest();
 		
@@ -52,13 +56,13 @@ public class UserService implements UserServiceProtocol {
 	}
 
 	@Override
-	public List<String> getMails(Registered user) {
+	public List<String> getEmails(Registered user) throws UserException {
 		
-		return user.getMails();
+		return user.getEmails();
 	}
 
 	@Override
-	public void updateMails(Registered user, Map<String, String> mailsToUpdate) {
-		user.updateMails(mailsToUpdate);
+	public void updateEmails(Registered user, Map<String, String> mailsToUpdate) throws UserException {
+		user.updateEmails(mailsToUpdate);
 	}
 }

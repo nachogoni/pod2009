@@ -1,7 +1,6 @@
 package com.canchita.model.db;
 
-import java.awt.image.RescaleOp;
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-
-import com.canchita.controller.complex.AddComplex;
 
 public class DataBaseConnection {
 	private Connection conexion = null;
