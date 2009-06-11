@@ -49,6 +49,14 @@ public class BookingService implements BookingServiceProtocol {
 	public void saveBooking(Long bookeableId, DateTime startTime, DateTime endTime)
 			throws PersistenceException, BookingException {
 
+		if( startTime.isAfter(endTime) ) {
+			throw new BookingException("La fecha de fin debe ser mayor a la fecha de inicio");
+		}
+		
+		if( startTime.isBeforeNow() || endTime.isBeforeNow() ) {
+			throw new BookingException("Las reservas deben ser a partir de este instante");
+		}
+		
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 		
 		Bookable bookable = fieldDAO.getById(bookeableId);

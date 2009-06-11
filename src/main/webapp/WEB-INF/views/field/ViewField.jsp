@@ -41,7 +41,7 @@
 			<input type="submit" class="delete" name="delete" value="Eliminar" />
 			</form>
 		</td>
-		<td><a href=<c:out value="<c:out value="${baseURI}" />/field/book?id=${field.id}" />>Reservar</a></td>
+		<td><a href="<c:out value="${baseURI}" />/field/book?id=<c:out value="${field.id}" />">Reservar</a></td>
 		<!-- 
 		<td>
 			<form action="<c:out value="${baseURI}" />/ModifyField" method="get">
