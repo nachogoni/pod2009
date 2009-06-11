@@ -1,8 +1,6 @@
 package com.canchita.model.complex;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
-
 import com.canchita.model.booking.Schedule;
 
 public class Availability {

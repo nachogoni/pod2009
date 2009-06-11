@@ -1,8 +1,6 @@
 package com.canchita.model.booking;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 

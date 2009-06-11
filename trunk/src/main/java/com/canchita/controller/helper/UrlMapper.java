@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.canchita.controller.field.AddBooking;
-
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -145,6 +143,8 @@ public class UrlMapper {
 		failureForward.put("RegisterPOST", FORWARD_ROOT_DIR
 				+ "user/guest/Register.jsp");
 		failureForward.put("ProfilePOST", FORWARD_ROOT_DIR
+				+ "user/registered/Profile.jsp");
+		failureForward.put("ProfileGET", FORWARD_ROOT_DIR
 				+ "user/registered/Profile.jsp");
 
 		// Complex
@@ -310,8 +310,6 @@ public class UrlMapper {
 			Map<String, String> map) throws ServletException, IOException {
 
 		String url = this.findUrl(map, servlet, type);
-		
-		System.out.println(url);
 		
 		request.getRequestDispatcher(url).forward(request, response);
 

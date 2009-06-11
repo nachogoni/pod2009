@@ -1,16 +1,18 @@
 package com.canchita.DAO;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.user.Administrator;
 import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Registered;
-import com.canchita.model.user.User;
 
 public interface UserDAO {
-	public void save(Registered aUser) throws PersistenceException;
+	public Registered save(String username, String password, String email,
+			boolean notifyBeforeExpiration, boolean isAdmin)
+			throws PersistenceException;
 
 	public CommonUser getByUserName(String userName)
 			throws ElementNotExistsException;
@@ -18,7 +20,7 @@ public interface UserDAO {
 	public Administrator getByAdminName(String userName)
 			throws ElementNotExistsException;
 
-	public Collection<String> getEmails(Registered user);
+	public List<String> getEmails(Registered user);
 
 	public void update(Registered aUser) throws ElementNotExistsException,
 			PersistenceException;
@@ -30,6 +32,8 @@ public interface UserDAO {
 	public Collection<Administrator> getAllAdmins();
 
 	public boolean exists(Registered aUser);
+
+	boolean exists(String username);
 
 	public void addEmail(Registered aUser, String email)
 			throws ElementNotExistsException, PersistenceException;

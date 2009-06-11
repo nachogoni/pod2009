@@ -2,11 +2,13 @@ package com.canchita.model.user;
 
 import java.security.NoSuchAlgorithmException;
 
+import com.canchita.DAO.RegisterDAO;
 import com.canchita.DAO.UserDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.RegisterException;
 
 /**
  * 
@@ -49,9 +51,23 @@ public class Guest extends User {
 
 	}
 
-	public String register(String username, String password, String email) {
+	public String register(String username, String password, String email)
+			throws RegisterException {
 
 		String hash;
+
+		UserDAO userDAO;
+		try {
+			userDAO = DAOFactory.get(DAO.USER);
+		} catch (PersistenceException e) {
+			throw new RegisterException(
+					"No se pudo registrar el usuario... Por favor, intente más tarde",
+					e);
+		}
+
+		if (userDAO.exists(username)) {
+			throw new RegisterException("Ya existe un usuario con ese nombre");
+		}
 
 		try {
 			hash = HashGenerator.getHash(username, "SHA-1");
@@ -60,20 +76,31 @@ public class Guest extends User {
 			hash = (username + email + password).getBytes().toString();
 		}
 
-		// UserDAO userDAO = DAOFactory.get(DAO.USER);
-		// userDAO.saveHash(username,password,mail,hash);
+		RegisterDAO registerDAO;
+		try {
+			registerDAO = DAOFactory.get(DAO.REGISTER);
+			registerDAO.saveHash(username, password, email, hash);
+		} catch (PersistenceException e) {
+			throw new RegisterException(
+					"No se pudo registrar el usuario... Por favor, intente más tarde",
+					e);
+		}
 
 		return hash;
 	}
 
-	public Registered confirmateHash(String hash) {
+	public Registered confirmateHash(String hash) throws RegisterException {
 
-		// UserDAO userDAO = DAOFactory.get(DAO.USER);
+		RegisterDAO registerDAO;
+		Registered user;
 
-		// TODO si todo sale bien loguear al usuario con un internal login
+		try {
+			registerDAO = DAOFactory.get(DAO.REGISTER);
+			user = registerDAO.confirmateHash(hash);
+		} catch (PersistenceException e) {
+			throw new RegisterException("No se pudo completar la registración");
+		}
 
-		// return userDAO.getHash(hash);
-
-		return null;
+		return user;
 	}
 }

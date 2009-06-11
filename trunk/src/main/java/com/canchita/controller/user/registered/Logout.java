@@ -36,6 +36,8 @@ public class Logout extends HttpServlet {
 		
 		userService.logout(registered);
 		
+		request.getSession().removeAttribute("user");
+		
 		request.getSession().setAttribute("user",userService.createGuest());
 		
 		UrlMapper.getInstance().redirectSuccess(this, request, response,
