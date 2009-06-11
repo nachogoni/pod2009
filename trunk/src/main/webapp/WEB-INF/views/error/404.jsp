@@ -3,7 +3,7 @@
 <%@ page language="java" isErrorPage="true" %>
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
-	<jsp:param name="title" value="Página Inexistente" />
+	<jsp:param name="title" value="Error en el servidor" />
 </jsp:include>
 
 <h1>Página Inexistente</h1>
