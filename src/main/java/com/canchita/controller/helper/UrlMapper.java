@@ -108,7 +108,7 @@ public class UrlMapper {
 		successRedirect.put("LoginPOST", "/tp-pod/user/home");
 		successRedirect.put("RegisterPOST", "/tp-pod/");
 		successRedirect.put("FinishRegisterGET", "/tp-pod/user/home");
-		successRedirect.put("ProfilePOST", "/tp-pod/user/profile");
+		successRedirect.put("ProfilePOST", "/tp-pod/user/home");
 
 		
 		/* Field */
