@@ -168,15 +168,15 @@ public class ComplexService implements ComplexServiceProtocol {
 				Integer pay, Integer downBooking, Integer downDeposit)
 				throws PersistenceException {
 
-			ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
-					downBooking, downDeposit);
-
-			try {
-				aComplex.setScoreSystem(scoreSystem);
-			} catch (NullPointerException e) {
-				throw (new PersistenceException(
-						"Error creando nuevo complejo. El complejo no fue inicializado con el mensaje Build"));
-			}
+//			ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
+//					downBooking, downDeposit);
+//
+//			try {
+//				aComplex.setScoreSystem(scoreSystem);
+//			} catch (NullPointerException e) {
+//				throw (new PersistenceException(
+//						"Error creando nuevo complejo. El complejo no fue inicializado con el mensaje Build"));
+//			}
 
 		}
 
@@ -311,15 +311,15 @@ public class ComplexService implements ComplexServiceProtocol {
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException {
 
-		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
-				downBooking, downDeposit);
-
-		Complex aComplex = getById(id);
-		aComplex.setScoreSystem(scoreSystem);
-
-		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
-
-		complexDAO.update(aComplex);
+//		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
+//				downBooking, downDeposit);
+//
+//		Complex aComplex = getById(id);
+//		aComplex.setScoreSystem(scoreSystem);
+//
+//		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+//
+//		complexDAO.update(aComplex);
 
 	}
 

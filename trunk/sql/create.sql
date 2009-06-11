@@ -52,7 +52,6 @@ END;
 
 CREATE  TABLE "COMPLEX" (
   "complex_id" INT NOT NULL ,
-  "score_system_id" INT NOT NULL ,
   "name" VARCHAR2(50) NOT NULL ,
   "description" VARCHAR2(100) NULL ,
   "address" VARCHAR2(50) NOT NULL ,
@@ -64,12 +63,8 @@ CREATE  TABLE "COMPLEX" (
   "picture" BLOB NULL ,
   "latitude" VARCHAR2(50) NULL ,
   "longitude" VARCHAR2(50) NULL ,
-  PRIMARY KEY ("complex_id") ,
-  CONSTRAINT "fk_COMPLEX_POINTSYSTEM"
-    FOREIGN KEY ("score_system_id" )
-    REFERENCES "SCORE_SYSTEM" ("score_system_id" ) );
+  PRIMARY KEY ("complex_id") );
 
-CREATE INDEX "fk_COMPLEX_POINTSYSTEM" ON "COMPLEX" ("score_system_id" ASC);
 
 CREATE SEQUENCE complex_sequence START WITH 1 INCREMENT BY 1;
 

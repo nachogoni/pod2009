@@ -12,11 +12,12 @@ package com.canchita.model.complex;
  */
 public class ScoreSystem {
 
-	private Integer booking;
-	private Integer deposit;
-	private Integer pay;
-	private Integer downBooking;
-	private Integer downDeposit;
+	// TODO cargo los defaults, buscar algo mas lindo
+	private Integer booking = 10;
+	private Integer deposit = 50;
+	private Integer pay = 100;
+	private Integer downBooking = 30;
+	private Integer downDeposit = 100;
 
 	public ScoreSystem() {
 	}

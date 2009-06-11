@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.canchita.DAO.db.QueryProcessor;
-import com.canchita.DAO.db.ScoreSystemDB;
 import com.canchita.model.complex.Complex;
-import com.canchita.model.complex.ScoreSystem;
-import com.canchita.model.exception.PersistenceException;
 
 public class ComplexBuilder implements QueryProcessor<Complex> {
 
@@ -43,15 +40,8 @@ public class ComplexBuilder implements QueryProcessor<Complex> {
 	}
 
 	private Complex buildComplex(ResultSet resultSet) throws SQLException {
-		long idScoreSystem = resultSet.getInt("score_system_id");
-		ScoreSystem score = null;
-		try {
-			score = ScoreSystemDB.getInstance().getById(idScoreSystem);
-		} catch (PersistenceException e) {
-			e.printStackTrace();
-		}
 
-		return new Complex(resultSet.getInt("complex_id"), score, resultSet
+		return new Complex(resultSet.getInt("complex_id"), resultSet
 				.getString("name"), resultSet.getString("description"),
 				resultSet.getString("address"), resultSet.getString("city"),
 				resultSet.getString("state"), resultSet.getString("country"),
