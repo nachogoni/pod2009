@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
-import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElementButton;
-import com.canchita.views.helpers.FormElementInput;
-import com.canchita.views.helpers.FormElementSelect;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.Decorator;
+import com.canchita.views.helpers.form.FormElementButton;
+import com.canchita.views.helpers.form.FormElementInput;
+import com.canchita.views.helpers.form.FormElementSelect;
+import com.canchita.views.helpers.form.FormHandler;
 
 public class FormField extends FormHandler {
 

@@ -1,4 +1,4 @@
-package com.canchita.views.helpers;
+package com.canchita.views.helpers.form;
 
 public class FormElementButton extends FormElement {
 	

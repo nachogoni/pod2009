@@ -14,7 +14,7 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
 import com.canchita.service.FieldService.FieldBuilder;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.FormHandler;
 
 /**
  * Servlet implementation class AddField

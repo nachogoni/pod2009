@@ -16,7 +16,7 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.RegisterException;
 import com.canchita.service.UserService;
 import com.canchita.service.UserServiceProtocol;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.FormHandler;
 
 /**
  * Servlet implementation class Register

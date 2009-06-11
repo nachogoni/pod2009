@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.canchita.controller.GenericServlet;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.FormHandler;
 
 public class FormHolder {
 
