@@ -68,16 +68,30 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	public void save(Complex complex) throws PersistenceException {
 		String query = "INSERT into COMPLEX VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		executeUpdate(query, new Object[] { complex.getName(), complex.getDescription(),
-				complex.getPlace().getAddress(), complex.getPlace().getTown(),
-				complex.getPlace().getState(), complex.getPlace().getCountry(),
-				complex.getFax(), complex.getEmail(), complex.getPicture(),
-				complex.getPlace().getLatitude(), complex.getPlace().getLongitude()});
+		executeUpdate(query, new Object[] { complex.getName(),
+				complex.getDescription(), complex.getPlace().getAddress(),
+				complex.getPlace().getTown(), complex.getPlace().getState(),
+				complex.getPlace().getCountry(), complex.getFax(),
+				complex.getEmail(), complex.getPicture(),
+				complex.getPlace().getLatitude(),
+				complex.getPlace().getLongitude() });
 	}
 
 	@Override
 	public void update(Complex complex) throws PersistenceException {
-		// TODO Auto-generated method stub
+		String query = "UPDATE COMPLEX set \"name\" = ?, \"description\" = ?, "
+				+ "\"address\" = ?, \"city\" = ?, "
+				+ "\"state\" = ?, \"country\" = ?, \"fax\" = ?,"
+				+ "\"email\" = ?, \"picture\" = ?, \"latitude\" = ?, \"longitude\" = ?"
+				+ "where \"complex_id\" = ?";
+
+		executeUpdate(query, new Object[] { complex.getName(),
+				complex.getDescription(), complex.getPlace().getAddress(),
+				complex.getPlace().getTown(), complex.getPlace().getState(),
+				complex.getPlace().getCountry(), complex.getFax(),
+				complex.getEmail(), complex.getPicture(),
+				complex.getPlace().getLatitude(),
+				complex.getPlace().getLongitude(), complex.getId() });
 
 	}
 
@@ -85,8 +99,8 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	public Collection<Complex> getFiltered(String filter) {
 		String query = "SELECT * FROM COMPLEX WHERE \"name\" LIKE ?";
 
-		List<Complex> results = executeQuery(query, new Object[] { filter },
-				ComplexBuilder.getInstance());
+		List<Complex> results = executeQuery(query, new Object[] { "%" + filter
+				+ "%" }, ComplexBuilder.getInstance());
 
 		return results;
 	}
