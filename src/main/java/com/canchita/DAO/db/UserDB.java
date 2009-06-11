@@ -234,4 +234,17 @@ public class UserDB extends AllDB implements UserDAO {
 		return results.get(0);
 	}
 
+	@Override
+	public CommonUser getCommonUserById(Long id) throws ElementNotExistsException {
+		String query = "SELECT * FROM USERS WHERE \"user_id\" = ?";
+
+		List<CommonUser> results = executeQuery(query,
+				new Object[] { id }, CommonUserBuilder.getInstance());
+
+		if (results.isEmpty())
+			throw new ElementNotExistsException();
+
+		return results.get(0);
+	}
+
 }
