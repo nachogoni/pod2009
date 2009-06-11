@@ -2,6 +2,8 @@ package com.canchita.model.booking;
 
 import org.joda.time.DateTime;
 
+import com.canchita.model.user.CommonUser;
+
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -16,11 +18,22 @@ public class Booking {
 
 	private Long id;
 	private Bookable item;
+	private CommonUser owner;
 	private BookingStatus state;
 	private Schedule schedule;
 
 	public Booking(Long id) {
+		this.setId(id);
+	}
+
+	public Booking(Long id, Bookable item, CommonUser owner, long state,
+			Schedule schedule) {
 		this.id = id;
+		this.item = item;
+		this.owner = owner;
+		this.state = BookingStatus.values()[(int)state];
+		// this.state = state;
+		this.schedule = schedule;
 	}
 
 	public Booking(Bookable item, Schedule schedule) {
@@ -51,8 +64,6 @@ public class Booking {
 	public Schedule getSchedule() {
 		return schedule;
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -110,6 +121,22 @@ public class Booking {
 
 		return ret.toString();
 
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setOwner(CommonUser owner) {
+		this.owner = owner;
+	}
+
+	public CommonUser getOwner() {
+		return owner;
 	}
 
 }

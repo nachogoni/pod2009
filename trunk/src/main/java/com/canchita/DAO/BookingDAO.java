@@ -5,13 +5,14 @@ import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 
 public interface BookingDAO {
 
 	public void save(Booking booking) throws PersistenceException;
 
-	public Booking getById(Long id);
+	public Booking getById(Long id) throws ElementNotExistsException;
 
 	public void delete(Long id);
 

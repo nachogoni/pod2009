@@ -17,6 +17,8 @@ public interface UserDAO {
 	public CommonUser getByUserName(String userName)
 			throws ElementNotExistsException;
 
+	public CommonUser getCommonUserById(Long id) throws ElementNotExistsException;
+
 	public Administrator getByAdminName(String userName)
 			throws ElementNotExistsException;
 

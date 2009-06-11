@@ -25,6 +25,10 @@ INSERT INTO "COMPLEX" ("complex_id", "score_system_id", "name", "description", "
 INSERT INTO FIELD VALUES(NULL,1,'cancha1', 'descripcion cancha1', 4, 1, 1, 22.4, 0, NULL);
 INSERT INTO FIELD VALUES(NULL,1,'cancha2', 'descripcion cancha2', 4, 1, 1, 30.4, 0, NULL);
 INSERT INTO FIELD VALUES(NULL,2,'cancha3', 'descripcion cancha3', 4, 1, 1, 30.4, 0, NULL);
+
+INSERT INTO RESERVATION VALUES (NULL, 1, 1, 1, sysdate, sysdate);
+INSERT INTO RESERVATION VALUES (NULL, 1, 2, 1, sysdate, sysdate);
+
 COMMIT;
 
 
