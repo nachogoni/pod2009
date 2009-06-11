@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElementButton;
-import com.canchita.views.helpers.FormElementInput;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.Decorator;
+import com.canchita.views.helpers.form.FormElementButton;
+import com.canchita.views.helpers.form.FormElementInput;
+import com.canchita.views.helpers.form.FormHandler;
 
 public class FormProfile extends FormHandler {
 

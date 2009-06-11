@@ -9,7 +9,7 @@ import com.canchita.model.exception.UserException;
 import com.canchita.model.user.Registered;
 import com.canchita.service.UserService;
 import com.canchita.service.UserServiceProtocol;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.FormHandler;
 
 import java.io.IOException;
 import java.util.HashMap;

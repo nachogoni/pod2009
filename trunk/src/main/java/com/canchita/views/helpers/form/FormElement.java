@@ -1,9 +1,14 @@
-package com.canchita.views.helpers;
+package com.canchita.views.helpers.form;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.canchita.views.helpers.j2query.J2QueryElement;
+import com.canchita.views.helpers.j2query.J2QueryTooltip;
 
 public abstract class FormElement {
 	protected String label;
@@ -15,6 +20,7 @@ public abstract class FormElement {
 	protected Set<String> validators;
 	protected Map<String, String> validatorValues;
 	private boolean required;
+	private List<J2QueryElement> jjqueryElement = null;
 	
 
 	public FormElement(String aType, String aName) {
@@ -27,6 +33,19 @@ public abstract class FormElement {
 		validators = new HashSet<String>();
 		validatorValues = new HashMap<String, String>();
 		deco = new Decorator();
+		jjqueryElement = new ArrayList<J2QueryElement>();
+	}
+	
+	public FormElement addJJQueryTooltip(String tooltip){
+		jjqueryElement.add(new J2QueryTooltip(this.id,tooltip));
+		
+		return this;
+	}
+	
+	public FormElement addJJQueryElement(J2QueryElement e){
+		jjqueryElement.add(e);
+		
+		return this;
 	}
 	
 	public FormElement setRequired(boolean flag) {
@@ -42,6 +61,10 @@ public abstract class FormElement {
 	public FormElement setId(String aId) {
 		this.id = aId;
 		return this;
+	}
+	
+	public List<J2QueryElement> getJJQueryElements(){
+		return jjqueryElement;
 	}
 		
 	protected String genLabel() {

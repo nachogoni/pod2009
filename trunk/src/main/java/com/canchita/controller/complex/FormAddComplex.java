@@ -1,14 +1,18 @@
 package com.canchita.controller.complex;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.canchita.model.complex.Complex;
-import com.canchita.views.helpers.Decorator;
-import com.canchita.views.helpers.FormElementButton;
-import com.canchita.views.helpers.FormElementInput;
-import com.canchita.views.helpers.FormElementSelect;
-import com.canchita.views.helpers.FormHandler;
+import com.canchita.views.helpers.form.Decorator;
+import com.canchita.views.helpers.form.FormElementButton;
+import com.canchita.views.helpers.form.FormElementInput;
+import com.canchita.views.helpers.form.FormElementSelect;
+import com.canchita.views.helpers.form.FormHandler;
+import com.canchita.views.helpers.j2query.J2Query;
+import com.canchita.views.helpers.j2query.J2QueryMultipleData;
+import com.canchita.views.helpers.j2query.J2QueryTooltip;
 
 public class FormAddComplex extends FormHandler {
 
@@ -37,27 +41,36 @@ public class FormAddComplex extends FormHandler {
 		}
 		
 		this.setName("Complejo")
+			//.enableJJQuery("js/complex/add/init.js")
 	  		.setMethod("post");
 			     
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
+			.setId("idNombre")
 			.setRequired(true)
 			.addValidator("MaxLength", "20")
-			.addValidator("IsAlphaNumS"));
+			.addValidator("IsAlphaNumS"))
+			.addJJQueryTooltip("Nombre del Complejo");
 
 		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
-			.setRequired(false));
+			.setId("idDescripcion")
+			.setRequired(false))
+			.addJJQueryTooltip("Descripcion del Complejo");
 		
 		this.addElement(new FormElementInput("text","address")
 			.setLabel("Dirección")
+			.setId("idDireccion")
 			.setRequired(true)
-			.addValidator("IsAddress"));
+			.addValidator("IsAddress")
+			.addJJQueryTooltip("Direccion del Complejo"));
 
 		this.addElement(new FormElementInput("text","neighbourhood")
 			.setLabel("Barrio")
+			.setId("idBarrio")
 			.setRequired(true)
-			.addValidator("IsAlphaNumS"));
+			.addValidator("IsAlphaNumS")
+			.addJJQueryTooltip("Barrio del Complejo"));
 
 		this.addElement(new FormElementInput("text","town")
 			.setLabel("Ciudad")
@@ -159,6 +172,7 @@ public class FormAddComplex extends FormHandler {
 		
 		
 		this.addElement(new FormElementInput("text","booking")
+			.setId("idReservar")
 			.setLabel("Reservar")
 			.setRequired(true)
 			.addValidator("IsNumeric"));
@@ -267,6 +281,14 @@ public class FormAddComplex extends FormHandler {
 		sconfirm.add("submit");
 		sconfirm.add("reset");
 		this.addDisplayGroup(sconfirm, "Confirmación");
+		
+		//Genero el JJQuery
+/*		JJQuery jquery = new JJQuery("js/complex/add/init.js");
+		jquery.addElement(new JJQueryTooltip("idReservar","Sarasa!"));
+		jquery.addElement(new JJQueryTooltip("idNombre","Nombre del Complejo"));
+		jquery.addElement(new JJQueryMultipleData("divname","divname","<div id='divname'><input id='idNombre' type='text' value='' name='name' alt=''/></div>"));
+		jquery.generate();*/
+		
 	}
 
 	public FormAddComplex(Complex aComplex) {

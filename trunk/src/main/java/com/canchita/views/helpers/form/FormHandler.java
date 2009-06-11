@@ -1,16 +1,17 @@
-package com.canchita.views.helpers;
+package com.canchita.views.helpers.form;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.canchita.helper.validator.IsEmpty;
-import com.canchita.helper.validator.Validator;
-import com.canchita.helper.validator.ValidatorWParam;
+import com.canchita.helper.validator.*;
 import com.canchita.model.db.DataBaseConnection;
+import com.canchita.views.helpers.j2query.J2Query;
+import com.canchita.views.helpers.j2query.J2QueryElement;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;
@@ -22,6 +23,9 @@ public abstract class FormHandler {
 	protected String method;
 	private Decorator formDecorator;
 	private String name;
+	private J2Query jjqueryInstance = null;
+	private boolean j2queryenabled;
+	
 	Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 	
 	public FormHandler() {
@@ -34,8 +38,12 @@ public abstract class FormHandler {
 		formDecorator = new Decorator();
 		name = "form";
 		method = "post";
+		j2queryenabled = false;
 	}
 	
+	public boolean isJJQueryEnabled(){
+		return j2queryenabled;
+	}
 
 	public FormHandler addDisplayGroup(ArrayList<String> elements,
 			String group) {
@@ -54,6 +62,13 @@ public abstract class FormHandler {
 			temp.add(e);
 		}
 
+		return this;
+	}
+	
+	public FormHandler enableJJQuery(String path){
+		jjqueryInstance = new J2Query(path);
+		j2queryenabled = true;
+		
 		return this;
 	}
 	
@@ -103,11 +118,19 @@ public abstract class FormHandler {
 		
 		for (FormElement e : formElements) {
 			ret += e;
+			//Agrego los JJQuerys si esta habilitado
+			if (isJJQueryEnabled())
+				jjqueryInstance.addElements(e.getJJQueryElements());
 			if ((err = this.errors.get(e.getName())) != null)
 				ret += "<div class='errors'>" + err + "</div>";
 		}
 			
 		ret += "</form>";
+		
+		//Si esta habilitado JJQuery genero el archivo
+		if (isJJQueryEnabled()){
+			jjqueryInstance.generate();
+		}
 		
 		return ret;
 	}
@@ -128,6 +151,10 @@ public abstract class FormHandler {
 			
 			for (FormElement e : elements) {
 				ret += e;
+				//Agrego los JJQuerys
+				if (isJJQueryEnabled())
+					jjqueryInstance.addElements(e.getJJQueryElements());
+				
 				if ((err = this.errors.get(e.getName())) != null)
 					ret += "<div class='errors'>" + err + "</div>";
 			}
@@ -136,7 +163,10 @@ public abstract class FormHandler {
 
 		ret += "</form>";
 		
-
+		//Si esta habilitado JJQuery genero el archivo
+		if (isJJQueryEnabled()){
+			jjqueryInstance.generate();
+		}
 		return ret;
 	}
 
@@ -244,8 +274,10 @@ public abstract class FormHandler {
 		
 	}
 	
-	public void setMethod(String aMethod) {
+	public FormHandler setMethod(String aMethod) {
 		this.method = aMethod;
+		
+		return this;
 	}
 
 	public Decorator getFormDecorator() {

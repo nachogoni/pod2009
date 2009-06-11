@@ -1,4 +1,4 @@
-package com.canchita.views.helpers;
+package com.canchita.views.helpers.form;
 
 public class FormElementInput extends FormElement {
 
@@ -14,8 +14,8 @@ public class FormElementInput extends FormElement {
 			strclass = String.format(" class=\"%s\"", this.deco.getSclass());
 		}
 		
-		return String.format("<input id=\"%s\" type=\"%s\" name=\"%s\" value=\"%s\" %s>",
-							super.id,super.type, super.name, super.value, strclass);
+		return String.format("<div id='div%s'><input id=\"%s\" type=\"%s\" name=\"%s\" value=\"%s\" %s></div>",
+							super.name, super.id,super.type, super.name, super.value, strclass);
 	}
 	
 	@Override
