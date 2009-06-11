@@ -73,7 +73,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		aComplex.setPlace(place);
 		aComplex.setDescription("El complejo mas divertido");
 		aComplex.setTimeTable(titos_horarios);
-		aComplex.setScoreSystem(titos_scores);
+//		aComplex.setScoreSystem(titos_scores);
 		// aComplex.setFields(fields);
 		aComplex.setExpiration(titos_expiran);
 
@@ -122,7 +122,7 @@ public class ComplexMemoryMock implements ComplexDAO {
 		otherComplex.setPlace(anotherPlace);
 		otherComplex.setDescription("Canchas sobre el río");
 		otherComplex.setTimeTable(roca_horarios);
-		otherComplex.setScoreSystem(roca_scores);
+//		otherComplex.setScoreSystem(roca_scores);
 		// otherComplex.setFields(fields);
 		otherComplex.setExpiration(roca_expiran);
 		otherComplex.setId(ComplexMemoryMock.autoincrementalPk++);

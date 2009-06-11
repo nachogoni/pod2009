@@ -43,17 +43,20 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public Collection<Complex> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT * FROM COMPLEX";
+
+		List<Complex> results = executeQuery(query, new Object[] {},
+				ComplexBuilder.getInstance());
+
+		return results;
 	}
 
 	@Override
 	public Complex getById(Long id) throws PersistenceException {
-		// CommonUser list gets loaded.
 		String query = "SELECT * FROM COMPLEX WHERE \"complex_id\" = ?";
 
-		List<Complex> results = executeQuery(query,
-				new Object[] { id }, ComplexBuilder.getInstance());
+		List<Complex> results = executeQuery(query, new Object[] { id },
+				ComplexBuilder.getInstance());
 
 		if (results.isEmpty())
 			throw new ElementNotExistsException();
@@ -63,7 +66,13 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public void save(Complex complex) throws PersistenceException {
+		String query = "INSERT into COMPLEX VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+		executeUpdate(query, new Object[] { complex.getName(), complex.getDescription(),
+				complex.getPlace().getAddress(), complex.getPlace().getTown(),
+				complex.getPlace().getState(), complex.getPlace().getCountry(),
+				complex.getFax(), complex.getEmail(), complex.getPicture(),
+				complex.getPlace().getLatitude(), complex.getPlace().getLongitude()});
 	}
 
 	@Override
@@ -74,8 +83,12 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public Collection<Complex> getFiltered(String filter) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT * FROM COMPLEX WHERE \"name\" LIKE ?";
+
+		List<Complex> results = executeQuery(query, new Object[] { filter },
+				ComplexBuilder.getInstance());
+
+		return results;
 	}
 
 }

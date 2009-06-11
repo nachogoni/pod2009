@@ -32,12 +32,12 @@ public class Complex implements Booker {
 	private Place place;
 	private String description;
 	private Calendar timeTable;
-	private ScoreSystem scoreSystem;
 	private List<Field> fields;
 	private Expiration expiration;
 	private Long id;
 	private String email;
 	private Blob picture;
+	private String fax;
 
 	public static List<Complex> list() {
 		// TODO Auto-generated method stub
@@ -48,24 +48,39 @@ public class Complex implements Booker {
 		this.setName(name);
 	}
 
-	public Complex(Integer id, ScoreSystem scoreSystem, String name,
-			String description, String address, String city, String state,
-			String country, String fax, String email, Blob picture,
-			String latitude, String longitude) {
+	public Complex(Integer id, String name, String description, String address,
+			String city, String state, String country, String fax,
+			String email, Blob picture, String latitude, String longitude) {
 		this.id = new Long(id);
 		this.name = name;
 		this.description = description;
-		this.scoreSystem = scoreSystem;
 		this.place = (new Place.Builder(address, city).country(country)
 				.latitude(latitude).longitude(longitude).town(city)
 				.state(state)).build();
 		this.email = email;
+		this.fax = fax;
 		this.setPicture(picture);
 
 	}
 
 	public Complex(long complexID) {
 		this.id = complexID;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<Field> listFields() {
@@ -188,14 +203,6 @@ public class Complex implements Booker {
 
 	public void setTimeTable(Calendar timeTable) {
 		this.timeTable = timeTable;
-	}
-
-	public ScoreSystem getScoreSystem() {
-		return scoreSystem;
-	}
-
-	public void setScoreSystem(ScoreSystem scoreSystem) {
-		this.scoreSystem = scoreSystem;
 	}
 
 	public List<Field> getFields() {
