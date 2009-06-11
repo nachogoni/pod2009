@@ -73,7 +73,7 @@ public abstract class FormElement {
 			nameFixed = "*" + this.label;
 
 		if ( !this.label.equals("") )
-			return String.format("<label for=\"%s\"> %s</label>",
+			return String.format("<label for='%s'> %s</label>",
 					this.name, nameFixed);
 		else
 			return "";

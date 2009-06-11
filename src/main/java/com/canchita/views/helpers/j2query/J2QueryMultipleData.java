@@ -4,8 +4,6 @@ public class J2QueryMultipleData extends J2QueryElement {
 	private String id, element, data;
 	
 	public J2QueryMultipleData(String idButton, String idElement, String adata) {
-		//tengo que agregar el listener que cuando apriete el boton
-		//le agregue la data dsp del elemento
 		id = idButton;
 		element = idElement;
 		data = adata;

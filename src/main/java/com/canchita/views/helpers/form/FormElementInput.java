@@ -1,10 +1,36 @@
 package com.canchita.views.helpers.form;
 
-public class FormElementInput extends FormElement {
+import com.canchita.views.helpers.j2query.J2QueryMultipleData;
 
+public class FormElementInput extends FormElement {
+	private boolean multipleData;
+	private String idButton;
+	
 	public FormElementInput(String type, String name) {
 		super(type, name);
-		// TODO Auto-generated constructor stub
+		multipleData = false;
+	}
+	
+
+	@Override
+	public FormElementInput setId(String id) {
+		super.setId(id);
+		
+		return this;
+	}
+	
+	public FormElementInput setMultipleData(String idBoton){
+		multipleData = true;
+		idButton = idBoton;
+		
+		return this;
+	}
+	
+	@Override
+	public FormElementInput addValidator(String validator, String param) {
+		super.addValidator(validator, param);
+		
+		return this;
 	}
 
 	protected String genInput() {
@@ -14,7 +40,7 @@ public class FormElementInput extends FormElement {
 			strclass = String.format(" class=\"%s\"", this.deco.getSclass());
 		}
 		
-		return String.format("<div id='div%s'><input id=\"%s\" type=\"%s\" name=\"%s\" value=\"%s\" %s></div>",
+		return String.format("<div id='div%s'><input id='%s' type='%s' name='%s' value='%s' %s></div>",
 							super.name, super.id,super.type, super.name, super.value, strclass);
 	}
 	
@@ -60,6 +86,11 @@ public class FormElementInput extends FormElement {
 					this.name, ret);
 		}
 		
+		//cuando hace el toString si esta habilitado el multiData agrego el JS
+		if (multipleData){
+			this.addJJQueryElement(new J2QueryMultipleData(this.idButton,"div" + this.name, ret));
+			ret += String.format("<div id='%s' style='position:relative; top:-2em; left:23em;'>+</div>",this.idButton);
+		}
 		return ret;
 		
 	}

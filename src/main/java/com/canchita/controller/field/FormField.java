@@ -18,6 +18,12 @@ public class FormField extends FormHandler {
 		ArrayList<String> sprops = new ArrayList<String>();
 		ArrayList<String> sconfirm = new ArrayList<String>();
 		
+		ArrayList<String> iplayers = new ArrayList<String>();
+		
+		for(int i=5;i<12;i++){
+			iplayers.add(String.valueOf(i));
+		}
+		
 		this.setName("Cancha")
   		.setMethod("post");
 
@@ -30,6 +36,15 @@ public class FormField extends FormHandler {
 			.setLabel("Descripción")
 			.setRequired(false)
 			.addValidator("IsAlphaNumS"));
+		
+		this.addElement(new FormElementSelect("cantPlayers")
+			.setLabel("Cantidad de Jugadores")
+			.addValues(iplayers, iplayers));
+		
+		this.addElement(new FormElementInput("text","price")
+			.setLabel("Precio")
+			.setRequired(true)
+			.addValidator("IsDecimal"));
 		
 		this.addElement(new FormElementSelect("hasRoof")
 			.setLabel("Techada")
@@ -64,6 +79,8 @@ public class FormField extends FormHandler {
         
         sprops.add("hasRoof");
         sprops.add("floor");
+        sprops.add("price");
+        sprops.add("cantPlayers");
         this.addDisplayGroup(sprops, "Características");
         
         sconfirm.add("submit");
@@ -93,6 +110,13 @@ public class FormField extends FormHandler {
 		aux = aField.getFloor().toString();
 		if (aux != null)
 			dataPopu.put("floor", aux);
+		
+		aux = String.valueOf(aField.getPrice());
+		if (aux != null)
+			dataPopu.put("price", aux);
+		
+		
+		
 
 		this.populate(dataPopu);
 	}
