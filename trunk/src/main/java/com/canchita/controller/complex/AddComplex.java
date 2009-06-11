@@ -2,7 +2,6 @@ package com.canchita.controller.complex;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -136,15 +135,14 @@ public class AddComplex extends GenericServlet {
 		// } catch (Exception e) {
 		// System.out.println("Error al agregar email.");
 		// }
-//		Complex lala = new Complex(2, "hola", "descripcion",
-//				"address", "ciudad", "estado", "pais", "mifax", "mimail",
-//				null, null, null);
-//		try {
-//			ComplexDB.getInstance().save(lala);
-//		} catch (PersistenceException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+//		Collection<Complex> lista = ComplexDB.getInstance().getAll();
+//		for (Complex complex : lista) {
+//			System.out.println(complex);
+//			for (String phone : complex.getPhones()) {
+//				System.out.println("Telefono: " + phone);
+//			}
 //		}
+		
 
 		// TODO BORRAME
 
