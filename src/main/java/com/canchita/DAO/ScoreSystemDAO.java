@@ -13,4 +13,7 @@ public interface ScoreSystemDAO {
 			throws PersistenceException;
 
 	public void delete(Long id) throws PersistenceException;
+
+	void update(int booking, int deposit, int pay, int downBooking,
+			int downDeposit) throws PersistenceException;
 }

@@ -71,6 +71,12 @@ public class UrlMapper {
 		successForward.put("ProfileGET", FORWARD_ROOT_DIR
 				+ "user/registered/Profile.jsp");
 
+		// ScoreSystem
+		successForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR
+				+ "scoresystem/ModifyScoreSystem.jsp");
+		successForward.put("ShowScoreSystemGET", FORWARD_ROOT_DIR
+				+ "scoresystem/ShowScoreSystem.jsp");
+
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
@@ -110,7 +116,10 @@ public class UrlMapper {
 		successRedirect.put("FinishRegisterGET", "/tp-pod/user/home");
 		successRedirect.put("ProfilePOST", "/tp-pod/user/home");
 
-		
+		// ScoreSystem
+		successRedirect.put("ModifyScoreSystemPOST",
+				"/tp-pod/scoresystem/ShowScoreSystem?modify=true");
+
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
 		successRedirect
@@ -168,6 +177,12 @@ public class UrlMapper {
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
 
+		// ScoreSystem
+		failureForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR +
+				"scoresystem/ModifyScoreSystem.jsp");
+		failureForward.put("ModifyScoreSystemPOST", FORWARD_ROOT_DIR +
+		"scoresystem/ModifyScoreSystem.jsp");
+		
 		// Field
 		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
@@ -186,10 +201,9 @@ public class UrlMapper {
 
 		this.failureRedirect = new HashMap<String, String>();
 
-		//User
-		failureRedirect.put("FinishRegisterGET",
-		"/tp-pod/");
-		
+		// User
+		failureRedirect.put("FinishRegisterGET", "/tp-pod/");
+
 		failureRedirect.put("DeleteComplexPOST",
 				"/tp-pod/ListComplex?delete=false");
 		failureRedirect.put("DeleteFieldPOST",
@@ -310,7 +324,7 @@ public class UrlMapper {
 			Map<String, String> map) throws ServletException, IOException {
 
 		String url = this.findUrl(map, servlet, type);
-		
+
 		request.getRequestDispatcher(url).forward(request, response);
 
 	}

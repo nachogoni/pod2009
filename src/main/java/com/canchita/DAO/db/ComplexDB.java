@@ -7,6 +7,7 @@ import com.canchita.DAO.ComplexDAO;
 import com.canchita.DAO.db.builders.ComplexBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.PhoneBuilder;
+import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -21,6 +22,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	private ComplexDB() {
 	}
 
+	@FactoryMethod
 	public static ComplexDB getInstance() {
 		return instance;
 	}
