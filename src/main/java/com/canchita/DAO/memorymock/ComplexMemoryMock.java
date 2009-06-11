@@ -237,4 +237,24 @@ public class ComplexMemoryMock implements ComplexDAO {
 		return ComplexMemoryMock.complexMocks.containsKey(idComplex);
 	}
 
+	@Override
+	public void addPhone(Complex complex, String phone)
+			throws ElementNotExistsException, PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<String> getPhones(Complex complex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updatePhone(Complex complex, String oldPhone, String newPhone)
+			throws ElementNotExistsException, PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

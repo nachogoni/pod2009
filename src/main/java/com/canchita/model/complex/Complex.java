@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -38,6 +39,7 @@ public class Complex implements Booker {
 	private String email;
 	private Blob picture;
 	private String fax;
+	protected List<String> phones;
 
 	public static List<Complex> list() {
 		// TODO Auto-generated method stub
@@ -46,6 +48,7 @@ public class Complex implements Booker {
 
 	public Complex(String name) {
 		this.setName(name);
+		this.phones = new LinkedList<String>();
 	}
 
 	public Complex(Integer id, String name, String description, String address,
@@ -60,11 +63,13 @@ public class Complex implements Booker {
 		this.email = email;
 		this.fax = fax;
 		this.setPicture(picture);
+		this.phones = new LinkedList<String>();
 
 	}
 
 	public Complex(long complexID) {
 		this.id = complexID;
+		this.phones = new LinkedList<String>();
 	}
 
 	public String getFax() {
@@ -268,6 +273,15 @@ public class Complex implements Booker {
 
 	public Blob getPicture() {
 		return picture;
+	}
+
+	public void setPhone(String phone) {
+		this.phones.add(phone);
+		
+	}
+	
+	public List<String> getPhones() {
+		return phones;
 	}
 
 }
