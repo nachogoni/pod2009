@@ -50,6 +50,20 @@
 			com.canchita.controller.complex.ModifyComplex</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ModifyScoreSystem</servlet-name>
+		<display-name>ModifyScoreSystem</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.scoresystem.ModifyScoreSystem</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ShowScoreSystem</servlet-name>
+		<display-name>ShowScoreSystem</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.scoresystem.ShowScoreSystem</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>ListField</servlet-name>
 		<display-name>ListField</display-name>
 		<description></description>
@@ -159,21 +173,21 @@
 		<display-name>DeadBooking</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.rss.DeadBooking</servlet-class>
+			com.canchita.controller.rss.DeadBooking</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>FinishRegister</servlet-name>
 		<display-name>FinishRegister</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.user.guest.FinishRegister</servlet-class>
+			com.canchita.controller.user.guest.FinishRegister</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Profile</servlet-name>
 		<display-name>Profile</display-name>
 		<description></description>
 		<servlet-class>
-		com.canchita.controller.user.registered.Profile</servlet-class>
+			com.canchita.controller.user.registered.Profile</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
@@ -211,6 +225,14 @@
 	<servlet-mapping>
 		<servlet-name>DetailedViewField</servlet-name>
 		<url-pattern>/field/detailedview</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModifyScoreSystem</servlet-name>
+		<url-pattern>/scoresystem/modify</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ShowScoreSystem</servlet-name>
+		<url-pattern>/scoresystem/ShowScoreSystem</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DetailedViewComplex</servlet-name>
@@ -272,9 +294,9 @@
 		<servlet-name>Profile</servlet-name>
 		<url-pattern>/user/profile</url-pattern>
 	</servlet-mapping>
-	
-<!-- BEGIN Error Handling -->
-	
+
+	<!-- BEGIN Error Handling -->
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404</location>

@@ -6,6 +6,7 @@ import java.util.List;
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.FieldBuilder;
+import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
@@ -22,6 +23,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 		// No hace nada :D
 	}
 
+	@FactoryMethod
 	public static FieldDB getInstance() {
 		return instance;
 	}

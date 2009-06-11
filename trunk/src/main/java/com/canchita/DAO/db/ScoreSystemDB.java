@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.canchita.DAO.ScoreSystemDAO;
 import com.canchita.DAO.db.builders.ScoreSystemBuilder;
+import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -18,6 +19,7 @@ public class ScoreSystemDB extends AllDB implements ScoreSystemDAO {
 	private ScoreSystemDB() {
 	}
 
+	@FactoryMethod
 	public static ScoreSystemDB getInstance() {
 		return instance;
 	}
@@ -63,6 +65,15 @@ public class ScoreSystemDB extends AllDB implements ScoreSystemDAO {
 						scoreSystem.getDeposit(), scoreSystem.getPay(),
 						scoreSystem.getDownBooking(),
 						scoreSystem.getDownDeposit(), id });
+
+	}
+
+	@Override
+	public void update(int booking, int deposit, int pay,
+			int downBooking, int downDeposit) throws PersistenceException {
+		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
+				downBooking, downDeposit);
+		this.update(1L, scoreSystem);
 
 	}
 }

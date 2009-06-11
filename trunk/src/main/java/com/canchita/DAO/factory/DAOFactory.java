@@ -3,6 +3,7 @@ package com.canchita.DAO.factory;
 import java.lang.reflect.Method;
 
 import com.canchita.DAO.db.RegisterDB;
+import com.canchita.DAO.db.ScoreSystemDB;
 import com.canchita.DAO.db.UserDB;
 import com.canchita.DAO.memorymock.BookingMemoryMock;
 import com.canchita.DAO.memorymock.ComplexMemoryMock;
@@ -28,7 +29,8 @@ public class DAOFactory {
 		FIELD(FieldMemoryMock.class),
 		COMPLEX(ComplexMemoryMock.class),
 		USER(UserDB.class),
-		REGISTER(RegisterDB.class);
+		REGISTER(RegisterDB.class),
+		SCORE_SYSTEM(ScoreSystemDB.class);
 		
 		private Method factoryMethod;
 		
