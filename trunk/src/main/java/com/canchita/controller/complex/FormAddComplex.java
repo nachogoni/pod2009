@@ -41,7 +41,7 @@ public class FormAddComplex extends FormHandler {
 		}
 		
 		this.setName("Complejo")
-			//.enableJJQuery("js/complex/add/init.js")
+			.enableJJQuery("js/complex/add/init.js")
 	  		.setMethod("post");
 			     
 		this.addElement(new FormElementInput("text","name")
@@ -49,8 +49,9 @@ public class FormAddComplex extends FormHandler {
 			.setId("idNombre")
 			.setRequired(true)
 			.addValidator("MaxLength", "20")
-			.addValidator("IsAlphaNumS"))
-			.addJJQueryTooltip("Nombre del Complejo");
+			.addValidator("IsAlphaNumS")
+			.setMultipleData("divmultiplenames")
+			.addJJQueryTooltip("Nombre del Complejo"));
 
 		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
@@ -342,26 +343,6 @@ public class FormAddComplex extends FormHandler {
 		aux = aComplex.getPlace().getCountry();
 		if (aux != null)
 			dataPopu.put("country", aux);
-		
-		iaux = aComplex.getScoreSystem().getBooking();
-		if (iaux != null)
-			dataPopu.put("booking", iaux.toString());
-		
-		iaux = aComplex.getScoreSystem().getDeposit();
-		if (iaux != null)
-			dataPopu.put("deposit", iaux.toString());
-		
-		iaux = aComplex.getScoreSystem().getPay();
-		if (iaux != null)
-			dataPopu.put("pay", iaux.toString());
-		
-		iaux = aComplex.getScoreSystem().getDownBooking();
-		if (iaux != null)
-			dataPopu.put("downBooking", iaux.toString());
-		
-		iaux = aComplex.getScoreSystem().getDownDeposit();
-		if (iaux != null)
-			dataPopu.put("downDeposit", iaux.toString());
 		
 		iaux = aComplex.getExpiration().getDepositLimit();
 		if (iaux != null)
