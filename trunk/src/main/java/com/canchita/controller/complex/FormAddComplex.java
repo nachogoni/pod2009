@@ -169,34 +169,6 @@ public class FormAddComplex extends FormHandler {
 			.setLabel("Fin")
 			.addValues(horas, horas));
 		/* fin domingo */
-		
-		
-		
-		this.addElement(new FormElementInput("text","booking")
-			.setId("idReservar")
-			.setLabel("Reservar")
-			.setRequired(true)
-			.addValidator("IsNumeric"));
-		
-		this.addElement(new FormElementInput("text","deposit")
-			.setLabel("Señar")
-			.setRequired(true)
-			.addValidator("IsNumeric"));
-		
-		this.addElement(new FormElementInput("text","pay")
-			.setLabel("Pagar")
-			.setRequired(true)
-			.addValidator("IsNumeric"));
-		
-		this.addElement(new FormElementInput("text","downBooking")
-			.setLabel("Cancelar Reserva")
-			.setRequired(true)
-			.addValidator("IsNumeric"));
-		
-		this.addElement(new FormElementInput("text","downDeposit")
-			.setLabel("Cancelar Deposito")
-			.setRequired(true)
-			.addValidator("IsNumeric"));
 
 		this.addElement(new FormElementInput("text","depositLimit")
 			.setLabel("Límite de seña")
@@ -266,15 +238,6 @@ public class FormAddComplex extends FormHandler {
 		sdomingo.add("fecha_domingo_fin");
 		this.addDisplayGroup(sdomingo, "Domingo");
 		
-		
-		
-		spuntos.add("booking");
-		spuntos.add("deposit");
-		spuntos.add("pay");
-		spuntos.add("downBooking");
-		spuntos.add("downDeposit");
-		this.addDisplayGroup(spuntos, "Sistema de Puntos");
-
 		sexpiration.add("depositLimit");
 		sexpiration.add("bookingLimit");
 		this.addDisplayGroup(sexpiration, "Seña y Pago de Reservas");
