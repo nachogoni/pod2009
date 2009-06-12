@@ -34,8 +34,7 @@ public interface FieldServiceProtocol {
 
 	public Field getById(Long id) throws PersistenceException;
 
-	Iterator<Booking> getBookings(Long fieldId)
-			throws PersistenceException;
+	Iterator<Booking> getBookings(Long fieldId) throws PersistenceException;
 
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException,
@@ -53,4 +52,10 @@ public interface FieldServiceProtocol {
 			DateTime startFri, DateTime endFri, DateTime startSat,
 			DateTime endSat, DateTime startSun, DateTime endSun)
 			throws InvalidScheduleException, PersistenceException;
+
+	public Collection<Field> listField(String searchName,
+			String searchDescription, String searchMaxPrice,
+			String searchNumberOfPlayers, String searchHasRoof,
+			String searchFloorType) throws ValidationException,
+			PersistenceException;
 }

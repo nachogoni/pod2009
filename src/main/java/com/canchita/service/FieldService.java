@@ -10,6 +10,8 @@ import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.helper.validator.IsAlphaNum;
+import com.canchita.helper.validator.IsAlphaNumS;
+import com.canchita.helper.validator.IsNumeric;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
@@ -65,6 +67,35 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
+	@Override
+	public Collection<Field> listField(String searchName,
+			String searchDescription, String searchMaxPrice,
+			String searchNumberOfPlayers, String searchHasRoof,
+			String searchFloorType) throws ValidationException,
+			PersistenceException {
+
+		Validator alnumValidator = new IsAlphaNum(true);
+		Validator numValidator = new IsNumeric();
+
+		if ((searchName != null && !alnumValidator.validate(searchName))
+				|| (searchDescription != null && !alnumValidator
+						.validate(searchDescription))
+				|| (searchMaxPrice != null && !numValidator
+						.validate(searchMaxPrice))
+				|| (searchNumberOfPlayers != null && !numValidator
+						.validate(searchNumberOfPlayers))
+				|| (searchFloorType != null && !numValidator
+						.validate(searchFloorType))) {
+			throw new ValidationException("Error en el criterio de búsqueda");
+		}
+
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+		return fieldDAO.getFiltered(searchName, searchDescription,
+				searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
+				searchFloorType);
+	}
+
 	@Deprecated
 	public Long saveField(String name, String description, Long idComplex,
 			Boolean hasRoof, FloorType floor) throws PersistenceException {
@@ -84,7 +115,6 @@ public class FieldService implements FieldServiceProtocol {
 		return aField.getId();
 
 	}
-
 
 	public void updateField(Long id, String name, String description,
 			Boolean hasRoof, FloorType floor) throws PersistenceException {
@@ -283,8 +313,6 @@ public class FieldService implements FieldServiceProtocol {
 		}
 	}
 
-	
-
 	public static class FieldBuilder {
 		static Field aField = null;
 
@@ -407,13 +435,12 @@ public class FieldService implements FieldServiceProtocol {
 						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
 			}
 		}
-		
+
 		public static void saveField() throws PersistenceException {
 
 			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 			fieldDAO.save(aField);
-
 
 		}
 
