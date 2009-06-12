@@ -34,6 +34,15 @@ public class ACLCanchita implements ACL<User, String> {
 		this.addRole(commonUser);
 		this.addRole(administrator);
 
+		//TODO: Delete TEST urls
+		this.addACL("/test/", guest, commonUser, administrator);
+		this.addACL("/test/charly", guest, commonUser, administrator);
+		this.addACL("/test/pablo", guest, commonUser, administrator);
+		this.addACL("/test/juani", guest, commonUser, administrator);
+		this.addACL("/test/lombo", guest, commonUser, administrator);
+		this.addACL("/test/maxi", guest, commonUser, administrator);
+		this.addACL("/test/martin", guest, commonUser, administrator);
+		
 		this.addACL("/", guest, commonUser, administrator);
 		this.addACL("/error/404", guest, commonUser, administrator);
 		this.addACL("/error/500", guest, commonUser, administrator);
