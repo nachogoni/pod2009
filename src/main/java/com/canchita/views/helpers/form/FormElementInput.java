@@ -3,14 +3,17 @@ package com.canchita.views.helpers.form;
 import com.canchita.views.helpers.j2query.J2QueryMultipleData;
 
 public class FormElementInput extends FormElement {
-	private boolean multipleData;
-	private String idButton;
+	protected boolean multipleData;
+	protected String idButton;
 	
 	public FormElementInput(String type, String name) {
 		super(type, name);
 		multipleData = false;
 	}
-	
+
+	public boolean isMultipleData(){
+		return multipleData;
+	}
 
 	@Override
 	public FormElementInput setId(String id) {

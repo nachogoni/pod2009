@@ -1,7 +1,9 @@
 package com.canchita.views.helpers.form;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -182,10 +184,53 @@ public abstract class FormHandler {
 	}
 
 	public void loadValues(HttpServletRequest request) {
+		ArrayList<FormElementInput> multiples = new ArrayList<FormElementInput>();
 		for (FormElement e : this.formElements) {
 			/* si es un input solamente tiene que recargar los values */
-			if (e instanceof FormElementInput || e instanceof FormElementSelect)
+			if (e instanceof FormElementSelect)
 				e.setValue(request.getParameter(e.getName()));
+			else if (e instanceof FormElementInput){
+				//Si solo es un elemento
+				if (!((FormElementInput) e).isMultipleData()){
+					e.setValue(request.getParameter(e.getName()));
+				}else{
+					multiples.add((FormElementInput) e);
+				}
+			}
+			}
+		if (multiples.size() > 0){
+			//obtengo los parametros
+			FormElementInput enew = null;
+			for (FormElementInput e : multiples){
+				String data[] = request.getParameterValues(e.getName());
+			//	asigno el primero
+				e.setValue(data[0]);
+			//	Agrego los nuevos campos
+				for (int i=1;i<data.length;i++){
+					if (data[i].isEmpty())
+						break;
+					enew = new FormElementInput(e.type,e.name + i);
+								enew.setLabel(e.label)
+									.setValue(data[i])
+									.setRequired(e.isRequired()); 
+					this.addElement(enew);
+					
+					//Busco a que grupo pertenece
+					Collection<ArrayList<FormElement>> cgroups = groups.values();
+					Iterator<ArrayList<FormElement>> ite = cgroups.iterator();
+					ArrayList<FormElement> aux;
+					while(ite.hasNext()){
+						aux = ite.next(); 
+						if(aux.contains(e)){
+							aux.add(enew);
+							break;
+						}
+					}
+				}
+				//Seteo el ultimo como multiple
+				/*if (enew != null)
+					enew.setMultipleData(e.idButton);*/
+			}
 		}
 			
 	}
