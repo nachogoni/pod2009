@@ -1,23 +1,31 @@
 package com.canchita.controller.complex;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.canchita.DAO.db.ComplexDB;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
-import com.canchita.model.complex.Complex;
+import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService.ComplexBuilder;
 import com.canchita.views.helpers.form.FormHandler;
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 /**
  * Servlet implementation class AddComplex
@@ -135,14 +143,13 @@ public class AddComplex extends GenericServlet {
 		// } catch (Exception e) {
 		// System.out.println("Error al agregar email.");
 		// }
-//		Collection<Complex> lista = ComplexDB.getInstance().getAll();
-//		for (Complex complex : lista) {
-//			System.out.println(complex);
-//			for (String phone : complex.getPhones()) {
-//				System.out.println("Telefono: " + phone);
-//			}
-//		}
-		
+		// Collection<Complex> lista = ComplexDB.getInstance().getAll();
+		// for (Complex complex : lista) {
+		// System.out.println(complex);
+		// for (String phone : complex.getPhones()) {
+		// System.out.println("Telefono: " + phone);
+		// }
+		// }
 
 		// TODO BORRAME
 
@@ -212,25 +219,6 @@ public class AddComplex extends GenericServlet {
 						.add("Falta la provincia/estado donde se encuentra el complejo");
 			}
 
-			Integer booking = null;
-			Integer deposit = null;
-			Integer pay = null;
-			Integer downDeposit = null;
-			Integer downBooking = null;
-
-			try {
-
-				booking = Integer.parseInt(request.getParameter("booking"));
-				deposit = Integer.parseInt(request.getParameter("deposit"));
-				pay = Integer.parseInt(request.getParameter("pay"));
-				downBooking = Integer.parseInt(request
-						.getParameter("downBooking"));
-				downDeposit = Integer.parseInt(request
-						.getParameter("downDeposit"));
-			} catch (NumberFormatException nfe) {
-				error.add("Valores para el sistema de puntos incorrectos");
-			}
-
 			if (error.size() != 0) {
 				logger.debug("Error en el formulario");
 				request.setAttribute("formulario", formulario);
@@ -258,24 +246,67 @@ public class AddComplex extends GenericServlet {
 				return;
 			}
 
+			ArrayList<DateTime> schedule = null;
+			String[] daysOfWeek = { "fecha_lunes_inicio", "fecha_lunes_fin",
+					"fecha_martes_inicio", "fecha_martes_fin",
+					"fecha_miercoles_inicio", "fecha_miercoles_fin",
+					"fecha_jueves_inicio", "fecha_jueves_fin",
+					"fecha_viernes_inicio", "fecha_viernes_fin",
+					"fecha_sabado_inicio", "fecha_sabado_fin",
+					"fecha_domingo_inicio", "fecha_domingo_fin" };
+
 			try {
-				ComplexBuilder.Build(name, description, address,
-						zipCode, neighbourhood, town, state, country);
-				ComplexBuilder.addScoreSystem(booking, deposit, pay,
-						downBooking, downDeposit);
+
+				schedule = new ArrayList<DateTime>();
+
+				DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm"); 
+				String aDay = null;
+				
+				for (int i = 0; i < daysOfWeek.length; i++) {
+
+					aDay = request.getParameter(daysOfWeek[i]);
+					schedule.add(parser.parseDateTime(aDay));
+					aDay = request.getParameter(daysOfWeek[i++]);
+					schedule.add(parser.parseDateTime(aDay));
+					
+				}
+
+				// TODO Atrapar la excepcion posta (o crearla si no hay nada
+				// adecuado)
+			} catch (NullPointerException e) {
+				error.add("Faltan valores para los horarios");
+			} catch (Exception e) {
+				error.add("Valores para los horarios incorrectos");
+			}
+			try {
+				ComplexBuilder.Build(name, description, address, zipCode,
+						neighbourhood, town, state, country);
 
 				ComplexBuilder.addExpiration(bookingLimit, depositLimit);
-				
+
+				ComplexBuilder.addTimeTable(schedule.get(0), schedule.get(1),
+						schedule.get(2), schedule.get(3), schedule.get(4),
+						schedule.get(5), schedule.get(6), schedule.get(7),
+						schedule.get(8), schedule.get(9), schedule.get(10),
+						schedule.get(11), schedule.get(12), schedule.get(13));
 				ComplexBuilder.saveComplex();
-				
+
+				//TODO loguear los errores
 			} catch (ElementExistsException ee) {
-
 				error.add(ee);
-
+				ee.printStackTrace();
 			} catch (PersistenceException e) {
 				error.add(e);
+				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
 				error.add(e);
+				e.printStackTrace();
+			} catch (InvalidScheduleException e) {
+				error.add(e);
+				e.printStackTrace();
+			}catch (Exception e) {
+				error.add(e);
+				e.printStackTrace();
 			}
 
 			if (error.size() != 0) {
