@@ -30,7 +30,6 @@ public class AuthenticationFilter implements Filter {
 		         if(servletRequest instanceof HttpServletRequest) {  
 		             //cast the object  
 		             HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
-		             //create the FakeHeadersRequest object to wrap the HttpServletRequest  
 		             this.setUser(httpServletRequest);
 		             //continue request
 		             filterChain.doFilter(httpServletRequest , servletResponse);
