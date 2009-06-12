@@ -10,13 +10,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.joda.time.DateTime;
-import org.omg.CORBA.Request;
-
-import com.canchita.controller.security.ACL;
 import com.canchita.controller.security.ACLCanchita;
 import com.canchita.model.user.User;
-import com.canchita.service.UserService;
 
 public class ACLFilter implements Filter {
 

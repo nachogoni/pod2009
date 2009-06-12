@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
-<jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
+<jsp:include page="/WEB-INF/views/general/header/dedicatedLogin.jsp" flush="true">
 	<jsp:param name="title" value="Ingresar al sistema" />
 </jsp:include>
 
@@ -20,7 +20,7 @@
 </div>
 </c:if>
 
-    <div class="loginForm">
+    <div class="dedicatedLoginForm">
             <FORM action="" method="post" >
                     <INPUT type="text" name="username" value="Usuario" class="loginInputElement gray">
                     <INPUT type="password" name="password" value="********" class="loginInputElement gray">
