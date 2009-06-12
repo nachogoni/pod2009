@@ -4,6 +4,50 @@
 	-->
 
 <web-app>
+
+	<!-- BEGIN filters -->
+	<filter>
+		<filter-name>Authentication Filter</filter-name>
+		<filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>Generic Filter</filter-name>
+		<filter-class>com.canchita.filter.GenericFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>ACL Filter</filter-name>
+		<filter-class>com.canchita.filter.ACLFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Authentication Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>Generic Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>ACL Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- END filters -->
+
+	<!-- BEGIN listeners -->
+
+	<listener>
+		<listener-class>com.canchita.listener.JDBCListener</listener-class>
+	</listener>
+
+	<!-- END listeners -->
+	
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
 		<servlet-name>ListComplex</servlet-name>
@@ -118,13 +162,6 @@
 		<description></description>
 		<servlet-class>
 			com.canchita.controller.field.DetailedViewField</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>DB</servlet-name>
-		<display-name>DB</display-name>
-		<description></description>
-		<servlet-class>
-			com.canchita.service.DB</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
@@ -267,10 +304,6 @@
 		<url-pattern>/user/home</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>DB</servlet-name>
-		<url-pattern>/db</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/user/logout</url-pattern>
 	</servlet-mapping>
@@ -301,15 +334,16 @@
 		<error-code>404</error-code>
 		<location>/error/404</location>
 	</error-page>
+
 	<error-page>
 		<error-code>405</error-code>
 		<location>/error/404</location>
 	</error-page>
+
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error/500</location>
 	</error-page>
-
 
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
@@ -317,32 +351,5 @@
 	</error-page>
 	<!-- END Error Handling -->
 
-	<!-- BEGIN filters -->
-	<filter>
-		<filter-name>Authentication Filter</filter-name>
-		<filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>Authentication Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<filter>
-		<filter-name>Generic Filter</filter-name>
-		<filter-class>com.canchita.filter.GenericFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>Generic Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-
-	<listener>
-		<listener-class>com.canchita.listener.JDBCListener</listener-class>
-	</listener>
-
-	<!-- END filters -->
 
 </web-app>
