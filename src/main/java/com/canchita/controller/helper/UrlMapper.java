@@ -176,6 +176,8 @@ public class UrlMapper {
 
 		failureForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
+		failureForward.put("AddBookingPOST", FORWARD_ROOT_DIR
+				+ "field/AddBooking.jsp");
 
 		// ScoreSystem
 		failureForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR +

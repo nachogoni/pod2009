@@ -20,6 +20,16 @@
 </div>
 </c:if>
 
+<c:if test="${(field != null)}">
+<div class="fieldInfo">
+<div> Cancha: <c:out value="${field.name}"/> </div>
+<div> Jugadores: <c:out value="${field.numberOfPlayers}"/> </div>
+<div> Precio: $<c:out value="${field.price}"/> </div>
+</div>
+
+
+</c:if>
+
 <form action="" method="post">
 	<fieldset>
 	<legend>Por favor, seleccione la fecha en la que desea realizar la reserva</legend>
@@ -81,6 +91,8 @@
 
 	<input type="submit" value="Agregar" class="submit-go" />
 </form>
+
+
 
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
