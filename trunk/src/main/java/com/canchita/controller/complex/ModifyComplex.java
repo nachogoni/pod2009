@@ -1,18 +1,26 @@
 package com.canchita.controller.complex;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
+import com.canchita.service.ComplexService.ComplexBuilder;
 import com.canchita.views.helpers.form.FormHandler;
 
 /**
@@ -20,31 +28,33 @@ import com.canchita.views.helpers.form.FormHandler;
  */
 public class ModifyComplex extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	private FormHandler formulario;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModifyComplex() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ModifyComplex() {
+		super();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		logger.debug("GET request");
-		
+
 		ComplexService service = new ComplexService();
 		Long id = null;
-		
-		/*Get Form*/
+
+		/* Get Form */
 		formulario = new FormAddComplex();
-		
+
 		ErrorManager error = new ErrorManager();
-		
+
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
@@ -52,7 +62,6 @@ public class ModifyComplex extends GenericServlet {
 			logger.error("Error leyendo id");
 		}
 
-		
 		logger.debug("Buscando información del complejo " + id);
 		try {
 			formulario = new FormAddComplex(service.getById(id));
@@ -61,20 +70,18 @@ public class ModifyComplex extends GenericServlet {
 			logger.error("Error buscando información del complejo " + id);
 		}
 
-		if( error.size() != 0 ) {
+		if (error.size() != 0) {
 			request.setAttribute("formulario", this.formulario);
-			
+
 			request.setAttribute("errorManager", error);
-			
+
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.GET);
 			return;
 		}
-		
-		
-		/* Form is sent to the view*/
-		request.setAttribute("formulario", this.formulario);
 
+		/* Form is sent to the view */
+		request.setAttribute("formulario", this.formulario);
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -84,32 +91,34 @@ public class ModifyComplex extends GenericServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		ComplexService modifyService = new ComplexService();
-		
+
 		logger.debug("POST request");
-	
-		/*Errors from the past are deleted.*/
+
+		/* Errors from the past are deleted. */
 		this.formulario.unsetErrors();
 
-		/*Load form with request values*/
+		/* Load form with request values */
 		this.formulario.loadValues(request);
-		
-		if (!this.formulario.isValid())
-		{
+
+		if (!this.formulario.isValid()) {
 			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
-			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.POST);
 			return;
 		}
-	
+
 		ErrorManager error = new ErrorManager();
 
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
-		
+
 		String zipCode = request.getParameter("zipCode");
 		String town = request.getParameter("town");
 		String state = request.getParameter("state");
@@ -119,33 +128,31 @@ public class ModifyComplex extends GenericServlet {
 
 		if (name == null) {
 			error.add("Falta el nombre del Complejo");
-		}	
-		if(address == null){
+		}
+		if (address == null) {
 			error.add("Falta la direccion del complejo");
 		}
-		if(town == null){
+		if (town == null) {
 			error.add("Falta la cuidad donde se encuentra el complejo");
 		}
-		if(state == null){
-			error.add("Falta la provincia/estado donde se encuentra el complejo");
-		}		
-		
-		Integer booking = null;
-		Integer deposit = null; 
-		Integer pay = null; 
-		Integer downDeposit = null;
-		Integer downBooking = null;
+		if (state == null) {
+			error
+					.add("Falta la provincia/estado donde se encuentra el complejo");
+		}
+
 		Long id = null;
-		
-		try{
+		Integer depositLimit = null;
+		Integer bookingLimit = null;
+
+		try {
+
 			id = Long.parseLong(request.getParameter("id"));
-			booking = Integer.parseInt(request.getParameter("booking"));
-			deposit = Integer.parseInt(request.getParameter("deposit"));
-			pay = Integer.parseInt(request.getParameter("pay"));
-			downBooking = Integer.parseInt(request.getParameter("downBooking"));
-			downDeposit = Integer.parseInt(request.getParameter("downDeposit"));
+			depositLimit = Integer.parseInt(request
+					.getParameter("depositLimit"));
+			bookingLimit = Integer.parseInt(request
+					.getParameter("bookingLimit"));
 		} catch (NumberFormatException nfe) {
-			error.add("Valores para el sistema de puntos incorrectos");
+			error.add("Valores para el sistema de reservas incorrectos");
 		}
 
 		if (error.size() != 0) {
@@ -155,21 +162,87 @@ public class ModifyComplex extends GenericServlet {
 			return;
 		}
 
-		try{
-			modifyService.updateComplex(id,name, description, address, zipCode, neighbourhood, town, state, country);
-			modifyService.addScoreSystem(id, booking, deposit, pay, downBooking, downDeposit);
+		ArrayList<DateTime> schedule = null;
+		String[] daysOfWeek = { "fecha_lunes_inicio", "fecha_lunes_fin",
+				"fecha_martes_inicio", "fecha_martes_fin",
+				"fecha_miercoles_inicio", "fecha_miercoles_fin",
+				"fecha_jueves_inicio", "fecha_jueves_fin",
+				"fecha_viernes_inicio", "fecha_viernes_fin",
+				"fecha_sabado_inicio", "fecha_sabado_fin",
+				"fecha_domingo_inicio", "fecha_domingo_fin" };
+
+		try {
+
+			schedule = new ArrayList<DateTime>();
+
+			DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm");
+			String aDay = null;
+
+			for (int i = 0; i < daysOfWeek.length; i++) {
+
+				aDay = request.getParameter(daysOfWeek[i]);
+				System.out.println("parsin start hour for " + daysOfWeek[i]
+						+ ": " + aDay);
+				schedule.add(parser.parseDateTime(aDay));
+				aDay = request.getParameter(daysOfWeek[i++]);
+				System.out.println("parsin start hour for " + daysOfWeek[i]
+						+ ": " + aDay);
+				schedule.add(parser.parseDateTime(aDay));
+
+			}
+
+			// TODO Atrapar la excepcion posta (o crearla si no hay nada
+			// adecuado)
+		} catch (NullPointerException e) {
+			error.add("Faltan valores para los horarios");
+		} catch (Exception e) {
+			error.add("Valores para los horarios incorrectos");
+		}
+		try {
+			modifyService.updateComplex(id, name, description, address,
+					zipCode, neighbourhood, town, state, country);
+			modifyService.addExpiration(id, bookingLimit, depositLimit);
+			modifyService.addTimeTable(id, schedule.get(0), schedule.get(1),
+					schedule.get(2), schedule.get(3), schedule.get(4), schedule
+							.get(5), schedule.get(6), schedule.get(7), schedule
+							.get(8), schedule.get(9), schedule.get(10),
+					schedule.get(11), schedule.get(12), schedule.get(13));
+
+			// TODO loguear los errores
+		} catch (ElementExistsException ee) {
+			logger.error("Error modificando el complejo con id " + id);
+			error.add(ee);
+
 		} catch (PersistenceException e) {
 			logger.error("Error modificando el complejo con id " + id);
-			request.setAttribute("formulario", formulario);
 			error.add(e);
+
+		} catch (IllegalArgumentException e) {
+			logger.error("Error modificando el complejo con id " + id);
+			error.add(e);
+
+		} catch (InvalidScheduleException e) {
+			logger.error("Error modificando el complejo con id " + id);
+			error.add(e);
+
+		} catch (Exception e) {
+			logger.error("Error modificando el complejo con id " + id);
+			error.add(e);
+
+		}
+
+		if (error.size() != 0) {
+			logger.error("Error modificando el complejo con id " + id);
+			request.setAttribute("formulario", formulario);
 			this.failure(request, response, error);
 			return;
 		}
-		
-		UrlMapper.getInstance().redirectSuccess(this, request, response, UrlMapperType.POST);
-		
+
+		UrlMapper.getInstance().redirectSuccess(this, request, response,
+				UrlMapperType.POST);
+
 	}
-	
+
 	private void failure(HttpServletRequest request,
 			HttpServletResponse response, ErrorManager error)
 			throws ServletException, IOException {
