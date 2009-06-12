@@ -164,21 +164,6 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
-		public static void addScoreSystem(Integer booking, Integer deposit,
-				Integer pay, Integer downBooking, Integer downDeposit)
-				throws PersistenceException {
-
-//			ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
-//					downBooking, downDeposit);
-//
-//			try {
-//				aComplex.setScoreSystem(scoreSystem);
-//			} catch (NullPointerException e) {
-//				throw (new PersistenceException(
-//						"Error creando nuevo complejo. El complejo no fue inicializado con el mensaje Build"));
-//			}
-
-		}
 
 		public static void addExpiration(Integer bookingLimit,
 				Integer depositLimit) throws PersistenceException {
@@ -206,7 +191,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
-		public void addTimeTable(DateTime startMon, DateTime endMon,
+		public static void addTimeTable(DateTime startMon, DateTime endMon,
 				DateTime startTues, DateTime endTues, DateTime startWed,
 				DateTime endWed, DateTime startThurs, DateTime endThurs,
 				DateTime startFri, DateTime endFri, DateTime startSat,
@@ -283,6 +268,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 			try {
 				aComplex.setTimeTable(aCalendar);
+				System.out.println(aCalendar.toString());
 			} catch (NullPointerException e) {
 				throw (new PersistenceException(
 						"Error creando nuevo complejo. El complejo no fue inicializado con el mensaje Build"));
