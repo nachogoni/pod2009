@@ -20,6 +20,7 @@ import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.field.Field;
 import com.canchita.service.BookingService;
 import com.canchita.service.BookingServiceProtocol;
 import com.canchita.service.FieldService;
@@ -37,8 +38,32 @@ public class AddBooking extends GenericServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// Obtener los horarios de la cancha y pasarselos a la vista
+		ErrorManager error = new ErrorManager();
+		FieldServiceProtocol fieldService = new FieldService();
 
+		String stringId = request.getParameter("id");
+
+		Long id;
+
+		try {
+			id = Long.parseLong(stringId);
+		} catch (NumberFormatException nfe) {
+			error.add("El identificador de la cancha debe ser un número");
+			this.failureGET(request, response, error);
+			return;
+		}
+		
+		Field field;
+		try {
+			field = fieldService.getById(id);
+		} catch (PersistenceException e) {
+			error.add(e);
+			this.failureGET(request, response, error);
+			return;
+		}
+
+		request.setAttribute("field", field);
+		
 		logger.debug("GET request");
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
@@ -85,7 +110,7 @@ public class AddBooking extends GenericServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
-			this.failure(request, response, error);
+			this.failurePOST(request, response, error);
 			return;
 		}
 
@@ -106,7 +131,7 @@ public class AddBooking extends GenericServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
-			this.failure(request, response, error);
+			this.failurePOST(request, response, error);
 			return;
 		}
 
@@ -118,7 +143,7 @@ public class AddBooking extends GenericServlet {
 			error
 					.add("El horario de reserva está malformado, debe ser de la forma \"hh:mm hh:mm\"");
 			logger.debug("Error en el formulario, horario inválido");
-			this.failure(request, response, error);
+			this.failurePOST(request, response, error);
 			return;
 		}
 
@@ -138,31 +163,20 @@ public class AddBooking extends GenericServlet {
 
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
-			this.failure(request, response, error);
+			this.failurePOST(request, response, error);
 			return;
 		}
 
 		FieldServiceProtocol fieldService = new FieldService();
-		
-		Map<String,String> params = new HashMap<String, String>();
 
-		
-		params.put("id", id.toString() );
-		
-		params.put("booking","true");
-		
+		Map<String, String> params = new HashMap<String, String>();
+
+		params.put("id", id.toString());
+
+		params.put("booking", "true");
+
 		UrlMapper.getInstance().redirectSuccess(this, request, response,
 				UrlMapperType.POST, params);
-		
-	}
-
-	private void failure(HttpServletRequest request,
-			HttpServletResponse response, ErrorManager error)
-			throws ServletException, IOException {
-		request.setAttribute("errorManager", error);
-
-		UrlMapper.getInstance().forwardFailure(this, request, response,
-				UrlMapperType.GET);
 
 	}
 
