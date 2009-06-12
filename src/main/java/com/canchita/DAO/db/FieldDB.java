@@ -133,7 +133,6 @@ public class FieldDB extends AllDB implements FieldDAO {
 			maxPlayers = searchNumberOfPlayers;
 		}
 
-		System.out.println(query);
 		List<Field> results = executeQuery(query, new Object[] { searchName,
 				searchDescription, searchMaxPrice, maxHasRoof, minHasRoof,
 				maxType, minType, maxPlayers, minPlayers }, FieldBuilder

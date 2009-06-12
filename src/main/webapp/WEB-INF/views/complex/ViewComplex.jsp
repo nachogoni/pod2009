@@ -126,48 +126,6 @@
 					
 					</td>
 				</tr>
-				<tr>
-
-					<td><strong>Sistema de Puntos</strong></td>
-					<td>
-					<table>
-						<c:choose>
-						<c:when test="${complex.scoreSystem != null}">
-							
-							<tr>
-							<td><strong>Reserva: </strong></td>
-							<td><c:out value="${complex.scoreSystem.booking}" /></td>
-							</tr>
-							
-							<tr>
-							<td><strong>Deposito: </strong></td>
-							<td><c:out value="${complex.scoreSystem.deposit}" /></td>
-							</tr>
-							
-							<tr>
-							<td><strong>Pago: </strong></td>
-							<td><c:out value="${complex.scoreSystem.pay}" /></td>
-							</tr>
-							
-							<tr>
-							<td><strong>Cancelar Reserva: </strong></td>
-							<td>-<c:out value="${complex.scoreSystem.downBooking}" /></td>
-							</tr>
-							
-							<tr>
-							<td><strong>Cancelar Deposito: </strong></td>
-							<td>-<c:out value="${complex.scoreSystem.downDeposit}" /></td>
-							</tr>				
-							
-						</c:when>
-						<c:otherwise>
-							Este complejo todavia no tiene un sistema de puntos asignado.
-						</c:otherwise>
-						</c:choose>
-					</table>
-					</td>
-				
-				</tr>
 			</table>
 
 </c:otherwise>
