@@ -153,8 +153,10 @@ public class AddComplex extends GenericServlet {
 				for (int i = 0; i < daysOfWeek.length; i++) {
 
 					aDay = request.getParameter(daysOfWeek[i]);
+					System.out.println("parsin start hour for " + daysOfWeek[i] + ": " + aDay);
 					schedule.add(parser.parseDateTime(aDay));
 					aDay = request.getParameter(daysOfWeek[i++]);
+					System.out.println("parsin start hour for " + daysOfWeek[i] + ": " + aDay);
 					schedule.add(parser.parseDateTime(aDay));
 					
 				}

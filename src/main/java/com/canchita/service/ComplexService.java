@@ -276,8 +276,12 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
-		static public Long saveComplex() throws PersistenceException {
+		static public Long saveComplex() throws PersistenceException, IllegalStateException {
 		
+			if( aComplex == null){
+				throw new IllegalStateException("El complejo no fue construido correctamente.");
+			}
+				
 			try {
 
 				ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
