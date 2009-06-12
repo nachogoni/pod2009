@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.db.AllDB;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.ReservationBuilder;
 import com.canchita.model.booking.Booking;
@@ -47,9 +48,9 @@ public class BookingDB extends AllDB implements BookingDAO {
 	@Override
 	public Booking getById(Long id) throws ElementNotExistsException {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
-		+ ", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-		+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-		+ " as end_date FROM RESERVATION WHERE \"reservation_id\" = ?";
+				+ ", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date FROM RESERVATION WHERE \"reservation_id\" = ?";
 
 		List<Booking> results = executeQuery(query, new Object[] { id },
 				ReservationBuilder.getInstance());
@@ -80,16 +81,15 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 	@Override
 	public void save(Booking booking) throws PersistenceException {
-		String a = "TO_TIMESTAMP('" + booking.getSchedule().getStartTime().toDateTimeISO()+"','YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')";
-		String b = "TO_TIMESTAMP('" + booking.getSchedule().getEndTime().toDateTimeISO()+"','YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')";
-//		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?, TO_TIMESTAMP(?,'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"'), TO_TIMESTAMP(?,'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"'))";
-		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?, ?, ?)";
+		String a = "TO_TIMESTAMP_TZ('"+ booking.getSchedule().getStartTime() +
+		"', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), ";
+		String b = "TO_TIMESTAMP_TZ('"+ booking.getSchedule().getEndTime() +
+		"', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'))";
+		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?,"
+				+ a+b;
 
-		System.out.println("prueba " + a);
-		
 		executeUpdate(query, new Object[] { booking.getOwner().getId(),
-				booking.getItem().getId(), booking.getState().ordinal(),
-				a, b});
+				booking.getItem().getId(), booking.getState().ordinal() });
 	}
 
 	@Override
