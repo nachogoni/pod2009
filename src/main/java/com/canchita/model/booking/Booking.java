@@ -32,7 +32,6 @@ public class Booking {
 		this.item = item;
 		this.owner = owner;
 		this.state = BookingStatus.fromId(state);
-		// this.state = state;
 		this.schedule = schedule;
 	}
 

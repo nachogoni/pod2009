@@ -57,14 +57,25 @@ public class Calendar {
 		return false;
 	}
 
+	@Override
+	public String toString(){
+		String ret = "";
+		for (Availability av : this.availabilities) {
+			ret += av + "\n";
+			
+		}
+
+		return ret;
+	}
+
 	/*
 	 * TODO esto ESTA MAL!!!! porque los horarios pueden estar en distinto orden
-	 * hay que hacer que el equals apra cada uno de uno se barra toda la lista del otro buscando
-	 * el elemento. Con hashCode se puede hacer mas sencillo que es sumar todos los hashcodes
-	 * el tema es que va a ser una peor implementacion.
-	 * 
+	 * hay que hacer que el equals apra cada uno de uno se barra toda la lista
+	 * del otro buscando el elemento. Con hashCode se puede hacer mas sencillo
+	 * que es sumar todos los hashcodes el tema es que va a ser una peor
+	 * implementacion.
 	 */
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,29 +103,25 @@ public class Calendar {
 	}
 
 	public Iterator<Schedule> getScheduleForDay(DateTime date) {
-		
+
 		Collection<Schedule> collection = new ArrayList<Schedule>();
-		
-		
-		
+
 		for (Availability availability : availabilities) {
-			
-			if( availability.inDay(date) ) {
-				
+
+			if (availability.inDay(date)) {
+
 				/*
-				 * As the schedule was added with a random day,
-				 * we adjust it
+				 * As the schedule was added with a random day, we adjust it
 				 */
-				
+
 				Schedule schedule = availability.getSchedule();
-				
+
 				collection.add(schedule.setSameDay(date));
 			}
-			
+
 		}
-		
+
 		return collection.iterator();
 	}
-	
-	
+
 }

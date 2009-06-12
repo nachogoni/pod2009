@@ -29,4 +29,12 @@ INSERT INTO FIELD VALUES(NULL,2,'cancha3', 'descripcion cancha3', 4, 1, 1, 30.4,
 INSERT INTO RESERVATION VALUES (NULL, 1, 1, 1, sysdate, sysdate);
 INSERT INTO RESERVATION VALUES (NULL, 1, 2, 1, sysdate, sysdate);
 
+INSERT INTO TIMETABLE VALUES (NULL, 1, 0, sysdate, sysdate);
+INSERT INTO TIMETABLE VALUES (NULL, 1, 1, sysdate, sysdate);
+INSERT INTO TIMETABLE VALUES (NULL, 1, 2, sysdate, sysdate);
+INSERT INTO TIMETABLE VALUES (NULL, 1, 3, sysdate, sysdate);
+INSERT INTO TIMETABLE VALUES (NULL, 1, 4, sysdate, sysdate);
+INSERT INTO TIMETABLE VALUES (NULL, 1, 5, sysdate, sysdate);
+INSERT INTO TIMETABLE VALUES (NULL, 1, 6, sysdate, sysdate);
+
 COMMIT;

@@ -6,7 +6,6 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
-import com.canchita.DAO.db.AllDB;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.ReservationBuilder;
 import com.canchita.model.booking.Booking;
@@ -63,14 +62,29 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 	@Override
 	public Iterator<Booking> getComplexBookings(Long complexId) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+			+ ", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as end_date FROM RESERVATION WHERE \"field_id\" IN "
+			+  "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";
+
+	List<Booking> results = executeQuery(query, new Object[] { complexId },
+			ReservationBuilder.getInstance());
+
+	return results.iterator();
 	}
 
 	@Override
 	public Iterator<Booking> getFieldBookings(Long fieldId) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+				+ ", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date FROM RESERVATION WHERE \"field_id\" = ?";
+
+		List<Booking> results = executeQuery(query, new Object[] { fieldId },
+				ReservationBuilder.getInstance());
+
+		return results.iterator();
 	}
 
 	@Override
@@ -81,12 +95,11 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 	@Override
 	public void save(Booking booking) throws PersistenceException {
-		String a = "TO_TIMESTAMP_TZ('"+ booking.getSchedule().getStartTime() +
-		"', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), ";
-		String b = "TO_TIMESTAMP_TZ('"+ booking.getSchedule().getEndTime() +
-		"', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'))";
-		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?,"
-				+ a+b;
+		String a = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getStartTime()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), ";
+		String b = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getEndTime()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'))";
+		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?," + a + b;
 
 		executeUpdate(query, new Object[] { booking.getOwner().getId(),
 				booking.getItem().getId(), booking.getState().ordinal() });
