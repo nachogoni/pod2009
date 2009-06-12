@@ -2,12 +2,12 @@ package com.canchita.DAO.factory;
 
 import java.lang.reflect.Method;
 
+import com.canchita.DAO.db.BookingDB;
+import com.canchita.DAO.db.ComplexDB;
 import com.canchita.DAO.db.FieldDB;
 import com.canchita.DAO.db.RegisterDB;
 import com.canchita.DAO.db.ScoreSystemDB;
 import com.canchita.DAO.db.UserDB;
-import com.canchita.DAO.memorymock.BookingMemoryMock;
-import com.canchita.DAO.memorymock.ComplexMemoryMock;
 import com.canchita.model.exception.PersistenceException;
 
 /**
@@ -25,9 +25,9 @@ public class DAOFactory {
 	 */
 	public static enum DAO {
 		
-		BOOKING(BookingMemoryMock.class),
+		BOOKING(BookingDB.class),
 		FIELD(FieldDB.class),
-		COMPLEX(ComplexMemoryMock.class),
+		COMPLEX(ComplexDB.class),
 		USER(UserDB.class),
 		REGISTER(RegisterDB.class),
 		SCORE_SYSTEM(ScoreSystemDB.class);

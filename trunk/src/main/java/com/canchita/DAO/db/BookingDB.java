@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.ReservationBuilder;
+import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -23,6 +24,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 	private BookingDB() {
 	}
 
+	@FactoryMethod
 	public static BookingDB getInstance() {
 		return instance;
 	}
