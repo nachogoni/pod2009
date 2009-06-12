@@ -2,8 +2,6 @@ package com.canchita.controller.complex;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -19,13 +16,11 @@ import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
-import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService.ComplexBuilder;
 import com.canchita.views.helpers.form.FormHandler;
-import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 /**
  * Servlet implementation class AddComplex
@@ -143,14 +138,36 @@ public class AddComplex extends GenericServlet {
 		// } catch (Exception e) {
 		// System.out.println("Error al agregar email.");
 		// }
-		// Collection<Complex> lista = ComplexDB.getInstance().getAll();
-		// for (Complex complex : lista) {
-		// System.out.println(complex);
-		// for (String phone : complex.getPhones()) {
-		// System.out.println("Telefono: " + phone);
-		// }
-		// }
-
+//		Field field = null;
+//		try {
+//			field = FieldDB.getInstance().getById(1L);
+//		} catch (ElementNotExistsException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		CommonUser user = null;
+//		try {
+//			user = UserDB.getInstance().getCommonUserById(1L);
+//		} catch (ElementNotExistsException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		DateTime start = new DateTime();
+//		DateTime end = new DateTime().plusHours(2);
+//		Schedule sched = new Schedule(start, end);		
+//
+//		Booking lala = new Booking(1L, field, user, 0, sched);
+//		
+//		try {
+//			BookingDB.getInstance().save(lala);
+//		} catch (PersistenceException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		 
+		 
 		// TODO BORRAME
 
 		logger.debug("GET request");

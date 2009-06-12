@@ -61,6 +61,7 @@ public abstract class AllDB {
 			PreparedStatement statement = connection.prepareStatement(query);
 			for (int i = 0; i < params.length; i++) {
 				statement.setObject(i + 1, params[i]);
+				System.out.println(params[i]);
 			}
 			statement.execute();
 			

@@ -12,15 +12,15 @@ INSERT INTO EMAIL VALUES(NULL, '2@admin2.com', 2);
 INSERT INTO EMAIL VALUES(NULL, '3@admin2.com', 2);
 INSERT INTO EMAIL VALUES(NULL, '1@user1.com', 3);
 INSERT INTO EMAIL VALUES(NULL, '2@user1.com', 3);
-INSERT INTO EMAIL VALUES(NULL, '2@user1.com', 3);
+INSERT INTO EMAIL VALUES(NULL, '3@user1.com', 3);
 INSERT INTO EMAIL VALUES(NULL, '1@user2.com', 4);
 INSERT INTO EMAIL VALUES(NULL, '2@user2.com', 4);
 INSERT INTO EMAIL VALUES(NULL, '3@user2.com', 4);
 
-INSERT INTO "SCORE_SYSTEM" VALUES (1, 1, 1, 1, 1, 1);
-INSERT INTO "COMPLEX" ("complex_id", "score_system_id", "name", "description", "address", "city", "state", "country") 
-			VALUES (1,1,'Complejo 1','Descp complejo 1', 'direccion 1', 'city','state','country');
-INSERT INTO "COMPLEX" ("complex_id", "score_system_id", "name", "description", "address", "city", "state", "country") VALUES (2,1,'Complejo 2','Descp complejo 2', 'direccion 2', 'city','state','country');			
+INSERT INTO SCORE_SYSTEM VALUES (1, 1, 1, 1, 1, 1);
+
+INSERT INTO COMPLEX VALUES (NULL,'Complejo1','Desc complejo 1', 'direccion 1', 'ciudad1','state1','country1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO COMPLEX VALUES (NULL,'Complejo2','Desc complejo 2', 'direccion 2', 'ciudad2','state2','country2', NULL, NULL, NULL, NULL, NULL);
 
 INSERT INTO FIELD VALUES(NULL,1,'cancha1', 'descripcion cancha1', 4, 1, 1, 22.4, 0, NULL);
 INSERT INTO FIELD VALUES(NULL,1,'cancha2', 'descripcion cancha2', 4, 1, 1, 30.4, 0, NULL);
@@ -30,9 +30,3 @@ INSERT INTO RESERVATION VALUES (NULL, 1, 1, 1, sysdate, sysdate);
 INSERT INTO RESERVATION VALUES (NULL, 1, 2, 1, sysdate, sysdate);
 
 COMMIT;
-
-
---Cosas de pablo
---procedeer con cautela :)
-
-SELECT "complex_id", "score_system_id", "name", "description", "address", "city", "state", "country" FROM "COMPLEX";

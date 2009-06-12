@@ -31,7 +31,7 @@ public class Booking {
 		this.id = id;
 		this.item = item;
 		this.owner = owner;
-		this.state = BookingStatus.values()[(int)state];
+		this.state = BookingStatus.fromId(state);
 		// this.state = state;
 		this.schedule = schedule;
 	}
