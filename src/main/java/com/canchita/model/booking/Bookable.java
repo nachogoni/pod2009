@@ -20,7 +20,9 @@ import com.canchita.model.location.Locatable;
 public interface Bookable {
 
 	boolean viewAvailability(Schedule hour) throws PersistenceException;
-	
+
+	Long getId();
+
 	Iterator<Booking> getBookings() throws PersistenceException;
 	
 	Booking book(Schedule hour) throws PersistenceException, BookingException;
