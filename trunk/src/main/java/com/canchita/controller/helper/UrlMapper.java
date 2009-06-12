@@ -389,4 +389,9 @@ public class UrlMapper {
 
 		return params;
 	}
+
+	public static void sendHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.sendRedirect("/tp-pod/user/home");
+		
+	}
 }

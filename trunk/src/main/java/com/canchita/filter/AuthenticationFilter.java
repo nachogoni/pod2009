@@ -26,7 +26,7 @@ public class AuthenticationFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 			FilterChain filterChain) throws IOException, ServletException {
 
-		      //if the ServletRequest is an instance of HttpServletRequest  
+				//if the ServletRequest is an instance of HttpServletRequest  
 		         if(servletRequest instanceof HttpServletRequest) {  
 		             //cast the object  
 		             HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
@@ -36,7 +36,8 @@ public class AuthenticationFilter implements Filter {
 		         } else {  
 		             //otherwise, continue on in the chain with the ServletRequest and ServletResponse objects  
 		             filterChain.doFilter(servletRequest, servletResponse);  
-		         }   	
+		         }
+		
 	}
 
 	private void setUser(HttpServletRequest httpServletRequest) {

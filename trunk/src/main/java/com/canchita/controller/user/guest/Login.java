@@ -13,6 +13,7 @@ import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.user.Registered;
+import com.canchita.model.user.User;
 import com.canchita.service.UserService;
 import com.canchita.service.UserServiceProtocol;
 
@@ -33,6 +34,10 @@ public class Login extends GenericServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		if ( isLogged(request,response) ) {
+			return;
+		}
+		
 		//Just render login page
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -46,6 +51,10 @@ public class Login extends GenericServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		if ( isLogged(request,response) ) {
+			return;
+		}
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
@@ -84,6 +93,18 @@ public class Login extends GenericServlet {
 		
 		UrlMapper.getInstance().redirectSuccess(this, request, response,
 				UrlMapperType.POST);
+	}
+
+	private boolean isLogged(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		User user = (User) request.getSession().getAttribute("user");
+		
+		if( ! user.getIsGuest() ) {
+			UrlMapper.sendHome(request,response);
+			return true;
+		}
+		
+		return false;
 	}
 
 }

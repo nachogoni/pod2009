@@ -1,5 +1,7 @@
 package com.canchita.model.user;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -10,7 +12,12 @@ package com.canchita.model.user;
  * @author Carlos Manuel Sessa
  *
  */
-public abstract class User {
+public abstract class User implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public abstract boolean getIsGuest();
 	
