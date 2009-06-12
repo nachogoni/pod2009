@@ -435,9 +435,12 @@ public class FieldService implements FieldServiceProtocol {
 						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
 			}
 		}
+		
+		public static void saveField() throws PersistenceException, IllegalStateException {
 
-		public static void saveField() throws PersistenceException {
-
+			if(aField == null){
+				throw new IllegalStateException("La cancha no fue construida de la manera correcta");
+			}
 			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 			fieldDAO.save(aField);
