@@ -82,6 +82,67 @@ public class FieldDB extends AllDB implements FieldDAO {
 	}
 
 	@Override
+	public Collection<Field> getFiltered(String filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Field> getFiltered(String searchName,
+			String searchDescription, String searchMaxPrice,
+			String searchNumberOfPlayers, String searchHasRoof,
+			String searchFloorType) {
+
+		String minHasRoof = "0";
+		String maxHasRoof = "1";
+		String minType = "1";
+		String maxType = String.valueOf(Integer.MAX_VALUE);
+		String minPlayers = "0";
+		String maxPlayers = String.valueOf(Integer.MAX_VALUE);
+
+		String query = "SELECT * FROM FIELD WHERE 1=1 AND \"name\" LIKE ? AND "
+				+ "\"description\" LIKE ? AND \"price\" <= ? AND \"has_roof\""
+				+ " <= ? AND \"has_roof\" >= ? AND \"type\" <= ? AND \"type\" >= ?"
+				+ " AND \"number_of_players\" <= ? AND \"number_of_players\" >= ?";
+
+		if (searchName == null)
+			searchName = "%";
+		else
+			searchName = "%" + searchName + "%";
+
+		if (searchDescription == null)
+			searchDescription = "%";
+		else
+			searchDescription = "%" + searchDescription + "%";
+
+		if (searchMaxPrice == null || searchMaxPrice == "")
+			searchMaxPrice = String.valueOf(Integer.MAX_VALUE);
+
+		if (searchHasRoof != null) {
+			minHasRoof = searchHasRoof.equals("yes") ? "1" : "0";
+			maxHasRoof = searchHasRoof.equals("yes") ? "1" : "0";
+		}
+
+		if (searchFloorType != null && searchFloorType != "") {
+			minType = searchFloorType;
+			maxType = searchFloorType;
+		}
+
+		if (searchNumberOfPlayers != null && searchNumberOfPlayers != "") {
+			minPlayers = searchNumberOfPlayers;
+			maxPlayers = searchNumberOfPlayers;
+		}
+
+		System.out.println(query);
+		List<Field> results = executeQuery(query, new Object[] { searchName,
+				searchDescription, searchMaxPrice, maxHasRoof, minHasRoof,
+				maxType, minType, maxPlayers, minPlayers }, FieldBuilder
+				.getInstance());
+
+		return results;
+	}
+
+	@Override
 	public void save(Field field) throws PersistenceException {
 		String query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -116,12 +177,6 @@ public class FieldDB extends AllDB implements FieldDAO {
 				bool2Long(field.isUnder_maintenance()), field.getPicture(),
 				field.getId() });
 
-	}
-
-	@Override
-	public Collection<Field> getFiltered(String filter) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

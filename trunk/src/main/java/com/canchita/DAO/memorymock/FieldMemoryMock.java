@@ -186,4 +186,13 @@ public class FieldMemoryMock implements FieldDAO {
 		return collection;
 	}
 
+	@Override
+	public Collection<Field> getFiltered(String searchName,
+			String searchDescription, String searchMaxPrice,
+			String searchNumberOfPlayers, String searchHasRoof,
+			String searchFloorType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

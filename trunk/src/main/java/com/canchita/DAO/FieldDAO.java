@@ -26,4 +26,9 @@ public interface FieldDAO {
 
 	public boolean exists(Field field);
 
+	public Collection<Field> getFiltered(String searchName,
+			String searchDescription, String searchMaxPrice,
+			String searchNumberOfPlayers, String searchHasRoof,
+			String searchFloorType);
+
 }

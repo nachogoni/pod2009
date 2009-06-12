@@ -76,9 +76,29 @@
 <form action="" method="get">
 	<fieldset>
 	<legend>Búsqueda de canchas</legend>
-	<label for="search">Nombre: </label>
-	<input id="fieldName" type="text" name="search" value="<c:out value="${param.search}" />"/>
-	<input type="submit" value="Buscar" class="submit-go" />
+	<label for="name">Nombre: </label>
+	<input id="fieldName" type="text" name="name" value="<c:out value="${param.name}" />"/>
+	<label for="description">Descripción: </label>
+	<input id="fieldDescription" type="text" name="description" value="<c:out value="${param.description}" />"/>
+	<label for="maxPrice">Precio máximo: </label>
+	<input id="fieldMaxPrice" type="text" name="maxPrice" value="<c:out value="${param.maxPrice}" />"/>
+	<label for="numberOfPlayers">Cantidad de jugadores: </label>
+    <input id="fieldNumberOfPlayers" type="text" name="numberOfPlayers" value="<c:out value="${param.numberOfPlayers}" />"/>
+    <br /><br />
+	<label for="hasRoof">Techada: </label>
+	Si
+    <input id="hasRoofYes" type="radio" name="hasRoof" value="yes"/>
+	No
+    <input id="hasRoofNo" type="radio" name="hasRoof" value="no"/>
+    <br /><br />
+    <label for="floorType">Tipo de piso: </label>
+	Césped sintético
+    <input id="floorTypeGrass" type="radio" name="floorType" value="1"/>
+	Césped
+    <input id="floorTypeArtificial" type="radio" name="floorType" value="2"/>
+	Concreto
+    <input id="floorTypeConcrete" type="radio" name="floorType" value="3"/>
+	<input type="submit" name="search" value="Buscar" class="submit-go" />
 	</fieldset>
 </form>
 
