@@ -57,7 +57,7 @@ public class J2Query {
 		
 		try{
 			//Abro el archivo
-			FileOutputStream file = new FileOutputStream(path);
+			FileOutputStream file = new FileOutputStream(path, false);
 			//Creo el StreamWriter
 			OutputStreamWriter out = new OutputStreamWriter(file);
 			//Escribo
