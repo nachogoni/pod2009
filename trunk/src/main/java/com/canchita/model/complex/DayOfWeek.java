@@ -1,5 +1,6 @@
 package com.canchita.model.complex;
 
+
 public enum DayOfWeek {
 
 	MONDAY {
@@ -49,5 +50,14 @@ public enum DayOfWeek {
 		public String toString() {
 			return "Domingo";
 		}
+	};
+
+	public static DayOfWeek fromId(long id) {
+		if (DayOfWeek.values().length < id)
+			throw new RuntimeException("DayOfWeek invalid");
+		
+		return DayOfWeek.values()[(int)id];
 	}
 }
+
+

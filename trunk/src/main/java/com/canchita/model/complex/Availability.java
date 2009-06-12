@@ -1,12 +1,20 @@
 package com.canchita.model.complex;
 
 import org.joda.time.DateTime;
+
 import com.canchita.model.booking.Schedule;
 
 public class Availability {
 
+	Long id;
 	DayOfWeek day;
 	Schedule schedule;
+
+	public Availability(Long id, long day, Schedule schedule) {
+		this.id = id;
+		this.day = DayOfWeek.fromId(day);
+		this.schedule = schedule;
+	}
 
 	public Availability(DayOfWeek day, Schedule schedule) {
 		this.day = day;
@@ -14,23 +22,28 @@ public class Availability {
 	}
 
 	public boolean inConflict(Availability otherAvailability) {
-		
+
 		return this.day.equals(otherAvailability.day)
-		&& this.schedule.inConflict(otherAvailability.schedule);
+				&& this.schedule.inConflict(otherAvailability.schedule);
 	}
-	
+
 	public boolean inDay(DateTime date) {
-		
-		return day.ordinal() ==  (date.getDayOfWeek() -1) ;
-		
+
+		return day.ordinal() == (date.getDayOfWeek() - 1);
+
 	}
-	
+
 	public DayOfWeek getDay() {
 		return day;
 	}
 
 	public Schedule getSchedule() {
 		return schedule;
+	}
+
+	public String toString() {
+		return "" + this.day + ": " + this.schedule.getStartTime() + " - "
+				+ this.schedule.getEndTime();
 	}
 
 	@Override
@@ -64,6 +77,5 @@ public class Availability {
 			return false;
 		return true;
 	}
-
 
 }

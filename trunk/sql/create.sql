@@ -133,8 +133,8 @@ CREATE  TABLE "TIMETABLE" (
   "timetable_id" INT NOT NULL ,
   "complex_id" INT NOT NULL ,
   "day" INT NOT NULL ,
-  "from" INT NOT NULL ,
-  "to" INT NOT NULL ,
+  "from" TIMESTAMP NOT NULL ,
+  "to" TIMESTAMP NOT NULL ,
   PRIMARY KEY ("timetable_id") ,
   CONSTRAINT "fk_TIMETABLE_COMPLEX"
     FOREIGN KEY ("complex_id" )

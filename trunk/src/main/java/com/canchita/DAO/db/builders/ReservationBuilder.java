@@ -55,7 +55,6 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 			Field field = null;
 			try {
 				field = FieldDB.getInstance().getById(fieldID);
-				System.out.println("asdada" + field);
 			} catch (ElementNotExistsException e) {
 				e.printStackTrace();
 			}
@@ -63,9 +62,7 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 			//Armo el schedule
 			DateTime startDate = new DateTime(resultSet.getString("start_date"));
 			DateTime endDate = new DateTime(resultSet.getString("end_date"));
-			System.out.println(startDate);
 			Schedule schedule = new Schedule(startDate, endDate);
-			System.out.println(schedule);
 
 			//Construyo el booking
 			aBooking = new Booking( resultSet.getLong("reservation_id"),
