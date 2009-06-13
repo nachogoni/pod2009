@@ -136,7 +136,7 @@ public class FieldService implements FieldServiceProtocol {
 		if (price != null) {
 			aField.setPrice(price);
 		}
-		if (number_of_players != null){
+		if (number_of_players != null) {
 			aField.setNumberOfPlayers(number_of_players);
 		}
 
@@ -323,8 +323,8 @@ public class FieldService implements FieldServiceProtocol {
 		static Field aField = null;
 
 		public static void Build(String name, String description,
-				Long idComplex, Boolean hasRoof, FloorType floor)
-				throws PersistenceException {
+				Long idComplex, Boolean hasRoof, FloorType floor, Float price,
+				Long number_of_players) throws PersistenceException {
 
 			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
@@ -333,10 +333,8 @@ public class FieldService implements FieldServiceProtocol {
 			aField.setDescription(description);
 			aField.setHasRoof(hasRoof);
 			aField.setFloor(floor);
-
-			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-
-			fieldDAO.save(aField);
+			aField.setPrice(price);
+			aField.setNumberOfPlayers(number_of_players);
 
 		}
 

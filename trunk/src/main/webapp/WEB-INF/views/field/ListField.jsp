@@ -86,7 +86,7 @@
     <input id="fieldNumberOfPlayers" type="text" name="numberOfPlayers" value="<c:out value="${param.numberOfPlayers}" />"/>
     <br /><br />
 	<label for="hasRoof">Techada: </label>
-	Si
+	Sí
     <input id="hasRoofYes" type="radio" name="hasRoof" value="yes"/>
 	No
     <input id="hasRoofNo" type="radio" name="hasRoof" value="no"/>

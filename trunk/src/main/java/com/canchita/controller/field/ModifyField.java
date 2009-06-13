@@ -139,12 +139,6 @@ public class ModifyField extends GenericServlet {
 		}
 
 		try {
-			price = Float.parseFloat(request.getParameter("price"));
-		} catch (NumberFormatException nfe) {
-			error.add("Error en el precio");
-		}
-
-		try {
 			number_of_players = Long.parseLong(request
 					.getParameter("cantPlayers"));
 		} catch (NumberFormatException nfe) {
