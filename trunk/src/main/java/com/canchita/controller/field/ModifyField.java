@@ -167,14 +167,14 @@ public class ModifyField extends GenericServlet {
 			modifyService.updateField(id, name, description, number_of_players,
 					hasRoof, floor, price);
 		} catch (ElementNotExistsException e) {
-			error.add(e);
+			error.add("No se pudo modificar porque el elemento fue eliminado.");
 			request.setAttribute("errorManager", error);
 			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.POST);
 			return;
 		} catch (PersistenceException e) {
-			error.add(e);
+			error.add("No se pudo modificar por un error de persistencia.");
 			request.setAttribute("errorManager", error);
 			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response,
