@@ -15,11 +15,7 @@ import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
-import com.canchita.model.complex.Availability;
-import com.canchita.model.complex.Calendar;
-import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
-import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
@@ -233,92 +229,6 @@ public class FieldService implements FieldServiceProtocol {
 		return field.getComplex().getId();
 	}
 
-	@Override
-	public void addTimeTable(Long id, DateTime startMon, DateTime endMon,
-			DateTime startTues, DateTime endTues, DateTime startWed,
-			DateTime endWed, DateTime startThurs, DateTime endThurs,
-			DateTime startFri, DateTime endFri, DateTime startSat,
-			DateTime endSat, DateTime startSun, DateTime endSun)
-			throws InvalidScheduleException, PersistenceException {
-
-		if (startMon == null || endMon == null || startMon.isAfter(endMon)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Lunes incorrectas"));
-		}
-		if (startTues == null || endTues == null || startTues.isAfter(endTues)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Martes incorrectas"));
-		}
-		if (startThurs == null || endThurs == null
-				|| startThurs.isAfter(endThurs)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Jueves incorrectas"));
-		}
-		if (startWed == null || endWed == null || startWed.isAfter(endWed)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Miercoles incorrectas"));
-		}
-		if (startFri == null || endFri == null || startFri.isAfter(endFri)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Viernes incorrectas"));
-		}
-		if (startSat == null || endSat == null || startSat.isAfter(endSat)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Sabado incorrectas"));
-		}
-		if (startSun == null || endSun == null || startSun.isAfter(endSun)) {
-			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Domingo incorrectas"));
-		}
-
-		Calendar aCalendar = new Calendar();
-
-		Schedule monSchedule = new Schedule(startMon, endMon);
-		Availability monAvailability = new Availability(DayOfWeek.MONDAY,
-				monSchedule);
-		aCalendar.add(monAvailability);
-
-		Schedule tuesSchedule = new Schedule(startTues, endTues);
-		Availability tuesAvailability = new Availability(DayOfWeek.TUESDAY,
-				tuesSchedule);
-		aCalendar.add(tuesAvailability);
-
-		Schedule wedSchedule = new Schedule(startWed, endWed);
-		Availability wedAvailability = new Availability(DayOfWeek.WEDNESDAY,
-				wedSchedule);
-		aCalendar.add(wedAvailability);
-
-		Schedule thursSchedule = new Schedule(startThurs, endThurs);
-		Availability thursAvailability = new Availability(DayOfWeek.THURSDAY,
-				thursSchedule);
-		aCalendar.add(thursAvailability);
-
-		Schedule friSchedule = new Schedule(startFri, endFri);
-		Availability friAvailability = new Availability(DayOfWeek.FRIDAY,
-				friSchedule);
-		aCalendar.add(friAvailability);
-
-		Schedule satSchedule = new Schedule(startSat, endSat);
-		Availability satAvailability = new Availability(DayOfWeek.SATURDAY,
-				satSchedule);
-		aCalendar.add(satAvailability);
-
-		Schedule sunSchedule = new Schedule(startSun, endSun);
-		Availability sunAvailability = new Availability(DayOfWeek.SUNDAY,
-				sunSchedule);
-		aCalendar.add(sunAvailability);
-
-		try {
-			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-
-			Field aField = fieldDAO.getById(id);
-			aField.setTimeTable(aCalendar);
-			fieldDAO.update(aField);
-		} catch (Exception e) {
-			throw new PersistenceException("Complejo no encontrado");
-		}
-	}
-
 	public static class FieldBuilder {
 		static Field aField = null;
 
@@ -353,91 +263,6 @@ public class FieldService implements FieldServiceProtocol {
 						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
 			}
 
-		}
-
-		public static void addTimeTable(DateTime startMon, DateTime endMon,
-				DateTime startTues, DateTime endTues, DateTime startWed,
-				DateTime endWed, DateTime startThurs, DateTime endThurs,
-				DateTime startFri, DateTime endFri, DateTime startSat,
-				DateTime endSat, DateTime startSun, DateTime endSun)
-				throws InvalidScheduleException, PersistenceException {
-
-			if (startMon == null || endMon == null || startMon.isAfter(endMon)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Lunes incorrectas"));
-			}
-			if (startTues == null || endTues == null
-					|| startTues.isAfter(endTues)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Martes incorrectas"));
-			}
-			if (startThurs == null || endThurs == null
-					|| startThurs.isAfter(endThurs)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Jueves incorrectas"));
-			}
-			if (startWed == null || endWed == null || startWed.isAfter(endWed)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Miercoles incorrectas"));
-			}
-			if (startFri == null || endFri == null || startFri.isAfter(endFri)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Viernes incorrectas"));
-			}
-			if (startSat == null || endSat == null || startSat.isAfter(endSat)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Sabado incorrectas"));
-			}
-			if (startSun == null || endSun == null || startSun.isAfter(endSun)) {
-				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Domingo incorrectas"));
-			}
-
-			Calendar aCalendar = new Calendar();
-
-			Schedule monSchedule = new Schedule(startMon, endMon);
-			Availability monAvailability = new Availability(DayOfWeek.MONDAY,
-					monSchedule);
-			aCalendar.add(monAvailability);
-
-			Schedule tuesSchedule = new Schedule(startTues, endTues);
-			Availability tuesAvailability = new Availability(DayOfWeek.TUESDAY,
-					tuesSchedule);
-			aCalendar.add(tuesAvailability);
-
-			Schedule wedSchedule = new Schedule(startWed, endWed);
-			Availability wedAvailability = new Availability(
-					DayOfWeek.WEDNESDAY, wedSchedule);
-			aCalendar.add(wedAvailability);
-
-			Schedule thursSchedule = new Schedule(startThurs, endThurs);
-			Availability thursAvailability = new Availability(
-					DayOfWeek.THURSDAY, thursSchedule);
-			aCalendar.add(thursAvailability);
-
-			Schedule friSchedule = new Schedule(startFri, endFri);
-			Availability friAvailability = new Availability(DayOfWeek.FRIDAY,
-					friSchedule);
-			aCalendar.add(friAvailability);
-
-			Schedule satSchedule = new Schedule(startSat, endSat);
-			Availability satAvailability = new Availability(DayOfWeek.SATURDAY,
-					satSchedule);
-			aCalendar.add(satAvailability);
-
-			Schedule sunSchedule = new Schedule(startSun, endSun);
-			Availability sunAvailability = new Availability(DayOfWeek.SUNDAY,
-					sunSchedule);
-			aCalendar.add(sunAvailability);
-
-			try {
-
-				aField.setTimeTable(aCalendar);
-
-			} catch (NullPointerException e) {
-				throw (new PersistenceException(
-						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
-			}
 		}
 
 		public static void saveField() throws PersistenceException,
