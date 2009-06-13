@@ -5,7 +5,7 @@ setTooltip('#idDescripcion','Descripci&oacute;n del Complejo');
 setTooltip('#idDireccion','Direcci&oacute;n del Complejo');
 setTooltip('#idBarrio','Barrio del Complejo');
 setTooltip('#depositLimit', 'Cantidad de d&iacute;as l&iacute;mite que ' +
-		'dura una reserva señada' );
+		'dura una reserva se&ntilde;ada' );
 setTooltip('#bookingLimit', 'Cantidad de d&iacute;as l&iacute;mite que ' +
 		'dura una reserva sin ser pagada');
 });

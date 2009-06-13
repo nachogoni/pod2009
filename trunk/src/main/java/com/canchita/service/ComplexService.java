@@ -164,7 +164,6 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
-
 		public static void addExpiration(Integer bookingLimit,
 				Integer depositLimit) throws PersistenceException {
 			Expiration anExpiration = new Expiration();
@@ -200,33 +199,33 @@ public class ComplexService implements ComplexServiceProtocol {
 
 			if (startMon == null || endMon == null || startMon.isAfter(endMon)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Lunes incorrectas"));
+						"Fechas de inicio para día Lunes incorrectas"));
 			}
 			if (startTues == null || endTues == null
 					|| startTues.isAfter(endTues)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Martes incorrectas"));
+						"Fechas de inicio para día Martes incorrectas"));
 			}
 			if (startThurs == null || endThurs == null
 					|| startThurs.isAfter(endThurs)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Jueves incorrectas"));
+						"Fechas de inicio para día Jueves incorrectas"));
 			}
 			if (startWed == null || endWed == null || startWed.isAfter(endWed)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Miercoles incorrectas"));
+						"Fechas de inicio para día Miércoles incorrectas"));
 			}
 			if (startFri == null || endFri == null || startFri.isAfter(endFri)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Viernes incorrectas"));
+						"Fechas de inicio para día Viernes incorrectas"));
 			}
 			if (startSat == null || endSat == null || startSat.isAfter(endSat)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Sabado incorrectas"));
+						"Fechas de inicio para día Sábado incorrectas"));
 			}
 			if (startSun == null || endSun == null || startSun.isAfter(endSun)) {
 				throw (new InvalidScheduleException(
-						"Fechas de inicio para dia Domingo incorrectas"));
+						"Fechas de inicio para día Domingo incorrectas"));
 			}
 
 			Calendar aCalendar = new Calendar();
@@ -276,12 +275,14 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
-		static public Long saveComplex() throws PersistenceException, IllegalStateException {
-		
-			if( aComplex == null){
-				throw new IllegalStateException("El complejo no fue construido correctamente.");
+		static public Long saveComplex() throws PersistenceException,
+				IllegalStateException {
+			System.out.println("asdasdasd");
+			if (aComplex == null) {
+				throw new IllegalStateException(
+						"El complejo no fue construido correctamente.");
 			}
-				
+
 			try {
 
 				ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
@@ -292,7 +293,7 @@ public class ComplexService implements ComplexServiceProtocol {
 			}
 
 			return aComplex.getId();
-			
+
 		}
 	}
 
@@ -301,15 +302,15 @@ public class ComplexService implements ComplexServiceProtocol {
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException {
 
-//		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
-//				downBooking, downDeposit);
-//
-//		Complex aComplex = getById(id);
-//		aComplex.setScoreSystem(scoreSystem);
-//
-//		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
-//
-//		complexDAO.update(aComplex);
+		// ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
+		// downBooking, downDeposit);
+		//
+		// Complex aComplex = getById(id);
+		// aComplex.setScoreSystem(scoreSystem);
+		//
+		// ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		//
+		// complexDAO.update(aComplex);
 
 	}
 
@@ -323,32 +324,32 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		if (startMon == null || endMon == null || startMon.isAfter(endMon)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Lunes incorrectas"));
+					"Fechas de inicio para día Lunes incorrectas"));
 		}
 		if (startTues == null || endTues == null || startTues.isAfter(endTues)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Martes incorrectas"));
+					"Fechas de inicio para día Martes incorrectas"));
 		}
 		if (startThurs == null || endThurs == null
 				|| startThurs.isAfter(endThurs)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Jueves incorrectas"));
+					"Fechas de inicio para día Jueves incorrectas"));
 		}
 		if (startWed == null || endWed == null || startWed.isAfter(endWed)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Miercoles incorrectas"));
+					"Fechas de inicio para día Miércoles incorrectas"));
 		}
 		if (startFri == null || endFri == null || startFri.isAfter(endFri)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Viernes incorrectas"));
+					"Fechas de inicio para día Viernes incorrectas"));
 		}
 		if (startSat == null || endSat == null || startSat.isAfter(endSat)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Sabado incorrectas"));
+					"Fechas de inicio para día Sábado incorrectas"));
 		}
 		if (startSun == null || endSun == null || startSun.isAfter(endSun)) {
 			throw (new InvalidScheduleException(
-					"Fechas de inicio para dia Domingo incorrectas"));
+					"Fechas de inicio para día Domingo incorrectas"));
 		}
 
 		Calendar aCalendar = new Calendar();
@@ -406,7 +407,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		if (bookingLimit == null || bookingLimit < 0 || depositLimit == null
 				|| depositLimit < 0)
-			throw new IllegalArgumentException("Valores de caducidad invalidos");
+			throw new IllegalArgumentException("Valores de caducidad inválidos");
 
 		if (depositLimit < bookingLimit) {
 			throw new IllegalArgumentException(

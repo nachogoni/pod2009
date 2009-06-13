@@ -28,10 +28,8 @@ import com.canchita.views.helpers.form.FormHandler;
 public class AddComplex extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
-	private FormHandler formulario;
-
 	public AddComplex() {
-		formulario = new FormAddComplex();
+		super();
 	}
 
 	/**
@@ -44,10 +42,10 @@ public class AddComplex extends GenericServlet {
 		logger.debug("GET request");
 
 		/* Get Form */
-		formulario = new FormAddComplex();
+		FormHandler formulario = new FormAddComplex();
 
 		/* Form is sent to the view */
-		request.setAttribute("formulario", this.formulario);
+		request.setAttribute("formulario", formulario);
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -63,14 +61,12 @@ public class AddComplex extends GenericServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		logger.debug("POST request");
-
-		/* Errors from the past are deleted. */
-		this.formulario.unsetErrors();
+		FormHandler formulario = new FormAddComplex();
 
 		/* Load form with request values */
-		this.formulario.loadValues(request);
+		formulario.loadValues(request);
 
-		if (!this.formulario.isValid()) {
+		if (!formulario.isValid()) {
 			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response,
@@ -147,18 +143,20 @@ public class AddComplex extends GenericServlet {
 
 				schedule = new ArrayList<DateTime>();
 
-				DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm"); 
+				DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm");
 				String aDay = null;
-				
+
 				for (int i = 0; i < daysOfWeek.length; i++) {
 
 					aDay = request.getParameter(daysOfWeek[i]);
-					System.out.println("parsin start hour for " + daysOfWeek[i] + ": " + aDay);
+					System.out.println("parsin start hour for " + daysOfWeek[i]
+							+ ": " + aDay);
 					schedule.add(parser.parseDateTime(aDay));
 					aDay = request.getParameter(daysOfWeek[i++]);
-					System.out.println("parsin start hour for " + daysOfWeek[i] + ": " + aDay);
+					System.out.println("parsin start hour for " + daysOfWeek[i]
+							+ ": " + aDay);
 					schedule.add(parser.parseDateTime(aDay));
-					
+
 				}
 
 				// TODO Atrapar la excepcion posta (o crearla si no hay nada
@@ -171,17 +169,19 @@ public class AddComplex extends GenericServlet {
 			try {
 				ComplexBuilder.Build(name, description, address, zipCode,
 						neighbourhood, town, state, country);
-
+				logger.debug("Se llama a build");
 				ComplexBuilder.addExpiration(bookingLimit, depositLimit);
-
+				logger.debug("Se agrega expiration");
 				ComplexBuilder.addTimeTable(schedule.get(0), schedule.get(1),
 						schedule.get(2), schedule.get(3), schedule.get(4),
 						schedule.get(5), schedule.get(6), schedule.get(7),
 						schedule.get(8), schedule.get(9), schedule.get(10),
 						schedule.get(11), schedule.get(12), schedule.get(13));
+				logger.debug("Se agrega timetable");
 				ComplexBuilder.saveComplex();
+				logger.debug("Se salva");
 
-				//TODO loguear los errores
+				// TODO loguear los errores
 			} catch (ElementExistsException ee) {
 				error.add(ee);
 				ee.printStackTrace();
@@ -194,7 +194,7 @@ public class AddComplex extends GenericServlet {
 			} catch (InvalidScheduleException e) {
 				error.add(e);
 				e.printStackTrace();
-			}catch (Exception e) {
+			} catch (Exception e) {
 				error.add(e);
 				e.printStackTrace();
 			}

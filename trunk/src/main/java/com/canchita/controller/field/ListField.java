@@ -2,7 +2,6 @@ package com.canchita.controller.field;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +29,6 @@ public class ListField extends GenericServlet {
 	 */
 	public ListField() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
