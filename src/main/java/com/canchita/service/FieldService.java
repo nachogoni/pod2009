@@ -10,7 +10,6 @@ import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.helper.validator.IsAlphaNum;
-import com.canchita.helper.validator.IsAlphaNumS;
 import com.canchita.helper.validator.IsNumeric;
 import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;

@@ -17,7 +17,6 @@ import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementExistsException;
-import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
@@ -30,14 +29,11 @@ import com.canchita.views.helpers.form.FormHandler;
 public class ModifyField extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
-	private FormHandler formulario;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ModifyField() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -51,7 +47,7 @@ public class ModifyField extends GenericServlet {
 
 		FieldService service = new FieldService();
 		Long id = null;
-		formulario = new FormField();
+		FormHandler formulario = new FormField();
 
 		ErrorManager error = new ErrorManager();
 
@@ -72,7 +68,7 @@ public class ModifyField extends GenericServlet {
 		}
 
 		if (error.size() != 0) {
-			request.setAttribute("formulario", this.formulario);
+			request.setAttribute("formulario", formulario);
 
 			request.setAttribute("errorManager", error);
 
@@ -82,7 +78,7 @@ public class ModifyField extends GenericServlet {
 		}
 
 		/* Form is sent to the view */
-		request.setAttribute("formulario", this.formulario);
+		request.setAttribute("formulario", formulario);
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -103,14 +99,12 @@ public class ModifyField extends GenericServlet {
 		Long idComplex = -1L;
 		Boolean hasRoof = false;
 		FloorType floor = FloorType.CONCRETE;
-
-		/* Errors from the past are deleted. */
-		this.formulario.unsetErrors();
+		FormHandler formulario = new FormField();
 
 		/* Load form with request values */
-		this.formulario.loadValues(request);
+		formulario.loadValues(request);
 
-		if (!this.formulario.isValid()) {
+		if (!formulario.isValid()) {
 			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response,

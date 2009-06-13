@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.canchita.helper.validator.*;
+import com.canchita.helper.validator.IsEmpty;
+import com.canchita.helper.validator.Validator;
+import com.canchita.helper.validator.ValidatorWParam;
 import com.canchita.model.db.DataBaseConnection;
 import com.canchita.views.helpers.j2query.J2Query;
-import com.canchita.views.helpers.j2query.J2QueryElement;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;

@@ -9,7 +9,7 @@ public class IsDecimal extends Validator {
 
 	@Override
 	public boolean validate(String data) {
-		return data.matches("[0-9]+.[0-9]+");
+		return data.matches("[0-9]+\\.?[0-9]*");
 	}
 
 }
