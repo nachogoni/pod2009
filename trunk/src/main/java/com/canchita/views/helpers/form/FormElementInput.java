@@ -14,6 +14,17 @@ public class FormElementInput extends FormElement {
 		super(type, name);
 		multipleData = false;
 	}
+	
+	public void addSubElement(String value){
+		FormElementInput enew = null;
+		enew = new FormElementInput(this.type, this.name);
+		enew.setLabel(this.label)
+			.setValue(value);
+		// Le anexo los validadores del padre
+		// enew.validators = e.validators;
+		// enew.validatorValues = e.validatorValues;
+		this.subelements.add(enew);
+	}
 
 	/**
 	 * Retorna si el elemento puede tener multiples ocurrencias
@@ -135,7 +146,7 @@ public class FormElementInput extends FormElement {
 
 		// cuando hace el toString si esta habilitado el multiData agrego el JS
 		if (multipleData) {
-			this.addJJQueryElement(new J2QueryMultipleData(this.idButton, "div"
+			this.addJ2QueryElement(new J2QueryMultipleData(this.idButton, "div"
 					+ this.name, ret));
 			ret += String
 					.format(

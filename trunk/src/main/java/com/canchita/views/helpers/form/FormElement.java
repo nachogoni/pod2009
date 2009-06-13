@@ -42,7 +42,7 @@ public abstract class FormElement {
 		return this;
 	}
 	
-	public FormElement addJJQueryElement(J2QueryElement e){
+	public FormElement addJ2QueryElement(J2QueryElement e){
 		if (!jjqueryElement.contains(e))
 			jjqueryElement.add(e);
 		

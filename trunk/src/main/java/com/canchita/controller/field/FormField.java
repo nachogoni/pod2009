@@ -49,8 +49,8 @@ public class FormField extends FormHandler {
 		this.addElement(new FormElementSelect("hasRoof")
 			.setLabel("Techada")
 			.setRequired(false)
-			.addValue("Sí", "True")
-			.addValue("No", "False"));
+			.addValue("Sí", "true")
+			.addValue("No", "false"));
 		
 		this.addElement(new FormElementSelect("floor")
 			.setLabel("Piso")
@@ -115,9 +115,6 @@ public class FormField extends FormHandler {
 		if (aux != null)
 			dataPopu.put("price", aux);
 		
-		
-		
-
 		this.populate(dataPopu);
 	}
 

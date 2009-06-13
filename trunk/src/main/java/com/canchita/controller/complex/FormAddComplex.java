@@ -1,7 +1,6 @@
 package com.canchita.controller.complex;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.form.Decorator;
@@ -9,6 +8,7 @@ import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
 import com.canchita.views.helpers.form.FormElementSelect;
 import com.canchita.views.helpers.form.FormHandler;
+import com.canchita.views.helpers.form.Pair;
 
 public class FormAddComplex extends FormHandler {
 
@@ -266,64 +266,67 @@ public class FormAddComplex extends FormHandler {
 
 		String aux;
 		Integer iaux;
-		HashMap<String, String> dataPopu = new HashMap<String, String>();
+		ArrayList<Pair<String, String>> data = new ArrayList<Pair<String,String>>();
 		
 		aux = aComplex.getName();
 		if (aux != null)
-			dataPopu.put("name", aux);
+			data.add(new Pair<String, String>("name",aux));
 		
 		aux = aComplex.getDescription();
 		if (aux != null)
-			dataPopu.put("description", aux);
+			data.add(new Pair<String, String>("description",aux));
 		
 		aux = aComplex.getPlace().getAddress();
 		if (aux != null)
-			dataPopu.put("address", aux);
+			data.add(new Pair<String, String>("address",aux));
 		
 		aux = aComplex.getPlace().getNeighbourhood();
 		if (aux != null)
-			dataPopu.put("neighbourhood", aux);
+			data.add(new Pair<String, String>("neighbourhood",aux));
 		
 		aux = aComplex.getPlace().getTown();
 		if (aux != null)
-			dataPopu.put("town", aux);
+			data.add(new Pair<String, String>("town",aux));
 		
 		aux = aComplex.getPlace().getState();
 		if (aux != null)
-			dataPopu.put("state", aux);
+			data.add(new Pair<String, String>("state",aux));
 		
 		aux = aComplex.getPlace().getZipCode();
 		if (aux != null)
-			dataPopu.put("zipcode", aux);
-		
+			data.add(new Pair<String, String>("zipcode",aux));
+			
 		aux = aComplex.getPlace().getLatitude();
 		if (aux != null)
-			dataPopu.put("latitude", aux);
+			data.add(new Pair<String, String>("latitude",aux));
 		
 		aux = aComplex.getPlace().getLongitude();
 		if (aux != null)
-			dataPopu.put("longitude", aux);
+			data.add(new Pair<String, String>("longitude",aux));
 		
 		if (!aComplex.getPhones().isEmpty()) {
-			aux = aComplex.getPhones().get(0);
-			dataPopu.put("telephone", aux);
+			//Como tiene multiples los agrego
+			for(int i=0;i<aComplex.getPhones().size();i++){
+				aux = aComplex.getPhones().get(i);
+				data.add(new Pair<String, String>("telephone",aux));
+			}
 		}
 			
 		aux = aComplex.getPlace().getCountry();
 		if (aux != null)
-			dataPopu.put("country", aux);
+			data.add(new Pair<String, String>("country",aux));
 		
 		if (aComplex.getExpiration() != null) {
 			
 			iaux = aComplex.getExpiration().getDepositLimit();
 			if (iaux != null)
-				dataPopu.put("depositLimit", iaux.toString());
+				data.add(new Pair<String, String>("depositLimit",String.valueOf(iaux)));
 			
 			iaux = aComplex.getExpiration().getBookingLimit();
 			if (iaux != null)
-				dataPopu.put("bookingLimit", iaux.toString());
+				data.add(new Pair<String, String>("bookingLimit",String.valueOf(iaux)));
 		}		
 		
-		this.populate(dataPopu);
+		this.populate(data);
 	}
 }
