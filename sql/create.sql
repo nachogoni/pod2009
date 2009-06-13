@@ -85,7 +85,8 @@ CREATE  TABLE "PHONE" (
   PRIMARY KEY ("phone_id"),
   CONSTRAINT "fk_PHONE_COMPLEX"
     FOREIGN KEY ("complex_id" )
-    REFERENCES "COMPLEX" ("complex_id"));
+    REFERENCES "COMPLEX" ("complex_id")
+    ON DELETE CASCADE);
 
 CREATE SEQUENCE phone_sequence START WITH 1 INCREMENT BY 1;
 
@@ -113,7 +114,8 @@ CREATE  TABLE "FIELD" (
   PRIMARY KEY ("field_id") ,
   CONSTRAINT "fk_FIELD_COMPLEX"
     FOREIGN KEY ("complex_id" )
-    REFERENCES "COMPLEX" ("complex_id" ) );
+    REFERENCES "COMPLEX" ("complex_id" ) 
+    ON DELETE CASCADE);
 
 CREATE INDEX "fk_FIELD_COMPLEX" ON "FIELD" ("complex_id" ASC);
 
@@ -164,7 +166,8 @@ CREATE  TABLE "EXPIRATION_POLICY" (
   PRIMARY KEY ("expiration_policy_id") ,
   CONSTRAINT "fk_EXPIRATION_POLICY_FIELD"
     FOREIGN KEY ("field_id" )
-    REFERENCES "FIELD" ("field_id" ) );
+    REFERENCES "FIELD" ("field_id" )
+    ON DELETE CASCADE );
 
 CREATE INDEX "fk_EXPIRATION_POLICY_FIELD" ON "EXPIRATION_POLICY" ("field_id" ASC);
 
@@ -237,7 +240,7 @@ CREATE  TABLE "RESERVATION" (
     REFERENCES "USERS" ("user_id" ) ,
   CONSTRAINT "fk_RESERVATION_FIELD"
     FOREIGN KEY ("field_id" )
-    REFERENCES "FIELD" ("field_id" ) );
+    REFERENCES "FIELD" ("field_id" ) ON DELETE CASCADE );
 
 CREATE INDEX "fk_has_COMPLEX_has_FIELD_USERS" ON "RESERVATION" ("user_id" ASC);
 
