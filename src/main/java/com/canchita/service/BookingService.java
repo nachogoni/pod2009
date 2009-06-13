@@ -24,45 +24,49 @@ public class BookingService implements BookingServiceProtocol {
 	public void deleteBooking(Long id) throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-		
+
 		bookingDAO.delete(id);
 
 	}
 
 	@Override
-	public Iterator<Booking> getBookedBookings(Long complexId) throws PersistenceException {
+	public Iterator<Booking> getBookedBookings(Long complexId)
+			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-		
+
 		return bookingDAO.getComplexBookings(complexId);
 	}
 
 	@Override
-	public Iterator<Booking> getBookableBookings(Long fieldId) throws PersistenceException {
+	public Iterator<Booking> getBookableBookings(Long fieldId)
+			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-		
+
 		return bookingDAO.getFieldBookings(fieldId);
 	}
 
 	@Override
-	public void saveBooking(Long bookeableId, DateTime startTime, DateTime endTime)
-			throws PersistenceException, BookingException {
+	public void saveBooking(Long bookeableId, DateTime startTime,
+			DateTime endTime) throws PersistenceException, BookingException {
 
-		if( startTime.isAfter(endTime) ) {
-			throw new BookingException("La fecha de fin debe ser mayor a la fecha de inicio");
+		if (startTime.isAfter(endTime)) {
+			throw new BookingException(
+					"La fecha de fin debe ser mayor a la fecha de inicio");
 		}
-		
-		if( startTime.isBeforeNow() || endTime.isBeforeNow() ) {
-			throw new BookingException("Las reservas deben ser a partir de este instante");
+
+		if (startTime.isBeforeNow() || endTime.isBeforeNow()) {
+			throw new BookingException(
+					"Las reservas deben ser a partir de este instante");
 		}
-		
+
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-		
+
 		Bookable bookable = fieldDAO.getById(bookeableId);
-				
-		Schedule schedule = new Schedule(startTime,endTime);
-		
+
+		Schedule schedule = new Schedule(startTime, endTime);
+
 		bookable.book(schedule);
 	}
 
