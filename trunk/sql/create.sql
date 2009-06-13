@@ -55,6 +55,7 @@ CREATE  TABLE "COMPLEX" (
   "name" VARCHAR2(50) NOT NULL ,
   "description" VARCHAR2(100) NULL ,
   "address" VARCHAR2(50) NOT NULL ,
+  "neighbourhood" VARCHAR2(50) NOT NULL ,
   "city" VARCHAR2(50) NOT NULL ,
   "state" VARCHAR2(50) NOT NULL ,
   "zip_code" VARCHAR2(50) NOT NULL ,
@@ -64,6 +65,7 @@ CREATE  TABLE "COMPLEX" (
   "picture" BLOB NULL ,
   "latitude" VARCHAR2(50) NULL ,
   "longitude" VARCHAR2(50) NULL ,
+  CONSTRAINT place_unique UNIQUE ("address", "city", "state", "country"),
   PRIMARY KEY ("complex_id") );
 
 

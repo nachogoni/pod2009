@@ -6,12 +6,15 @@ import java.util.List;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.location.Place;
 
 public interface ComplexDAO {
 
 	public void save(Complex aComplex) throws PersistenceException;
 
 	public Complex getById(Long id) throws PersistenceException;
+
+	public Complex getByPlace(Place aPlace) throws ElementNotExistsException;
 
 	public void update(Complex aComplex) throws PersistenceException;
 

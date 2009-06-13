@@ -52,13 +52,13 @@ public class Complex implements Booker {
 	}
 
 	public Complex(Integer id, String name, String description, String address,
-			String city, String state, String zipCode, String country,
-			String fax, String email, Blob picture, String latitude,
-			String longitude) {
+			String neighbourhood, String city, String state, String zipCode,
+			String country, String fax, String email, Blob picture,
+			String latitude, String longitude) {
 		this.id = new Long(id);
 		this.name = name;
 		this.description = description;
-		this.place = (new Place.Builder(address, city).country(country)
+		this.place = (new Place.Builder(address, neighbourhood).country(country)
 				.latitude(latitude).longitude(longitude).town(city)
 				.state(state).zipCode(zipCode)).build();
 		this.email = email;
@@ -277,8 +277,8 @@ public class Complex implements Booker {
 	}
 
 	public void setPhone(String phone) {
-		this.phones.add(phone);
-
+		if (!phone.isEmpty())
+			this.phones.add(phone);
 	}
 
 	public List<String> getPhones() {

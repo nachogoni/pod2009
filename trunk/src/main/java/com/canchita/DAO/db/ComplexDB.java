@@ -11,6 +11,7 @@ import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.location.Place;
 
 public class ComplexDB extends AllDB implements ComplexDAO {
 	private static ComplexDB instance;
@@ -85,10 +86,11 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public void save(Complex complex) throws PersistenceException {
-		String query = "INSERT into COMPLEX VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT into COMPLEX VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		executeUpdate(query, new Object[] { complex.getName(),
 				complex.getDescription(), complex.getPlace().getAddress(),
+				complex.getPlace().getNeighbourhood(),
 				complex.getPlace().getTown(), complex.getPlace().getState(),
 				complex.getPlace().getZipCode(),
 				complex.getPlace().getCountry(), complex.getFax(),
@@ -101,13 +103,14 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	@Override
 	public void update(Complex complex) throws PersistenceException {
 		String query = "UPDATE COMPLEX set \"name\" = ?, \"description\" = ?, "
-				+ "\"address\" = ?, \"city\" = ?, "
+				+ "\"address\" = ?, \"neighbourhood\" = ?, \"city\" = ?, "
 				+ "\"state\" = ?, \"zip_code\" = ?, \"country\" = ?, \"fax\" = ?,"
 				+ "\"email\" = ?, \"picture\" = ?, \"latitude\" = ?, \"longitude\" = ?"
 				+ "where \"complex_id\" = ?";
 
 		executeUpdate(query, new Object[] { complex.getName(),
 				complex.getDescription(), complex.getPlace().getAddress(),
+				complex.getPlace().getNeighbourhood(),
 				complex.getPlace().getTown(), complex.getPlace().getState(),
 				complex.getPlace().getZipCode(),
 				complex.getPlace().getCountry(), complex.getFax(),
@@ -138,6 +141,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	@Override
 	public void addPhone(Complex aComplex, String phone)
 			throws ElementNotExistsException, PersistenceException {
+
 		String query = "INSERT INTO PHONE(\"phone\",\"complex_id\") VALUES(?, ?)";
 		executeUpdate(query, new Object[] { phone, aComplex.getId() });
 	}
@@ -159,5 +163,28 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 		String query = "SELECT \"phone\" FROM PHONE WHERE \"complex_id\" = ?";
 		return executeQuery(query, new Object[] { aComplex.getId() },
 				PhoneBuilder.getInstance());
+	}
+
+	@Override
+	public Complex getByPlace(Place place) throws ElementNotExistsException {
+		String query = "SELECT * FROM COMPLEX WHERE \"address\" = ? AND "
+				+ "\"city\" = ? AND \"state\" = ? AND \"country\" = ?";
+
+		List<Complex> results = executeQuery(query, new Object[] {
+				place.getAddress(), place.getTown(), place.getState(),
+				place.getCountry() }, ComplexBuilder.getInstance());
+
+		if (results.isEmpty())
+			throw new ElementNotExistsException();
+
+		for (Complex complex : results) {
+			List<String> phones = this.getPhones(complex);
+
+			for (String phone : phones) {
+				complex.setPhone(phone);
+			}
+		}
+
+		return results.get(0);
 	}
 }
