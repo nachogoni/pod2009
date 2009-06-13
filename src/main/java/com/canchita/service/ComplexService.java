@@ -1,6 +1,7 @@
 package com.canchita.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -284,14 +285,32 @@ public class ComplexService implements ComplexServiceProtocol {
 			try {
 
 				ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+				//Guardo los tels
+				List<String> phones = aComplex.getPhones();
 
+				//Salvo el complejo
 				complexDAO.save(aComplex);
+
+				//Recupero Unique
+				aComplex = complexDAO.getByPlace(aComplex.getPlace());
+				
+				//Agrego los teléfonos.
+				for (String phone : phones ) {
+					complexDAO.addPhone(aComplex, phone);	
+				}
+
 			} catch (PersistenceException e) {
 				throw e;
 			}
 
 			return aComplex.getId();
 
+		}
+		public static void addTelephones(String[] telephones) {
+			for (String telephone : telephones) {
+				aComplex.setPhone(telephone);	
+			}
+			
 		}
 	}
 
@@ -426,5 +445,4 @@ public class ComplexService implements ComplexServiceProtocol {
 		}
 
 	}
-
 }

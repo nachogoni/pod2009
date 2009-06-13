@@ -49,8 +49,10 @@ public class ComplexBuilder implements QueryProcessor<Complex> {
 		Complex aComplex = new Complex(resultSet.getInt("complex_id"),
 				resultSet.getString("name"),
 				resultSet.getString("description"), resultSet
-						.getString("address"), resultSet.getString("city"),
-				resultSet.getString("state"), resultSet.getString("zip_code"),
+						.getString("address"), resultSet
+						.getString("neighbourhood"), resultSet
+						.getString("city"), resultSet.getString("state"),
+				resultSet.getString("zip_code"),
 				resultSet.getString("country"), resultSet.getString("fax"),
 				resultSet.getString("email"), resultSet.getBlob("picture"),
 				resultSet.getString("latitude"), resultSet

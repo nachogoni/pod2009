@@ -87,6 +87,7 @@ public class AddComplex extends GenericServlet {
 			String neighbourhood = request.getParameter("neighbourhood");
 			String country = request.getParameter("country");
 			String address = request.getParameter("address");
+			String telephones[] = request.getParameterValues("telephone");
 
 			if (name == null) {
 				error.add("Falta el nombre del Complejo");
@@ -172,6 +173,8 @@ public class AddComplex extends GenericServlet {
 						schedule.get(8), schedule.get(9), schedule.get(10),
 						schedule.get(11), schedule.get(12), schedule.get(13));
 				logger.debug("Se agrega timetable");
+				ComplexBuilder.addTelephones(telephones);
+				logger.debug("Se agregan teléfonos");
 				ComplexBuilder.saveComplex();
 				logger.debug("Se salva");
 

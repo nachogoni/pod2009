@@ -48,17 +48,17 @@ public class FormAddComplex extends FormHandler {
 			.addJ2QueryTooltip("Nombre del Complejo"));
 
 		this.addElement(new FormElementInput("text","description")
-			.setLabel("Descripción")
+			.setLabel("Descripci&oacute;n")
 			.setId("idDescripcion")
 			.setRequired(false))
-			.addJ2QueryTooltip("Descripcion del Complejo");
+			.addJ2QueryTooltip("Descripci&oacute;n del Complejo");
 		
 		this.addElement(new FormElementInput("text","address")
-			.setLabel("Dirección")
+			.setLabel("Direcci&oacute;n")
 			.setId("idDireccion")
 			.setRequired(true)
 			.addValidator("IsAddress")
-			.addJ2QueryTooltip("Direccion del Complejo"));
+			.addJ2QueryTooltip("Direcci&oacute;n del Complejo"));
 
 		this.addElement(new FormElementInput("text","neighbourhood")
 			.setLabel("Barrio")
@@ -82,16 +82,16 @@ public class FormAddComplex extends FormHandler {
 			.addJ2QueryTooltip("Provincia del Complejo"));
 
 		this.addElement(new FormElementInput("text","zipcode")
-			.setLabel("Código Postal")
+			.setLabel("C&oacute;digo Postal")
 			.setRequired(true)
 			.addValidator("IsNumeric")
 			.setId("idZipCode")
-			.addJ2QueryTooltip("Codigo Postal del Complejo"));
+			.addJ2QueryTooltip("C&oacute;digo Postal del Complejo"));
 
 		this.addElement(new FormElementInput("text","latitude")
 			.setLabel("Latitud")
 			.setId("idLatitude")
-			.addJ2QueryTooltip("Latidud del Complejo"));
+			.addJ2QueryTooltip("Latitud del Complejo"));
 
 		this.addElement(new FormElementInput("text","longitude")
 			.setLabel("Longitud")
@@ -99,19 +99,19 @@ public class FormAddComplex extends FormHandler {
 			.addJ2QueryTooltip("Longitud del Complejo"));
 
 		this.addElement(new FormElementInput("text","telephone")
-			.setLabel("Teléfono")
+			.setLabel("Tel&eacute;fono")
 			.setId("idTelephone")
 			.setRequired(true)
 			.addValidator("IsTelephone")
 			.setMultipleData("multiplePhone")
-			.addJ2QueryTooltip("Telefono del Complejo"));
+			.addJ2QueryTooltip("Tel&eacute;fono del Complejo"));
 
 		this.addElement(new FormElementInput("text","country")
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
 			.setId("idCountry")
 			.setLabel("País")
-			.addJ2QueryTooltip("Pais del Complejo"));
+			.addJ2QueryTooltip("Pa&iacute;s del Complejo"));
 		
 		/* Horarios lunes */
 		this.addElement(new FormElementSelect("fecha_lunes_inicio")
@@ -190,7 +190,7 @@ public class FormAddComplex extends FormHandler {
 			.addValidator("IsNumeric"));
 		
 		this.addElement(new FormElementInput("text","bookingLimit")
-			.setLabel("Límite de pago")
+			.setLabel("L&iacute;mite de pago")
 			.setId("bookingLimit")
 			.setRequired(true)
 			.addValidator("IsNumeric"));
@@ -221,7 +221,7 @@ public class FormAddComplex extends FormHandler {
 		subicacion.add("longitude");
 		subicacion.add("telephone");
 		subicacion.add("country");
-		this.addDisplayGroup(subicacion, "Ubicación");
+		this.addDisplayGroup(subicacion, "Ubicaci&oacute;n");
 		
 		slunes.add("fecha_lunes_inicio");
 		slunes.add("fecha_lunes_fin");
@@ -233,7 +233,7 @@ public class FormAddComplex extends FormHandler {
 		
 		smiercoles.add("fecha_miercoles_inicio");
 		smiercoles.add("fecha_miercoles_fin");
-		this.addDisplayGroup(smiercoles, "Miercoles");
+		this.addDisplayGroup(smiercoles, "Mi&eacute;rcoles");
 		
 		sjueves.add("fecha_jueves_inicio");
 		sjueves.add("fecha_jueves_fin");
@@ -241,11 +241,11 @@ public class FormAddComplex extends FormHandler {
 		
 		sviernes.add("fecha_viernes_inicio");
 		sviernes.add("fecha_viernes_fin");
-		this.addDisplayGroup(sviernes, "viernes");
+		this.addDisplayGroup(sviernes, "Viernes");
 		
 		ssabado.add("fecha_sabado_inicio");
 		ssabado.add("fecha_sabado_fin");
-		this.addDisplayGroup(ssabado, "Sabado");
+		this.addDisplayGroup(ssabado, "S&aacute;bado");
 		
 		sdomingo.add("fecha_domingo_inicio");
 		sdomingo.add("fecha_domingo_fin");
@@ -253,11 +253,11 @@ public class FormAddComplex extends FormHandler {
 		
 		sexpiration.add("depositLimit");
 		sexpiration.add("bookingLimit");
-		this.addDisplayGroup(sexpiration, "Seña y Pago de Reservas");
+		this.addDisplayGroup(sexpiration, "Se&ntilde;a y Pago de Reservas");
 
 		sconfirm.add("submit");
 		sconfirm.add("reset");
-		this.addDisplayGroup(sconfirm, "Confirmación");
+		this.addDisplayGroup(sconfirm, "Confirmaci&oacute;n");
 		
 	}
 

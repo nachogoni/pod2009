@@ -20,7 +20,6 @@ import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
-import com.canchita.views.helpers.form.ComplexForm;
 import com.canchita.views.helpers.form.FormHandler;
 
 /**
@@ -97,7 +96,7 @@ public class ModifyComplex extends GenericServlet {
 		ComplexService modifyService = new ComplexService();
 
 		logger.debug("POST request");
-		FormHandler formulario = new ComplexForm();
+		FormHandler formulario = new FormAddComplex();
 
 		/* Load form with request values */
 		formulario.loadValues(request);

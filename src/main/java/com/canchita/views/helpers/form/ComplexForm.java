@@ -4,6 +4,9 @@ public class ComplexForm extends FormHandler {
 	
 	public ComplexForm() {
 		super();
+		System.out.println("ESTE NO ES EL FORM CORRECTO!!!!");
+		System.out.println("Usar FormAddComplex!");
+
 		Decorator deco = new Decorator();
 		
 		deco.setFieldset("Prueba");
@@ -16,12 +19,12 @@ public class ComplexForm extends FormHandler {
 
 		this.addElement(new FormElementInput("text", "name"))
 			.setRequired(true)
-			.setLabel("Nombre:")
+			.setLabel("Nombressss:")
 			.addValidator("IsAlpha")
 			.setValue("defaultValue");
 		
 		this.addElement(new FormElementInput("text", "descripcion"))
-			.setRequired(true)
+			.setRequired(false)
 			.addValidator("IsAlpha")
 			.setLabel("Descripcion:");
 

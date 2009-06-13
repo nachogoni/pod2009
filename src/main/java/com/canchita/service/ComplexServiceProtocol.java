@@ -43,4 +43,5 @@ public interface ComplexServiceProtocol {
 			DateTime startFri, DateTime endFri, DateTime startSat,
 			DateTime endSat, DateTime startSun, DateTime endSun)
 			throws InvalidScheduleException, PersistenceException;
+
 }
