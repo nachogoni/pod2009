@@ -116,7 +116,8 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	public void updateField(Long id, String name, String description,
-			Boolean hasRoof, FloorType floor) throws PersistenceException {
+			Long number_of_players, Boolean hasRoof, FloorType floor,
+			Float price) throws PersistenceException {
 
 		Field aField = getById(id);
 
@@ -131,6 +132,12 @@ public class FieldService implements FieldServiceProtocol {
 		}
 		if (floor != null) {
 			aField.setFloor(floor);
+		}
+		if (price != null) {
+			aField.setPrice(price);
+		}
+		if (number_of_players != null){
+			aField.setNumberOfPlayers(number_of_players);
 		}
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
@@ -434,11 +441,13 @@ public class FieldService implements FieldServiceProtocol {
 						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
 			}
 		}
-		
-		public static void saveField() throws PersistenceException, IllegalStateException {
 
-			if(aField == null){
-				throw new IllegalStateException("La cancha no fue construida de la manera correcta");
+		public static void saveField() throws PersistenceException,
+				IllegalStateException {
+
+			if (aField == null) {
+				throw new IllegalStateException(
+						"La cancha no fue construida de la manera correcta");
 			}
 			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 

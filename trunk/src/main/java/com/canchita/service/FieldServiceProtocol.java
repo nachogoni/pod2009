@@ -27,7 +27,8 @@ public interface FieldServiceProtocol {
 			Boolean hasRoof, FloorType floor) throws PersistenceException;
 
 	public void updateField(Long id, String name, String description,
-			Boolean hasRoof, FloorType floor) throws PersistenceException;
+			Long number_of_players, Boolean hasRoof, FloorType floor,
+			Float price) throws PersistenceException;
 
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws PersistenceException;
