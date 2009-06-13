@@ -310,7 +310,6 @@ public abstract class FormHandler {
 				}
 			}
 		}
-		
 		return ret;
 	}
 

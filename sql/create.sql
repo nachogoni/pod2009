@@ -57,6 +57,7 @@ CREATE  TABLE "COMPLEX" (
   "address" VARCHAR2(50) NOT NULL ,
   "city" VARCHAR2(50) NOT NULL ,
   "state" VARCHAR2(50) NOT NULL ,
+  "zip_code" VARCHAR2(50) NOT NULL ,
   "country" VARCHAR2(50) NOT NULL ,
   "fax" VARCHAR2(50) NULL ,
   "email" VARCHAR2(50) NULL ,

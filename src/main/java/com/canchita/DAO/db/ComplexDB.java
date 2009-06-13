@@ -50,7 +50,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 		List<Complex> results = executeQuery(query, new Object[] {},
 				ComplexBuilder.getInstance());
-		
+
 		for (Complex complex : results) {
 			List<String> phones = this.getPhones(complex);
 
@@ -79,35 +79,37 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				complex.setPhone(phone);
 			}
 		}
-		
+
 		return results.get(0);
 	}
 
 	@Override
 	public void save(Complex complex) throws PersistenceException {
-		System.out.println("as\n\n\n\n\ndassdasdasd");
-		String query = "INSERT into COMPLEX VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT into COMPLEX VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		executeUpdate(query, new Object[] { complex.getName(),
 				complex.getDescription(), complex.getPlace().getAddress(),
 				complex.getPlace().getTown(), complex.getPlace().getState(),
+				complex.getPlace().getZipCode(),
 				complex.getPlace().getCountry(), complex.getFax(),
 				complex.getEmail(), complex.getPicture(),
 				complex.getPlace().getLatitude(),
 				complex.getPlace().getLongitude() });
+
 	}
 
 	@Override
 	public void update(Complex complex) throws PersistenceException {
 		String query = "UPDATE COMPLEX set \"name\" = ?, \"description\" = ?, "
 				+ "\"address\" = ?, \"city\" = ?, "
-				+ "\"state\" = ?, \"country\" = ?, \"fax\" = ?,"
+				+ "\"state\" = ?, \"zip_code\" = ?, \"country\" = ?, \"fax\" = ?,"
 				+ "\"email\" = ?, \"picture\" = ?, \"latitude\" = ?, \"longitude\" = ?"
 				+ "where \"complex_id\" = ?";
 
 		executeUpdate(query, new Object[] { complex.getName(),
 				complex.getDescription(), complex.getPlace().getAddress(),
 				complex.getPlace().getTown(), complex.getPlace().getState(),
+				complex.getPlace().getZipCode(),
 				complex.getPlace().getCountry(), complex.getFax(),
 				complex.getEmail(), complex.getPicture(),
 				complex.getPlace().getLatitude(),
@@ -129,7 +131,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				complex.setPhone(phone);
 			}
 		}
-		
+
 		return results;
 	}
 
@@ -145,16 +147,17 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			throws ElementNotExistsException, PersistenceException {
 
 		String query = "UPDATE PHONE set \"phone\" = ? where \"phone_id\" = "
-				+ "(SELECT \"phone_id\" from PHONE where \"phone\" = ?" +
-						"AND \"complex_id\" = ?)";
+				+ "(SELECT \"phone_id\" from PHONE where \"phone\" = ?"
+				+ "AND \"complex_id\" = ?)";
 
-		executeUpdate(query, new Object[] { newPhone, oldPhone, aComplex.getId() });
+		executeUpdate(query, new Object[] { newPhone, oldPhone,
+				aComplex.getId() });
 	}
-	
+
 	@Override
 	public List<String> getPhones(Complex aComplex) {
 		String query = "SELECT \"phone\" FROM PHONE WHERE \"complex_id\" = ?";
-		return executeQuery(query, new Object[] { aComplex.getId() }, PhoneBuilder
-				.getInstance());
+		return executeQuery(query, new Object[] { aComplex.getId() },
+				PhoneBuilder.getInstance());
 	}
 }

@@ -115,7 +115,7 @@ public class ModifyComplex extends GenericServlet {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 
-		String zipCode = request.getParameter("zipCode");
+		String zipCode = request.getParameter("zipcode");
 		String town = request.getParameter("town");
 		String state = request.getParameter("state");
 		String neighbourhood = request.getParameter("neighbourhood");
@@ -177,14 +177,9 @@ public class ModifyComplex extends GenericServlet {
 			for (int i = 0; i < daysOfWeek.length; i++) {
 
 				aDay = request.getParameter(daysOfWeek[i]);
-				System.out.println("parsin start hour for " + daysOfWeek[i]
-						+ ": " + aDay);
 				schedule.add(parser.parseDateTime(aDay));
 				aDay = request.getParameter(daysOfWeek[i++]);
-				System.out.println("parsin start hour for " + daysOfWeek[i]
-						+ ": " + aDay);
 				schedule.add(parser.parseDateTime(aDay));
-
 			}
 
 			// TODO Atrapar la excepcion posta (o crearla si no hay nada

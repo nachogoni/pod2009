@@ -94,6 +94,8 @@ public class FormAddComplex extends FormHandler {
 			.setLabel("Teléfono"));
 
 		this.addElement(new FormElementInput("text","country")
+			.setRequired(true)
+			.addValidator("IsAlphaNumS")
 			.setLabel("País"));
 		
 		/* Horarios lunes */

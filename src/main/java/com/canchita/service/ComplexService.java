@@ -15,7 +15,6 @@ import com.canchita.model.complex.Availability;
 import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
-import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -108,8 +107,9 @@ public class ComplexService implements ComplexServiceProtocol {
 		if (zipCode != null) {
 			location.setZipCode(zipCode);
 		}
-		if (neighbourhood != null)
+		if (neighbourhood != null) {
 			location.setNeighbourhood(neighbourhood);
+		}
 		if (town != null) {
 			location.setTown(town);
 		}
@@ -267,7 +267,6 @@ public class ComplexService implements ComplexServiceProtocol {
 
 			try {
 				aComplex.setTimeTable(aCalendar);
-				System.out.println(aCalendar.toString());
 			} catch (NullPointerException e) {
 				throw (new PersistenceException(
 						"Error creando nuevo complejo. El complejo no fue inicializado con el mensaje Build"));
@@ -277,7 +276,6 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		static public Long saveComplex() throws PersistenceException,
 				IllegalStateException {
-			System.out.println("asdasdasd");
 			if (aComplex == null) {
 				throw new IllegalStateException(
 						"El complejo no fue construido correctamente.");
