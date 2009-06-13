@@ -2,6 +2,7 @@ package com.canchita.views.helpers.form;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -195,7 +196,6 @@ public abstract class FormHandler {
 	}
 
 	public void loadValues(HttpServletRequest request) {
-		FormElementInput enew = null;
 		for (FormElement e : this.formElements) {
 			/* si es un input solamente tiene que recargar los values */
 			if (e instanceof FormElementSelect) {
@@ -219,12 +219,7 @@ public abstract class FormHandler {
 					for (; i < data.length; i++) {
 						if (!data[i].isEmpty()) {
 							// Si lo agrego el unico requerido es el inicial
-							enew = new FormElementInput(e.type, e.name);
-							enew.setLabel(e.label).setValue(data[i]);
-							// Le anexo los validadores del padre
-							// enew.validators = e.validators;
-							// enew.validatorValues = e.validatorValues;
-							((FormElementInput) e).addSubElement(enew);
+							((FormElementInput)e).addSubElement(data[i]);
 						}
 					}
 				}
@@ -232,15 +227,47 @@ public abstract class FormHandler {
 		}
 	}
 
-	/*
-	 * Llena el formulario con los parametros pasados
+	/**
+	 * Llena el formulario con un con la lista de claves (Nombre, Value) 
 	 * 
-	 * String: name del elemento dentro del formulario String: value a setear
+	 * @param data
 	 */
 	public void populate(HashMap<String, String> data) {
 		for (FormElement e : formElements) {
 			if (data.get(e.getName()) != null) {
 				e.setValue(data.get(e.getName()));
+			}
+		}
+	}
+	
+	/**
+	 * Llena el formulario con una lista de elementos Pair(key, value)
+	 * Acepta repetidos para el caso que haya multiples valores 
+	 * 
+	 * @param data
+	 */
+	public void populate(List<Pair<String, String>> data) {
+		//Seteo todos los elementos en blanco
+		for (FormElement e : formElements) {
+			e.setValue("");
+		}
+		
+		//Recorro la lista de elementos
+		FormElement e = null;
+		for(Pair<String,String> d:data){
+			//Obtengo el objeto
+			if ((e = formValues.get(d.getFirst())) != null){
+				if (e instanceof FormElementInput){
+					//Si el valor esta seteado tengo que agregar un sub-elemento
+					if (e.getValue().isEmpty())
+						e.setValue(d.getSecond());
+					else{
+						//Agrego los valores 
+						((FormElementInput)e).addSubElement(d.getSecond());
+					}
+				}else{
+					e.setValue(d.getSecond());
+				}
 			}
 		}
 	}
