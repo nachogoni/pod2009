@@ -249,7 +249,8 @@ public abstract class FormHandler {
 	public void populate(List<Pair<String, String>> data) {
 		//Seteo todos los elementos en blanco
 		for (FormElement e : formElements) {
-			e.setValue("");
+			if (!(e instanceof FormElementButton))
+				e.setValue("");
 		}
 		
 		//Recorro la lista de elementos
