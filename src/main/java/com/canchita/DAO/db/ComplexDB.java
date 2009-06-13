@@ -85,6 +85,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public void save(Complex complex) throws PersistenceException {
+		System.out.println("as\n\n\n\n\ndassdasdasd");
 		String query = "INSERT into COMPLEX VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		executeUpdate(query, new Object[] { complex.getName(),

@@ -20,7 +20,7 @@ import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
-import com.canchita.service.ComplexService.ComplexBuilder;
+import com.canchita.views.helpers.form.ComplexForm;
 import com.canchita.views.helpers.form.FormHandler;
 
 /**
@@ -28,8 +28,6 @@ import com.canchita.views.helpers.form.FormHandler;
  */
 public class ModifyComplex extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-
-	private FormHandler formulario;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -51,7 +49,7 @@ public class ModifyComplex extends GenericServlet {
 		Long id = null;
 
 		/* Get Form */
-		formulario = new FormAddComplex();
+		FormHandler formulario = new FormAddComplex();
 
 		ErrorManager error = new ErrorManager();
 
@@ -71,7 +69,7 @@ public class ModifyComplex extends GenericServlet {
 		}
 
 		if (error.size() != 0) {
-			request.setAttribute("formulario", this.formulario);
+			request.setAttribute("formulario", formulario);
 
 			request.setAttribute("errorManager", error);
 
@@ -81,7 +79,7 @@ public class ModifyComplex extends GenericServlet {
 		}
 
 		/* Form is sent to the view */
-		request.setAttribute("formulario", this.formulario);
+		request.setAttribute("formulario", formulario);
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -99,14 +97,12 @@ public class ModifyComplex extends GenericServlet {
 		ComplexService modifyService = new ComplexService();
 
 		logger.debug("POST request");
-
-		/* Errors from the past are deleted. */
-		this.formulario.unsetErrors();
+		FormHandler formulario = new ComplexForm();
 
 		/* Load form with request values */
-		this.formulario.loadValues(request);
+		formulario.loadValues(request);
 
-		if (!this.formulario.isValid()) {
+		if (!formulario.isValid()) {
 			logger.debug("Formulario inválido");
 			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response,
@@ -130,7 +126,7 @@ public class ModifyComplex extends GenericServlet {
 			error.add("Falta el nombre del Complejo");
 		}
 		if (address == null) {
-			error.add("Falta la direccion del complejo");
+			error.add("Falta la dirección del complejo");
 		}
 		if (town == null) {
 			error.add("Falta la cuidad donde se encuentra el complejo");

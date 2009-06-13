@@ -125,11 +125,14 @@
 		<c:when test="${ fieldsLength != 0 }">
 			<table class="fieldsTable" border="1">
 				<tr>
-					<td><strong>Nombre</strong></td>
-					<td><strong>Lugar</strong></td>
-					<td><strong>Descipción</strong></td>
+                    <td><strong>Nombre</strong></td>
+					<td><strong>Complejo</strong></td>
+					<td><strong>Descripción</strong></td>
+                    <td><strong>Cantidad de jugadores</strong></td>
 					<td><strong>Techada</strong></td>
 					<td><strong>Tipo de piso</strong></td>
+                    <td><strong>Precio</strong></td>
+                    <td><strong>En Mantenimiento</strong></td>
 					<td></td>
 				</tr>
 				<c:forEach items="${fields}" var="field" varStatus="rowCounter">
@@ -145,8 +148,9 @@
 						
 						<tr class="<c:out value="${rowStyle}" />">
 							<td><c:out value="${field.name}" /></td>
-							<td><c:out value="${field.complex.place}" /></td>
+							<td><a href="<c:out value="${baseURI}" escapeXml="false"/>/DetailedViewComplex?id=<c:out value="${field.complex.id}" />"><c:out value="${field.complex.name}" /></a></td> 
 							<td><c:out value="${field.description}" /></td>
+							<td><c:out value="${field.numberOfPlayers}" /></td>
 							<c:if test="${(field.hasRoof)}">
 								<td><c:out value="Sí" /></td>
 							</c:if>
@@ -155,6 +159,13 @@
 							</c:if>
 							
 							<td><c:out value="${field.floor}" /></td>
+							<td><c:out value="${field.price}" /></td>
+							<c:if test="${(field.under_maintenance)}">
+                                <td><c:out value="Sí" /></td>
+                            </c:if>
+                            <c:if test="${!(field.under_maintenance)}">
+                                <td><c:out value="No" /></td>
+                            </c:if>
 							
 							<td>
 								<form action="<c:out value="${baseURI}" />/field/delete" method="post">

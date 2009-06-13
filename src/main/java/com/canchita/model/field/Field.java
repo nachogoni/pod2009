@@ -15,7 +15,6 @@ import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
-import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.BookingException;
@@ -48,7 +47,6 @@ public class Field implements Bookable {
 	private boolean under_maintenance;
 	private ScoreSystem scoreSystem;
 	private Expiration expiration;
-	private Calendar timeTable;
 
 	public Field(long id, long complexID, String name, String description,
 			long numberOfPlayers, boolean hasRoof, long floor, float price,
@@ -289,15 +287,6 @@ public class Field implements Bookable {
 
 	public FloorType getFloor() {
 		return floor;
-	}
-
-	public void setTimeTable(Calendar timeTable) {
-		this.timeTable = timeTable;
-
-	}
-
-	public Calendar getTimeTable() {
-		return timeTable;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.canchita.controller.complex;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,9 +9,6 @@ import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
 import com.canchita.views.helpers.form.FormElementSelect;
 import com.canchita.views.helpers.form.FormHandler;
-import com.canchita.views.helpers.j2query.J2Query;
-import com.canchita.views.helpers.j2query.J2QueryMultipleData;
-import com.canchita.views.helpers.j2query.J2QueryTooltip;
 
 public class FormAddComplex extends FormHandler {
 
@@ -262,7 +258,6 @@ public class FormAddComplex extends FormHandler {
 		Integer iaux;
 		HashMap<String, String> dataPopu = new HashMap<String, String>();
 		
-		
 		aux = aComplex.getName();
 		if (aux != null)
 			dataPopu.put("name", aux);
@@ -299,23 +294,25 @@ public class FormAddComplex extends FormHandler {
 		if (aux != null)
 			dataPopu.put("longitude", aux);
 		
-		aux = aComplex.getPlace().getTelephones().get(0);
-		if (aux != null)
+		if (!aComplex.getPhones().isEmpty()) {
+			aux = aComplex.getPhones().get(0);
 			dataPopu.put("telephone", aux);
-		
+		}
+			
 		aux = aComplex.getPlace().getCountry();
 		if (aux != null)
 			dataPopu.put("country", aux);
 		
-		iaux = aComplex.getExpiration().getDepositLimit();
-		if (iaux != null)
-			dataPopu.put("depositLimit", iaux.toString());
-		
-		
-		iaux = aComplex.getExpiration().getBookingLimit();
-		if (iaux != null)
-			dataPopu.put("bookingLimit", iaux.toString());
-		
+		if (aComplex.getExpiration() != null) {
+			
+			iaux = aComplex.getExpiration().getDepositLimit();
+			if (iaux != null)
+				dataPopu.put("depositLimit", iaux.toString());
+			
+			iaux = aComplex.getExpiration().getBookingLimit();
+			if (iaux != null)
+				dataPopu.put("bookingLimit", iaux.toString());
+		}		
 		
 		this.populate(dataPopu);
 	}
