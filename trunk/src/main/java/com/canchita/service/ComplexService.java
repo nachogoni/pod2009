@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.ComplexDAO;
+import com.canchita.DAO.db.TimetableDB;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.helper.validator.IsAlphaNum;
@@ -285,8 +286,11 @@ public class ComplexService implements ComplexServiceProtocol {
 			try {
 
 				ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
 				//Guardo los tels
 				List<String> phones = aComplex.getPhones();
+				//Guardo el calendario
+				Calendar aCalendar = aComplex.getTimeTable();
 
 				//Salvo el complejo
 				complexDAO.save(aComplex);
@@ -299,6 +303,14 @@ public class ComplexService implements ComplexServiceProtocol {
 					complexDAO.addPhone(aComplex, phone);	
 				}
 
+				//Agrego el calendario.
+				//HACK: debería hacerse con el get(DAO.TIMETABLE)
+				//pero no lo pude hacer andar :(
+				for(Availability av : aCalendar.getAvailabilities()) {
+					TimetableDB.getInstance().save(av, aComplex.getId());	
+				}
+				
+				
 			} catch (PersistenceException e) {
 				throw e;
 			}

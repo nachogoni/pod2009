@@ -120,6 +120,8 @@ public class ModifyComplex extends GenericServlet {
 		String neighbourhood = request.getParameter("neighbourhood");
 		String country = request.getParameter("country");
 		String address = request.getParameter("address");
+		//TODO: ver cómo poner sólo los que faltan en la db.
+		String telephones[] = request.getParameterValues("telephone");
 
 		if (name == null) {
 			error.add("Falta el nombre del Complejo");
@@ -173,11 +175,12 @@ public class ModifyComplex extends GenericServlet {
 			DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm");
 			String aDay = null;
 
+			//TODO: Refactor esto!
 			for (int i = 0; i < daysOfWeek.length; i++) {
 
 				aDay = request.getParameter(daysOfWeek[i]);
 				schedule.add(parser.parseDateTime(aDay));
-				aDay = request.getParameter(daysOfWeek[i++]);
+				aDay = request.getParameter(daysOfWeek[++i]);
 				schedule.add(parser.parseDateTime(aDay));
 			}
 

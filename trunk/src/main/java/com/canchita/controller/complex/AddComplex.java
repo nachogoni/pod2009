@@ -146,11 +146,13 @@ public class AddComplex extends GenericServlet {
 				DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm");
 				String aDay = null;
 
+				//TODO: Refactor esto!
 				for (int i = 0; i < daysOfWeek.length; i++) {
 
 					aDay = request.getParameter(daysOfWeek[i]);
 					schedule.add(parser.parseDateTime(aDay));
-					aDay = request.getParameter(daysOfWeek[i++]);
+
+					aDay = request.getParameter(daysOfWeek[++i]);
 					schedule.add(parser.parseDateTime(aDay));
 				}
 
@@ -162,23 +164,27 @@ public class AddComplex extends GenericServlet {
 				error.add("Valores para los horarios incorrectos");
 			}
 			try {
+				logger.debug("Se llama a build");
 				ComplexBuilder.Build(name, description, address, zipCode,
 						neighbourhood, town, state, country);
-				logger.debug("Se llama a build");
-				ComplexBuilder.addExpiration(bookingLimit, depositLimit);
+
 				logger.debug("Se agrega expiration");
+				ComplexBuilder.addExpiration(bookingLimit, depositLimit);
+
+				logger.debug("Se agrega timetable");
 				ComplexBuilder.addTimeTable(schedule.get(0), schedule.get(1),
 						schedule.get(2), schedule.get(3), schedule.get(4),
 						schedule.get(5), schedule.get(6), schedule.get(7),
 						schedule.get(8), schedule.get(9), schedule.get(10),
 						schedule.get(11), schedule.get(12), schedule.get(13));
-				logger.debug("Se agrega timetable");
-				ComplexBuilder.addTelephones(telephones);
-				logger.debug("Se agregan teléfonos");
-				ComplexBuilder.saveComplex();
-				logger.debug("Se salva");
 
-				// TODO loguear los errores
+				logger.debug("Se agregan teléfonos");
+				ComplexBuilder.addTelephones(telephones);
+
+				logger.debug("Se salva");
+				ComplexBuilder.saveComplex();
+
+			// TODO loguear los errores
 			} catch (ElementExistsException ee) {
 				error.add(ee);
 				ee.printStackTrace();
