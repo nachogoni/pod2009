@@ -7,6 +7,7 @@ import com.canchita.DAO.db.ComplexDB;
 import com.canchita.DAO.db.FieldDB;
 import com.canchita.DAO.db.RegisterDB;
 import com.canchita.DAO.db.ScoreSystemDB;
+import com.canchita.DAO.db.TimetableDB;
 import com.canchita.DAO.db.UserDB;
 import com.canchita.model.exception.PersistenceException;
 
@@ -30,8 +31,8 @@ public class DAOFactory {
 		COMPLEX(ComplexDB.class),
 		USER(UserDB.class),
 		REGISTER(RegisterDB.class),
-		SCORE_SYSTEM(ScoreSystemDB.class);
-		
+		SCORE_SYSTEM(ScoreSystemDB.class),
+		TIME_TABLE(TimetableDB.class);
 		private Method factoryMethod;
 		
 		DAO(Class<?> clazz) {

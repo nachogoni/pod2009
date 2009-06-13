@@ -257,4 +257,10 @@ public class ComplexMemoryMock implements ComplexDAO {
 		
 	}
 
+	@Override
+	public Complex getByPlace(Place place) throws ElementNotExistsException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

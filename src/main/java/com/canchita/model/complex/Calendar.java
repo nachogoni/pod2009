@@ -30,6 +30,10 @@ public class Calendar {
 		this.availabilities = new LinkedList<Availability>();
 	}
 
+	public List<Availability> getAvailabilities() {
+		return availabilities;
+	}
+
 	public void add(Availability availability) {
 
 		if (this.inConflict(availability)) {

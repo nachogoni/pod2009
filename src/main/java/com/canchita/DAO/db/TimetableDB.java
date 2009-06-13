@@ -74,7 +74,6 @@ public class TimetableDB extends AllDB implements TimetableDAO {
 		String query = "INSERT INTO TIMETABLE VALUES (NULL, ?, ?, " + a + b;
 
 		executeUpdate(query, new Object[] { complexId, av.getDay().ordinal() });
-
 	}
 
 }
