@@ -1,9 +1,7 @@
 package com.canchita.views.helpers.form;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,7 +41,7 @@ public abstract class FormHandler {
 		j2queryenabled = false;
 	}
 	
-	public boolean isJJQueryEnabled(){
+	public boolean isJ2QueryEnabled(){
 		return j2queryenabled;
 	}
 
@@ -67,7 +65,12 @@ public abstract class FormHandler {
 		return this;
 	}
 	
-	public FormHandler enableJJQuery(String path){
+	/**
+	 * Habilita el uso del J2Query
+	 * @param path
+	 * @return
+	 */
+	public FormHandler enableJ2Query(String path){
 		jjqueryInstance = new J2Query(path);
 		j2queryenabled = true;
 		
@@ -99,12 +102,14 @@ public abstract class FormHandler {
 	 * @param value valor a asignar
 	 */
 	public void setElementValue(String name, String value) {
-		// TODO Auto-generated method stub
 		FormElement e = formValues.get(name);
 		if (e != null)
 			e.setValue(value);	
 	}
 	
+	/**
+	 * Imprime el formulario
+	 */
 	public String toString() {
 
 		String ret;
@@ -121,7 +126,7 @@ public abstract class FormHandler {
 		for (FormElement e : formElements) {
 			ret += e;
 			//Agrego los JJQuerys si esta habilitado
-			if (isJJQueryEnabled())
+			if (isJ2QueryEnabled())
 				jjqueryInstance.addElements(e.getJJQueryElements());
 			if ((err = this.errors.get(e.getName())) != null)
 				ret += "<div class='errors'>" + err + "</div>";
@@ -130,13 +135,18 @@ public abstract class FormHandler {
 		ret += "</form>";
 		
 		//Si esta habilitado JJQuery genero el archivo
-		if (isJJQueryEnabled()){
+		if (isJ2QueryEnabled()){
 			jjqueryInstance.generate();
 		}
 		
 		return ret;
 	}
 
+	/**
+	 * Imprime el formulario segun grupos
+	 * 
+	 * @return
+	 */
 	private String printGroups() {
 		String err;
 		String ret = "";
@@ -154,7 +164,7 @@ public abstract class FormHandler {
 			for (FormElement e : elements) {
 				ret += e;
 				//Agrego los JJQuerys
-				if (isJJQueryEnabled())
+				if (isJ2QueryEnabled())
 					jjqueryInstance.addElements(e.getJJQueryElements());
 				
 				if ((err = this.errors.get(e.getName())) != null)
@@ -166,7 +176,7 @@ public abstract class FormHandler {
 		ret += "</form>";
 		
 		//Si esta habilitado JJQuery genero el archivo
-		if (isJJQueryEnabled()){
+		if (isJ2QueryEnabled()){
 			jjqueryInstance.generate();
 		}
 		return ret;
@@ -184,64 +194,43 @@ public abstract class FormHandler {
 	}
 
 	public void loadValues(HttpServletRequest request) {
-		ArrayList<FormElementInput> multiples = new ArrayList<FormElementInput>();
+		FormElementInput enew = null;
 		for (FormElement e : this.formElements) {
 			/* si es un input solamente tiene que recargar los values */
-			if (e instanceof FormElementSelect)
+			if (e instanceof FormElementSelect){
 				e.setValue(request.getParameter(e.getName()));
+			}
 			else if (e instanceof FormElementInput){
-				//Si solo es un elemento
-				if (!((FormElementInput) e).isMultipleData()){
-					e.setValue(request.getParameter(e.getName()));
-				}else{
-					multiples.add((FormElementInput) e);
-				}
-			}
-			}
-		if (multiples.size() > 0){
-			//obtengo los parametros
-			FormElementInput enew = null;
-			for (FormElementInput e : multiples){
-				String data[] = request.getParameterValues(e.getName());
-			//	asigno el primero
-				e.setValue(data[0]);
-			//	Agrego los nuevos campos
-				for (int i=1;i<data.length;i++){
-					if (data[i].isEmpty())
-						break;
-					enew = new FormElementInput(e.type,e.name + i);
-								enew.setLabel(e.label)
-									.setValue(data[i])
-									.setRequired(e.isRequired()); 
-					this.addElement(enew);
+				//Seteo el valor
+				e.setValue(request.getParameter(e.getName()));
+				//Si tiene mas elementos
+				if (((FormElementInput)e).isMultipleData()){
+					//Busco los subelementos y los agrego
+					String data[] = request.getParameterValues(e.getName());
+					/* hago el load de paramtros */
+					int i=1;
+					for(;i<((FormElementInput)e).subelements.size() && i<data.length;i++){
+						((FormElementInput)e).subelements.get(i-1).setValue(data[i]);
+					}
 					
-					//Busco a que grupo pertenece
-					Collection<ArrayList<FormElement>> cgroups = groups.values();
-					Iterator<ArrayList<FormElement>> ite = cgroups.iterator();
-					ArrayList<FormElement> aux;
-					while(ite.hasNext()){
-						aux = ite.next(); 
-						if(aux.contains(e)){
-							aux.add(enew);
-							break;
+					//Si me faltan valores los agrego
+					for (;i<data.length;i++){
+						System.out.println(data[i]);
+						if (!data[i].isEmpty()){
+							//Si lo agrego el unico requerido es el inicial
+							enew = new FormElementInput(e.type,e.name);
+										enew.setLabel(e.label)
+											.setValue(data[i]);
+							//Le anexo los validadores del padre
+							//enew.validators = e.validators;
+							//enew.validatorValues = e.validatorValues;
+							((FormElementInput)e).addSubElement(enew);
 						}
 					}
 				}
-				//Seteo el ultimo como multiple
-				/*if (enew != null)
-					enew.setMultipleData(e.idButton);*/
 			}
 		}
-			
 	}
-
-	/*
-	public void loadValues(HashMap<String, String> dict) {
-		for (FormElement e : this.formElements) {
-			e.setValue(dict.get(e.getName()));
-		}			
-	}
-	*/
 	
 	/*
 	 * Llena el formulario con los parametros pasados
@@ -262,6 +251,7 @@ public abstract class FormHandler {
 	 * 
 	 * @return boolean
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean isValid(){
 		boolean ret = true;
 		Validator aVal;
@@ -305,7 +295,7 @@ public abstract class FormHandler {
 						if ( !aVal.validate(e.getValue()) ){
 							this.errors.put(e.getName(), aVal.getError());
 							ret = false;
-						}	
+						}
 					}
 				}
 			}

@@ -36,14 +36,15 @@ public abstract class FormElement {
 		jjqueryElement = new ArrayList<J2QueryElement>();
 	}
 	
-	public FormElement addJJQueryTooltip(String tooltip){
+	public FormElement addJ2QueryTooltip(String tooltip){
 		jjqueryElement.add(new J2QueryTooltip(this.id,tooltip));
 		
 		return this;
 	}
 	
 	public FormElement addJJQueryElement(J2QueryElement e){
-		jjqueryElement.add(e);
+		if (!jjqueryElement.contains(e))
+			jjqueryElement.add(e);
 		
 		return this;
 	}

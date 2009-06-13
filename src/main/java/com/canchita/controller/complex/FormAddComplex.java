@@ -16,7 +16,6 @@ public class FormAddComplex extends FormHandler {
 		super();
 		ArrayList<String> scomplejo = new ArrayList<String>();
 		ArrayList<String> subicacion = new ArrayList<String>();
-		ArrayList<String> spuntos = new ArrayList<String>();
 		
 		ArrayList<String> slunes = new ArrayList<String>();
 		ArrayList<String> smartes = new ArrayList<String>();
@@ -37,7 +36,7 @@ public class FormAddComplex extends FormHandler {
 		}
 		
 		this.setName("Complejo")
-			.enableJJQuery("js/complex/add/init.js")
+			.enableJ2Query("js/complex/add/init.js")
 	  		.setMethod("post");
 			     
 		this.addElement(new FormElementInput("text","name")
@@ -46,57 +45,73 @@ public class FormAddComplex extends FormHandler {
 			.setRequired(true)
 			.addValidator("MaxLength", "20")
 			.addValidator("IsAlphaNumS")
-			.setMultipleData("divmultiplenames")
-			.addJJQueryTooltip("Nombre del Complejo"));
+			.addJ2QueryTooltip("Nombre del Complejo"));
 
 		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
 			.setId("idDescripcion")
 			.setRequired(false))
-			.addJJQueryTooltip("Descripcion del Complejo");
+			.addJ2QueryTooltip("Descripcion del Complejo");
 		
 		this.addElement(new FormElementInput("text","address")
 			.setLabel("Dirección")
 			.setId("idDireccion")
 			.setRequired(true)
 			.addValidator("IsAddress")
-			.addJJQueryTooltip("Direccion del Complejo"));
+			.addJ2QueryTooltip("Direccion del Complejo"));
 
 		this.addElement(new FormElementInput("text","neighbourhood")
 			.setLabel("Barrio")
-			.setId("idBarrio")
+			.setId("idNeighbourhood")
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
-			.addJJQueryTooltip("Barrio del Complejo"));
+			.addJ2QueryTooltip("Barrio del Complejo"));
 
 		this.addElement(new FormElementInput("text","town")
 			.setLabel("Ciudad")
 			.setRequired(true)
-			.addValidator("IsAlphaNumS"));
+			.addValidator("IsAlphaNumS")
+			.setId("idTown")
+			.addJ2QueryTooltip("Ciudad del Complejo"));
 		
 		this.addElement(new FormElementInput("text","state")
 			.setLabel("Provincia")
 			.setRequired(true)
-			.addValidator("IsAlphaNumS"));
+			.addValidator("IsAlphaNumS")
+			.setId("idState")
+			.addJ2QueryTooltip("Provincia del Complejo"));
 
 		this.addElement(new FormElementInput("text","zipcode")
 			.setLabel("Código Postal")
 			.setRequired(true)
-			.addValidator("IsNumeric"));
+			.addValidator("IsNumeric")
+			.setId("idZipCode")
+			.addJ2QueryTooltip("Codigo Postal del Complejo"));
 
 		this.addElement(new FormElementInput("text","latitude")
-			.setLabel("Latitud"));
+			.setLabel("Latitud")
+			.setId("idLatitude")
+			.addJ2QueryTooltip("Latidud del Complejo"));
 
 		this.addElement(new FormElementInput("text","longitude")
-			.setLabel("Longitud"));
+			.setLabel("Longitud")
+			.setId("idLongitude")
+			.addJ2QueryTooltip("Longitud del Complejo"));
 
 		this.addElement(new FormElementInput("text","telephone")
-			.setLabel("Teléfono"));
+			.setLabel("Teléfono")
+			.setId("idTelephone")
+			.setRequired(true)
+			.addValidator("IsTelephone")
+			.setMultipleData("multiplePhone")
+			.addJ2QueryTooltip("Telefono del Complejo"));
 
 		this.addElement(new FormElementInput("text","country")
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
-			.setLabel("País"));
+			.setId("idCountry")
+			.setLabel("País")
+			.addJ2QueryTooltip("Pais del Complejo"));
 		
 		/* Horarios lunes */
 		this.addElement(new FormElementSelect("fecha_lunes_inicio")
@@ -243,13 +258,6 @@ public class FormAddComplex extends FormHandler {
 		sconfirm.add("submit");
 		sconfirm.add("reset");
 		this.addDisplayGroup(sconfirm, "Confirmación");
-		
-		//Genero el JJQuery
-/*		JJQuery jquery = new JJQuery("js/complex/add/init.js");
-		jquery.addElement(new JJQueryTooltip("idReservar","Sarasa!"));
-		jquery.addElement(new JJQueryTooltip("idNombre","Nombre del Complejo"));
-		jquery.addElement(new JJQueryMultipleData("divname","divname","<div id='divname'><input id='idNombre' type='text' value='' name='name' alt=''/></div>"));
-		jquery.generate();*/
 		
 	}
 
