@@ -12,6 +12,7 @@ public class J2Query {
 
 	private List<J2QueryElement> elements = null;
 	private String path;
+	private boolean generated = false;
 
 	/**
 	 * Crea la instancia del handler del JJQuery
@@ -35,7 +36,24 @@ public class J2Query {
 		return this;
 	} 
 	
+	public boolean isGenerated(){
+		return generated;
+	}
+	
 	public void generate(){
+		generate(false);
+	}
+	
+	public void regenerate(){
+		generated = true;
+	}
+	
+	public void generate(boolean force){
+		if (generated && force == false)
+			return;
+		
+		generated = true;
+		
 		StringBuffer export = new StringBuffer();
 		//Init
 		export.append("$(document).ready( function() {\n");

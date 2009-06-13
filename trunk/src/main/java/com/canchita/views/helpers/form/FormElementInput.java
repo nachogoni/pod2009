@@ -1,30 +1,69 @@
 package com.canchita.views.helpers.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.canchita.views.helpers.j2query.J2QueryMultipleData;
 
 public class FormElementInput extends FormElement {
 	protected boolean multipleData;
 	protected String idButton;
+	protected ArrayList<FormElementInput> subelements = new ArrayList<FormElementInput>();
 	
 	public FormElementInput(String type, String name) {
 		super(type, name);
 		multipleData = false;
 	}
 
+	/**
+	 * Retorna si el elemento puede tener multiples ocurrencias
+	 * 
+	 * @return Boolean
+	 */
 	public boolean isMultipleData(){
 		return multipleData;
 	}
+	
+	/**
+	 * Devuelve un listado de todos los values que posee el elemento
+	 * En caso de ser multiple devuelve todos
+	 * Sino devuelve su valor
+	 * 
+	 * @return List<String>
+	 */
+	public List<String> getValues(){
+		List<String> data = new ArrayList<String>();
+		
+		//Agrego el valor del elemento
+		data.add(this.getValue());
+		
+		for(FormElementInput e: subelements)
+			data.add(e.getValue());
+		
+		return data;
+	}
 
 	@Override
+	/**
+	 * Setea el id del elemento
+	 */
 	public FormElementInput setId(String id) {
 		super.setId(id);
 		
 		return this;
 	}
 	
+	/**
+	 * Habilita que el elemento pueda tener multiples ocurrencias
+	 * 
+	 * @param id del Boton que se genera
+	 * @return
+	 */
 	public FormElementInput setMultipleData(String idBoton){
 		multipleData = true;
 		idButton = idBoton;
+		
+		subelements = new ArrayList<FormElementInput>();
 		
 		return this;
 	}
@@ -34,6 +73,10 @@ public class FormElementInput extends FormElement {
 		super.addValidator(validator, param);
 		
 		return this;
+	}
+	
+	protected void addSubElement(FormElementInput e){
+		subelements.add(e);
 	}
 
 	protected String genInput() {
@@ -93,6 +136,10 @@ public class FormElementInput extends FormElement {
 		if (multipleData){
 			this.addJJQueryElement(new J2QueryMultipleData(this.idButton,"div" + this.name, ret));
 			ret += String.format("<div id='%s' style='position:relative; top:-2em; left:23em;'>+</div>",this.idButton);
+			
+			for(FormElementInput e : subelements){
+				ret += e.toString();
+			}
 		}
 		return ret;
 		
