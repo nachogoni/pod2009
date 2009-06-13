@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
+<jsp:include page="/WEB-INF/views/general/js.jsp" flush="true" />
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/login/init.js" type="text/javascript"/></script>
+
 <div id="header" class="header">
         <div id="menu" class="ubercolortabs guestColorTab">
                 <ul class="ui-tabs-nav">
@@ -13,8 +16,8 @@
 
         <div class="loginForm">
                 <FORM action="<c:out value="${baseURI}" />/user/login" method="post" >
-                        <INPUT type="text" name="username" value="Usuario" class="loginInputElement gray">
-                        <INPUT type="password" name="password" value="********" class="loginInputElement gray">
+                        <INPUT id="lf_username" type="text" name="username" value="Usuario" class="loginInputElement gray">
+                        <INPUT id="lf_password" type="password" name="password" value="********" class="loginInputElement gray">
                         <INPUT class="submit-go" type="submit" value="Ingresar" class="loginButtonElement">
                 </FORM>
         </div>
