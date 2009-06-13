@@ -163,6 +163,9 @@ public class FieldDB extends AllDB implements FieldDAO {
 	public void update(Field field) throws ElementNotExistsException,
 			PersistenceException {
 
+		if (!exists(field))
+			throw new ElementNotExistsException();
+
 		String query = "UPDATE FIELD set \"complex_id\" = ?, \"name\" = ?, "
 				+ "\"description\" = ?, \"number_of_players\" = ?, "
 				+ "\"has_roof\" = ?, \"type\" = ?, \"price\" = ?,"
