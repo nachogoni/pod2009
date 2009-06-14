@@ -8,6 +8,8 @@ import com.canchita.DAO.db.builders.ComplexBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.PhoneBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.model.complex.Availability;
+import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -58,9 +60,30 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			for (String phone : phones) {
 				complex.setPhone(phone);
 			}
+
+			//Agrego Calendar.
+			complex.setTimeTable(getCalendar(complex));
 		}
 
+		
+
 		return results;
+	}
+
+	private Calendar getCalendar(Complex aComplex) {
+		Calendar aCalendar = new Calendar();
+		Collection<Availability> avs = null;
+		try {
+			avs = TimetableDB.getInstance().getByComplexId(aComplex.getId());
+		} catch (ElementNotExistsException e) {
+			return null;
+		}
+
+		for ( Availability av : avs ) {
+			aCalendar.add(av);
+		}
+
+		return aCalendar;
 	}
 
 	@Override
@@ -79,6 +102,9 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			for (String phone : phones) {
 				complex.setPhone(phone);
 			}
+
+			//Agrego Calendar.
+			complex.setTimeTable(getCalendar(complex));
 		}
 
 		return results.get(0);
@@ -133,6 +159,9 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			for (String phone : phones) {
 				complex.setPhone(phone);
 			}
+
+			//Agrego Calendar.
+			complex.setTimeTable(getCalendar(complex));
 		}
 
 		return results;
@@ -183,6 +212,9 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			for (String phone : phones) {
 				complex.setPhone(phone);
 			}
+
+			//Agrego Calendar.
+			complex.setTimeTable(getCalendar(complex));
 		}
 
 		return results.get(0);
