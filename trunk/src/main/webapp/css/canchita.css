@@ -3,6 +3,10 @@
         margin:0 auto;
 }
 
+.bookMsg {
+	color:green;
+}
+
 .complexesTable {
 	margin-top:2em;
 }

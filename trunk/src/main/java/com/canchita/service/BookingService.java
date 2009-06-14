@@ -1,6 +1,8 @@
 package com.canchita.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -11,8 +13,11 @@ import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.exception.BookingException;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.user.CommonUser;
 
 public class BookingService implements BookingServiceProtocol {
 
@@ -48,7 +53,7 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public void saveBooking(Long bookeableId, DateTime startTime,
+	public Booking saveBooking(CommonUser user, Long bookeableId, DateTime startTime,
 			DateTime endTime) throws PersistenceException, BookingException {
 
 		if (startTime.isAfter(endTime)) {
@@ -67,7 +72,43 @@ public class BookingService implements BookingServiceProtocol {
 
 		Schedule schedule = new Schedule(startTime, endTime);
 
-		bookable.book(schedule);
+		return bookable.book(user,schedule);
+		
+	}
+
+	@Override
+	public List<Booking> saveManyBookings(CommonUser user, Long id, DateTime startTimeFrom,
+			DateTime endTimeFrom, DateTime startTimeTo, DateTime endTimeTo) throws PersistenceException, BookingException {
+		
+		//TODO se asume que start y end ocupan un dia cada uno
+		
+		if( startTimeFrom.getDayOfWeek()!= startTimeTo.getDayOfWeek()) {
+			throw new BookingException("Los días de la semana no coinciden");
+		}
+		
+		long startDay = startTimeFrom.getDayOfYear() + (365 * startTimeFrom.getYear());
+		long endDay = startTimeTo.getDayOfYear() + (365 * startTimeTo.getYear());
+
+		long amountOfWeeks = ( endDay - startDay ) / DayOfWeek.WEEK_DAYS;
+		
+		DateTime startTime = startTimeFrom;
+		DateTime endTime = endTimeFrom;
+		List<Booking> bookings = new ArrayList<Booking>();
+		
+		for( long i = 0 ; i <= amountOfWeeks ; i++ ) {
+			try {
+				Booking booking = this.saveBooking(user, id, startTime, endTime);
+				bookings.add(booking);
+			}
+			catch(ElementExistsException e) {
+				//keep going
+			}
+			
+			startTime = startTime.plusDays(DayOfWeek.WEEK_DAYS);
+			endTime = endTime.plusDays(DayOfWeek.WEEK_DAYS);
+		}
+		
+		return bookings;
 	}
 
 }

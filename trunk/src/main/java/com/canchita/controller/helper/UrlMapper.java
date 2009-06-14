@@ -100,8 +100,16 @@ public class UrlMapper {
 		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ViewComplex.jsp");
 
+		//Bookings
 		successForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
+		successForward.put("AddBookingPOST", FORWARD_ROOT_DIR
+				+ "field/AddBooking.jsp");
+		successForward.put("AddManyBookingsGET", FORWARD_ROOT_DIR
+				+ "field/AddManyBookings.jsp");
+		successForward.put("AddManyBookingsPOST", FORWARD_ROOT_DIR
+				+ "field/AddManyBookings.jsp");
+		//Errors
 		successForward.put("Error404GET", FORWARD_ROOT_DIR + "error/404.jsp");
 		successForward.put("Error500GET", FORWARD_ROOT_DIR + "error/500.jsp");
 		successForward.put("ErrorExceptionGET", FORWARD_ROOT_DIR
@@ -132,8 +140,6 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=true");
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
-		successRedirect.put("AddBookingPOST", "/tp-pod/field/detailedview");
-
 	}
 
 	/**
@@ -178,6 +184,10 @@ public class UrlMapper {
 				+ "field/AddBooking.jsp");
 		failureForward.put("AddBookingPOST", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
+		failureForward.put("AddManyBookingsGET", FORWARD_ROOT_DIR
+				+ "field/AddManyBookings.jsp");
+		failureForward.put("AddManyBookingsPOST", FORWARD_ROOT_DIR
+				+ "field/AddManyBookings.jsp");
 
 		// ScoreSystem
 		failureForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR +

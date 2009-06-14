@@ -1,11 +1,13 @@
 package com.canchita.model.booking;
 
 import java.util.Iterator;
+
 import org.joda.time.DateTime;
 
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
+import com.canchita.model.user.CommonUser;
 
 /**
  * 
@@ -25,7 +27,7 @@ public interface Bookable {
 
 	Iterator<Booking> getBookings() throws PersistenceException;
 	
-	Booking book(Schedule hour) throws PersistenceException, BookingException;
+	Booking book(CommonUser user, Schedule hour) throws PersistenceException, BookingException;
 	
 	String getName();
 	
@@ -34,5 +36,7 @@ public interface Bookable {
 	Locatable getLocation();
 	
 	DateTime getExpiration(Booking booking);
+
+	float getPrice();
 	
 }

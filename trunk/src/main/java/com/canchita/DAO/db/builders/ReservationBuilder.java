@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.canchita.DAO.db.FieldDB;
 import com.canchita.DAO.db.QueryProcessor;
@@ -59,14 +60,17 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 				e.printStackTrace();
 			}
 			
-			//Armo el schedule
-			DateTime startDate = new DateTime(resultSet.getString("start_date"));
-			DateTime endDate = new DateTime(resultSet.getString("end_date"));
+			//Armo el schedule TODO ver esto por el timezone
+			DateTime startDate = new DateTime(resultSet.getString("start_date"),DateTimeZone.UTC);
+			DateTime endDate = new DateTime(resultSet.getString("end_date"),DateTimeZone.UTC);
 			Schedule schedule = new Schedule(startDate, endDate);
 
+			float cost = resultSet.getFloat("cost");
+			float paid = resultSet.getFloat("paid");
+			
 			//Construyo el booking
 			aBooking = new Booking( resultSet.getLong("reservation_id"),
-					field, user, resultSet.getLong("state"), schedule);
+					field, user, resultSet.getLong("state"), schedule, cost, paid);
 			 
 			results.add(aBooking);
 		}

@@ -8,13 +8,20 @@
 <h1>Realizar la reserva de la cancha</h1>
 
 <c:if test="${(success != null)}">
+
 	<div class="ui-state-highlight ui-corner-all info"> 
 		<span class="ui-icon ui-icon-info infoIcon"></span>
 		<span><strong>Información:</strong></span>
-		<span class="block bookMsg">* Reserva agendada </span>
-		<span class="block">* Desde: <c:out value="${booking.schedule.startTime.dayOfMonth}"/>/<c:out value="${booking.schedule.startTime.monthOfYear}"/> <c:out value="${booking.schedule.startTime.hourOfDay}"/>hs </span>
-		<span class="block">* Hasta: <c:out value="${booking.schedule.endTime.dayOfMonth}"/>/<c:out value="${booking.schedule.endTime.monthOfYear}"/> <c:out value="${booking.schedule.endTime.hourOfDay}"/>hs </span>
-		<span class="block">* Precio: $<c:out value="${booking.cost}"/> </span>
+		<c:choose>
+			<c:when test="${ fieldsLength != 0 }">
+				<c:forEach items="${bookings}" var="booking">
+					<span class="block bookMsg">* Reserva agendada </span>
+					<span class="block">* Desde: <c:out value="${booking.schedule.startTime.dayOfMonth}"/>/<c:out value="${booking.schedule.startTime.monthOfYear}"/> <c:out value="${booking.schedule.startTime.hourOfDay}"/>hs </span>
+					<span class="block">* Hasta: <c:out value="${booking.schedule.endTime.dayOfMonth}"/>/<c:out value="${booking.schedule.endTime.monthOfYear}"/> <c:out value="${booking.schedule.endTime.hourOfDay}"/>hs </span>
+					<span class="block">* Precio: $<c:out value="${booking.cost}"/> </span>
+				</c:forEach>
+			</c:when>
+		</c:choose>
 	</div>
 </c:if>
 
@@ -43,9 +50,16 @@
 
 <form action="" method="post">
 	<fieldset>
-	<legend>Por favor, seleccione la fecha en la que desea realizar la reserva</legend>
-	<label for="date">Fecha: </label>
-	<input id="datepicker" type="text" name="date" size="10"/>
+	<legend>Por favor, seleccione en intervalo de fechas donde desea reservar</legend>
+	<div>
+	<span><strong>IMPORTANTE:</strong> De estar algún día ocupado no se reservará para ese día</span>
+	<label for="from">Desde: </label>
+	<input id="datepicker1" type="text" name="from" size="10"/>
+	</div>
+	<div>
+	<label for="to">Hasta: </label>
+	<input id="datepicker2" type="text" name="to" size="10"/>
+	</div>
 	</fieldset>
 
 	<div id="whenError" class="ui-state-error ui-corner-all hidden error"> 
@@ -108,7 +122,7 @@
 <jsp:include page="/WEB-INF/views/general/js.jsp"
 	flush="true" />
 <script src="<c:out value="${baseURI}" escapeXml="false" />/js/util/calendar.js" type="text/javascript"/></script>
-<script src="<c:out value="${baseURI}" escapeXml="false" />/js/field/book/init.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/field/bookmany/init.js" type="text/javascript"/></script>
 
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
 	flush="true" />

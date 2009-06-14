@@ -74,6 +74,12 @@
 		<servlet-class>com.canchita.controller.field.AddBooking</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>AddManyBookings</servlet-name>
+		<display-name>AddManyBookings</display-name>
+		<description></description>
+		<servlet-class>com.canchita.controller.field.AddManyBookings</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>GetAvailableHours</servlet-name>
 		<display-name>GetAvailableHours</display-name>
 		<description></description>
@@ -286,6 +292,10 @@
 		<url-pattern>/field/book</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>AddManyBookings</servlet-name>
+		<url-pattern>/field/bookmany</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>GetAvailableHours</servlet-name>
 		<url-pattern>/field/getavailablehours</url-pattern>
 	</servlet-mapping>
@@ -369,6 +379,7 @@
 		<servlet-name>Profile</servlet-name>
 		<url-pattern>/user/profile</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>charly</servlet-name>
 		<url-pattern>/test/charly</url-pattern>

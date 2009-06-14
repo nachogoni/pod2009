@@ -52,6 +52,9 @@ public enum DayOfWeek {
 		}
 	};
 
+	public static final int WEEK_DAYS = 7;
+	//public static final int WEEK_DAYS = DayOfWeek.values().length;
+	
 	public static DayOfWeek fromId(long id) {
 		if (DayOfWeek.values().length < id)
 			throw new RuntimeException("DayOfWeek invalid");
