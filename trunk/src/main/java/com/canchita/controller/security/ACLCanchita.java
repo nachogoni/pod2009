@@ -77,6 +77,11 @@ public class ACLCanchita implements ACL<User, String> {
 		this.addACL("/scoresystem/ShowScoreSystem", administrator);
 		this.addACL("/scoresystem/modify", administrator);
 		
+		this.addACL("/ListExpirationPolicy", administrator);
+		this.addACL("/ModifyExpirationPolicy", administrator);
+		this.addACL("/AddExpirationPolicy", administrator);
+		this.addACL("/DeleteExpirationPolicy", administrator);
+		
 		this.resources.add("img");
 		this.resources.add("js");
 		this.resources.add("css");

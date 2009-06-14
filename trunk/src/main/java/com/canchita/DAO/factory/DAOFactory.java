@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import com.canchita.DAO.db.BookingDB;
 import com.canchita.DAO.db.ComplexDB;
+import com.canchita.DAO.db.ExpirationDB;
 import com.canchita.DAO.db.FieldDB;
 import com.canchita.DAO.db.RegisterDB;
 import com.canchita.DAO.db.ScoreSystemDB;
@@ -32,7 +33,9 @@ public class DAOFactory {
 		USER(UserDB.class),
 		REGISTER(RegisterDB.class),
 		SCORE_SYSTEM(ScoreSystemDB.class),
-		TIME_TABLE(TimetableDB.class);
+		TIME_TABLE(TimetableDB.class),
+		EXPIRATION(ExpirationDB.class);
+		
 		private Method factoryMethod;
 		
 		DAO(Class<?> clazz) {

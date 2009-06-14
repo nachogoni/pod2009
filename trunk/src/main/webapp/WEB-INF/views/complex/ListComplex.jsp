@@ -142,6 +142,10 @@
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="viewDetails" value="Detalles" />
 								</form>
+								<form action="<c:out value="${baseURI}" />/ListExpirationPolicy" method="get">
+								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+								<input type="submit" name="expirationPolicy" value="Ver expiración" />
+								</form>
 							</td>
 						</tr>
 						

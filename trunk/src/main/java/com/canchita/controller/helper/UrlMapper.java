@@ -77,6 +77,16 @@ public class UrlMapper {
 		successForward.put("ShowScoreSystemGET", FORWARD_ROOT_DIR
 				+ "scoresystem/ShowScoreSystem.jsp");
 
+		// ExpirationPolicy
+		successForward.put("ListExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "complex/ListExpirationPolicy.jsp");
+		successForward.put("AddExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "complex/AddExpirationPolicy.jsp");
+		successForward.put("ModifyExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "complex/ModifyExpirationPolicy.jsp");
+		successForward.put("ModifyExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "complex/ListExpirationPolicy.jsp");
+
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
@@ -100,7 +110,7 @@ public class UrlMapper {
 		successForward.put("DetailedViewComplexGET", FORWARD_ROOT_DIR
 				+ "complex/ViewComplex.jsp");
 
-		//Bookings
+		// Bookings
 		successForward.put("AddBookingGET", FORWARD_ROOT_DIR
 				+ "field/AddBooking.jsp");
 		successForward.put("AddBookingPOST", FORWARD_ROOT_DIR
@@ -109,7 +119,7 @@ public class UrlMapper {
 				+ "field/AddManyBookings.jsp");
 		successForward.put("AddManyBookingsPOST", FORWARD_ROOT_DIR
 				+ "field/AddManyBookings.jsp");
-		//Errors
+		// Errors
 		successForward.put("Error404GET", FORWARD_ROOT_DIR + "error/404.jsp");
 		successForward.put("Error500GET", FORWARD_ROOT_DIR + "error/500.jsp");
 		successForward.put("ErrorExceptionGET", FORWARD_ROOT_DIR
@@ -127,6 +137,17 @@ public class UrlMapper {
 		// ScoreSystem
 		successRedirect.put("ModifyScoreSystemPOST",
 				"/tp-pod/scoresystem/ShowScoreSystem?modify=true");
+
+		successRedirect.put("ModifyScoreSystemPOST",
+				"/tp-pod/ListComplex?modify=true");
+
+		// ExpirationPolicy
+		successRedirect.put("ModifyExpirationPolicyPOST",
+				"/tp-pod/ListComplex?modifyPolicy=true");
+		successRedirect.put("AddExpirationPolicyPOST",
+				"/tp-pod/ListComplex?addPolicy=true");
+		successRedirect.put("DeleteExpirationPolicyPOST",
+				"/tp-pod/ListComplex?deletePolicy=true");
 
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
@@ -190,11 +211,23 @@ public class UrlMapper {
 				+ "field/AddManyBookings.jsp");
 
 		// ScoreSystem
-		failureForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR +
-				"scoresystem/ModifyScoreSystem.jsp");
-		failureForward.put("ModifyScoreSystemPOST", FORWARD_ROOT_DIR +
-		"scoresystem/ModifyScoreSystem.jsp");
-		
+		failureForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR
+				+ "scoresystem/ModifyScoreSystem.jsp");
+		failureForward.put("ModifyScoreSystemPOST", FORWARD_ROOT_DIR
+				+ "scoresystem/ModifyScoreSystem.jsp");
+
+		// ExpirationPolicy
+		failureForward.put("ListExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "complex/ListExpirationPolicy.jsp");
+		failureForward.put("AddExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "complex/AddExpirationPolicy.jsp");
+		failureForward.put("AddExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "complex/AddExpirationPolicy.jsp");
+		failureForward.put("ModifyExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "complex/ModifyExpirationPolicy.jsp");
+		failureForward.put("ModifyExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "complex/ModifyExpirationPolicy.jsp");
+
 		// Field
 		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR
 				+ "field/ListField.jsp");
@@ -215,6 +248,9 @@ public class UrlMapper {
 
 		// User
 		failureRedirect.put("FinishRegisterGET", "/tp-pod/");
+
+		failureRedirect.put("DeleteExpirationPolicyPOST",
+				"/tp-pod/ListComplex?delete=false");
 
 		failureRedirect.put("DeleteComplexPOST",
 				"/tp-pod/ListComplex?delete=false");
@@ -402,8 +438,9 @@ public class UrlMapper {
 		return params;
 	}
 
-	public static void sendHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public static void sendHome(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		response.sendRedirect("/tp-pod/user/home");
-		
+
 	}
 }

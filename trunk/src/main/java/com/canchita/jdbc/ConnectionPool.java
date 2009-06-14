@@ -16,6 +16,7 @@ public class ConnectionPool {
 	private ConnectionPool() {
 		openedConnectionManagers = new ArrayList<ConnectionManager>();
 		freeConnectionManagers = new ArrayList<ConnectionManager>();
+
 		for (int i = 0; i < 4; i++) {
 			freeConnectionManagers.add(new ConnectionManager());
 		}

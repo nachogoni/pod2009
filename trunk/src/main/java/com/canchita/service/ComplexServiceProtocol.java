@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.joda.time.DateTime;
 
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
@@ -33,6 +34,12 @@ public interface ComplexServiceProtocol {
 
 	public Complex getById(Long id) throws PersistenceException;
 
+	public Expiration getExpirationPolicy(Long complexId, int score)
+			throws PersistenceException;
+
+	public Expiration getExpirationPolicy(Long expirationId)
+			throws PersistenceException;
+
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException,
 			InvalidParameterException;
@@ -43,5 +50,18 @@ public interface ComplexServiceProtocol {
 			DateTime startFri, DateTime endFri, DateTime startSat,
 			DateTime endSat, DateTime startSun, DateTime endSun)
 			throws InvalidScheduleException, PersistenceException;
+
+	Collection<Expiration> listExpirationPolicies(Long complexId)
+			throws PersistenceException;
+
+	public void updateExpirationPolicy(Long id, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException;
+
+	public void setExpirationPolicy(Long id, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException;
+
+	public void deleteExpirationPolicy(Long id) throws PersistenceException;
 
 }

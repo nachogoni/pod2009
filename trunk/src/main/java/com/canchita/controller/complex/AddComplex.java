@@ -19,6 +19,7 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.service.ComplexService;
 import com.canchita.service.ComplexService.ComplexBuilder;
 import com.canchita.views.helpers.form.FormHandler;
 
@@ -146,7 +147,7 @@ public class AddComplex extends GenericServlet {
 				DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm");
 				String aDay = null;
 
-				//TODO: Refactor esto!
+				// TODO: Refactor esto!
 				for (int i = 0; i < daysOfWeek.length; i++) {
 
 					aDay = request.getParameter(daysOfWeek[i]);
@@ -168,9 +169,6 @@ public class AddComplex extends GenericServlet {
 				ComplexBuilder.Build(name, description, address, zipCode,
 						neighbourhood, town, state, country);
 
-				logger.debug("Se agrega expiration");
-				ComplexBuilder.addExpiration(bookingLimit, depositLimit);
-
 				logger.debug("Se agrega timetable");
 				ComplexBuilder.addTimeTable(schedule.get(0), schedule.get(1),
 						schedule.get(2), schedule.get(3), schedule.get(4),
@@ -182,9 +180,15 @@ public class AddComplex extends GenericServlet {
 				ComplexBuilder.addTelephones(telephones);
 
 				logger.debug("Se salva");
-				ComplexBuilder.saveComplex();
 
-			// TODO loguear los errores
+				// lo salvo primero para que se salve el id
+				ComplexBuilder.saveComplex();
+				
+				logger.debug("Se carga la política de expiración");
+				ComplexBuilder.setExpirationPolicy(0, Integer.MAX_VALUE,
+						bookingLimit, depositLimit);
+
+				// TODO loguear los errores
 			} catch (ElementExistsException ee) {
 				error.add(ee);
 				ee.printStackTrace();
