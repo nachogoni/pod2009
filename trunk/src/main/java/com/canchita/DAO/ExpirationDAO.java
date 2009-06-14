@@ -32,4 +32,10 @@ public interface ExpirationDAO {
 
 	public boolean exists(Long id);
 
+	public Expiration getDefaultForComplex(Long id) throws ElementNotExistsException;
+
+	public void updateDefault(Long complexId, Integer bookingLimit,
+			Integer depositLimit) throws ElementNotExistsException,
+			PersistenceException;
+
 }

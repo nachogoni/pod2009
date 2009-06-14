@@ -526,9 +526,23 @@ public class ComplexService implements ComplexServiceProtocol {
 		expirationDAO.update(expiration);
 
 	}
-	
+
 	public void deleteExpirationPolicy(Long id) throws PersistenceException {
 		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
 		expirationDAO.delete(id);
+	}
+
+	public Expiration getDefaultExpirationPolicy(Long id)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+
+		return expirationDAO.getDefaultForComplex(id);
+	}
+
+	public void setDefaultExpiration(Long complexId, Integer bookingLimit,
+			Integer depositLimit) throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		expirationDAO.updateDefault(complexId, bookingLimit, depositLimit);
+		
 	}
 }

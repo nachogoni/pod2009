@@ -13,66 +13,13 @@
 
 <h1>Políticas de expiración</h1>
 
-<%-- TODO generalizar esto --%>
-
-<c:if test="${(param.add != null)}">
-
-	<c:choose>
-	  <c:when test="${param.add}">
-	    <c:set var="addMsg" scope="page" value="La política fue agregada exitosamente"/>
-	  </c:when>
-	  <c:otherwise>
-	    <c:set var="addMsg" scope="page" value="Error al agregar la política"/>
-	  </c:otherwise>
-	</c:choose>
-
-	<div class="ui-state-highlight ui-corner-all info"> 
-			
-		<span class="ui-icon ui-icon-info infoIcon"></span>
-		<span><strong>Información:</strong></span>
-		<span class="block">* <c:out value="${addMsg}" /></span>
-	</div>
-</c:if>
-
-<c:if test="${(param.modify != null)}">
-
-	<c:choose>
-	  <c:when test="${param.modify}">
-	    <c:set var="modifyMsg" scope="page" value="La política fue modificada exitosamente"/>
-	  </c:when>
-	  <c:otherwise>
-	    <c:set var="modifyMsg" scope="page" value="Error al modificar la política"/>
-	  </c:otherwise>
-	</c:choose>
-
-	<div class="ui-state-highlight ui-corner-all info"> 
-			
-		<span class="ui-icon ui-icon-info infoIcon"></span>
-		<span><strong>Información:</strong></span>
-		<span class="block">* <c:out value="${modifyMsg}" /></span>
-	</div>
-</c:if>
-
-
-<c:if test="${(param.delete != null)}">
-
-	<c:choose>
-	  <c:when test="${param.delete}">
-	    <c:set var="deleteMsg" scope="page" value="La política fue eliminada exitosamente."/>
-	  </c:when>
-	  <c:otherwise>
-	    <c:set var="deleteMsg" scope="page" value="Error al eliminar la política de expiración."/>
-	  </c:otherwise>
-	</c:choose>
-
-	<div class="ui-state-highlight ui-corner-all info"> 
-			
-		<span class="ui-icon ui-icon-info infoIcon"></span>
-		<span><strong>Información:</strong></span>
-		<span class="block">* <c:out value="${deleteMsg}" /></span>
-	</div>
-</c:if>
-
+<div class="ui-state-highlight ui-corner-all info"> 
+		
+	<span class="ui-icon ui-icon-info infoIcon"></span>
+	<span><strong>Información:</strong></span>
+	<span class="block">* Recuerde que la política que se aplicará es la última que coincide
+	con el puntaje actual del usuario.</span>
+</div>
 
 <c:choose>
 <c:when test="${(policies != null)}">
@@ -81,8 +28,8 @@
 	<c:when test="${ quantity != 0 }">
 		<table class="policiesTable" border="1">
 			<tr>
-				<td><strong>Desde</strong></td>
-				<td><strong>Hasta</strong></td>
+				<td><strong>Puntaje desde</strong></td>
+				<td><strong>Puntaje hasta</strong></td>
 				<td><strong>Días que soporta en estado señada</strong></td>
 				<td><strong>Días que soporta en estado reservada</strong></td>
 				<td>
@@ -110,10 +57,14 @@
 						<td><c:out value="${policy.bookingLimit}" /></td>
 						
 						<td>
-							<form action="<c:out value="${baseURI}" />/DeleteExpirationPolicy" method="post">
-							<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
-							<input type="submit" class="delete" name="delete" value="Eliminar" />
-							</form>
+							<c:choose>
+								<c:when test="${rowCounter.count > 1 }">
+								<form action="<c:out value="${baseURI}" />/DeleteExpirationPolicy" method="post">
+								<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
+								<input type="submit" class="delete" name="delete" value="Eliminar" />
+								</form>
+								</c:when>
+							</c:choose>
 							<form action="<c:out value="${baseURI}" />/ModifyExpirationPolicy" method="get">
 							<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
 							<input type="submit" name="modify" value="Modificar" />

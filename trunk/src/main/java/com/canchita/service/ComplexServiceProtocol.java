@@ -64,4 +64,7 @@ public interface ComplexServiceProtocol {
 
 	public void deleteExpirationPolicy(Long id) throws PersistenceException;
 
+	public Expiration getDefaultExpirationPolicy(Long id)
+			throws PersistenceException;
+
 }

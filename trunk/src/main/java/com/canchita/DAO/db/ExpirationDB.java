@@ -50,7 +50,7 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 	public Collection<Expiration> getAll() {
 		String query = "SELECT \"expiration_policy_id\", \"from_score\","
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
-				+ " FROM EXPIRATION_POLICY";
+				+ " FROM EXPIRATION_POLICY ORDER BY \"expiration_policy_id\" ASC";
 
 		List<Expiration> results = executeQuery(query, new Object[] {},
 				ExpirationBuilder.getInstance());
@@ -62,7 +62,8 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 	public Collection<Expiration> getAll(Field field) {
 		String query = "SELECT \"expiration_policy_id\", \"from_score\","
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
-				+ " FROM EXPIRATION_POLICY WHERE \"field_id\" = ?";
+				+ " FROM EXPIRATION_POLICY WHERE \"field_id\" = ? "
+				+ "ORDER BY \"expiration_policy_id\" ASC";
 
 		List<Expiration> results = executeQuery(query, new Object[] { field
 				.getId() }, ExpirationBuilder.getInstance());
@@ -74,7 +75,8 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 	public Collection<Expiration> getAll(Complex complex) {
 		String query = "SELECT \"expiration_policy_id\", \"from_score\","
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
-				+ " FROM EXPIRATION_POLICY WHERE \"complex_id\" = ?";
+				+ " FROM EXPIRATION_POLICY WHERE \"complex_id\" = ?"
+				+ "ORDER BY \"expiration_policy_id\" ASC";
 
 		List<Expiration> results = executeQuery(query, new Object[] { complex
 				.getId() }, ExpirationBuilder.getInstance());
@@ -101,7 +103,8 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 		String query = "SELECT \"expiration_policy_id\", \"from_score\","
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
 				+ " FROM EXPIRATION_POLICY WHERE \"field_id\" = ? AND "
-				+ "\"from_score\" <= ? AND" + "\"to_score\" >= ?";
+				+ "\"from_score\" <= ? AND" + "\"to_score\" >= ?"
+				+ "ORDER BY \"expiration_policy_id\" ASC";
 
 		List<Expiration> results = executeQuery(query, new Object[] {
 				field.getId(), score, score }, ExpirationBuilder.getInstance());
@@ -123,7 +126,7 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
 				+ " FROM EXPIRATION_POLICY WHERE \"complex_id\" = ? AND \"field_id\" "
 				+ "IS NULL AND" + "\"from_score\" <= ? AND"
-				+ "\"to_score\" >= ?";
+				+ "\"to_score\" >= ?" + "ORDER BY \"expiration_policy_id\" ASC";
 
 		List<Expiration> results = executeQuery(query, new Object[] {
 				complex.getId(), score, score }, ExpirationBuilder
@@ -169,5 +172,31 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 				expiration.getScoreTo(), expiration.getDepositLimit(),
 				expiration.getBookingLimit(), expiration.getId() });
 
+	}
+
+	@Override
+	public Expiration getDefaultForComplex(Long id)
+			throws ElementNotExistsException {
+		String query = "SELECT \"expiration_policy_id\", \"from_score\","
+				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
+				+ " FROM EXPIRATION_POLICY WHERE " + "\"complex_id\" = ?"
+				+ "ORDER BY \"expiration_policy_id\" ASC";
+
+		List<Expiration> results = executeQuery(query, new Object[] { id },
+				ExpirationBuilder.getInstance());
+
+		if (results.size() == 0)
+			throw new ElementNotExistsException();
+
+		return results.get(0);
+	}
+
+	@Override
+	public void updateDefault(Long complexId, Integer bookingLimit,
+			Integer depositLimit) throws PersistenceException {
+		Expiration expiration = getDefaultForComplex(complexId);
+		expiration.setBookingLimit(bookingLimit);
+		expiration.setDepositLimit(depositLimit);
+		update(expiration);
 	}
 }
