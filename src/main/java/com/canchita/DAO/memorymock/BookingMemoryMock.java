@@ -71,7 +71,7 @@ public class BookingMemoryMock implements BookingDAO {
 	}
 
 	@Override
-	public void save(Booking booking) throws PersistenceException {
+	public Booking save(Booking booking) throws PersistenceException {
 
 		/*
 		 * TODO esto ESTA HORRIBLE estaria increible tener la interfaz
@@ -93,6 +93,8 @@ public class BookingMemoryMock implements BookingDAO {
 		this.internalSave(BOOKING_ID, booking);
 
 		booking.setId(BOOKING_ID++);
+		
+		return booking;
 
 	}
 

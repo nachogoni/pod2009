@@ -21,25 +21,38 @@ public class Booking {
 	private CommonUser owner;
 	private BookingStatus state;
 	private Schedule schedule;
+	private float cost;
+	private float paid;
 
 	public Booking(Long id) {
 		this.setId(id);
 	}
 
 	public Booking(Long id, Bookable item, CommonUser owner, long state,
-			Schedule schedule) {
+			Schedule schedule, float cost, float paid) {
 		this.id = id;
 		this.item = item;
 		this.owner = owner;
 		this.state = BookingStatus.fromId(state);
 		this.schedule = schedule;
+		this.cost = cost;
+		this.paid = paid;
+	}
+
+	public Booking(Bookable item, Schedule schedule, CommonUser owner) {
+		
+		this(item,schedule);	
+		this.owner = owner;
 	}
 
 	public Booking(Bookable item, Schedule schedule) {
 		this.item = item;
 		this.schedule = schedule;
+		this.state = BookingStatus.BOOKED;
+		this.cost = item.getPrice();
+		this.paid = 0.0f;
 	}
-
+	
 	public void cancel() {
 
 	}
@@ -137,5 +150,15 @@ public class Booking {
 	public CommonUser getOwner() {
 		return owner;
 	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public double getPaid() {
+		return paid;
+	}
+	
+	
 
 }

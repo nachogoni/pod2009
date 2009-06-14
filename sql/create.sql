@@ -237,7 +237,10 @@ CREATE  TABLE "RESERVATION" (
   "state" INT NOT NULL ,
   "start_date" TIMESTAMP NOT NULL ,
   "end_date" TIMESTAMP NOT NULL ,
+  "cost" FLOAT NOT NULL ,
+  "paid" FLOAT NOT NULL ,
   PRIMARY KEY ("reservation_id") ,
+  CONSTRAINT booking_unique UNIQUE ("field_id", "start_date", "end_date"),
   CONSTRAINT "fk_has_COMPLEX_has_FIELD_USERS"
     FOREIGN KEY ("user_id" )
     REFERENCES "USERS" ("user_id" ) ,

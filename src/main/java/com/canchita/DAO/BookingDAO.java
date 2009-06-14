@@ -10,7 +10,7 @@ import com.canchita.model.exception.PersistenceException;
 
 public interface BookingDAO {
 
-	public void save(Booking booking) throws PersistenceException;
+	public Booking save(Booking booking) throws PersistenceException;
 
 	public Booking getById(Long id) throws ElementNotExistsException;
 

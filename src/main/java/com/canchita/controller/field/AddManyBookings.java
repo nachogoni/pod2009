@@ -1,6 +1,8 @@
 package com.canchita.controller.field;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +30,7 @@ import com.canchita.service.FieldServiceProtocol;
 /**
  * Servlet implementation class AddBooking
  */
-public class AddBooking extends GenericServlet {
+public class AddManyBookings extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -79,12 +81,19 @@ public class AddBooking extends GenericServlet {
 
 		logger.debug("POST request");
 
+		/*
+		 * TODO falta agregar el manejo de 23:00 00:00 igual creo que el jugo es
+		 * poner que atiende de 23:00 a 00:00 siendo 00:00 el mismo dia en el
+		 * horario de la cancha (o quizas no) VERLO BIEN
+		 */
+
 		Long id = null;
-		DateTime date = null;
-		DateTime startTime, endTime;
+		DateTime from = null,to = null;
+		DateTime startTimeFrom, endTimeFrom,startTimeTo,endTimeTo;
 
 		String idParameter = request.getParameter("id");
-		String dateParameter = request.getParameter("date");
+		String fromParameter = request.getParameter("from");
+		String toParameter = request.getParameter("to");
 		String whenParameter = request.getParameter("when");
 
 		ErrorManager error = new ErrorManager();
@@ -110,7 +119,7 @@ public class AddBooking extends GenericServlet {
 
 		request.setAttribute("field", field);
 
-		if (dateParameter == null || dateParameter.equals("")) {
+		if (fromParameter == null || fromParameter.equals("")) {
 			error.add("Falta la fecha de reserva");
 		}
 
@@ -124,16 +133,23 @@ public class AddBooking extends GenericServlet {
 			return;
 		}
 
-
 		DateTimeFormatter parser = DateTimeFormat.forPattern("dd/MM/yyyy");
 
 		try {
-			date = parser.parseDateTime(dateParameter);
+			from = parser.parseDateTime(fromParameter);
 		} catch (Exception e) {
 			error
-					.add("La fecha está en un formato inválido, debe ser de la forma \"dd/mm/yyyy\"");
+					.add("La fecha desde está en un formato inválido, debe ser de la forma \"dd/mm/yyyy\"");
 		}
 
+		try {
+			to = parser.parseDateTime(toParameter);
+		} catch (Exception e) {
+			error
+					.add("La fecha hasta está en un formato inválido, debe ser de la forma \"dd/mm/yyyy\"");
+		}
+
+		
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
 			this.failurePOST(request, response, error);
@@ -142,11 +158,15 @@ public class AddBooking extends GenericServlet {
 
 		String[] when = whenParameter.split(" ");
 		try {
-			startTime = this.getDate(date, when[0]);
-			endTime = this.getDate(date, when[1]);
+			startTimeFrom = this.getDate(from, when[0]);
+			endTimeFrom = this.getDate(from, when[1]);
+			
+			startTimeTo = this.getDate(to, when[0]);
+			endTimeTo = this.getDate(to, when[1]);
 			
 			if( when[1].equals("00:00") ) {
-				endTime = endTime.plusDays(1);
+				endTimeFrom = endTimeFrom.plusDays(1);
+				endTimeTo = endTimeTo.plusDays(1);
 			}
 			
 		} catch (Exception e) {
@@ -158,12 +178,10 @@ public class AddBooking extends GenericServlet {
 		}
 
 		BookingServiceProtocol bookingService = new BookingService();
-		Booking booking = null;
-		
 		CommonUser user = (CommonUser) request.getSession().getAttribute("user");
-		
+		List<Booking> bookings = null;
 		try {
-			booking = bookingService.saveBooking(user,id, startTime, endTime);
+			bookings = bookingService.saveManyBookings(user,id, startTimeFrom, endTimeFrom,startTimeTo,endTimeTo);
 		} catch (ElementExistsException e) {
 			error.add(e);
 		} catch (ElementNotExistsException ene) {
@@ -179,9 +197,9 @@ public class AddBooking extends GenericServlet {
 			this.failurePOST(request, response, error);
 			return;
 		}
-		
+
 		request.setAttribute("success", true);
-		request.setAttribute("booking", booking);
+		request.setAttribute("bookings", bookings);
 		
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.POST);

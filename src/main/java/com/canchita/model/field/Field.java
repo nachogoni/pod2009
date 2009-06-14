@@ -20,6 +20,7 @@ import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
+import com.canchita.model.user.CommonUser;
 
 /**
  * 
@@ -140,21 +141,20 @@ public class Field implements Bookable {
 
 	}
 
-	public Booking book(Schedule hour) throws PersistenceException,
+	@Override
+	public Booking book(CommonUser user, Schedule hour) throws PersistenceException,
 			BookingException {
 
-		Booking booking = new Booking(this, hour);
+		Booking booking = new Booking(this, hour, user);
 
-		if (!this.inAvailableHours(booking)) {
-			throw new BookingException(
-					"La cancha no está disponible en este horario");
-		}
+//		if (!this.inAvailableHours(booking)) {
+//			throw new BookingException(
+//					"La cancha no está disponible en este horario");
+//		}
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
-		bookingDAO.save(booking);
-
-		return booking;
+		return bookingDAO.save(booking);
 	}
 
 	private boolean inAvailableHours(Booking booking) {
@@ -166,9 +166,9 @@ public class Field implements Bookable {
 			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-
+		
 		Iterator<Booking> bookings = bookingDAO.getFieldBookings(this.id, date);
-
+		
 		Iterator<Schedule> availability = complex.getScheduleForDay(date);
 
 		return this.getAvailableHours(date, bookings, availability);
@@ -340,6 +340,7 @@ public class Field implements Bookable {
 		this.price = price;
 	}
 
+	@Override
 	public float getPrice() {
 		return price;
 	}
