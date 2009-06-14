@@ -2,6 +2,7 @@ package com.canchita.controller.complex;
 
 import java.util.ArrayList;
 
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.form.Decorator;
 import com.canchita.views.helpers.form.FormElementButton;
@@ -261,7 +262,7 @@ public class FormAddComplex extends FormHandler {
 		
 	}
 
-	public FormAddComplex(Complex aComplex) {
+	public FormAddComplex(Complex aComplex, Expiration policy) {
 		this();
 
 		String aux;
@@ -316,17 +317,18 @@ public class FormAddComplex extends FormHandler {
 		if (aux != null)
 			data.add(new Pair<String, String>("country",aux));
 		
-		if (aComplex.getExpiration() != null) {
+		if (policy != null) {
 			
-			iaux = aComplex.getExpiration().getDepositLimit();
+			iaux = policy.getDepositLimit();
 			if (iaux != null)
 				data.add(new Pair<String, String>("depositLimit",String.valueOf(iaux)));
 			
-			iaux = aComplex.getExpiration().getBookingLimit();
+			iaux = policy.getBookingLimit();
 			if (iaux != null)
 				data.add(new Pair<String, String>("bookingLimit",String.valueOf(iaux)));
-		}		
+		}
 		
 		this.populate(data);
 	}
+
 }

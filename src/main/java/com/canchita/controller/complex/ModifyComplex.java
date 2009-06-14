@@ -61,7 +61,8 @@ public class ModifyComplex extends GenericServlet {
 
 		logger.debug("Buscando información del complejo " + id);
 		try {
-			formulario = new FormAddComplex(service.getById(id));
+			formulario = new FormAddComplex(service.getById(id), service
+					.getDefaultExpirationPolicy(id));
 		} catch (PersistenceException e) {
 			error.add(e);
 			logger.error("Error buscando información del complejo " + id);
@@ -120,7 +121,7 @@ public class ModifyComplex extends GenericServlet {
 		String neighbourhood = request.getParameter("neighbourhood");
 		String country = request.getParameter("country");
 		String address = request.getParameter("address");
-		//TODO: ver cómo poner sólo los que faltan en la db.
+		// TODO: ver cómo poner sólo los que faltan en la db.
 		String telephones[] = request.getParameterValues("telephone");
 
 		if (name == null) {
@@ -175,7 +176,7 @@ public class ModifyComplex extends GenericServlet {
 			DateTimeFormatter parser = DateTimeFormat.forPattern("HH:mm");
 			String aDay = null;
 
-			//TODO: Refactor esto!
+			// TODO: Refactor esto!
 			for (int i = 0; i < daysOfWeek.length; i++) {
 
 				aDay = request.getParameter(daysOfWeek[i]);
@@ -194,7 +195,8 @@ public class ModifyComplex extends GenericServlet {
 		try {
 			modifyService.updateComplex(id, name, description, address,
 					zipCode, neighbourhood, town, state, country);
-			modifyService.addExpiration(id, bookingLimit, depositLimit);
+			modifyService.setDefaultExpiration(id, bookingLimit, depositLimit);
+			//modifyService.addExpiration(id, bookingLimit, depositLimit);
 			modifyService.addTimeTable(id, schedule.get(0), schedule.get(1),
 					schedule.get(2), schedule.get(3), schedule.get(4), schedule
 							.get(5), schedule.get(6), schedule.get(7), schedule
