@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.ComplexDAO;
+import com.canchita.DAO.ExpirationDAO;
 import com.canchita.DAO.db.TimetableDB;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
@@ -192,6 +193,28 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		}
 
+		public static void setExpirationPolicy(Integer scoreFrom,
+				Integer scoreTo, Integer downBooking, Integer downDeposit)
+				throws PersistenceException {
+
+			if (downBooking == null || downBooking < 0 || downDeposit == null
+					|| downDeposit < 0)
+				throw new IllegalArgumentException(
+						"Valores de caducidad inválidos");
+
+			if (downDeposit < downBooking) {
+				throw new IllegalArgumentException(
+						"El valor de caducidad de seña no puede ser menor al "
+								+ "valor de caducidad de la reserva");
+			}
+
+			Expiration expiration = new Expiration(0, scoreFrom, scoreTo,
+					downDeposit, downBooking);
+			ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+			expirationDAO.save(aComplex, expiration);
+
+		}
+
 		public static void addTimeTable(DateTime startMon, DateTime endMon,
 				DateTime startTues, DateTime endTues, DateTime startWed,
 				DateTime endWed, DateTime startThurs, DateTime endThurs,
@@ -287,30 +310,29 @@ public class ComplexService implements ComplexServiceProtocol {
 
 				ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
-				//Guardo los tels
+				// Guardo los tels
 				List<String> phones = aComplex.getPhones();
-				//Guardo el calendario
+				// Guardo el calendario
 				Calendar aCalendar = aComplex.getTimeTable();
 
-				//Salvo el complejo
+				// Salvo el complejo
 				complexDAO.save(aComplex);
 
-				//Recupero Unique
+				// Recupero Unique
 				aComplex = complexDAO.getByPlace(aComplex.getPlace());
-				
-				//Agrego los teléfonos.
-				for (String phone : phones ) {
-					complexDAO.addPhone(aComplex, phone);	
+
+				// Agrego los teléfonos.
+				for (String phone : phones) {
+					complexDAO.addPhone(aComplex, phone);
 				}
 
-				//Agrego el calendario.
-				//HACK: debería hacerse con el get(DAO.TIMETABLE)
-				//pero no lo pude hacer andar :(
-				for(Availability av : aCalendar.getAvailabilities()) {
-					TimetableDB.getInstance().save(av, aComplex.getId());	
+				// Agrego el calendario.
+				// HACK: debería hacerse con el get(DAO.TIMETABLE)
+				// pero no lo pude hacer andar :(
+				for (Availability av : aCalendar.getAvailabilities()) {
+					TimetableDB.getInstance().save(av, aComplex.getId());
 				}
-				
-				
+
 			} catch (PersistenceException e) {
 				throw e;
 			}
@@ -318,11 +340,12 @@ public class ComplexService implements ComplexServiceProtocol {
 			return aComplex.getId();
 
 		}
+
 		public static void addTelephones(String[] telephones) {
 			for (String telephone : telephones) {
-				aComplex.setPhone(telephone);	
+				aComplex.setPhone(telephone);
 			}
-			
+
 		}
 	}
 
@@ -430,6 +453,7 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 
 	@Override
+	@Deprecated
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException {
 		Expiration anExpiration = new Expiration();
@@ -450,11 +474,61 @@ public class ComplexService implements ComplexServiceProtocol {
 			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
 			Complex aComplex = complexDAO.getById(id);
-			aComplex.setExpiration(anExpiration);
-			complexDAO.update(aComplex);
+
 		} catch (Exception e) {
 			throw new PersistenceException("Complejo no encontrado");
 		}
 
+	}
+
+	@Override
+	public Expiration getExpirationPolicy(Long complexId, int score)
+			throws PersistenceException {
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+
+		Complex complex = complexDAO.getById(complexId);
+		return expirationDAO.getByScore(complex, score);
+	}
+
+	@Override
+	public Collection<Expiration> listExpirationPolicies(Long complexId)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		Complex complex = new Complex(complexId);
+		return expirationDAO.getAll(complex);
+
+	}
+
+	public Expiration getExpirationPolicy(Long expirationId)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		return expirationDAO.getById(expirationId);
+	}
+
+	public void setExpirationPolicy(Long id, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException {
+		Complex complex = new Complex(id);
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		Expiration expiration = new Expiration(id, scoreFrom, scoreTo,
+				downDeposit, downBooking);
+		expirationDAO.save(complex, expiration);
+
+	}
+
+	public void updateExpirationPolicy(Long id, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		Expiration expiration = new Expiration(id, scoreFrom, scoreTo,
+				downDeposit, downBooking);
+		expirationDAO.update(expiration);
+
+	}
+	
+	public void deleteExpirationPolicy(Long id) throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		expirationDAO.delete(id);
 	}
 }

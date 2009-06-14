@@ -95,9 +95,9 @@
 	Césped sintético
     <input id="floorTypeGrass" type="radio" name="floorType" value="1"/>
 	Césped
-    <input id="floorTypeArtificial" type="radio" name="floorType" value="2"/>
+    <input id="floorTypeArtificial" type="radio" name="floorType" value="3"/>
 	Concreto
-    <input id="floorTypeConcrete" type="radio" name="floorType" value="3"/>
+    <input id="floorTypeConcrete" type="radio" name="floorType" value="2"/>
 	<input type="submit" name="search" value="Buscar" class="submit-go" />
 	</fieldset>
 </form>

@@ -113,6 +113,34 @@
 		<servlet-class>
 			com.canchita.controller.scoresystem.ShowScoreSystem</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>DeleteExpirationPolicy</servlet-name>
+		<display-name>DeleteExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.complex.DeleteExpirationPolicy</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ListExpirationPolicy</servlet-name>
+		<display-name>ListExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.complex.ListExpirationPolicy</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddExpirationPolicy</servlet-name>
+		<display-name>AddExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.complex.AddExpirationPolicy</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ModifyExpirationPolicy</servlet-name>
+		<display-name>ModifyExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.complex.ModifyExpirationPolicy</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>ListField</servlet-name>
 		<display-name>ListField</display-name>
@@ -319,9 +347,25 @@
 		<servlet-name>ModifyScoreSystem</servlet-name>
 		<url-pattern>/scoresystem/modify</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>ShowScoreSystem</servlet-name>
 		<url-pattern>/scoresystem/ShowScoreSystem</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListExpirationPolicy</servlet-name>
+		<url-pattern>/ListExpirationPolicy</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteExpirationPolicy</servlet-name>
+		<url-pattern>/DeleteExpirationPolicy</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModifyExpirationPolicy</servlet-name>
+		<url-pattern>/ModifyExpirationPolicy</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddExpirationPolicy</servlet-name>
+		<url-pattern>/AddExpirationPolicy</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DetailedViewComplex</servlet-name>

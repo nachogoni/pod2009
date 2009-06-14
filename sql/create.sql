@@ -159,20 +159,25 @@ SELECT timetable_sequence.nextval INTO :NEW."timetable_id" FROM dual;
 END;
 /
 
-CREATE  TABLE "EXPIRATION_POLICY" (
+CREATE TABLE "EXPIRATION_POLICY" (
   "expiration_policy_id" INT NOT NULL ,
-  "field_id" INT NOT NULL ,
+  "complex_id" INT NOT NULL ,
+  "field_id" INT ,
   "from_score" INT NOT NULL ,
   "to_score" INT NOT NULL ,
   "days_being_half_signed" INT NOT NULL ,
   "days_being_reserved" INT NOT NULL ,
   PRIMARY KEY ("expiration_policy_id") ,
+  CONSTRAINT "fk_EXPIRATION_POLICY_COMPLEX"
+  	FOREIGN KEY ("complex_id")
+  	REFERENCES "COMPLEX" ("complex_id")
+  	ON DELETE CASCADE,
   CONSTRAINT "fk_EXPIRATION_POLICY_FIELD"
     FOREIGN KEY ("field_id" )
     REFERENCES "FIELD" ("field_id" )
     ON DELETE CASCADE );
 
-CREATE INDEX "fk_EXPIRATION_POLICY_FIELD" ON "EXPIRATION_POLICY" ("field_id" ASC);
+CREATE INDEX "fk_EXPIRATION_POLICY_FIELD" ON "EXPIRATION_POLICY" ("complex_id" ASC);
 
 CREATE SEQUENCE expiration_policy_sequence START WITH 1 INCREMENT BY 1;
 

@@ -29,26 +29,32 @@ import com.canchita.model.location.Place;
  */
 public class Complex implements Booker {
 
+	static final int defaultBookingLimit = 2;
+	static final int defaultDepositLimit = 1;
+
 	private String name;
 	private Place place;
 	private String description;
 	private Calendar timeTable;
 	private List<Field> fields;
-	private Expiration expiration;
 	private Long id;
 	private String email;
 	private Blob picture;
 	private String fax;
 	protected List<String> phones;
-
-	public static List<Complex> list() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private List<Expiration> expirationPolicies;
+	private Expiration expiration;
 
 	public Complex(String name) {
 		this.setName(name);
 		this.phones = new LinkedList<String>();
+
+		expiration = new Expiration();
+		expiration.setScoreFrom(0);
+		expiration.setScoreTo(Integer.MAX_VALUE);
+		expiration.setBookingLimit(defaultBookingLimit);
+		expiration.setDepositLimit(defaultDepositLimit);
+
 	}
 
 	public Complex(Integer id, String name, String description, String address,
@@ -58,19 +64,35 @@ public class Complex implements Booker {
 		this.id = new Long(id);
 		this.name = name;
 		this.description = description;
-		this.place = (new Place.Builder(address, neighbourhood).country(country)
-				.latitude(latitude).longitude(longitude).town(city)
-				.state(state).zipCode(zipCode)).build();
+		this.place = (new Place.Builder(address, neighbourhood)
+				.country(country).latitude(latitude).longitude(longitude).town(
+						city).state(state).zipCode(zipCode)).build();
 		this.email = email;
 		this.fax = fax;
 		this.setPicture(picture);
 		this.phones = new LinkedList<String>();
-
+		
+		expiration = new Expiration();
+		expiration.setScoreFrom(0);
+		expiration.setScoreTo(Integer.MAX_VALUE);
+		expiration.setBookingLimit(defaultBookingLimit);
+		expiration.setDepositLimit(defaultDepositLimit);
 	}
 
 	public Complex(long complexID) {
 		this.id = complexID;
 		this.phones = new LinkedList<String>();
+		
+		expiration = new Expiration();
+		expiration.setScoreFrom(0);
+		expiration.setScoreTo(Integer.MAX_VALUE);
+		expiration.setBookingLimit(defaultBookingLimit);
+		expiration.setDepositLimit(defaultDepositLimit);
+	}
+
+	public static List<Complex> list() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public String getFax() {
@@ -219,14 +241,6 @@ public class Complex implements Booker {
 		this.fields = fields;
 	}
 
-	public void setExpiration(Expiration expiration) {
-		this.expiration = expiration;
-	}
-
-	public Expiration getExpiration() {
-		return expiration;
-	}
-
 	public void setPlace(Place place) {
 		this.place = place;
 	}
@@ -283,6 +297,22 @@ public class Complex implements Booker {
 
 	public List<String> getPhones() {
 		return phones;
+	}
+
+	public List<Expiration> getExpirationPolicies() {
+		return expirationPolicies;
+	}
+
+	public void setExpirationPolicies(List<Expiration> expirationPolicies) {
+		this.expirationPolicies = expirationPolicies;
+	}
+
+	public Expiration getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(Expiration defaultExpiration) {
+		this.expiration = defaultExpiration;
 	}
 
 }
