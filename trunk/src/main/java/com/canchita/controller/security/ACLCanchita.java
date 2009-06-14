@@ -81,6 +81,10 @@ public class ACLCanchita implements ACL<User, String> {
 		this.addACL("/ModifyExpirationPolicy", administrator);
 		this.addACL("/AddExpirationPolicy", administrator);
 		this.addACL("/DeleteExpirationPolicy", administrator);
+		this.addACL("/field/ListFieldExpirationPolicy", administrator);
+		this.addACL("/field/ModifyFieldExpirationPolicy", administrator);
+		this.addACL("/field/AddFieldExpirationPolicy", administrator);
+		this.addACL("/field/DeleteFieldExpirationPolicy", administrator);
 		
 		this.resources.add("img");
 		this.resources.add("js");

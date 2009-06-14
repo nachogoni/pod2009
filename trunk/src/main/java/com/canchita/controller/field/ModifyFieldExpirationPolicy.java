@@ -1,4 +1,4 @@
-package com.canchita.controller.complex;
+package com.canchita.controller.field;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
-import com.canchita.service.ComplexService;
+import com.canchita.service.FieldService;
 import com.canchita.views.helpers.form.FormHandler;
 
-public class ModifyExpirationPolicy extends GenericServlet {
+public class ModifyFieldExpirationPolicy extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
 	private FormHandler form;
@@ -25,7 +25,7 @@ public class ModifyExpirationPolicy extends GenericServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ModifyExpirationPolicy() {
+	public ModifyFieldExpirationPolicy() {
 		super();
 	}
 
@@ -38,7 +38,7 @@ public class ModifyExpirationPolicy extends GenericServlet {
 
 		logger.debug("GET request");
 
-		ComplexService service = new ComplexService();
+		FieldService service = new FieldService();
 		form = new FormAddExpirationPolicy();
 
 		ErrorManager error = new ErrorManager();
@@ -133,7 +133,7 @@ public class ModifyExpirationPolicy extends GenericServlet {
 		}
 
 		try {
-			ComplexService service = new ComplexService();
+			FieldService service = new FieldService();
 			service.updateExpirationPolicy(Long.valueOf(request
 					.getParameter("id")), scoreFrom, scoreTo, downBooking,
 					downDeposit);

@@ -120,12 +120,26 @@
 		<servlet-class>
 			com.canchita.controller.complex.DeleteExpirationPolicy</servlet-class>
 	</servlet>
+			<servlet>
+		<servlet-name>DeleteFieldExpirationPolicy</servlet-name>
+		<display-name>DeleteFieldExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.field.DeleteFieldExpirationPolicy</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>ListExpirationPolicy</servlet-name>
 		<display-name>ListExpirationPolicy</display-name>
 		<description></description>
 		<servlet-class>
 			com.canchita.controller.complex.ListExpirationPolicy</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>ListFieldExpirationPolicy</servlet-name>
+		<display-name>ListFieldExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.field.ListFieldExpirationPolicy</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddExpirationPolicy</servlet-name>
@@ -134,12 +148,26 @@
 		<servlet-class>
 			com.canchita.controller.complex.AddExpirationPolicy</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>AddFieldExpirationPolicy</servlet-name>
+		<display-name>AddFieldExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.field.AddFieldExpirationPolicy</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>ModifyExpirationPolicy</servlet-name>
 		<display-name>ModifyExpirationPolicy</display-name>
 		<description></description>
 		<servlet-class>
 			com.canchita.controller.complex.ModifyExpirationPolicy</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>ModifyFieldExpirationPolicy</servlet-name>
+		<display-name>ModifyFieldExpirationPolicy</display-name>
+		<description></description>
+		<servlet-class>
+			com.canchita.controller.field.ModifyFieldExpirationPolicy</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ListField</servlet-name>
@@ -355,17 +383,33 @@
 		<servlet-name>ListExpirationPolicy</servlet-name>
 		<url-pattern>/ListExpirationPolicy</url-pattern>
 	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ListFieldExpirationPolicy</servlet-name>
+		<url-pattern>/field/ListFieldExpirationPolicy</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeleteExpirationPolicy</servlet-name>
 		<url-pattern>/DeleteExpirationPolicy</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>DeleteFieldExpirationPolicy</servlet-name>
+		<url-pattern>/field/DeleteFieldExpirationPolicy</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ModifyExpirationPolicy</servlet-name>
 		<url-pattern>/ModifyExpirationPolicy</url-pattern>
 	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ModifyFieldExpirationPolicy</servlet-name>
+		<url-pattern>/field/ModifyFieldExpirationPolicy</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddExpirationPolicy</servlet-name>
 		<url-pattern>/AddExpirationPolicy</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>AddFieldExpirationPolicy</servlet-name>
+		<url-pattern>/field/AddFieldExpirationPolicy</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DetailedViewComplex</servlet-name>

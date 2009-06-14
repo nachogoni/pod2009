@@ -1,4 +1,4 @@
-package com.canchita.controller.complex;
+package com.canchita.controller.field;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -12,16 +12,17 @@ import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
-import com.canchita.service.ComplexService;
-import com.canchita.service.ComplexServiceProtocol;
+import com.canchita.model.booking.Expiration;
+import com.canchita.service.FieldService;
+import com.canchita.service.FieldServiceProtocol;
 
-public class ListExpirationPolicy extends GenericServlet {
+public class ListFieldExpirationPolicy extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ListExpirationPolicy() {
+	public ListFieldExpirationPolicy() {
 		super();
 	}
 
@@ -36,18 +37,19 @@ public class ListExpirationPolicy extends GenericServlet {
 
 		String id = request.getParameter("id");
 
-		ComplexServiceProtocol complexService = new ComplexService();
+		FieldServiceProtocol fieldService = new FieldService();
 
 		ErrorManager errorManager = new ErrorManager();
 
 		try {
-			Collection list = complexService.listExpirationPolicies(Long
-					.parseLong(id));
+			Collection<Expiration> list = fieldService
+					.listExpirationPolicies(Long.parseLong(id));
 			request.setAttribute("policies", list);
 			request.setAttribute("quantity", list.size());
-			
+
 		} catch (NumberFormatException e) {
-			errorManager.add("El identificador de complejo debe ser numérico.");
+			errorManager
+					.add("El identificador de la cancha debe ser numérico.");
 			request.setAttribute("listError", errorManager);
 
 			UrlMapper.getInstance().forwardFailure(this, request, response,

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.ComplexDAO;
+import com.canchita.DAO.ExpirationDAO;
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
@@ -141,6 +142,7 @@ public class FieldService implements FieldServiceProtocol {
 		fieldDAO.update(aField);
 	}
 
+	@Deprecated
 	public void addScoreSystem(Long id, Integer booking, Integer deposit,
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException {
@@ -160,6 +162,7 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
+	@Deprecated
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException {
 		Expiration anExpiration = new Expiration();
@@ -168,9 +171,9 @@ public class FieldService implements FieldServiceProtocol {
 				|| depositLimit < 0)
 			throw new IllegalArgumentException("Valores de caducidad invalidos");
 
-		if (depositLimit < bookingLimit) {
+		if (bookingLimit < depositLimit) {
 			throw new IllegalArgumentException(
-					"El valor de caducidad de seña no puede ser menor al valor de caducidad de la reserva");
+					"El valor de caducidad de seña no puede ser mayor al valor de caducidad de la reserva");
 		}
 
 		anExpiration.setBookingLimit(bookingLimit);
@@ -248,6 +251,7 @@ public class FieldService implements FieldServiceProtocol {
 
 		}
 
+		@Deprecated
 		public static void addScoreSystem(Integer booking, Integer deposit,
 				Integer pay, Integer downBooking, Integer downDeposit)
 				throws PersistenceException {
@@ -277,6 +281,49 @@ public class FieldService implements FieldServiceProtocol {
 			fieldDAO.save(aField);
 
 		}
+
+	}
+
+	@Override
+	public Collection<Expiration> listExpirationPolicies(Long fieldId)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		Field field = new Field(fieldId);
+		return expirationDAO.getAll(field);
+
+	}
+
+	public void deleteExpirationPolicy(Long id) throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		expirationDAO.delete(id);
+	}
+
+	public void setExpirationPolicy(Long fieldId, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException {
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+		Field field = fieldDAO.getById(fieldId);
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		Expiration expiration = new Expiration(0, scoreFrom, scoreTo,
+				downDeposit, downBooking);
+
+		expirationDAO.save(field, expiration);
+
+	}
+
+	public Expiration getExpirationPolicy(Long expirationId)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		return expirationDAO.getById(expirationId);
+	}
+
+	public void updateExpirationPolicy(Long id, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException {
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		Expiration expiration = new Expiration(id, scoreFrom, scoreTo,
+				downDeposit, downBooking);
+		expirationDAO.update(expiration);
 
 	}
 

@@ -141,6 +141,10 @@ public class Field implements Bookable {
 
 	}
 
+	public Field(Long fieldId) {
+		this.id = fieldId;
+	}
+
 	@Override
 	public Booking book(CommonUser user, Schedule hour) throws PersistenceException,
 			BookingException {

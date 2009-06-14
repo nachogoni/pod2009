@@ -34,6 +34,25 @@
 	</div>
 </c:if>
 
+<c:if test="${(param.addPolicy != null)}">
+
+	<c:choose>
+	  <c:when test="${param.addPolicy}">
+	    <c:set var="addMsg" scope="page" value="La política de expiración ha sido agregada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="addMsg" scope="page" value="Error al agregar la política"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${addMsg}" /></span>
+	</div>
+</c:if>
+
 <c:if test="${(param.modify != null)}">
 
 	<c:choose>
@@ -53,6 +72,24 @@
 	</div>
 </c:if>
 
+<c:if test="${(param.modifyPolicy != null)}">
+
+	<c:choose>
+	  <c:when test="${param.modifyPolicy}">
+	    <c:set var="modifyMsg" scope="page" value="La política fue modificada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="modifyMsg" scope="page" value="Error al modificar la política"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${modifyMsg}" /></span>
+	</div>
+</c:if>
 
 <c:if test="${(param.delete != null)}">
 
@@ -62,6 +99,25 @@
 	  </c:when>
 	  <c:otherwise>
 	    <c:set var="deleteMsg" scope="page" value="Error al borrar la cancha"/>
+	  </c:otherwise>
+	</c:choose>
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* <c:out value="${deleteMsg}" /></span>
+	</div>
+</c:if>
+
+<c:if test="${(param.deletePolicy != null)}">
+
+	<c:choose>
+	  <c:when test="${param.deletePolicy}">
+	    <c:set var="deleteMsg" scope="page" value="La política fue borrada exitosamente"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="deleteMsg" scope="page" value="Error al borrar la política"/>
 	  </c:otherwise>
 	</c:choose>
 
@@ -182,6 +238,10 @@
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 								<input type="submit" name="viewDetails" value="Detalles" />
+								</form>
+								<form action="<c:out value="${baseURI}" />/field/ListFieldExpirationPolicy" method="get">
+								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+								<input type="submit" name="expirationPolicy" value="Ver expiración" />
 								</form>
 							</td>
 						</tr>

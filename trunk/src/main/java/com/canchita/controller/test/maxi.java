@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.canchita.DAO.db.ComplexDB;
 import com.canchita.DAO.db.ExpirationDB;
+import com.canchita.DAO.db.FieldDB;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -45,10 +46,13 @@ public class maxi extends HttpServlet {
 
 		ExpirationDB lala = ExpirationDB.getInstance();
 		ComplexDB complexDB = ComplexDB.getInstance();
+		FieldDB fieldDB = FieldDB.getInstance();
 
 		Complex complex = null;
+		Field field = null;
 
 		try {
+			field = fieldDB.getById(3L);
 			complex = complexDB.getById(2L);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
@@ -56,7 +60,7 @@ public class maxi extends HttpServlet {
 		}
 
 		try {
-			Expiration sarasa = lala.getByScore(complex, 900);
+			Expiration sarasa = lala.getByScore(field, 900);
 			System.out.println(sarasa.getId() + "\n" + sarasa.getBookingLimit()
 					+ "\n" + sarasa.getDepositLimit() + "\n"
 					+ sarasa.getScoreFrom() + "\n" + sarasa.getScoreTo());
@@ -65,15 +69,15 @@ public class maxi extends HttpServlet {
 			System.out.println("no encontre para el puntaje");
 			return;
 		}
-		Field field = new Field(complex, "sarasa");
-		field.setId(1L);
-
-		try {
-			lala.update(prueba);
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Field field = new Field(complex, "sarasa");
+//		field.setId(1L);
+//
+//		try {
+//			lala.update(prueba);
+//		} catch (PersistenceException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		// try {
 		// Expiration otra = lala.getByScore(complex, 3000);
 		// System.out.println(otra.getBookingLimit() + "\n"

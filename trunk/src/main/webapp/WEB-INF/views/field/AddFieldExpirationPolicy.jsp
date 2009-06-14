@@ -2,10 +2,10 @@
 <%@ taglib prefix="c_rt" uri="http://java.sun.com/jstl/core_rt"%>
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp" flush="true">
-	<jsp:param name="title" value="Modificar cancha" />
+	<jsp:param name="title" value="Modificar Complejo" />
 </jsp:include>
 
-<h1>Agregar Política de Expiración</h1>
+<h1>Agregar Política de Expiración para la cancha</h1>
 
 <c:if test="${(errorManager != null)}">
 <div class="ui-state-error ui-corner-all error"> 
