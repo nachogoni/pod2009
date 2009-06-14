@@ -1,4 +1,4 @@
-package com.canchita.controller.complex;
+package com.canchita.controller.field;
 
 import java.io.IOException;
 
@@ -13,13 +13,13 @@ import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.PersistenceException;
-import com.canchita.service.ComplexService;
+import com.canchita.service.FieldService;
 import com.canchita.views.helpers.form.FormHandler;
 
-public class AddExpirationPolicy extends GenericServlet {
+public class AddFieldExpirationPolicy extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AddExpirationPolicy() {
+	public AddFieldExpirationPolicy() {
 		super();
 	}
 
@@ -52,7 +52,7 @@ public class AddExpirationPolicy extends GenericServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		logger.debug("POST request");
-		ComplexService service = new ComplexService();
+		FieldService service = new FieldService();
 		FormHandler formulario = new FormAddExpirationPolicy();
 
 		/* Load form with request values */
@@ -67,21 +67,21 @@ public class AddExpirationPolicy extends GenericServlet {
 		} else {
 			ErrorManager error = new ErrorManager();
 
-			String scoreFrom = request.getParameter("scoreFrom");
-			String scoreTo = request.getParameter("scoreTo");
-			String downBooking = request.getParameter("downBooking");
-			String downDeposit = request.getParameter("downDeposit");
+			String strScoreFrom = request.getParameter("scoreFrom");
+			String strScoreTo = request.getParameter("scoreTo");
+			String strDownBooking = request.getParameter("downBooking");
+			String strDownDeposit = request.getParameter("downDeposit");
 
-			if (scoreFrom == null) {
+			if (strScoreFrom == null) {
 				error.add("Falta el puntaje inicial");
 			}
-			if (scoreTo == null) {
+			if (strScoreTo == null) {
 				error.add("Falta el puntaje final");
 			}
-			if (downBooking == null) {
+			if (strDownBooking == null) {
 				error.add("Falta cuantos dias antes se cae la reserva");
 			}
-			if (downDeposit == null) {
+			if (strDownDeposit == null) {
 				error
 						.add("Falta cuantos días antes se cae la reserva estando señada");
 			}
@@ -93,18 +93,18 @@ public class AddExpirationPolicy extends GenericServlet {
 				return;
 			}
 
-			Integer scoreFrom1 = null;
-			Integer scoreTo1 = null;
-			Integer downBooking1 = null;
-			Integer downDeposit1 = null;
+			Integer scoreFrom = null;
+			Integer scoreTo = null;
+			Integer downBooking = null;
+			Integer downDeposit = null;
 			Long id = null;
 
 			try {
 
-				scoreFrom1 = Integer.parseInt(scoreFrom);
-				scoreTo1 = Integer.parseInt(scoreTo);
-				downBooking1 = Integer.parseInt(downBooking);
-				downDeposit1 = Integer.parseInt(downDeposit);
+				scoreFrom = Integer.parseInt(strScoreFrom);
+				scoreTo = Integer.parseInt(strScoreTo);
+				downBooking = Integer.parseInt(strDownBooking);
+				downDeposit = Integer.parseInt(strDownDeposit);
 				id = Long.parseLong(request.getParameter("id"));
 
 			} catch (NumberFormatException nfe) {
@@ -120,7 +120,7 @@ public class AddExpirationPolicy extends GenericServlet {
 			
 
 			try {
-				service.setExpirationPolicy(id, scoreFrom1, scoreTo1, downBooking1, downDeposit1);
+				service.setExpirationPolicy(id, scoreFrom, scoreTo, downBooking, downDeposit);
 			} catch (PersistenceException e) {
 				// TODO Auto-generated catch block
 				error.add("Error agregando política de expiración.");

@@ -84,8 +84,17 @@ public class UrlMapper {
 				+ "complex/AddExpirationPolicy.jsp");
 		successForward.put("ModifyExpirationPolicyGET", FORWARD_ROOT_DIR
 				+ "complex/ModifyExpirationPolicy.jsp");
-		successForward.put("ModifyExpirationPolicyPOST", FORWARD_ROOT_DIR
-				+ "complex/ListExpirationPolicy.jsp");
+
+		successForward.put("ModifyFieldExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "field/ListFieldExpirationPolicy.jsp");
+		successForward.put("ListFieldExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "field/ListFieldExpirationPolicy.jsp");
+		successForward.put("AddFieldExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "field/AddFieldExpirationPolicy.jsp");
+		successForward.put("ModifyFieldExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "field/ModifyFieldExpirationPolicy.jsp");
+		successForward.put("ModifyFieldExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "field/ListFieldExpirationPolicy.jsp");
 
 		/* Field */
 		successForward.put("ListFieldGET", FORWARD_ROOT_DIR
@@ -148,6 +157,13 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?addPolicy=true");
 		successRedirect.put("DeleteExpirationPolicyPOST",
 				"/tp-pod/ListComplex?deletePolicy=true");
+
+		successRedirect.put("ModifyFieldExpirationPolicyPOST",
+				"/tp-pod/field/list?modifyPolicy=true");
+		successRedirect.put("AddFieldExpirationPolicyPOST",
+				"/tp-pod/field/list?addPolicy=true");
+		successRedirect.put("DeleteFieldExpirationPolicyPOST",
+				"/tp-pod/field/list?deletePolicy=true");
 
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
@@ -227,6 +243,17 @@ public class UrlMapper {
 				+ "complex/ModifyExpirationPolicy.jsp");
 		failureForward.put("ModifyExpirationPolicyPOST", FORWARD_ROOT_DIR
 				+ "complex/ModifyExpirationPolicy.jsp");
+		
+		failureForward.put("ListFieldExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "field/ListFieldExpirationPolicy.jsp");
+		failureForward.put("AddFieldExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "field/AddFieldExpirationPolicy.jsp");
+		failureForward.put("AddFieldExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "field/AddFieldExpirationPolicy.jsp");
+		failureForward.put("ModifyFieldExpirationPolicyGET", FORWARD_ROOT_DIR
+				+ "field/ModifyFieldExpirationPolicy.jsp");
+		failureForward.put("ModifyFieldExpirationPolicyPOST", FORWARD_ROOT_DIR
+				+ "field/ModifyFieldExpirationPolicy.jsp");
 
 		// Field
 		failureForward.put("ListFieldGET", FORWARD_ROOT_DIR

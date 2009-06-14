@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -51,4 +52,16 @@ public interface FieldServiceProtocol {
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType) throws ValidationException,
 			PersistenceException;
+
+	public Collection<Expiration> listExpirationPolicies(Long fieldId)
+			throws PersistenceException;
+
+	public void deleteExpirationPolicy(Long id) throws PersistenceException;
+
+	public Expiration getExpirationPolicy(Long expirationId)
+			throws PersistenceException;
+
+	public void updateExpirationPolicy(Long id, Integer scoreFrom,
+			Integer scoreTo, Integer downBooking, Integer downDeposit)
+			throws PersistenceException;
 }
