@@ -8,6 +8,7 @@
 	<li><a href="<c:out value="${baseURI}" />/ListComplex"><span>Complejos</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/field/list"><span>Canchas</span></a></li>
 	<li><a href="#"><span>Ver reservas</span></a></li>
+	<li><a href="<c:out value="${baseURI}" />/user/profile"><span>Perfil</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/user/logout"><span>Cerrar Sesión</span></a></li>
 </ul>
 </div>

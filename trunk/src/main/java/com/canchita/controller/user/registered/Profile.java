@@ -41,9 +41,7 @@ public class Profile extends GenericServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		Registered user = this.getUser(request);
-
 		ErrorManager errorManager = new ErrorManager();
-
 		UserServiceProtocol userService = new UserService();
 
 		List<String> mails;
@@ -83,15 +81,12 @@ public class Profile extends GenericServlet {
 
 		FormProfile form = new FormProfile(oldForm.getMailAmount());
 
-		/* Errors from the past are deleted. */
-		form.unsetErrors();
-
 		/* Load form with request values */
 		form.loadValues(request);
 
 		if (!form.isValid()) {
 			logger.debug("Formulario inválido");
-			request.setAttribute("profileForm", form);
+			request.setAttribute("formulario", form);
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.POST);
 			return;
