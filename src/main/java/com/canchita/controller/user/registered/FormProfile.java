@@ -17,11 +17,10 @@ public class FormProfile extends FormHandler {
 	 */
 
 	private int mailAmount;
-	private static final String ELEMENT_LABEL = "Correo Electrónico";
+	private static final String ELEMENT_LABEL = "Correo";
 	private static final String ELEMENT_NAME = "email";
 
 	public FormProfile(List<String> mails) {
-
 		this(mails.size());
 
 		int i = 1;
@@ -46,7 +45,7 @@ public class FormProfile extends FormHandler {
 
 		for (int i = 1; i <= mailAmount; i++) {
 			this.addElement(new FormElementInput("text", ELEMENT_NAME + i)
-					.setLabel(ELEMENT_LABEL + i).setRequired(true)
+					.setLabel(ELEMENT_LABEL +" "+ i).setRequired(true)
 					.addValidator("IsEMailAddress").setDecorator(decoMails));
 
 		}

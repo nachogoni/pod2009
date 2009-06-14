@@ -23,6 +23,8 @@ import com.canchita.model.exception.UserException;
  */
 public abstract class Registered extends User {
 
+	private static final long serialVersionUID = 1L;
+
 	protected Long id;
 	protected String username;
 	protected List<String> emails;
