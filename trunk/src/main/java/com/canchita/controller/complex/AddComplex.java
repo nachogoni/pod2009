@@ -19,7 +19,6 @@ import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
-import com.canchita.service.ComplexService;
 import com.canchita.service.ComplexService.ComplexBuilder;
 import com.canchita.views.helpers.form.FormHandler;
 
@@ -185,7 +184,7 @@ public class AddComplex extends GenericServlet {
 				ComplexBuilder.saveComplex();
 				
 				logger.debug("Se carga la política de expiración");
-				ComplexBuilder.setExpirationPolicy(0, Integer.MAX_VALUE,
+				ComplexBuilder.setExpirationPolicy(Integer.MIN_VALUE, Integer.MAX_VALUE,
 						bookingLimit, depositLimit);
 
 				// TODO loguear los errores
