@@ -314,5 +314,9 @@ public class Complex implements Booker {
 	public void setExpiration(Expiration defaultExpiration) {
 		this.expiration = defaultExpiration;
 	}
+	
+	public  List<Availability> getPrettyTimetable() {
+		return this.timeTable.getAvailabilities();
+	}
 
 }
