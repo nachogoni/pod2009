@@ -89,6 +89,41 @@
 					<td><c:out value="${complex.description}" /></td>
 				</tr>
 				<tr>
+					<td><strong>Horarios</strong></td>
+					<td>	
+					<c:choose>
+						<c:when test="${complex != null}">
+							<c:forEach items="${complex.prettyTimetable}" var="timetable" varStatus="rowCounter">
+								<strong><c:out value="${timetable.day}" />:</strong>
+								<c:out value="${timetable.schedule.startTime.hourOfDay}" />:
+						        <c:choose>
+						          <c:when test="${timetable.schedule.startTime.minuteOfHour == 0}">
+						          00
+						          </c:when>
+						          <c:otherwise>
+						          <c:out value="${timetable.schedule.startTime.minuteOfHour}" />
+						          </c:otherwise>
+						        </c:choose>
+								a
+								<c:out value="${timetable.schedule.endTime.hourOfDay}" />:
+					        	<c:choose>
+						          <c:when test="${timetable.schedule.endTime.minuteOfHour == 0}">
+						          00
+						          </c:when>
+						          <c:otherwise>
+						          <c:out value="${timetable.schedule.endTime.minuteOfHour}" />
+						          </c:otherwise>
+						        </c:choose>
+								<br />
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							El complejo no tiene horarios cargados.
+						</c:otherwise>
+					</c:choose>
+					</td>
+				</tr>
+				<tr>
 					<td><strong>Canchas:</strong></td>				
 					<td>
 									
