@@ -191,7 +191,7 @@ public class FormAddComplex extends FormHandler {
 			.addValidator("IsNumeric"));
 		
 		this.addElement(new FormElementInput("text","bookingLimit")
-			.setLabel("L&iacute;mite de pago")
+			.setLabel("L&iacute;mite de reserva")
 			.setId("bookingLimit")
 			.setRequired(true)
 			.addValidator("IsNumeric"));

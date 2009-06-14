@@ -176,9 +176,9 @@ public class ComplexService implements ComplexServiceProtocol {
 				throw new IllegalArgumentException(
 						"Valores de caducidad invalidos");
 
-			if (depositLimit < bookingLimit) {
+			if (bookingLimit < depositLimit) {
 				throw new IllegalArgumentException(
-						"El valor de caducidad de seña no puede ser menor al valor de caducidad de la reserva");
+						"El valor de caducidad de seña no puede ser mayor al valor de caducidad de la reserva");
 			}
 
 			anExpiration.setBookingLimit(bookingLimit);
@@ -202,9 +202,9 @@ public class ComplexService implements ComplexServiceProtocol {
 				throw new IllegalArgumentException(
 						"Valores de caducidad inválidos");
 
-			if (downDeposit < downBooking) {
+			if (downBooking < downDeposit) {
 				throw new IllegalArgumentException(
-						"El valor de caducidad de seña no puede ser menor al "
+						"El valor de caducidad de seña no puede ser mayor al "
 								+ "valor de caducidad de la reserva");
 			}
 
@@ -462,9 +462,9 @@ public class ComplexService implements ComplexServiceProtocol {
 				|| depositLimit < 0)
 			throw new IllegalArgumentException("Valores de caducidad inválidos");
 
-		if (depositLimit < bookingLimit) {
+		if (bookingLimit < depositLimit) {
 			throw new IllegalArgumentException(
-					"El valor de caducidad de seña no puede ser menor al valor de caducidad de la reserva");
+					"El valor de caducidad de seña no puede ser mayor al valor de caducidad de la reserva");
 		}
 
 		anExpiration.setBookingLimit(bookingLimit);

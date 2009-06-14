@@ -1,8 +1,6 @@
 package com.canchita.controller.test;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,15 +46,24 @@ public class maxi extends HttpServlet {
 		ExpirationDB lala = ExpirationDB.getInstance();
 		ComplexDB complexDB = ComplexDB.getInstance();
 
-		System.out.println(lala);
-		System.out.println(complexDB);
 		Complex complex = null;
 
 		try {
-			complex = complexDB.getById(1L);
+			complex = complexDB.getById(2L);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+		try {
+			Expiration sarasa = lala.getByScore(complex, 900);
+			System.out.println(sarasa.getId() + "\n" + sarasa.getBookingLimit()
+					+ "\n" + sarasa.getDepositLimit() + "\n"
+					+ sarasa.getScoreFrom() + "\n" + sarasa.getScoreTo());
+		} catch (ElementNotExistsException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("no encontre para el puntaje");
+			return;
 		}
 		Field field = new Field(complex, "sarasa");
 		field.setId(1L);
@@ -67,15 +74,15 @@ public class maxi extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		try {
-//			Expiration otra = lala.getByScore(complex, 3000);
-//			System.out.println(otra.getBookingLimit() + "\n"
-//					+ otra.getDepositLimit() + "\n" + otra.getId() + "\n"
-//					+ otra.getScoreFrom() + "\n" + otra.getScoreTo());
-//		} catch (ElementNotExistsException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// try {
+		// Expiration otra = lala.getByScore(complex, 3000);
+		// System.out.println(otra.getBookingLimit() + "\n"
+		// + otra.getDepositLimit() + "\n" + otra.getId() + "\n"
+		// + otra.getScoreFrom() + "\n" + otra.getScoreTo());
+		// } catch (ElementNotExistsException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		// Collection<Expiration> lista = lala.getAll(complex);
 		//		
 		// for (Expiration expiration : lista) {

@@ -94,6 +94,9 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 		List<Expiration> results = executeQuery(query, new Object[] { id },
 				ExpirationBuilder.getInstance());
 
+		if (results.size() == 0)
+			throw new ElementNotExistsException("No existe la política asociada.");
+		
 		return results.get(0);
 	}
 
