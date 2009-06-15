@@ -13,5 +13,6 @@
 </ul>
 </div>
 
+<div class="userPointsHeader">Hola <b><c:out value="${user.username}"/></b>! [<c:out value="${user.score}"/> puntos]</div>
 <div class="ubercolordivider"></div>
 </div>
