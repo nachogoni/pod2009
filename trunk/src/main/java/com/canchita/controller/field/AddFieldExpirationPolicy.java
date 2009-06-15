@@ -79,11 +79,11 @@ public class AddFieldExpirationPolicy extends GenericServlet {
 				error.add("Falta el puntaje final");
 			}
 			if (strDownBooking == null) {
-				error.add("Falta cuantos dias antes se cae la reserva");
+				error.add("Falta cuantas horas antes se cae la reserva");
 			}
 			if (strDownDeposit == null) {
 				error
-						.add("Falta cuantos días antes se cae la reserva estando señada");
+						.add("Falta cuantas horas antes se cae la reserva estando señada");
 			}
 
 			if (error.size() != 0) {

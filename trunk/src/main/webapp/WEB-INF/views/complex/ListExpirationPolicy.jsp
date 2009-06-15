@@ -30,8 +30,8 @@
 			<tr>
 				<td><strong>Puntaje desde</strong></td>
 				<td><strong>Puntaje hasta</strong></td>
-				<td><strong>Días que soporta en estado señada</strong></td>
-				<td><strong>Días que soporta en estado reservada</strong></td>
+				<td><strong>Horas que soporta en estado señada</strong></td>
+				<td><strong>Horas que soporta en estado reservada</strong></td>
 				<c:if test="${user.isAdmin}">
 					<td>
 					<form action="<c:out value="${baseURI}" />/AddExpirationPolicy" method="get">
