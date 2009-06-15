@@ -17,6 +17,7 @@ import com.canchita.jdbc.ConnectionManager;
 import com.canchita.model.complex.Availability;
 import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Place;
@@ -152,15 +153,28 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	public void save(Complex complex) throws PersistenceException {
 		String query = "INSERT into COMPLEX VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		executeUpdate(query, new Object[] { complex.getName(),
-				complex.getDescription(), complex.getPlace().getAddress(),
-				complex.getPlace().getNeighbourhood(),
-				complex.getPlace().getTown(), complex.getPlace().getState(),
-				complex.getPlace().getZipCode(),
-				complex.getPlace().getCountry(), complex.getFax(),
-				complex.getEmail(), complex.getPicture(),
-				complex.getPlace().getLatitude(),
-				complex.getPlace().getLongitude() });
+		try {
+			executeUpdate(query, new Object[] { complex.getName(),
+					complex.getDescription(), complex.getPlace().getAddress(),
+					complex.getPlace().getNeighbourhood(),
+					complex.getPlace().getTown(), complex.getPlace().getState(),
+					complex.getPlace().getZipCode(),
+					complex.getPlace().getCountry(), complex.getFax(),
+					complex.getEmail(), complex.getPicture(),
+					complex.getPlace().getLatitude(),
+					complex.getPlace().getLongitude() });
+		}
+		catch(RuntimeException re) {
+			Throwable sql = re.getCause();
+
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("PLACE_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe una cancha con ese nombre en este complejo");
+			} else {
+				throw re;
+			}
+		}
 
 	}
 
@@ -171,17 +185,29 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				+ "\"state\" = ?, \"zip_code\" = ?, \"country\" = ?, \"fax\" = ?,"
 				+ "\"email\" = ?, \"picture\" = ?, \"latitude\" = ?, \"longitude\" = ?"
 				+ "where \"complex_id\" = ?";
-
-		executeUpdate(query, new Object[] { complex.getName(),
-				complex.getDescription(), complex.getPlace().getAddress(),
-				complex.getPlace().getNeighbourhood(),
-				complex.getPlace().getTown(), complex.getPlace().getState(),
-				complex.getPlace().getZipCode(),
-				complex.getPlace().getCountry(), complex.getFax(),
-				complex.getEmail(), complex.getPicture(),
-				complex.getPlace().getLatitude(),
-				complex.getPlace().getLongitude(), complex.getId() });
-
+		
+		try{
+			executeUpdate(query, new Object[] { complex.getName(),
+					complex.getDescription(), complex.getPlace().getAddress(),
+					complex.getPlace().getNeighbourhood(),
+					complex.getPlace().getTown(), complex.getPlace().getState(),
+					complex.getPlace().getZipCode(),
+					complex.getPlace().getCountry(), complex.getFax(),
+					complex.getEmail(), complex.getPicture(),
+					complex.getPlace().getLatitude(),
+					complex.getPlace().getLongitude(), complex.getId() });
+		}
+		catch(RuntimeException re) {
+			Throwable sql = re.getCause();
+	
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("PLACE_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe una cancha con ese nombre en este complejo");
+			} else {
+				throw re;
+			}
+		}
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.canchita.DAO.db;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.FieldBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
@@ -166,11 +168,25 @@ public class FieldDB extends AllDB implements FieldDAO {
 	public void save(Field field) throws PersistenceException {
 		String query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		executeUpdate(query, new Object[] { field.getComplex().getId(),
-				field.getName(), field.getDescription(),
-				field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
-				field.getFloor().ordinal(), field.getPrice(),
-				bool2Long(field.isUnder_maintenance()), field.getPicture() });
+		try {	
+			executeUpdate(query, new Object[] { field.getComplex().getId(),
+					field.getName(), field.getDescription(),
+					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
+					field.getFloor().ordinal(), field.getPrice(),
+					bool2Long(field.isUnder_maintenance()), field.getPicture() });
+		}
+		catch (RuntimeException re) {
+			Throwable sql = re.getCause();
+
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("FIELD_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe una cancha con ese nombre en este complejo");
+			} else {
+				throw re;
+			}
+
+		}
 	}
 
 	private Long bool2Long(boolean b) {
@@ -192,13 +208,25 @@ public class FieldDB extends AllDB implements FieldDAO {
 				+ "\"has_roof\" = ?, \"type\" = ?, \"price\" = ?,"
 				+ "\"under_maintenance\" = ?, \"picture\" = ?"
 				+ "where \"field_id\" = ?";
+		try{
+			executeUpdate(query, new Object[] { field.getComplex().getId(),
+					field.getName(), field.getDescription(),
+					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
+					field.getFloor().ordinal(), field.getPrice(),
+					bool2Long(field.isUnder_maintenance()), field.getPicture(),
+					field.getId() });
+		}catch (RuntimeException re) {
+			Throwable sql = re.getCause();
 
-		executeUpdate(query, new Object[] { field.getComplex().getId(),
-				field.getName(), field.getDescription(),
-				field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
-				field.getFloor().ordinal(), field.getPrice(),
-				bool2Long(field.isUnder_maintenance()), field.getPicture(),
-				field.getId() });
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("FIELD_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe una cancha con ese nombre en este complejo");
+			} else {
+				throw re;
+			}
+
+		}
 
 	}
 
