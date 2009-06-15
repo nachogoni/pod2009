@@ -9,6 +9,7 @@
 	<li><a href="<c:out value="${baseURI}" />/field/list"><span>Canchas</span></a></li>
 	<li><a href="#"><span>Reservas</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/scoresystem/ShowScoreSystem"><span>Sistema de Puntos</span></a></li>
+	<li><a href="<c:out value="${baseURI}" />/admin/emails"><span>E-mail</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/user/logout"><span>Cerrar Sesión</span></a></li>
 </ul>
 </div>

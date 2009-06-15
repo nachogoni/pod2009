@@ -67,6 +67,9 @@ public class ACLCanchita implements ACL<User, String> {
 		this.addACL("/user/logout", commonUser, administrator);
 		this.addACL("/user/home", commonUser, administrator);
 
+		this.addACL("/admin/", administrator);
+		this.addACL("/admin/email", administrator);
+		
 		this.addACL("/AddComplex", administrator);
 		this.addACL("/ModifyComplex", administrator);
 		this.addACL("/DeleteComplex", administrator);
