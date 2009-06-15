@@ -11,8 +11,8 @@ import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.ReservationBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
-import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
+import com.canchita.model.booking.BookingStatus;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -31,6 +31,14 @@ public class BookingDB extends AllDB implements BookingDAO {
 	@FactoryMethod
 	public static BookingDB getInstance() {
 		return instance;
+	}
+
+	@Override
+	public void cancel(Long id) {
+		String query = "UPDATE SET \"state\" = ? WHERE \"reservation_id\" = ?";
+		executeUpdate(query, new Object[] { BookingStatus.CANCELLED.getIndex(),
+				id });
+
 	}
 
 	@Override
@@ -55,7 +63,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"cost\", \"paid\", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date FROM RESERVATION WHERE \"reservation_id\" = ?";
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE \"reservation_id\" = ?";
 
 		List<Booking> results = executeQuery(query, new Object[] { id },
 				ReservationBuilder.getInstance());
@@ -72,7 +80,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date FROM RESERVATION WHERE \"field_id\" IN "
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE \"field_id\" IN "
 				+ "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";
 
 		List<Booking> results = executeQuery(query, new Object[] { complexId },
@@ -86,7 +94,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date FROM RESERVATION WHERE \"field_id\" = ?";
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE \"field_id\" = ?";
 
 		List<Booking> results = executeQuery(query, new Object[] { fieldId },
 				ReservationBuilder.getInstance());
@@ -101,12 +109,15 @@ public class BookingDB extends AllDB implements BookingDAO {
 				+ date
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD'), 'YYYY-MON-DD')";
 
-		String query = "SELECT * FROM RESERVATION WHERE "
+		System.out.println(sqlDate);
+		
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+				+ ", \"cost\", \"paid\", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE "
 				+ sqlDate
 				+ " IN (to_date (to_char (\"start_date\", 'YYYY-MON-DD'), 'YYYY-MON-DD'),"
 				+ "to_date (to_char (\"end_date\", 'YYYY-MON-DD'), 'YYYY-MON-DD'))";
-
-		System.out.println();
 
 		List<Booking> results = executeQuery(query, new Object[] {},
 				ReservationBuilder.getInstance());
@@ -120,28 +131,34 @@ public class BookingDB extends AllDB implements BookingDAO {
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
 		String b = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getEndTime()
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
-		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?," + a
-				+ ", " + b + ",?,?)";
 
+		String c = "TO_TIMESTAMP_TZ('" + booking.getExpirationDate()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
+
+		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?," + a
+				+ ", " + b + ",?,?," + c + ")";
+
+		
 		try {
 			executeUpdate(query, new Object[] { booking.getOwner().getId(),
-					booking.getItem().getId(), booking.getState().ordinal(),
+					booking.getItem().getId(), booking.getState().getIndex(),
 					booking.getCost(), booking.getPaid() });
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 
-			if (sql instanceof SQLException) {
-				if (sql.getMessage().contains("BOOKING_UNIQUE")) {
-					throw new ElementExistsException(
-							"Ya existe una reserva en ese horario");
-				}
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("BOOKING_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe una reserva en ese horario");
+			} else {
+				throw re;
 			}
 
 		}
 		String getBooking = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date FROM RESERVATION WHERE \"field_id\" = ?"
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE \"field_id\" = ?"
 				+ " AND \"start_date\" = " + a + " AND \"end_date\" = " + b;
 
 		List<Booking> results = executeQuery(getBooking, new Object[] { booking
@@ -181,18 +198,54 @@ public class BookingDB extends AllDB implements BookingDAO {
 	}
 
 	@Override
-	public Collection<Booking> getDownBookings() {
-		String query = "SELECT * FROM RESERVATION";
+	public Collection<Booking> getDownBookings(Long complexId) {
 
-		/*String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
-			+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as end_date FROM RESERVATION WHERE \"field_id\" IN "
-			+ "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";*/
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE WHERE \"state\" = ?"
+				+ " AND \"field_id\" IN "
+				+ "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";
+
+		List<Booking> results = executeQuery(query, new Object[] {
+				BookingStatus.CANCELLED.getIndex(), complexId },
+				ReservationBuilder.getInstance());
+
+		return results;
+	}
+
+	@Override
+	public void update(Booking booking) throws ElementExistsException {
+		String a = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getStartTime()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
+		String b = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getEndTime()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
 		
-		List<Booking> results = executeQuery(query, new Object[] {}, ReservationBuilder.getInstance());
-
-	return results;
+		String c = "TO_TIMESTAMP_TZ('" + booking.getExpirationDate()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
+		
+		String query = "UPDATE RESERVATION SET \"user_id\" = ?, \"field_id\" = ?"
+				+ ", \"state\" = ?, \"cost\" = ?, \"paid\" = ?, \"start_date\" = "
+				+ a + " ,\"end_date\" = " + b + " , \"expiration_date\" = " + c
+				+ " WHERE \"reservation_id\" = ?";
+		
+		
+		try {
+			executeUpdate(query, new Object[] { booking.getOwner().getId(),
+					booking.getItem().getId(), booking.getState().getIndex(),
+					booking.getCost(), booking.getPaid() , booking.getId() });
+		} catch (RuntimeException re) {
+			Throwable sql = re.getCause();
+		
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("BOOKING_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe una reserva en ese horario");
+			} else {
+				throw re;
+			}
+		
+		}
 	}
 
 }

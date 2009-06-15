@@ -268,4 +268,28 @@ public class UserDB extends AllDB implements UserDAO {
 		return results.get(0);
 	}
 
+	@Override
+	public Registered getById(Long userId) throws ElementNotExistsException {
+
+		// CommonUser list gets loaded.
+		String query = "SELECT * FROM USERS WHERE \"user_id\" = ?";
+
+		List<Registered> results = executeQuery(query,
+				new Object[] { userId }, RegisteredBuilder.getInstance());
+
+		if (results.isEmpty())
+			throw new ElementNotExistsException();
+
+		for (Registered r : results) {
+			List<String> emails = this.getEmails(r);
+
+			for (String email : emails) {
+				r.setEmail(email);
+			}
+		}
+
+		return results.get(0);
+		
+	}
+
 }

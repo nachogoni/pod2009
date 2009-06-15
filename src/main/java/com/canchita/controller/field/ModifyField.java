@@ -1,6 +1,7 @@
 package com.canchita.controller.field;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -95,7 +96,7 @@ public class ModifyField extends GenericServlet {
 		Long id = -1L;
 		Boolean hasRoof = false;
 		FloorType floor = FloorType.CONCRETE;
-		Float price = null;
+		BigDecimal price = null;
 		Long number_of_players = null;
 
 		/* Load form with request values */
@@ -133,7 +134,7 @@ public class ModifyField extends GenericServlet {
 		}
 
 		try {
-			price = Float.parseFloat(request.getParameter("price"));
+			price = new BigDecimal(request.getParameter("price"));
 		} catch (NumberFormatException nfe) {
 			error.add("Error en el precio");
 		}

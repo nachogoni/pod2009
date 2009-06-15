@@ -482,7 +482,7 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 
 	@Override
-	public Expiration getExpirationPolicy(Long complexId, int score)
+	public Expiration getExpirationPolicy(Long complexId, long score)
 			throws PersistenceException {
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);

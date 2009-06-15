@@ -13,12 +13,22 @@ package com.canchita.model.booking;
 
 public enum BookingStatus {
 
-	BOOKED,PAID,HALF_PAID,CANCELLED;
+	BOOKED(1),PAID(2),HALF_PAID(3),CANCELLED(4);
 	
 	public static BookingStatus fromId(long id) {
 		if (BookingStatus.values().length < id)
 			throw new RuntimeException("BookingStatus invalid");
 		
 		return BookingStatus.values()[(int)id];
+	}
+
+	private Integer index;
+	
+	BookingStatus(int index) {
+		this.index = index;
+	}
+	
+	public Integer getIndex() {
+		return index;
 	}
 }

@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -16,7 +17,6 @@ import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
-import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
@@ -130,7 +130,7 @@ public class FieldService implements FieldServiceProtocol {
 
 	public void updateField(Long id, String name, String description,
 			Long number_of_players, Boolean hasRoof, FloorType floor,
-			Float price) throws PersistenceException {
+			BigDecimal price) throws PersistenceException {
 
 		Field aField = getById(id);
 
@@ -156,26 +156,6 @@ public class FieldService implements FieldServiceProtocol {
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		fieldDAO.update(aField);
-	}
-
-	@Deprecated
-	public void addScoreSystem(Long id, Integer booking, Integer deposit,
-			Integer pay, Integer downBooking, Integer downDeposit)
-			throws PersistenceException {
-
-		ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
-				downBooking, downDeposit);
-		try {
-			Field aField = getById(id);
-			aField.setScoreSystem(scoreSystem);
-
-			FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-
-			fieldDAO.update(aField);
-		} catch (PersistenceException e) {
-			throw e;
-		}
-
 	}
 
 	@Deprecated
@@ -252,7 +232,7 @@ public class FieldService implements FieldServiceProtocol {
 		static Field aField = null;
 
 		public static void Build(String name, String description,
-				Long idComplex, Boolean hasRoof, FloorType floor, Float price,
+				Long idComplex, Boolean hasRoof, FloorType floor, BigDecimal price,
 				Long number_of_players) throws PersistenceException {
 
 			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
@@ -264,24 +244,6 @@ public class FieldService implements FieldServiceProtocol {
 			aField.setFloor(floor);
 			aField.setPrice(price);
 			aField.setNumberOfPlayers(number_of_players);
-
-		}
-
-		@Deprecated
-		public static void addScoreSystem(Integer booking, Integer deposit,
-				Integer pay, Integer downBooking, Integer downDeposit)
-				throws PersistenceException {
-
-			ScoreSystem scoreSystem = new ScoreSystem(booking, deposit, pay,
-					downBooking, downDeposit);
-			try {
-
-				aField.setScoreSystem(scoreSystem);
-
-			} catch (NullPointerException e) {
-				throw (new PersistenceException(
-						"Error creando nueva cancha. La cancha no fue inicializada con el mensaje Build"));
-			}
 
 		}
 

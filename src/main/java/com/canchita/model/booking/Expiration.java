@@ -17,14 +17,14 @@ public class Expiration {
 	private Long id;
 	private Integer bookingLimit;
 	private Integer depositLimit;
-	private Integer scoreFrom;
-	private Integer scoreTo;
+	private Long scoreFrom;
+	private Long scoreTo;
 
 	public Expiration() {
 
 	}
 
-	public Expiration(long id, int scoreFrom, int scoreTo, int depositLimit,
+	public Expiration(long id, long scoreFrom, long scoreTo, int depositLimit,
 			int bookingLimit) {
 		this.id = id;
 		this.scoreFrom = scoreFrom;
@@ -34,19 +34,19 @@ public class Expiration {
 
 	}
 
-	public Integer getScoreFrom() {
+	public Long getScoreFrom() {
 		return scoreFrom;
 	}
 
-	public void setScoreFrom(Integer scoreFrom) {
+	public void setScoreFrom(Long scoreFrom) {
 		this.scoreFrom = scoreFrom;
 	}
 
-	public Integer getScoreTo() {
+	public Long getScoreTo() {
 		return scoreTo;
 	}
 
-	public void setScoreTo(Integer scoreTo) {
+	public void setScoreTo(Long scoreTo) {
 		this.scoreTo = scoreTo;
 	}
 

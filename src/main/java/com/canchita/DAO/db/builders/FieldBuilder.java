@@ -1,5 +1,6 @@
 package com.canchita.DAO.db.builders;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class FieldBuilder implements QueryProcessor<Field> {
 					resultSet.getString("description"), resultSet
 							.getLong("number_of_players"), resultSet
 							.getBoolean("has_roof"), resultSet.getLong("type"),
-					resultSet.getFloat("price"), resultSet.getBlob("picture"),
+							new BigDecimal(resultSet.getString("price")), resultSet.getBlob("picture"),
 					resultSet.getBoolean("under_maintenance"));
 
 			Complex aComplex = null;

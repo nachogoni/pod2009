@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.math.BigDecimal;
 import java.security.InvalidParameterException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ public interface FieldServiceProtocol {
 
 	public void updateField(Long id, String name, String description,
 			Long number_of_players, Boolean hasRoof, FloorType floor,
-			Float price) throws PersistenceException;
+			BigDecimal price) throws PersistenceException;
 
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws PersistenceException;
@@ -43,10 +44,6 @@ public interface FieldServiceProtocol {
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException,
 			InvalidParameterException;
-
-	public void addScoreSystem(Long id, Integer booking, Integer deposit,
-			Integer pay, Integer downBooking, Integer downDeposit)
-			throws PersistenceException;
 
 	public Long getComplexId(Long id) throws PersistenceException;
 

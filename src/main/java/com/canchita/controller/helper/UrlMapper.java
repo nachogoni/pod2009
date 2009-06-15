@@ -75,6 +75,11 @@ public class UrlMapper {
 		successForward.put("ProfileGET", FORWARD_ROOT_DIR
 				+ "user/registered/Profile.jsp");
 
+		//Admin
+		successForward.put("EmailGET", FORWARD_ROOT_DIR
+				+ "user/registered/admin/Email.jsp");
+		
+		
 		// ScoreSystem
 		successForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR
 				+ "scoresystem/ModifyScoreSystem.jsp");

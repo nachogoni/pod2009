@@ -101,7 +101,7 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 	}
 
 	@Override
-	public Expiration getByScore(Field field, Integer score)
+	public Expiration getByScore(Field field, Long score)
 			throws ElementNotExistsException {
 		String query = "SELECT \"expiration_policy_id\", \"from_score\","
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""
@@ -123,7 +123,7 @@ public class ExpirationDB extends AllDB implements ExpirationDAO {
 	}
 
 	@Override
-	public Expiration getByScore(Complex complex, Integer score)
+	public Expiration getByScore(Complex complex, Long score)
 			throws ElementNotExistsException {
 		String query = "SELECT \"expiration_policy_id\", \"from_score\","
 				+ "\"to_score\", \"days_being_half_signed\", \"days_being_reserved\""

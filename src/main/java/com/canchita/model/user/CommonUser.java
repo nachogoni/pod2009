@@ -1,6 +1,5 @@
 package com.canchita.model.user;
 
-
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -52,4 +51,7 @@ public class CommonUser extends Registered {
 	public boolean getIsAdmin() {
 		return false;
 	}
+	
+	
+
 }

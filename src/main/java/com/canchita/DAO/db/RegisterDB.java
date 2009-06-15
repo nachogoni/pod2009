@@ -32,19 +32,19 @@ public class RegisterDB extends AllDB implements RegisterDAO {
 			String hash) throws ElementExistsException {
 
 		String query = "INSERT into REGISTER(\"name\",\"password\",\"email\",\"is_admin\",\"hash\") VALUES(?, ?, ?, ?, ?)";
-		
+
 		try {
-			executeUpdate(query, new Object[] { username, password, email, false,
-					hash });
-		}
-		catch(RuntimeException re) {
+			executeUpdate(query, new Object[] { username, password, email,
+					false, hash });
+		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 
-			if (sql instanceof SQLException) {
-				if (sql.getMessage().contains("REGISTER_NAME_UNIQUE")) {
-					throw new ElementExistsException(
-							"Ya existe un usuario con ese nombre");
-				}
+			if (sql instanceof SQLException
+					&& sql.getMessage().contains("REGISTER_NAME_UNIQUE")) {
+				throw new ElementExistsException(
+						"Ya existe un usuario con ese nombre");
+			} else {
+				throw re;
 			}
 		}
 	}

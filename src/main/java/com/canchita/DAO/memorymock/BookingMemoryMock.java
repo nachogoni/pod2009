@@ -121,10 +121,23 @@ public class BookingMemoryMock implements BookingDAO {
 		return bookingMocks.containsValue(booking);
 	}
 
+	
 	@Override
-	public Collection<Booking> getDownBookings() {
+	public void cancel(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Collection<Booking> getDownBookings(Long complexId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(Booking booking) throws ElementExistsException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -34,4 +34,6 @@ public interface UserServiceProtocol {
 
 	void updateUser(Registered user) throws UserException;
 
+	Registered getById(Long userId) throws UserException;
+
 }

@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,9 +16,12 @@ import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.DayOfWeek;
+import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.UserException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.user.CommonUser;
 
@@ -28,11 +32,17 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public void deleteBooking(Long id) throws PersistenceException {
+	public void cancelBooking(Long id) throws BookingException, PersistenceException, UserException {
 
-		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		Booking booking  = this.getById(id);
+		
+		booking.cancel();
 
-		bookingDAO.delete(id);
+		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
+
+		ScoreSystem ss = scoreSystemService.getScoreSystem();
+
+		ss.cancel(booking);
 
 	}
 
@@ -55,8 +65,9 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public Booking saveBooking(CommonUser user, Long bookeableId, DateTime startTime,
-			DateTime endTime) throws PersistenceException, BookingException {
+	public Booking saveBooking(CommonUser user, Long bookeableId,
+			DateTime startTime, DateTime endTime) throws PersistenceException,
+			BookingException, UserException {
 
 		if (startTime.isAfter(endTime)) {
 			throw new BookingException(
@@ -74,52 +85,114 @@ public class BookingService implements BookingServiceProtocol {
 
 		Schedule schedule = new Schedule(startTime, endTime);
 
-		return bookable.book(user,schedule);
-		
+		Booking booking = bookable.book(user, schedule);
+
+		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
+
+		ScoreSystem ss = scoreSystemService.getScoreSystem();
+
+		ss.book(booking);
+
+		return booking;
+
 	}
 
 	@Override
-	public List<Booking> saveManyBookings(CommonUser user, Long id, DateTime startTimeFrom,
-			DateTime endTimeFrom, DateTime startTimeTo, DateTime endTimeTo) throws PersistenceException, BookingException {
-		
-		//TODO se asume que start y end ocupan un dia cada uno
-		
-		if( startTimeFrom.getDayOfWeek()!= startTimeTo.getDayOfWeek()) {
+	public List<Booking> saveManyBookings(CommonUser user, Long id,
+			DateTime startTimeFrom, DateTime endTimeFrom, DateTime startTimeTo,
+			DateTime endTimeTo) throws PersistenceException, BookingException,
+			UserException {
+
+		// TODO se asume que start y end ocupan un dia cada uno
+
+		if (startTimeFrom.getDayOfWeek() != startTimeTo.getDayOfWeek()) {
 			throw new BookingException("Los días de la semana no coinciden");
 		}
-		
-		long startDay = startTimeFrom.getDayOfYear() + (365 * startTimeFrom.getYear());
-		long endDay = startTimeTo.getDayOfYear() + (365 * startTimeTo.getYear());
 
-		long amountOfWeeks = ( endDay - startDay ) / DayOfWeek.WEEK_DAYS;
-		
+		long startDay = startTimeFrom.getDayOfYear()
+				+ (365 * startTimeFrom.getYear());
+		long endDay = startTimeTo.getDayOfYear()
+				+ (365 * startTimeTo.getYear());
+
+		long amountOfWeeks = (endDay - startDay) / DayOfWeek.WEEK_DAYS;
+
 		DateTime startTime = startTimeFrom;
 		DateTime endTime = endTimeFrom;
 		List<Booking> bookings = new ArrayList<Booking>();
-		
-		for( long i = 0 ; i <= amountOfWeeks ; i++ ) {
+
+		for (long i = 0; i <= amountOfWeeks; i++) {
 			try {
-				Booking booking = this.saveBooking(user, id, startTime, endTime);
+				Booking booking = this
+						.saveBooking(user, id, startTime, endTime);
 				bookings.add(booking);
+			} catch (ElementExistsException e) {
+				// keep going
 			}
-			catch(ElementExistsException e) {
-				//keep going
-			}
-			
+
 			startTime = startTime.plusDays(DayOfWeek.WEEK_DAYS);
 			endTime = endTime.plusDays(DayOfWeek.WEEK_DAYS);
 		}
-		
+
 		return bookings;
+	}
+
+	@Override
+	public Collection<Booking> getDownBookings(Long complexId)
+			throws ValidationException, PersistenceException {
+
+		BookingDAO booking = DAOFactory.get(DAO.BOOKING);
+
+		return booking.getDownBookings(complexId);
 	}
 
 	@Override
 	public Collection<Booking> getDownBookings() throws ValidationException,
 			PersistenceException {
-		
-		BookingDAO booking = DAOFactory.get(DAO.BOOKING);
-
-		return booking.getDownBookings();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
+	public void fullPayBooking(Long userId, Long id) throws BookingException, UserException {
+		Booking booking = this.getById(id);
+
+		UserServiceProtocol userService = new UserService();
+		
+		CommonUser user = (CommonUser) userService.getById(userId);
+		
+		booking.pay(user,booking.getCost().subtract(booking.getPaid()));
+		
+	}
+
+	@Override
+	public void payBooking(Long userId, Long id, BigDecimal amount) throws BookingException, UserException {
+		Booking booking = this.getById(id);
+
+		UserServiceProtocol userService = new UserService();
+		
+		CommonUser user = (CommonUser) userService.getById(userId);
+		
+		booking.pay(user,amount);
+	}
+	
+	private Booking getById(Long id) throws BookingException {
+		BookingDAO bookingDAO;
+		try {
+			bookingDAO = DAOFactory.get(DAO.BOOKING);
+		} catch (PersistenceException e) {
+			throw new BookingException("No se pudo realizar el pago");
+		}
+		
+		Booking booking;
+		try {
+			booking = bookingDAO.getById(id);
+		} catch (ElementNotExistsException e) {
+			throw new BookingException("No existe la reserva");
+		}
+		
+		return booking;
+	}
+
+
 }
+

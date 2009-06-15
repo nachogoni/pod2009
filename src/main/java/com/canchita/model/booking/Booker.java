@@ -1,5 +1,6 @@
 package com.canchita.model.booking;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -29,5 +30,7 @@ public interface Booker extends Locatable {
 	void remove(Bookable bookable);
 	
 	DateTime getExpiration(Booking booking);
+	
+	BigDecimal getAccontationPercentage();
 	
 }

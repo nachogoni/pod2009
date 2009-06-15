@@ -41,8 +41,8 @@ public class maxi extends HttpServlet {
 		prueba.setId(3L);
 		prueba.setBookingLimit(1231);
 		prueba.setDepositLimit(112312);
-		prueba.setScoreFrom(11231230);
-		prueba.setScoreTo(232323232);
+		prueba.setScoreFrom(11231230L);
+		prueba.setScoreTo(232323232L);
 
 		ExpirationDB lala = ExpirationDB.getInstance();
 		ComplexDB complexDB = ComplexDB.getInstance();
@@ -60,7 +60,7 @@ public class maxi extends HttpServlet {
 		}
 
 		try {
-			Expiration sarasa = lala.getByScore(field, 900);
+			Expiration sarasa = lala.getByScore(field, 900L);
 			System.out.println(sarasa.getId() + "\n" + sarasa.getBookingLimit()
 					+ "\n" + sarasa.getDepositLimit() + "\n"
 					+ sarasa.getScoreFrom() + "\n" + sarasa.getScoreTo());
