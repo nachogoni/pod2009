@@ -195,4 +195,10 @@ public class FieldMemoryMock implements FieldDAO {
 		return null;
 	}
 
+	@Override
+	public Collection<Field> getLastFields(String neighbourhood, Long listCount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

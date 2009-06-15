@@ -63,6 +63,22 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
+	public Collection<Field> getLastFields(String neighbourhood, Long listCount)
+			throws ValidationException, PersistenceException {
+		
+		Validator validator = new IsAlphaNum(true);
+		
+		if (!validator.validate(neighbourhood)) {
+			throw new ValidationException(
+			"Error en el criterio de búsqueda, el Barrio debe ser alfanumérico");
+		}
+		
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+		
+		return fieldDAO.getLastFields(neighbourhood, listCount);
+		
+	}
+
 	@Override
 	public Collection<Field> listField(String searchName,
 			String searchDescription, String searchMaxPrice,
