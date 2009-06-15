@@ -120,13 +120,6 @@ public class Register extends GenericServlet {
 			e.printStackTrace();
 			request.setAttribute("form", form);
 			this.failure(request, response, error);
-		}
-		
-		//TODO usar cunado register tire excepciones
-		if (error.size() != 0) {
-			logger.debug("Error al realizar la registración");
-			request.setAttribute("form", form);
-			this.failure(request, response, error);
 			return;
 		}
 		

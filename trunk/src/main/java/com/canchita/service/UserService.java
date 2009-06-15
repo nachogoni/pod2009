@@ -44,7 +44,7 @@ public class UserService implements UserServiceProtocol {
 
 		// We send the mail to the user
 
-		RegisterMail.sendMail(email, username, hash, baseUrl);
+		//RegisterMail.sendMail(email, username, hash, baseUrl);
 
 	}
 

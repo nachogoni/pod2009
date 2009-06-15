@@ -6,6 +6,7 @@ import com.canchita.DAO.RegisterDAO;
 import com.canchita.DAO.UserDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.RegisterException;
@@ -21,8 +22,8 @@ import com.canchita.model.exception.RegisterException;
  * 
  */
 public class Guest extends User {
-	
-	public boolean getIsAdmin(){
+
+	public boolean getIsAdmin() {
 		return false;
 	}
 
@@ -84,6 +85,9 @@ public class Guest extends User {
 		try {
 			registerDAO = DAOFactory.get(DAO.REGISTER);
 			registerDAO.saveHash(username, password, email, hash);
+		} catch (ElementExistsException e) {
+			throw new RegisterException("Ya existe un usuario con ese nombre",
+					e);
 		} catch (PersistenceException e) {
 			throw new RegisterException(
 					"No se pudo registrar el usuario... Por favor, intente más tarde",
