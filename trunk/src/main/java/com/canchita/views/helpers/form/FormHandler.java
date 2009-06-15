@@ -116,15 +116,18 @@ public abstract class FormHandler {
 	public String toString() {
 
 		String ret;
-		String err;
+		String err, sclass="";
 
 		if (this.hasGroups()) {
 			return this.printGroups();
 		}
 		ret = "";
 
-		ret += String.format("<form name=\"%s\" action=\"\" method=\"%s\" %s>",
-				this.name, this.method, this.getAttributesString());
+		//Clase del decorador
+		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\"" + formDecorator.getSclass() + "\"";
+		
+		ret += String.format("<form name=\"%s\" %s action=\"\" method=\"%s\" %s>",
+				this.name, sclass, this.method, this.getAttributesString());
 
 		for (FormElement e : formElements) {
 			ret += e;
@@ -185,7 +188,7 @@ public abstract class FormHandler {
 		return ret;
 	}
 
-	private Object getAttributesString() {
+	private String getAttributesString() {
 		String ret = "";
 
 		for (String attr : attributes) {
@@ -352,8 +355,8 @@ public abstract class FormHandler {
 		return ret;
 	}
 
-	public void setAttribute(String a, String b) {
-		this.attributes.add(a + "=\"" + b + "\" ");
+	public void setAttribute(String type, String attribute) {
+		this.attributes.add(type + "=\"" + attribute + "\" ");
 
 	}
 
