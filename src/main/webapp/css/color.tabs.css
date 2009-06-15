@@ -3,7 +3,7 @@
 
 .ubercolortabs{
 padding: 0;
-width: 320px;
+width: 400px;
 background: transparent;
 float:left;
 margin-left:20px;
@@ -15,7 +15,7 @@ width: 340px;
 }
 
 .loggedColorTab {
-width: 550px;
+width: 570px;
 }
 
 .adminColorTab {
