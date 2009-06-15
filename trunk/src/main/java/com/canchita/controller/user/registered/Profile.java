@@ -1,8 +1,16 @@
 package com.canchita.controller.user.registered;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
-import com.canchita.controller.helper.FormHolder;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.exception.UserException;
@@ -10,15 +18,6 @@ import com.canchita.model.user.Registered;
 import com.canchita.service.UserService;
 import com.canchita.service.UserServiceProtocol;
 import com.canchita.views.helpers.form.FormHandler;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class Profile
@@ -41,27 +40,9 @@ public class Profile extends GenericServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		Registered user = this.getUser(request);
-		ErrorManager errorManager = new ErrorManager();
-		UserServiceProtocol userService = new UserService();
-
-		List<String> mails;
-		try {
-			mails = userService.getEmails(user);
-		} catch (UserException e) {
-			errorManager.add(e);
-			UrlMapper.getInstance().forwardFailure(this, request, response,
-					UrlMapperType.GET);
-			return;
-		}
-
-		FormHandler form = new FormProfile(mails);
+		FormHandler form = new FormProfile(user);
 
 		request.setAttribute("formulario", form);
-
-		// We save the form to compare it later
-
-		FormHolder.getInstance().saveForm(this, request.getSession().getId(),
-				form);
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
@@ -76,10 +57,7 @@ public class Profile extends GenericServlet {
 
 		logger.debug("POST request");
 
-		FormProfile oldForm = (FormProfile) FormHolder.getInstance().getForm(
-				this, request.getSession().getId());
-
-		FormProfile form = new FormProfile(oldForm.getMailAmount());
+		FormHandler form = new FormProfile();
 
 		/* Load form with request values */
 		form.loadValues(request);
@@ -92,15 +70,28 @@ public class Profile extends GenericServlet {
 			return;
 		} else {
 			ErrorManager error = new ErrorManager();
-
-			Map<String, String> mailsToUpdate = oldForm.getUpdatedMails(form);
-
 			Registered user = this.getUser(request);
-
+			String[] emails = null;
 			UserServiceProtocol userService = new UserService();
 
+			// Se actualiza el usuario por el notifyBeforeExpiration
 			try {
-				userService.updateEmails(user, mailsToUpdate);
+				Long nbe = Long.parseLong(request
+						.getParameter("notifyBeforeExpiration"));
+				user.setNotifyBeforeExpiration(nbe);
+				userService.updateUser(user);
+			} catch (UserException e) {
+				error.add(e);
+				request.setAttribute("formulario", form);
+				UrlMapper.getInstance().forwardFailure(this, request, response,
+						UrlMapperType.GET);
+			}
+
+			// Se actualizan los mails.
+			try {
+				emails = request.getParameterValues("email");
+				userService.updateEmails(user, emails);
+
 			} catch (UserException e) {
 				error.add(e);
 				request.setAttribute("formulario", form);
@@ -108,9 +99,6 @@ public class Profile extends GenericServlet {
 						UrlMapperType.GET);
 				return;
 			}
-
-			FormHolder.getInstance().removeForm(this,
-					request.getSession().getId());
 
 			Map<String, String> map = new HashMap<String, String>();
 

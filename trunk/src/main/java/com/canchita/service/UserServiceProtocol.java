@@ -1,7 +1,6 @@
 package com.canchita.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.exception.RegisterException;
@@ -22,13 +21,17 @@ public interface UserServiceProtocol {
 	Registered login(String username, String password) throws LoginException;
 
 	void logout(Registered registered);
-	
-	void register(String username, String password, String email, String baseUrl) throws RegisterException;
-	
+
+	void register(String username, String password, String email, String baseUrl)
+			throws RegisterException;
+
 	Registered confirmateHash(String hash) throws RegisterException;
 
 	List<String> getEmails(Registered user) throws UserException;
 
-	void updateEmails(Registered user, Map<String, String> mailsToUpdate) throws UserException;
+	void updateEmails(Registered user, String[] emails)
+			throws UserException;
+
+	void updateUser(Registered user) throws UserException;
 
 }

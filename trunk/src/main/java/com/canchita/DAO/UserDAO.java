@@ -40,9 +40,10 @@ public interface UserDAO {
 	public void addEmail(Registered aUser, String email)
 			throws ElementNotExistsException, PersistenceException;
 
-	public void updateEmail(Registered user, String oldEmail, String newEmail)
-			throws ElementNotExistsException, PersistenceException;
+	public void updateEmail(Registered user, String[] emails)
+			throws PersistenceException;
 
 	public Registered login(String username, String password);
+
 
 }

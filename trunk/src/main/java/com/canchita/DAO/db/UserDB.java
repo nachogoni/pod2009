@@ -1,5 +1,7 @@
 package com.canchita.DAO.db;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -199,14 +201,34 @@ public class UserDB extends AllDB implements UserDAO {
 				user.getId() });
 	}
 
-	public void updateEmail(Registered user, String oldEmail, String newEmail)
-			throws ElementNotExistsException, PersistenceException {
+	@Override
+	public void updateEmail(Registered user, String[] emails)
+			throws PersistenceException {
 
-		// TODO: Se podría agregar al último where un user_id = user.getId();
-		String query = "UPDATE EMAIL set \"email\" = ? where \"email_id\" = "
-				+ "(SELECT \"email_id\" from EMAIL where \"email\" = ?)";
+		// Primero borro todos los mails que no están en el vector de emails.
+		ArrayList<String> emailsList = new ArrayList<String>(Arrays.asList(emails));
+		emailsList.removeAll(Arrays.asList(""));
+		
+		String list = "( ";
+		int i = 0;
+		for (i = 0; i < (emailsList.size() - 1); i++) {
+			list += "'" +emailsList.get(i)+ "', ";
+		}
+		list += "'" +emailsList.get(i)+ "')";
 
-		executeUpdate(query, new Object[] { newEmail, oldEmail });
+		String delQuery = "DELETE FROM EMAIL WHERE \"email\" NOT IN " + list
+				+ " AND \"user_id\" = ?";
+
+		executeUpdate(delQuery, new Object[] { user.getId() });
+
+		// Agrego todos los de la lista.
+		for (String email : emails) {
+			try {
+				addEmail(user, email);
+			} catch (Exception e) {
+				// No hago nada, acá agarro los repetidos.
+			}
+		}
 	}
 
 	@Override
