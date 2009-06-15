@@ -170,7 +170,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			if (sql instanceof SQLException
 					&& sql.getMessage().contains("PLACE_UNIQUE")) {
 				throw new ElementExistsException(
-						"Ya existe una cancha con ese nombre en este complejo");
+						"Ya existe un complejo con esa ubicación");
 			} else {
 				throw re;
 			}
@@ -203,7 +203,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			if (sql instanceof SQLException
 					&& sql.getMessage().contains("PLACE_UNIQUE")) {
 				throw new ElementExistsException(
-						"Ya existe una cancha con ese nombre en este complejo");
+						"Ya existe una complejo con esa ubicación");
 			} else {
 				throw re;
 			}
