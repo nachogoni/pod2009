@@ -328,6 +328,19 @@ public abstract class FormHandler {
 									.get(val));
 						}
 
+						//Si es un formElementInput veo si tiene subelementos y los valido
+						if (e instanceof FormElementInput){
+							if (((FormElementInput) e).isMultipleData()){
+								for (FormElement j:((FormElementInput) e).subelements){
+									if (!aVal.validate(j.getValue())) {
+										this.errors.put(j.getName(), aVal.getError());
+										ret = false;
+									}
+								}
+							}
+						}
+						
+						//Valido el elemento
 						if (!aVal.validate(e.getValue())) {
 							this.errors.put(e.getName(), aVal.getError());
 							ret = false;
