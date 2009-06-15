@@ -19,13 +19,14 @@ public interface BookingServiceProtocol {
 			DateTime endTime) throws PersistenceException, BookingException,
 			UserException;
 
-	void cancelBooking(Long id) throws BookingException, PersistenceException, UserException;
+	void cancelBooking(Long id) throws BookingException, PersistenceException,
+			UserException;
 
-	void payBooking(Long id, BigDecimal amount)
-	throws BookingException, UserException;
-	
+	void payBooking(Long id, BigDecimal amount) throws BookingException,
+			UserException;
+
 	void fullPayBooking(Long id) throws BookingException, UserException;
-	
+
 	public List<Booking> getBookedBookings(Long bookerId)
 			throws PersistenceException;
 
@@ -47,4 +48,8 @@ public interface BookingServiceProtocol {
 			throws ValidationException, PersistenceException;
 	List<Booking> getAllBookings() throws BookingException;
 
+	List<Booking> getCancelableBookings() throws PersistenceException;
+
+	boolean tryCancel(Booking booking) throws UserException,
+			PersistenceException, BookingException;
 }

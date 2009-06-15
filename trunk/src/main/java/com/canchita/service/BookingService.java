@@ -8,11 +8,13 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.ExpirationDAO;
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.complex.ScoreSystem;
@@ -22,6 +24,7 @@ import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.UserException;
 import com.canchita.model.exception.ValidationException;
+import com.canchita.model.field.Field;
 import com.canchita.model.user.CommonUser;
 
 public class BookingService implements BookingServiceProtocol {
@@ -31,10 +34,33 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public void cancelBooking(Long id) throws BookingException, PersistenceException, UserException {
+	public boolean tryCancel(Booking booking) throws UserException,
+			PersistenceException, BookingException {
+		UserServiceProtocol userService = new UserService();
+		FieldServiceProtocol fieldService = new FieldService();
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
-		Booking booking  = this.getById(id);
+		Field field = fieldService.getById(booking.getItem().getId());
+		CommonUser user = (CommonUser) userService.getById(booking.getOwner()
+				.getId());
+
+		Expiration expiration = expirationDAO.getByScore(field, user.getScore());
 		
+		if ( bookingDAO.tryCancel(booking, expiration)) {
+			this.cancelBooking(booking.getId());
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void cancelBooking(Long id) throws BookingException,
+			PersistenceException, UserException {
+
+		Booking booking = this.getById(id);
+
 		booking.cancel();
 
 		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
@@ -61,6 +87,14 @@ public class BookingService implements BookingServiceProtocol {
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
 		return bookingDAO.getFieldBookings(fieldId);
+	}
+
+	@Override
+	public List<Booking> getCancelableBookings() throws PersistenceException {
+
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+
+		return bookingDAO.getCancelableBookings();
 	}
 
 	@Override
@@ -154,36 +188,37 @@ public class BookingService implements BookingServiceProtocol {
 	@Override
 	public void fullPayBooking(Long id) throws BookingException, UserException {
 		Booking booking = this.getById(id);
-		
+
 		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
-		
+
 		ScoreSystem scoreSystem;
 		try {
 			scoreSystem = scoreSystemService.getScoreSystem();
 		} catch (PersistenceException e) {
 			throw new BookingException("No se pudo realizar el pago");
 		}
-		
-		booking.pay(booking.getCost().subtract(booking.getPaid()),scoreSystem);
-		
+
+		booking.pay(booking.getCost().subtract(booking.getPaid()), scoreSystem);
+
 	}
 
 	@Override
-	public void payBooking(Long id, BigDecimal amount) throws BookingException, UserException {
+	public void payBooking(Long id, BigDecimal amount) throws BookingException,
+			UserException {
 		Booking booking = this.getById(id);
 
 		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
-		
+
 		ScoreSystem scoreSystem;
 		try {
 			scoreSystem = scoreSystemService.getScoreSystem();
 		} catch (PersistenceException e) {
 			throw new BookingException("No se pudo realizar el pago");
 		}
-		
+
 		booking.pay(amount, scoreSystem);
 	}
-	
+
 	private Booking getById(Long id) throws BookingException {
 		BookingDAO bookingDAO;
 		try {
@@ -191,14 +226,14 @@ public class BookingService implements BookingServiceProtocol {
 		} catch (PersistenceException e) {
 			throw new BookingException("No se pudo realizar el pago");
 		}
-		
+
 		Booking booking;
 		try {
 			booking = bookingDAO.getById(id);
 		} catch (ElementNotExistsException e) {
 			throw new BookingException("No existe la reserva");
 		}
-		
+
 		return booking;
 	}
 
@@ -212,17 +247,16 @@ public class BookingService implements BookingServiceProtocol {
 
 	@Override
 	public List<Booking> getAllBookings() throws BookingException {
-		
+
 		BookingDAO bookingDAO;
-		
+
 		try {
 			bookingDAO = DAOFactory.get(DAO.BOOKING);
 		} catch (PersistenceException e) {
 			throw new BookingException("No se pudo listar las reservas");
 		}
-		
+
 		return bookingDAO.getAllBookings();
 	}
 
 }
-
