@@ -1,10 +1,6 @@
 package com.canchita.DAO.db;
 
-import java.awt.image.BufferedImage;
 import java.util.Collection;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 
 import com.canchita.DAO.FieldDAO;
@@ -104,22 +100,24 @@ public class FieldDB extends AllDB implements FieldDAO {
 		String minPlayers = "0";
 		String maxPlayers = String.valueOf(Integer.MAX_VALUE);
 
-		String query = "SELECT * FROM FIELD WHERE 1=1 AND \"name\" LIKE ? AND "
-				+ "COALESCE(\"description\", ' ') LIKE ? AND \"price\" <= ? AND "
-				+ "COALESCE(\"has_roof\", 0)"
-				+ " <= ? AND COALESCE(\"has_roof\", 0) >= ? "
-				+ "AND \"type\" <= ? AND \"type\" >= ?"
-				+ " AND \"number_of_players\" <= ? AND \"number_of_players\" >= ?";
+		String query = "SELECT * FROM FIELD WHERE 1=1 AND \"name\" LIKE ? AND ";
 
 		if (searchName == null)
 			searchName = "%";
 		else
 			searchName = "%" + searchName + "%";
-
-		if (searchDescription == null)
+		
+		if (searchDescription == null || searchDescription == "") {
+			query += "(\"description\" IS NULL OR \"description\" LIKE ? )";
 			searchDescription = "%";
-		else
+		} else {
+			query += "\"description\" LIKE ?";
 			searchDescription = "%" + searchDescription + "%";
+		}
+
+		query += " AND \"price\" <= ? AND \"has_roof\" <= ? AND \"has_roof\" >= ? "
+				+ "AND \"type\" <= ? AND \"type\" >= ?"
+				+ " AND \"number_of_players\" <= ? AND \"number_of_players\" >= ?";
 
 		if (searchMaxPrice == null || searchMaxPrice == "")
 			searchMaxPrice = String.valueOf(Integer.MAX_VALUE);
