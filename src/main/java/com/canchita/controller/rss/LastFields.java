@@ -50,7 +50,7 @@ public class LastFields extends GenericServlet {
 
 		Field field = null;
 
-		String neighbourhood = "a";
+		String neighbourhood = null;
 		
 		// Generar el feed para el rss
 		SyndFeed feed = new SyndFeedImpl();
@@ -78,6 +78,8 @@ public class LastFields extends GenericServlet {
             url += "?"+queryString;
         }*/
 
+		neighbourhood = request.getParameter("neighbourhood");
+		
 		String baseURL = url;
 
 		Collection<Field> fields = null;

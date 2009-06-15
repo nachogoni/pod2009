@@ -18,6 +18,8 @@ public interface ComplexServiceProtocol {
 	public Collection<Complex> listComplex(String filter)
 			throws ValidationException, PersistenceException;
 
+	public Collection<String> getNeighbourhoods() throws PersistenceException;
+	
 	public void deleteComplex(Long id) throws PersistenceException;
 
 	public Long saveComplex(String name, String description, String address,

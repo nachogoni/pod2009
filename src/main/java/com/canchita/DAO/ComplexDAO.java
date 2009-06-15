@@ -26,12 +26,14 @@ public interface ComplexDAO {
 
 	public boolean exists(Long idComplex);
 
-	void addPhone(Complex complex, String phone)
+	public void addPhone(Complex complex, String phone)
 			throws ElementNotExistsException, PersistenceException;
 
-	void updatePhone(Complex complex, String oldPhone, String newPhone)
+	public void updatePhone(Complex complex, String oldPhone, String newPhone)
 			throws ElementNotExistsException, PersistenceException;
 
-	List<String> getPhones(Complex complex);
+	public List<String> getPhones(Complex complex);
+
+	public Collection<String> getNeighbourhoods();
 
 }

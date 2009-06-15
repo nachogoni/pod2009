@@ -1,5 +1,10 @@
 package com.canchita.DAO.db;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -8,6 +13,7 @@ import com.canchita.DAO.db.builders.ComplexBuilder;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.PhoneBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.jdbc.ConnectionManager;
 import com.canchita.model.complex.Availability;
 import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
@@ -70,6 +76,38 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 		return results;
 	}
 
+	@Override
+	public Collection<String> getNeighbourhoods() {
+		String query = "SELECT DISTINCT \"neighbourhood\" FROM COMPLEX ORDER BY \"neighbourhood\"";
+
+		ConnectionManager connectionManager = connectionPool.getConnectionManager();
+		Connection connection = connectionManager.getConnection();
+
+		Collection<String> result = null;
+		
+	    try
+	    {
+	      Statement st = connection.createStatement();
+	      ResultSet rs = st.executeQuery(query);
+	      
+	      result = new ArrayList<String>();
+	      
+	      while (rs.next()) {
+	    	  result.add(rs.getString("neighbourhood"));
+	      }
+	      
+	    }
+	    catch (SQLException ex)
+	    {
+	      System.err.println(ex.getMessage());
+		} finally {
+			connectionPool.releaseConnectionManager(connectionManager);
+		}
+
+		return result;
+		
+	}
+	
 	private Calendar getCalendar(Complex aComplex) {
 		Calendar aCalendar = new Calendar();
 		Collection<Availability> avs = null;

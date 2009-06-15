@@ -121,4 +121,10 @@ public class BookingMemoryMock implements BookingDAO {
 		return bookingMocks.containsValue(booking);
 	}
 
+	@Override
+	public Collection<Booking> getDownBookings() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
