@@ -115,7 +115,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 			searchDescription = "%" + searchDescription + "%";
 		}
 
-		query += " AND \"price\" <= ? AND \"has_roof\" <= ? AND \"has_roof\" >= ? "
+		query += " AND CAST(\"price\" AS FLOAT) <= ? AND \"has_roof\" <= ? AND \"has_roof\" >= ? "
 				+ "AND \"type\" <= ? AND \"type\" >= ?"
 				+ " AND \"number_of_players\" <= ? AND \"number_of_players\" >= ?";
 

@@ -15,6 +15,7 @@ import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.booking.Booking;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -148,10 +149,21 @@ public class BookingMemoryMock implements BookingDAO {
 	}
 
 	@Override
+	public List<Booking> getCancelableBookings() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean tryCancel(Booking booking, Expiration expiration) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public Collection<Booking> getDownBookings(String neighbourhood,
 			Long listCount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

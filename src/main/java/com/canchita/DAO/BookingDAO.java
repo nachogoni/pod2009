@@ -7,6 +7,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Booking;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -38,6 +39,10 @@ public interface BookingDAO {
 	public void update(Booking booking) throws ElementExistsException;
 
 	public Collection<Booking> getDownBookings(String neighbourhood, Long listCount);
+
+	public List<Booking> getCancelableBookings();
+
+	public boolean tryCancel(Booking booking, Expiration expiration);
 
 	public List<Booking> getAllBookings();
 

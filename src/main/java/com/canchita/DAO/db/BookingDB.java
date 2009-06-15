@@ -13,6 +13,7 @@ import com.canchita.DAO.db.builders.ReservationBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.BookingStatus;
+import com.canchita.model.booking.Expiration;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -35,7 +36,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 	@Override
 	public void cancel(Long id) {
-		String query = "UPDATE SET \"state\" = ? WHERE \"reservation_id\" = ?";
+		String query = "UPDATE RESERVATION SET \"state\" = ? WHERE \"reservation_id\" = ?";
 		executeUpdate(query, new Object[] { BookingStatus.CANCELLED.getIndex(),
 				id });
 
@@ -80,11 +81,12 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date" +
-						" FROM RESERVATION WHERE \"state\" <> ? AND \"field_id\" IN "
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
+				+ " FROM RESERVATION WHERE \"state\" <> ? AND \"field_id\" IN "
 				+ "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";
 
-		List<Booking> results = executeQuery(query, new Object[] { BookingStatus.CANCELLED.getIndex(), complexId },
+		List<Booking> results = executeQuery(query, new Object[] {
+				BookingStatus.CANCELLED.getIndex(), complexId },
 				ReservationBuilder.getInstance());
 
 		return results;
@@ -95,10 +97,11 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date" +
-						" FROM RESERVATION WHERE \"state\" <> ? AND \"field_id\" = ?";
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
+				+ " FROM RESERVATION WHERE \"state\" <> ? AND \"field_id\" = ?";
 
-		List<Booking> results = executeQuery(query, new Object[] { BookingStatus.CANCELLED.getIndex(), fieldId },
+		List<Booking> results = executeQuery(query, new Object[] {
+				BookingStatus.CANCELLED.getIndex(), fieldId },
 				ReservationBuilder.getInstance());
 
 		return results;
@@ -138,7 +141,6 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String query = "INSERT INTO RESERVATION VALUES (NULL, ?, ?, ?," + a
 				+ ", " + b + ",?,?," + c + ")";
 
-		
 		try {
 			executeUpdate(query, new Object[] { booking.getOwner().getId(),
 					booking.getItem().getId(), booking.getState().getIndex(),
@@ -242,26 +244,30 @@ public class BookingDB extends AllDB implements BookingDAO {
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
 		String b = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getEndTime()
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
-		
+
 		DateTime expDate = booking.getExpirationDate();
-		
-		String expDateString = (expDate == null) ? "null" : "'" + expDate +"'"; 
-		
+
+		String expDateString = (expDate == null) ? "null" : "'" + expDate + "'";
+
 		String c = "TO_TIMESTAMP_TZ(" + expDateString
 				+ ", 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
-		
+
 		String query = "UPDATE RESERVATION SET \"user_id\" = ?, \"field_id\" = ?"
 				+ ", \"state\" = ?, \"cost\" = ?, \"paid\" = ?, \"start_date\" = "
-				+ a + " ,\"end_date\" = " + b + " , \"expiration_date\" = " + c
+				+ a
+				+ " ,\"end_date\" = "
+				+ b
+				+ " , \"expiration_date\" = "
+				+ c
 				+ " WHERE \"reservation_id\" = ?";
-		
+
 		try {
 			executeUpdate(query, new Object[] { booking.getOwner().getId(),
 					booking.getItem().getId(), booking.getState().getIndex(),
-					booking.getCost(), booking.getPaid() , booking.getId() });
+					booking.getCost(), booking.getPaid(), booking.getId() });
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
-		
+
 			if (sql instanceof SQLException
 					&& sql.getMessage().contains("BOOKING_UNIQUE")) {
 				throw new ElementExistsException(
@@ -269,22 +275,55 @@ public class BookingDB extends AllDB implements BookingDAO {
 			} else {
 				throw re;
 			}
-		
+
 		}
 	}
 
 	@Override
 	public List<Booking> getAllBookings() {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
-			+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION" +
-			" WHERE \"state\" <> ?";
+				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION"
+				+ " WHERE \"state\" <> ?";
 
-		List<Booking> results = executeQuery(query, new Object[] { BookingStatus.CANCELLED.getIndex() },
+		List<Booking> results = executeQuery(query,
+				new Object[] { BookingStatus.CANCELLED.getIndex() },
 				ReservationBuilder.getInstance());
-	
+
 		return results;
+	}
+
+	@Override
+	public List<Booking> getCancelableBookings() {
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION"
+				+ " WHERE \"state\" = ? OR \"state\" = ?";
+
+		List<Booking> results = executeQuery(query, new Object[] {
+				BookingStatus.BOOKED.getIndex(),
+				BookingStatus.HALF_PAID.getIndex() }, ReservationBuilder
+				.getInstance());
+
+		return results;
+	}
+
+	@Override
+	public boolean tryCancel(Booking booking, Expiration expiration) {
+		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE \"reservation_id\" = ?";
+
+		query = query
+				+ " AND \"expiration_date\" < SYSDATE+("
+				+ (booking.getState() == BookingStatus.BOOKED ? expiration
+						.getBookingLimit() : expiration.getDepositLimit())
+				+ "/24)";
+
+		List<Integer> results = executeQuery(query, new Object[] { booking
+				.getId() }, CountBuilder.getInstance());
+
+		return results.get(0) > 0;
 	}
 
 }
