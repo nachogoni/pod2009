@@ -203,6 +203,14 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
+	public Collection<Booking> getDownBookings(String neighbourhood,
+			Long listCount) throws ValidationException, PersistenceException {
+		BookingDAO booking = DAOFactory.get(DAO.BOOKING);
+
+		return booking.getDownBookings(neighbourhood, listCount);
+	}
+
+	@Override
 	public List<Booking> getAllBookings() throws BookingException {
 		
 		BookingDAO bookingDAO;
@@ -215,7 +223,6 @@ public class BookingService implements BookingServiceProtocol {
 		
 		return bookingDAO.getAllBookings();
 	}
-
 
 }
 

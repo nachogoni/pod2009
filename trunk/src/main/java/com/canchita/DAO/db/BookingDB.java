@@ -213,6 +213,22 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 		return results;
 	}
+	
+	@Override
+	public Collection<Booking> getDownBookings(String neighbourhood, Long listCount) {
+		
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+			+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION"
+			+ " WHERE \"start_date\" > SYSDATE AND \"state\" = ? ORDER BY \"start_date\"";
+		
+		List<Booking> results = executeQuery(query, new Object[] {
+				BookingStatus.CANCELLED.getIndex()},
+				ReservationBuilder.getInstance());
+		
+		return results;
+	}
 
 	@Override
 	public void update(Booking booking) throws ElementExistsException {

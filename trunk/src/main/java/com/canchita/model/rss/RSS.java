@@ -27,11 +27,10 @@ public class RSS {
 		return null;
 	}
 	
-	public static Collection<Booking> generateDownBookings()
+	public static Collection<Booking> generateDownBookings(String neighbourhood)
 			throws ValidationException, PersistenceException {
 		
-		return new BookingService().getDownBookings();
-
+		return new BookingService().getDownBookings(neighbourhood, 10L);
 	}
 
 	public static Collection<Field> generateNewFields(String neighbourhood) 

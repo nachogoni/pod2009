@@ -147,4 +147,11 @@ public class BookingMemoryMock implements BookingDAO {
 		return null;
 	}
 
+	@Override
+	public Collection<Booking> getDownBookings(String neighbourhood,
+			Long listCount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
