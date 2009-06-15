@@ -152,6 +152,9 @@ public class UrlMapper {
 		successRedirect.put("FinishRegisterGET", "/tp-pod/user/home");
 		successRedirect.put("ProfilePOST", "/tp-pod/user/home");
 
+		// Admin
+
+		successRedirect.put("EmailPOST", "/tp-pod/user/home");
 		// ScoreSystem
 		successRedirect.put("ModifyScoreSystemPOST",
 				"/tp-pod/scoresystem/ShowScoreSystem?modify=true");
