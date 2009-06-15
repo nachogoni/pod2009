@@ -112,56 +112,82 @@ public class FormAddComplex extends FormHandler {
 						"IsHourMinute", "Horario de inicio del Lunes")
 				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_lunes_fin")
-				.setLabel("Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_lunes_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Lunes")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin lunes */
 
 		/* Horarios martes */
-		this.addElement(new FormElementSelect("fecha_martes_inicio").setLabel(
-				"Inicio").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_martes_inicio")
+				.setLabel("Inicio").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de inicio del Martes")
+				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_martes_fin").setLabel(
-				"Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_martes_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Lunes")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin martes */
 
 		/* Horarios miercoles */
-		this.addElement(new FormElementSelect("fecha_miercoles_inicio")
-				.setLabel("Inicio").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_miercoles_inicio")
+				.setLabel("Inicio").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de inicio del Miercoles")
+				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_miercoles_fin").setLabel(
-				"Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_miercoles_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Miercoles")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin miercoles */
 
 		/* Horarios jueves */
-		this.addElement(new FormElementSelect("fecha_jueves_inicio").setLabel(
-				"Inicio").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_jueves_inicio")
+				.setLabel("Inicio").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de inicio del Jueves")
+				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_jueves_fin").setLabel(
-				"Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_jueves_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Jueves")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin jueves */
 
 		/* Horarios viernes */
-		this.addElement(new FormElementSelect("fecha_viernes_inicio").setLabel(
-				"Inicio").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_viernes_inicio")
+				.setLabel("Inicio").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de inicio del Viernes")
+				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_viernes_fin").setLabel(
-				"Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_viernes_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Viernes")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin viernes */
 
 		/* Horarios sabado */
-		this.addElement(new FormElementSelect("fecha_sabado_inicio").setLabel(
-				"Inicio").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_sabado_inicio")
+				.setLabel("Inicio").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de inicio del Sabado")
+				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_sabado_fin").setLabel(
-				"Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_sabado_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Sabado")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin sabado */
 
 		/* Horarios domingo */
-		this.addElement(new FormElementSelect("fecha_domingo_inicio").setLabel(
-				"Inicio").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_domingo_inicio")
+				.setLabel("Inicio").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de inicio del Domingo")
+				.addJ2QueryTooltip("Hora de inicio"));
 
-		this.addElement(new FormElementSelect("fecha_domingo_fin").setLabel(
-				"Fin").addValues(horas, horas));
+		this.addElement(new FormElementInput("text", "fecha_domingo_fin")
+				.setLabel("Cierre").setRequired(true).addValidator(
+						"IsHourMinute", "Horario de cierre del Domingo")
+				.addJ2QueryTooltip("Hora de cierre"));
 		/* fin domingo */
 
 		this.addElement(new FormElementInput("text", "depositLimit").setLabel(
