@@ -21,8 +21,8 @@ public class FormElementInput extends FormElement {
 		enew.setLabel(this.label)
 			.setValue(value);
 		// Le anexo los validadores del padre
-		// enew.validators = e.validators;
-		// enew.validatorValues = e.validatorValues;
+		/*enew.validators = validators;
+		enew.validatorValues = validatorValues;*/
 		this.subelements.add(enew);
 	}
 
