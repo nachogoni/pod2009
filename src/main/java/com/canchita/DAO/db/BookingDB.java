@@ -217,14 +217,20 @@ public class BookingDB extends AllDB implements BookingDAO {
 	@Override
 	public Collection<Booking> getDownBookings(String neighbourhood, Long listCount) {
 		
-		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
-			+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+		String query = "SELECT \"reservation_id\", \"user_id\", RESERVATION.\"field_id\""
+			+ ", RESERVATION.\"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION"
-			+ " WHERE \"start_date\" > SYSDATE AND \"state\" = ? ORDER BY \"start_date\"";
+			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
+			+ " FROM RESERVATION, FIELD, COMPLEX WHERE FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
+			+ " RESERVATION.\"field_id\" = FIELD.\"field_id\" AND \"start_date\" > SYSDATE AND "
+			+ "RESERVATION.\"state\" = ? AND \"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"start_date\"";
+		  		
+		if (neighbourhood == null || neighbourhood.equals("")) {
+			neighbourhood = "%";
+		}
 		
 		List<Booking> results = executeQuery(query, new Object[] {
-				BookingStatus.CANCELLED.getIndex()},
+				BookingStatus.CANCELLED.getIndex(), neighbourhood, listCount},
 				ReservationBuilder.getInstance());
 		
 		return results;
