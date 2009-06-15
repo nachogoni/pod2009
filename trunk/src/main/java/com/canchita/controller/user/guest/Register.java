@@ -23,116 +23,118 @@ import com.canchita.views.helpers.form.FormHandler;
  */
 public class Register extends GenericServlet {
 	private static final long serialVersionUID = 1L;
-    
+
 	private FormHandler form;
-	
-    /**
-     * @see GenericServlet#GenericServlet()
-     */
-    public Register() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see GenericServlet#GenericServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	public Register() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		logger.debug("GET request");
 
-		/*Get Form*/
+		/* Get Form */
 		form = new FormRegister();
-		
-		/* Form is sent to the view*/
+
+		/* Form is sent to the view */
 		request.setAttribute("form", this.form);
-		
+
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 
 		logger.debug("Saliendo del controlador");
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	logger.debug("POST request");
-		/*Errors from the past are deleted.*/
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		logger.debug("POST request");
+		/* Errors from the past are deleted. */
 		this.form.unsetErrors();
 
-		/*Load form with request values*/
+		/* Load form with request values */
 		this.form.loadValues(request);
-		
-		if (!this.form.isValid())
-		{
+
+		if (!this.form.isValid()) {
 			logger.debug("Formulario inválido");
 			request.setAttribute("form", form);
-			UrlMapper.getInstance().forwardFailure(this, request, response, UrlMapperType.POST);
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.POST);
 			return;
-		}
-		else
-		{
-		ErrorManager error = new ErrorManager();
+		} else {
+			ErrorManager error = new ErrorManager();
 
-		
-		String username = request.getParameter("name");
-		String email = request.getParameter("email");
-		
-		String password = request.getParameter("pass");
-		String passwordAgain = request.getParameter("passAgain");
-		
-		if (username == null) {
-			error.add("Falta el nombre de Usuario");
-		}	
-		if(email == null){
-			error.add("Falta la dirección de correo electrónico");
-		}
-		if(password == null){
-			error.add("Falta ingresar la contraseña");
-		}
-		if(passwordAgain == null){
-			error.add("Falta reingresar la contraseña");
-		}		
-		
-		if( ! password.equals(passwordAgain) ) {
-			error.add("Las contraseñas deben coincidir");
-		}
-		
-		if (error.size() != 0) {
-			logger.debug("Error en el formulario");
-			request.setAttribute("form", form);			
-			this.failure(request, response, error);
-			return;
-		}
-	
-		
-		String baseUrl = (String) request.getAttribute("baseURL");
-		
-		UserServiceProtocol userService = new UserService();
-		
-		try {
-			userService.register(username, password, email, baseUrl);
-		} catch (RegisterException e) {
-			logger.debug("Error al realizar la registración");
-			error.add(e);
-			e.printStackTrace();
-			request.setAttribute("form", form);
-			this.failure(request, response, error);
-			return;
-		}
-		
-		Map<String,String> map = new HashMap<String, String>();
-		
-		map.put("register", "true");
-		
-		UrlMapper.getInstance().redirectSuccess(this, request, response,
-													UrlMapperType.POST,map);
-		
+			String username = request.getParameter("name");
+			String email = request.getParameter("email");
+
+			String password = request.getParameter("pass");
+			String passwordAgain = request.getParameter("passAgain");
+
+			if (username == null) {
+				error.add("Falta el nombre de Usuario");
+			}
+			if (email == null) {
+				error.add("Falta la dirección de correo electrónico");
+			}
+			if (password == null) {
+				error.add("Falta ingresar la contraseña");
+			}
+			if (passwordAgain == null) {
+				error.add("Falta reingresar la contraseña");
+			}
+
+			if (!password.equals(passwordAgain)) {
+				error.add("Las contraseñas deben coincidir");
+			}
+
+			if (error.size() != 0) {
+				logger.debug("Error en el formulario");
+				request.setAttribute("form", form);
+				this.failure(request, response, error);
+				return;
+			}
+
+			String baseUrl = (String) request.getAttribute("baseURL");
+
+			UserServiceProtocol userService = new UserService();
+
+			try {
+				userService.register(username, password, email, baseUrl, this
+						.getServletContext().getRealPath(
+								"/WEB-INF/resources/mails"));
+			} catch (RegisterException e) {
+				logger.debug("Error al realizar la registración");
+				error.add(e);
+				e.printStackTrace();
+				request.setAttribute("form", form);
+				this.failure(request, response, error);
+				return;
+			}
+
+			Map<String, String> map = new HashMap<String, String>();
+
+			map.put("register", "true");
+
+			UrlMapper.getInstance().redirectSuccess(this, request, response,
+					UrlMapperType.POST, map);
+
 		}
 	}
-		
+
 	private void failure(HttpServletRequest request,
 			HttpServletResponse response, ErrorManager error)
 			throws ServletException, IOException {

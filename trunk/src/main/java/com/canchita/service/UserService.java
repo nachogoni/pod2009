@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.canchita.DAO.UserDAO;
@@ -40,15 +41,19 @@ public class UserService implements UserServiceProtocol {
 
 	@Override
 	public void register(String username, String password, String email,
-			String baseUrl) throws RegisterException {
+			String baseUrl, String mailPath) throws RegisterException {
 
 		Guest guest = new Guest();
 
 		String hash = guest.register(username, password, email);
 
 		// We send the mail to the user
-
-		RegisterMail.sendMail(email, username, hash, baseUrl);
+		try {
+			RegisterMail.sendMail(email, username, hash, baseUrl, mailPath);
+		} catch (IOException e) {
+			throw new RegisterException(
+					"No se pudo enviar el correo electrónico de registración");
+		}
 
 	}
 
@@ -84,20 +89,18 @@ public class UserService implements UserServiceProtocol {
 		try {
 			userDAO = DAOFactory.get(DAO.USER);
 			registered = userDAO.getById(userId);
-		}
-		catch(ElementNotExistsException e) {
+		} catch (ElementNotExistsException e) {
 			throw new UserException("No existe el usuario");
-		}
-		catch (PersistenceException e) {
+		} catch (PersistenceException e) {
 			throw new UserException("No se pudo obtener el usuario");
 		}
-		
+
 		return registered;
 	}
 
 	@Override
 	public Registered get(Registered user) throws UserException {
-		
+
 		return this.getById(user.getId());
 	}
 }
