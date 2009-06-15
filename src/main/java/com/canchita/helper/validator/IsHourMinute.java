@@ -1,6 +1,6 @@
 package com.canchita.helper.validator;
 
-public class IsHourMinute extends Validator {
+public class IsHourMinute extends ValidatorWParam {
 
 	private String msg;
 
