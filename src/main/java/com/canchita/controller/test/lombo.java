@@ -1,6 +1,8 @@
 package com.canchita.controller.test;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +30,7 @@ public class lombo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println(DateTimeZone.getDefault());
+		System.out.println(this.getServletContext().getRealPath("/WEB-INF/resources/mails/"));
 	}
 
 	/**

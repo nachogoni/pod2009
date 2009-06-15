@@ -23,8 +23,8 @@ public interface UserServiceProtocol {
 
 	void logout(Registered registered);
 
-	void register(String username, String password, String email, String baseUrl)
-			throws RegisterException;
+	void register(String username, String password, String email,
+			String baseUrl, String mailPath) throws RegisterException;
 
 	Registered confirmateHash(String hash) throws RegisterException;
 
@@ -38,5 +38,6 @@ public interface UserServiceProtocol {
 	Registered getById(Long userId) throws UserException;
 
 	Registered get(Registered user) throws UserException;
+
 
 }
