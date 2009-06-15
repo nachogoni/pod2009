@@ -87,11 +87,14 @@
 				<span class="block">* No se encontraron políticas de expiración.</span>
 
 			</div>
+			
+			<c:if test="${user.isAdmin}">
 						
-			<div class="submit-go">
-		        <a href="<c:out value="${baseURI}"/>/AddExpirationPolicy?id=<c:out value="${param.id}"/>">Agregar</a>
-	        </div>
-
+				<div class="submit-go">
+			        <a href="<c:out value="${baseURI}"/>/AddExpirationPolicy?id=<c:out value="${param.id}"/>">Agregar</a>
+		        </div>
+		        
+			</c:if>
 
 		</c:otherwise>
 		</c:choose>
