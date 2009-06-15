@@ -10,6 +10,7 @@
 	<li><a href="<c:out value="${baseURI}" />/booking/list"><span>Reservas</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/scoresystem/ShowScoreSystem"><span>Sistema de Puntos</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/admin/email"><span>Perfil</span></a></li>
+	<li><a href="<c:out value="${baseURI}" />/ListRSS"><span>RSS</span></a></li>
 	<li><a href="<c:out value="${baseURI}" />/user/logout"><span>Cerrar Sesión</span></a></li>
 </ul>
 </div>
