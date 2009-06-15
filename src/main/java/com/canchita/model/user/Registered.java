@@ -2,12 +2,10 @@ package com.canchita.model.user;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.canchita.DAO.UserDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
-import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.UserException;
 
@@ -113,8 +111,7 @@ public abstract class Registered extends User {
 		return userDAO.getEmails(this);
 	}
 
-	public void updateEmails(Map<String, String> mailsToUpdate)
-			throws UserException {
+	public void updateEmails(String[] emails) throws UserException {
 
 		UserDAO userDAO;
 
@@ -125,18 +122,11 @@ public abstract class Registered extends User {
 					"No se pudieron guardar los correos electrónicos del usuario");
 		}
 
-		for (String key : mailsToUpdate.keySet()) {
-
-			try {
-				userDAO.updateEmail(this, key, mailsToUpdate.get(key));
-			} catch (ElementNotExistsException e) {
-				throw new UserException(
-						"El correo electrónico es inexistente: " + key);
-			} catch (PersistenceException e) {
-				throw new UserException(
-						"Error al intentar modificar el correo electrónico");
-			}
-
+		try {
+			userDAO.updateEmail(this, emails);
+		} catch (PersistenceException e) {
+			throw new UserException(
+					"Error al intentar modificar el correo electrónico");
 		}
 
 	}
@@ -147,6 +137,18 @@ public abstract class Registered extends User {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void update() throws UserException {
+
+		UserDAO userDAO;
+		try {
+			userDAO = DAOFactory.get(DAO.USER);
+			userDAO.update(this);
+
+		} catch (PersistenceException e) {
+			throw new UserException("No se pudo actualizar el usuario");
+		}
 	}
 
 }

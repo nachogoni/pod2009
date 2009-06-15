@@ -13,6 +13,8 @@ package com.canchita.model.user;
  */
 public class CommonUser extends Registered {
 
+	private static final long serialVersionUID = 1L;
+
 	public CommonUser(Long id, String name, String pass, Long score,
 			Long notifyBeforeExpiration) {
 		super();
