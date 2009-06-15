@@ -84,11 +84,12 @@
 				<span class="block">* Hasta el momento no ha definido ninguna política.</span>
 
 			</div>
-						
-			<div class="submit-go">
-		        <a href="<c:out value="${baseURI}"/>/field/AddFieldExpirationPolicy?id=<c:out value="${param.id}"/>">Agregar</a>
-	        </div>
-
+			
+			<c:if test="${user.isAdmin}">			
+				<div class="submit-go">
+			        <a href="<c:out value="${baseURI}"/>/field/AddFieldExpirationPolicy?id=<c:out value="${param.id}"/>">Agregar</a>
+		        </div>
+			</c:if>
 
 		</c:otherwise>
 		</c:choose>

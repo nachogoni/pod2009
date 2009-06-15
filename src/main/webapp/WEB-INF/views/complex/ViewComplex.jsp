@@ -148,8 +148,12 @@
 								<!--  <tr class="<c:out value="${rowStyle}" />"> -->
 								<tr>
 									<td><c:out value="${field.name}" /></td>
-									<td><a href=<c:out value="field/book?id=${field.id}" />>Reservar</a>
-									<br />
+									
+									<td>
+									<c:if test="${user.isAuthenticated && !user.isAdmin}">
+										<a href=<c:out value="field/book?id=${field.id}" />>Reservar</a>
+										<br />
+									</c:if>
 									<a href=<c:out value="field/detailedview?id=${field.id }" />>Detalles</a></td>
 								</tr>
 							</c:forEach>
