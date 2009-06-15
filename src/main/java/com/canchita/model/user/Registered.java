@@ -46,8 +46,6 @@ public abstract class Registered extends User {
 
 	public void addScore(long score) throws UserException {
 		
-		System.out.println("Le voy a sumar " + score);
-		
 		if( score < 0 ) {
 			throw new IllegalArgumentException("Puntos menores que cero");
 		}

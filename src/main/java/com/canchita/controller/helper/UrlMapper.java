@@ -137,6 +137,16 @@ public class UrlMapper {
 				+ "field/AddManyBookings.jsp");
 		successForward.put("AddManyBookingsPOST", FORWARD_ROOT_DIR
 				+ "field/AddManyBookings.jsp");
+		successForward.put("ListBookingGET", FORWARD_ROOT_DIR
+				+ "booking/ListBooking.jsp");
+		successForward.put("ListComplexBookingGET", FORWARD_ROOT_DIR
+				+ "booking/ListBooking.jsp");
+		successForward.put("ListFieldBookingGET", FORWARD_ROOT_DIR
+				+ "booking/ListBooking.jsp");
+		successForward.put("PayGET", FORWARD_ROOT_DIR
+				+ "booking/Pay.jsp");
+		
+		
 		// Errors
 		successForward.put("Error404GET", FORWARD_ROOT_DIR + "error/404.jsp");
 		successForward.put("Error500GET", FORWARD_ROOT_DIR + "error/500.jsp");
@@ -189,6 +199,13 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=true");
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
+		
+		//Booking
+		successRedirect.put("FullPayPOST",
+		"/tp-pod/booking/list");
+		successRedirect.put("PayPOST",
+		"/tp-pod/booking/list");
+
 	}
 
 	/**
@@ -237,6 +254,17 @@ public class UrlMapper {
 				+ "field/AddManyBookings.jsp");
 		failureForward.put("AddManyBookingsPOST", FORWARD_ROOT_DIR
 				+ "field/AddManyBookings.jsp");
+		failureForward.put("ListBookingGET", FORWARD_ROOT_DIR
+				+ "booking/ListBooking.jsp");
+		failureForward.put("ListComplexBookingGET", FORWARD_ROOT_DIR
+				+ "booking/ListBooking.jsp");
+		failureForward.put("ListFieldBookingGET", FORWARD_ROOT_DIR
+				+ "booking/ListBooking.jsp");
+		
+		failureForward.put("PayGET", FORWARD_ROOT_DIR
+				+ "booking/Pay.jsp");
+		failureForward.put("PayPOST", FORWARD_ROOT_DIR
+				+ "booking/Pay.jsp");
 
 		// ScoreSystem
 		failureForward.put("ModifyScoreSystemGET", FORWARD_ROOT_DIR
@@ -295,8 +323,12 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=false");
 		failureRedirect.put("DeleteFieldPOST",
 				"/tp-pod/field/list?delete=false");
-		failureRedirect.put(UrlMapper.DEFAULT, "/tp-pod/error/500");
+		
+		//Booking
+		failureRedirect.put("FullPayPOST",
+		"/tp-pod/booking/list");
 
+		failureRedirect.put(UrlMapper.DEFAULT, "/tp-pod/error/500");
 	}
 
 	/**

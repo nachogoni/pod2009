@@ -244,7 +244,7 @@ CREATE  TABLE "RESERVATION" (
   "end_date" TIMESTAMP NOT NULL ,
   "cost" VARCHAR2(10) NOT NULL ,
   "paid" VARCHAR2(10) NOT NULL ,
-  "expiration_date" TIMESTAMP NOT NULL ,
+  "expiration_date" TIMESTAMP ,
   PRIMARY KEY ("reservation_id") ,
   CONSTRAINT booking_unique UNIQUE ("field_id", "start_date", "end_date"),
   CONSTRAINT "fk_has_COMPLEX_has_FIELD_USERS"

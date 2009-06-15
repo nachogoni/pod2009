@@ -76,30 +76,32 @@ public class BookingDB extends AllDB implements BookingDAO {
 	}
 
 	@Override
-	public Iterator<Booking> getComplexBookings(Long complexId) {
+	public List<Booking> getComplexBookings(Long complexId) {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE \"field_id\" IN "
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date" +
+						" FROM RESERVATION WHERE \"state\" <> ? AND \"field_id\" IN "
 				+ "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";
 
-		List<Booking> results = executeQuery(query, new Object[] { complexId },
+		List<Booking> results = executeQuery(query, new Object[] { BookingStatus.CANCELLED.getIndex(), complexId },
 				ReservationBuilder.getInstance());
 
-		return results.iterator();
+		return results;
 	}
 
 	@Override
-	public Iterator<Booking> getFieldBookings(Long fieldId) {
+	public List<Booking> getFieldBookings(Long fieldId) {
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION WHERE \"field_id\" = ?";
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date" +
+						" FROM RESERVATION WHERE \"state\" <> ? AND \"field_id\" = ?";
 
-		List<Booking> results = executeQuery(query, new Object[] { fieldId },
+		List<Booking> results = executeQuery(query, new Object[] { BookingStatus.CANCELLED.getIndex(), fieldId },
 				ReservationBuilder.getInstance());
 
-		return results.iterator();
+		return results;
 	}
 
 	@Override
@@ -109,8 +111,6 @@ public class BookingDB extends AllDB implements BookingDAO {
 				+ date
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD'), 'YYYY-MON-DD')";
 
-		System.out.println(sqlDate);
-		
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
 				+ ", \"cost\", \"paid\", \"state\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
 				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
@@ -221,14 +221,17 @@ public class BookingDB extends AllDB implements BookingDAO {
 		String b = "TO_TIMESTAMP_TZ('" + booking.getSchedule().getEndTime()
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
 		
-		String c = "TO_TIMESTAMP_TZ('" + booking.getExpirationDate()
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
+		DateTime expDate = booking.getExpirationDate();
+		
+		String expDateString = (expDate == null) ? "null" : "'" + expDate +"'"; 
+		
+		String c = "TO_TIMESTAMP_TZ(" + expDateString
+				+ ", 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD')";
 		
 		String query = "UPDATE RESERVATION SET \"user_id\" = ?, \"field_id\" = ?"
 				+ ", \"state\" = ?, \"cost\" = ?, \"paid\" = ?, \"start_date\" = "
 				+ a + " ,\"end_date\" = " + b + " , \"expiration_date\" = " + c
 				+ " WHERE \"reservation_id\" = ?";
-		
 		
 		try {
 			executeUpdate(query, new Object[] { booking.getOwner().getId(),
@@ -246,6 +249,20 @@ public class BookingDB extends AllDB implements BookingDAO {
 			}
 		
 		}
+	}
+
+	@Override
+	public List<Booking> getAllBookings() {
+		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+			+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date FROM RESERVATION" +
+			" WHERE \"state\" <> ?";
+
+		List<Booking> results = executeQuery(query, new Object[] { BookingStatus.CANCELLED.getIndex() },
+				ReservationBuilder.getInstance());
+	
+		return results;
 	}
 
 }

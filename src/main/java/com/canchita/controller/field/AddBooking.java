@@ -21,10 +21,13 @@ import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.UserException;
 import com.canchita.model.field.Field;
 import com.canchita.model.user.CommonUser;
+import com.canchita.model.user.Registered;
 import com.canchita.service.BookingService;
 import com.canchita.service.BookingServiceProtocol;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
+import com.canchita.service.UserService;
+import com.canchita.service.UserServiceProtocol;
 
 /**
  * Servlet implementation class AddBooking
@@ -159,12 +162,16 @@ public class AddBooking extends GenericServlet {
 		}
 
 		BookingServiceProtocol bookingService = new BookingService();
+		UserServiceProtocol userService = new UserService();
 		Booking booking = null;
 		
 		CommonUser user = (CommonUser) request.getSession().getAttribute("user");
-		
+		Registered newUser;
 		try {
 			booking = bookingService.saveBooking(user,id, startTime, endTime);
+			newUser = userService.get(user);
+			request.getSession().removeAttribute("user");
+			request.getSession().setAttribute("user", newUser);
 		} catch (ElementExistsException e) {
 			error.add(e);
 		} catch (ElementNotExistsException ene) {
@@ -182,7 +189,7 @@ public class AddBooking extends GenericServlet {
 			this.failurePOST(request, response, error);
 			return;
 		}
-		
+				
 		request.setAttribute("success", true);
 		request.setAttribute("booking", booking);
 		

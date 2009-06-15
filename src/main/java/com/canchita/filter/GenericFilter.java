@@ -10,6 +10,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTimeZone;
+
 public class GenericFilter implements Filter {
 
 	private FilterConfig filterConfig;
@@ -25,7 +27,11 @@ public class GenericFilter implements Filter {
 
 		      //if the ServletRequest is an instance of HttpServletRequest  
 		         if(servletRequest instanceof HttpServletRequest) {  
-		             //cast the object  
+		             
+		        	 //Set defaultTimeZone
+		        	 DateTimeZone.setDefault(DateTimeZone.UTC);
+		        	 
+		        	 //cast the object  
 		             HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
 		             
 		             String search = "tp-pod";
@@ -33,7 +39,12 @@ public class GenericFilter implements Filter {
 		             httpServletRequest.setAttribute("baseURL", this.getBaseURL(httpServletRequest.getRequestURL(), search));
 		             httpServletRequest.setAttribute("baseURI", this.getBaseURI(httpServletRequest.getRequestURI(), search));
 		             
-		             filterChain.doFilter(httpServletRequest , servletResponse);
+		             //TODO for debugging
+		             try {
+		            	 filterChain.doFilter(httpServletRequest , servletResponse);
+		             }catch(Throwable t) {
+			        	 t.printStackTrace();
+			         }
 		         } else {  
 		             //otherwise, continue on in the chain with the ServletRequest and ServletResponse objects  
 		             filterChain.doFilter(servletRequest, servletResponse);  

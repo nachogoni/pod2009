@@ -10,6 +10,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTimeZone;
+
 import com.canchita.service.UserService;
 
 public class AuthenticationFilter implements Filter {
@@ -25,7 +27,7 @@ public class AuthenticationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 			FilterChain filterChain) throws IOException, ServletException {
-				try{
+									
 				//if the ServletRequest is an instance of HttpServletRequest  
 		         if(servletRequest instanceof HttpServletRequest) {  
 		             //cast the object  
@@ -36,9 +38,6 @@ public class AuthenticationFilter implements Filter {
 		         } else {  
 		             //otherwise, continue on in the chain with the ServletRequest and ServletResponse objects  
 		             filterChain.doFilter(servletRequest, servletResponse);  
-		         }
-				}catch(Throwable t) {
-		        	 t.printStackTrace();
 		         }
 	}
 

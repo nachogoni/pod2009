@@ -2,6 +2,7 @@ package com.canchita.model.booking;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -26,7 +27,7 @@ public interface Bookable {
 
 	Long getId();
 
-	Iterator<Booking> getBookings() throws PersistenceException;
+	List<Booking> getBookings() throws PersistenceException;
 	
 	Booking book(CommonUser user, Schedule hour) throws PersistenceException, BookingException;
 	

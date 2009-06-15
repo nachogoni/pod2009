@@ -2,6 +2,7 @@ package com.canchita.DAO;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -20,9 +21,9 @@ public interface BookingDAO {
 	
 	public void delete(Long id);
 
-	public Iterator<Booking> getComplexBookings(Long complexId);
+	public List<Booking> getComplexBookings(Long complexId);
 
-	public Iterator<Booking> getFieldBookings(Long fieldId);
+	public List<Booking> getFieldBookings(Long fieldId);
 
 	public Iterator<Booking> getFieldBookings(Long fieldId, DateTime date);
 
@@ -35,6 +36,8 @@ public interface BookingDAO {
 	Collection<Booking> getDownBookings(Long complexId);
 
 	public void update(Booking booking) throws ElementExistsException;
+
+	public List<Booking> getAllBookings();
 
 
 }

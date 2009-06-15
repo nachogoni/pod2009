@@ -5,6 +5,7 @@ import java.util.List;
 import com.canchita.model.exception.LoginException;
 import com.canchita.model.exception.RegisterException;
 import com.canchita.model.exception.UserException;
+import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
 
@@ -35,5 +36,7 @@ public interface UserServiceProtocol {
 	void updateUser(Registered user) throws UserException;
 
 	Registered getById(Long userId) throws UserException;
+
+	Registered get(Registered user) throws UserException;
 
 }

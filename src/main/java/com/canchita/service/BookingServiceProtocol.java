@@ -2,7 +2,6 @@ package com.canchita.service;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -22,15 +21,15 @@ public interface BookingServiceProtocol {
 
 	void cancelBooking(Long id) throws BookingException, PersistenceException, UserException;
 
-	void payBooking(Long userId, Long id, BigDecimal amount)
+	void payBooking(Long id, BigDecimal amount)
 	throws BookingException, UserException;
 	
-	void fullPayBooking(Long userId, Long id) throws BookingException, UserException;
+	void fullPayBooking(Long id) throws BookingException, UserException;
 	
-	public Iterator<Booking> getBookedBookings(Long bookerId)
+	public List<Booking> getBookedBookings(Long bookerId)
 			throws PersistenceException;
 
-	public Iterator<Booking> getBookableBookings(Long bookeableId)
+	public List<Booking> getBookableBookings(Long bookeableId)
 			throws PersistenceException;
 
 	List<Booking> saveManyBookings(CommonUser user, Long id,
@@ -43,6 +42,8 @@ public interface BookingServiceProtocol {
 
 	Collection<Booking> getDownBookings(Long complexId)
 			throws ValidationException, PersistenceException;
+
+	List<Booking> getAllBookings() throws BookingException;
 
 
 

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.security.InvalidParameterException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -39,7 +40,7 @@ public interface FieldServiceProtocol {
 
 	public Field getById(Long id) throws PersistenceException;
 
-	Iterator<Booking> getBookings(Long fieldId) throws PersistenceException;
+	List<Booking> getBookings(Long fieldId) throws PersistenceException;
 
 	public void addExpiration(Long id, Integer bookingLimit,
 			Integer depositLimit) throws PersistenceException,

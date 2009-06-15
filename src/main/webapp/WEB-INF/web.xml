@@ -6,10 +6,6 @@
 <web-app>
 
 	<!-- BEGIN filters -->
-	<filter>
-		<filter-name>Authentication Filter</filter-name>
-		<filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
-	</filter>
 
 	<filter>
 		<filter-name>Generic Filter</filter-name>
@@ -17,21 +13,24 @@
 	</filter>
 
 	<filter>
+		<filter-name>Authentication Filter</filter-name>
+		<filter-class>com.canchita.filter.AuthenticationFilter</filter-class>
+	</filter>
+	
+	<filter>
 		<filter-name>ACL Filter</filter-name>
 		<filter-class>com.canchita.filter.ACLFilter</filter-class>
 	</filter>
-
-	<filter-mapping>
-		<filter-name>Authentication Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
 
 	<filter-mapping>
 		<filter-name>Generic Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter-mapping>
+		<filter-name>Authentication Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>ACL Filter</filter-name>
@@ -347,6 +346,42 @@
 		<servlet-class>
 		com.canchita.controller.admin.Email</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ListBooking</servlet-name>
+		<display-name>ListBooking</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.booking.ListBooking</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ListFieldBooking</servlet-name>
+		<display-name>ListFieldBooking</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.booking.ListFieldBooking</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ListComplexBooking</servlet-name>
+		<display-name>ListComplexBooking</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.booking.ListComplexBooking</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FullPay</servlet-name>
+		<display-name>FullPay</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.booking.FullPay</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Pay</servlet-name>
+		<display-name>Pay</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.booking.Pay</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -516,6 +551,26 @@
 	<servlet-mapping>
 		<servlet-name>Email</servlet-name>
 		<url-pattern>/admin/email</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListBooking</servlet-name>
+		<url-pattern>/booking/list</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListFieldBooking</servlet-name>
+		<url-pattern>/booking/listfield</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListComplexBooking</servlet-name>
+		<url-pattern>/booking/listcomplex</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FullPay</servlet-name>
+		<url-pattern>/booking/fullpay</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Pay</servlet-name>
+		<url-pattern>/booking/pay</url-pattern>
 	</servlet-mapping>
 
 	<!-- BEGIN Error Handling -->

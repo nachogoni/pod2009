@@ -11,6 +11,7 @@ import com.canchita.model.exception.LoginException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.RegisterException;
 import com.canchita.model.exception.UserException;
+import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
 
@@ -44,8 +45,6 @@ public class UserService implements UserServiceProtocol {
 		Guest guest = new Guest();
 
 		String hash = guest.register(username, password, email);
-
-		System.out.println("El hash me dio " + hash);
 
 		// We send the mail to the user
 
@@ -94,5 +93,11 @@ public class UserService implements UserServiceProtocol {
 		}
 		
 		return registered;
+	}
+
+	@Override
+	public Registered get(Registered user) throws UserException {
+		
+		return this.getById(user.getId());
 	}
 }
