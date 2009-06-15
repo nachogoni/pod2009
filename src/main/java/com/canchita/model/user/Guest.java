@@ -21,6 +21,10 @@ import com.canchita.model.exception.RegisterException;
  * 
  */
 public class Guest extends User {
+	
+	public boolean getIsAdmin(){
+		return false;
+	}
 
 	public boolean getIsAuthenticated() {
 		return false;

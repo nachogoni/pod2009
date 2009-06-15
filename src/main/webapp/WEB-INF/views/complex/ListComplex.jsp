@@ -165,7 +165,11 @@
 					<td><strong>Nombre</strong></td>
 					<td><strong>Lugar</strong></td>
 					<td><strong>Descipción</strong></td>
-					<td><a href="<c:out value="${baseURI}" />/AddComplex">Agregar Nuevo</a></td>
+					<td>
+						<c:if test="${user.isAdmin}">
+							<a href="<c:out value="${baseURI}" />/AddComplex">Agregar Nuevo</a>
+						</c:if>
+					</td>
 				</tr>
 				<c:forEach items="${complexes}" var="complex" varStatus="rowCounter">
 						
@@ -184,24 +188,26 @@
 							<td><c:out value="${complex.description}" /></td>
 							
 							<td>
-								<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
-								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-								<input type="submit" class="delete" name="delete" value="Eliminar" />
-								</form>
-								<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
-								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-								<input type="submit" name="modify" value="Modificar" />
-								</form>
+								<c:if test="${user.isAdmin}">
+									<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" class="delete" name="delete" value="Eliminar" />
+									</form>
+									<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" name="modify" value="Modificar" />
+									</form>
+									<form action="<c:out value="${baseURI}" />/ListExpirationPolicy" method="get">
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" name="expirationPolicy" value="Ver expiración" />
+									</form>
+								</c:if>
 								<form action="<c:out value="${baseURI}" />/DetailedViewComplex" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
 								<input type="submit" name="viewDetails" value="Detalles" />
-								</form>
-								<form action="<c:out value="${baseURI}" />/ListExpirationPolicy" method="get">
-								<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-								<input type="submit" name="expirationPolicy" value="Ver expiración" />
 								</form>
 							</td>
 						</tr>

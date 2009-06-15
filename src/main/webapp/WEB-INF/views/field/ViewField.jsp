@@ -35,13 +35,18 @@
 <table>
 	<tr>
 		<td>
-			<form action="<c:out value="${baseURI}" />/field/delete" method="post">
-			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-			<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-			<input type="submit" class="delete" name="delete" value="Eliminar" />
-			</form>
+			<c:if test="${user.isAdmin}">
+				<form action="<c:out value="${baseURI}" />/field/delete" method="post">
+				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+				<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+				<input type="submit" class="delete" name="delete" value="Eliminar" />
+				</form>
+			</c:if>
+			<c:if test="${user.isAuthenticated && !user.isAdmin}">
+				<a href="<c:out value="${baseURI}" />/field/book?id=<c:out value="${field.id}" />">Reservar</a>
+			</c:if>
 		</td>
-		<td><a href="<c:out value="${baseURI}" />/field/book?id=<c:out value="${field.id}" />">Reservar</a></td>
+		<td></td>
 		<!-- 
 		<td>
 			<form action="<c:out value="${baseURI}" />/ModifyField" method="get">

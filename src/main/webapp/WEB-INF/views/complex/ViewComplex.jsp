@@ -47,31 +47,33 @@
 </c:when>
 <c:otherwise>	
 
-<table>
-	<tr>
-		<td>
-			<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
-			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-			<input type="submit" class="delete" name="delete" value="Eliminar" />
-			</form>
-		</td>
-		<td>
-			<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
-			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-			<input type="submit" name="modify" value="Modificar" />
-			</form>
-		</td>
-		<td>
-			<form action="<c:out value="${baseURI}" />/field/add" method="get">
-			<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-			<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-			<input type="submit" name="add" value="Agregar Canchas" />
-			</form>
-		</td>
-	</tr>
-</table>
+<c:if test="${user.isAdmin}">
+	<table>
+		<tr>
+			<td>
+				<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
+				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+				<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+				<input type="submit" class="delete" name="delete" value="Eliminar" />
+				</form>
+			</td>
+			<td>
+				<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
+				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+				<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+				<input type="submit" name="modify" value="Modificar" />
+				</form>
+			</td>
+			<td>
+				<form action="<c:out value="${baseURI}" />/field/add" method="get">
+				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+				<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+				<input type="submit" name="add" value="Agregar Canchas" />
+				</form>
+			</td>
+		</tr>
+	</table>
+</c:if>
 
 	<%-- TODO ver como hacerque anden los function tags --%>
 	
