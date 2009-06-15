@@ -1,6 +1,7 @@
 package com.canchita.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.canchita.model.complex.DayOfWeek;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.ValidationException;
 import com.canchita.model.user.CommonUser;
 
 public class BookingService implements BookingServiceProtocol {
@@ -109,6 +111,15 @@ public class BookingService implements BookingServiceProtocol {
 		}
 		
 		return bookings;
+	}
+
+	@Override
+	public Collection<Booking> getDownBookings() throws ValidationException,
+			PersistenceException {
+		
+		BookingDAO booking = DAOFactory.get(DAO.BOOKING);
+
+		return booking.getDownBookings();
 	}
 
 }

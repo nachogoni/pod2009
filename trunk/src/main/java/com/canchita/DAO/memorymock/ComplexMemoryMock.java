@@ -263,4 +263,10 @@ public class ComplexMemoryMock implements ComplexDAO {
 		return null;
 	}
 
+	@Override
+	public Collection<String> getNeighbourhoods() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

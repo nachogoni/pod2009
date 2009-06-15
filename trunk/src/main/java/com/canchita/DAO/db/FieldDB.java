@@ -152,7 +152,13 @@ public class FieldDB extends AllDB implements FieldDAO {
 				"FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND " +
 				"\"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"field_id\"";
 		
-		List<Field> results = executeQuery(query, new Object[] {"%" + neighbourhood + "%", listCount}, 
+		if (neighbourhood == null || neighbourhood.equals("")) {
+			neighbourhood = "%";
+		}/* else {
+			neighbourhood = "%" + neighbourhood + "%";
+		}*/
+		
+		List<Field> results = executeQuery(query, new Object[] {neighbourhood, listCount}, 
 				FieldBuilder.getInstance());
 
 		return results;

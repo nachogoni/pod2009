@@ -1,6 +1,7 @@
 package com.canchita.DAO.db;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.ReservationBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.model.booking.Bookable;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
@@ -176,6 +178,21 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 		return results.get(0) == 0;
 
+	}
+
+	@Override
+	public Collection<Booking> getDownBookings() {
+		String query = "SELECT * FROM RESERVATION";
+
+		/*String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
+			+ ", \"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+			+ " as end_date FROM RESERVATION WHERE \"field_id\" IN "
+			+ "(SELECT \"field_id\" FROM FIELD WHERE \"complex_id\" = ?)";*/
+		
+		List<Booking> results = executeQuery(query, new Object[] {}, ReservationBuilder.getInstance());
+
+	return results;
 	}
 
 }

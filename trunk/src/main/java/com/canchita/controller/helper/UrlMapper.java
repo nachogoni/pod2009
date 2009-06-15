@@ -61,6 +61,10 @@ public class UrlMapper {
 
 		this.successForward = new HashMap<String, String>();
 
+		// RSS
+		successForward.put("ListRSSGET", FORWARD_ROOT_DIR
+				+ "rss/ListRSS.jsp");
+
 		// User
 		successForward.put("LoginGET", FORWARD_ROOT_DIR
 				+ "user/guest/Login.jsp");

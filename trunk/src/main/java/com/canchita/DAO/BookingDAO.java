@@ -1,9 +1,12 @@
 package com.canchita.DAO;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
+import com.canchita.model.booking.Bookable;
+import com.canchita.model.booking.Booker;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -27,5 +30,7 @@ public interface BookingDAO {
 	public boolean exists(Booking booking);
 	// TODO ver el tema de la busqueda de reservas
 	// public List<Complex> getFiltered(String name, Locatable aLocation );
+
+	public Collection<Booking> getDownBookings();
 
 }

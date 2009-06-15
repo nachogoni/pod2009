@@ -545,4 +545,12 @@ public class ComplexService implements ComplexServiceProtocol {
 		expirationDAO.updateDefault(complexId, bookingLimit, depositLimit);
 		
 	}
+
+	@Override
+	public Collection<String> getNeighbourhoods() throws PersistenceException {
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		Collection<String> neighbourhoods = complexDAO.getNeighbourhoods();
+		return neighbourhoods;
+
+	}
 }

@@ -330,6 +330,13 @@
 		<servlet-class>
 		com.canchita.controller.test.martin</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ListRSS</servlet-name>
+		<display-name>ListRSS</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.rss.ListRSS</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -491,6 +498,10 @@
 	<servlet-mapping>
 		<servlet-name>martin</servlet-name>
 		<url-pattern>/test/martin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ListRSS</servlet-name>
+		<url-pattern>/ListRSS</url-pattern>
 	</servlet-mapping>
 
 	<!-- BEGIN Error Handling -->

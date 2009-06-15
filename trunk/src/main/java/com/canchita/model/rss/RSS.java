@@ -2,12 +2,12 @@ package com.canchita.model.rss;
 
 import java.util.Collection;
 
-import com.canchita.model.booking.Bookable;
+import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
+import com.canchita.service.BookingService;
 import com.canchita.service.FieldService;
-import com.canchita.service.FieldServiceProtocol;
 
 /**
  * 
@@ -27,20 +27,17 @@ public class RSS {
 		return null;
 	}
 	
-	public static Collection<Bookable> generateDownBookings() {
+	public static Collection<Booking> generateDownBookings()
+			throws ValidationException, PersistenceException {
 		
-		//TODO implementame
-		return null;
+		return new BookingService().getDownBookings();
 
 	}
 
 	public static Collection<Field> generateNewFields(String neighbourhood) 
 			throws ValidationException, PersistenceException {
-		Collection<Field> fields = null;
-		FieldServiceProtocol fieldService = new FieldService();
-		fields = fieldService.getLastFields(neighbourhood, 10L);
 		
-		return fields;
+		return new FieldService().getLastFields(neighbourhood, 10L);
 	}
 	
 	public static Collection<Field> generateNewFields() 
