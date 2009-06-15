@@ -13,7 +13,42 @@ package com.canchita.model.booking;
 
 public enum BookingStatus {
 
-	BOOKED(1),PAID(2),HALF_PAID(3),CANCELLED(4);
+	BOOKED(0) {
+
+		@Override
+		public String toString() {
+			
+			return "Reservada";
+		}
+		
+	},
+	
+	PAID(1) {
+
+		@Override
+		public String toString() {
+			return "Pagada";
+		}
+		
+	},
+	
+	HALF_PAID(2) {
+
+		@Override
+		public String toString() {
+			return "Señada";
+		}
+		
+	},
+	
+	CANCELLED(3) {
+
+		@Override
+		public String toString() {
+			return "Cancelada";
+		}
+		
+	};
 	
 	public static BookingStatus fromId(long id) {
 		if (BookingStatus.values().length < id)
@@ -24,6 +59,8 @@ public enum BookingStatus {
 
 	private Integer index;
 	
+	public abstract String toString();
+	
 	BookingStatus(int index) {
 		this.index = index;
 	}
@@ -31,4 +68,5 @@ public enum BookingStatus {
 	public Integer getIndex() {
 		return index;
 	}
+		
 }
