@@ -51,9 +51,11 @@ public class LastFields extends GenericServlet {
 		Field field = null;
 
 		String neighbourhood = null;
-		
+
 		// Generar el feed para el rss
 		SyndFeed feed = new SyndFeedImpl();
+		// TODO: Fix hack, setEncoding iso tiene tildes y UTF8 no.
+		feed.setEncoding("iso-8859-1");
 		feed.setFeedType(new String("rss_2.0"));
 		List<SyndEntry> entries = new ArrayList<SyndEntry>();
 		SyndEntry entry;
@@ -63,38 +65,39 @@ public class LastFields extends GenericServlet {
 		String serverName = request.getServerName(); // hostname.com
 		int serverPort = request.getServerPort(); // 80
 		String contextPath = request.getContextPath(); // /mywebapp
-		//String servletPath = request.getServletPath(); // /servlet/MyServlet
-		//String pathInfo = request.getPathInfo(); // /a/b;c=123
-		//String queryString = request.getQueryString(); // d=789
+		// String servletPath = request.getServletPath(); // /servlet/MyServlet
+		// String pathInfo = request.getPathInfo(); // /a/b;c=123
+		// String queryString = request.getQueryString(); // d=789
 
 		// Reconstruct original requesting URL
-		//String url = scheme + "://" + serverName + ":" + serverPort + contextPath;// + servletPath;
-		String url = scheme + "://" + serverName + ":" + serverPort + contextPath;
+		// String url = scheme + "://" + serverName + ":" + serverPort +
+		// contextPath;// + servletPath;
+		String url = scheme + "://" + serverName + ":" + serverPort
+				+ contextPath;
 
-        /*if (pathInfo != null) {
-            url += pathInfo;
-        }
-        if (queryString != null) {
-            url += "?"+queryString;
-        }*/
+		/*
+		 * if (pathInfo != null) { url += pathInfo; } if (queryString != null) {
+		 * url += "?"+queryString; }
+		 */
 
 		neighbourhood = request.getParameter("neighbourhood");
-		
+
 		String baseURL = url;
 
 		Collection<Field> fields = null;
-		
+
 		try {
 			fields = RSS.generateNewFields(neighbourhood);
 		} catch (Exception e) {
-			logger.error("RSS Feed - LastFieds error at " + (new Date()).toString() + e.getMessage());
+			logger.error("RSS Feed - LastFieds error at "
+					+ (new Date()).toString() + e.getMessage());
 			e.printStackTrace();
 			return;
 		}
 
 		try {
 			// Informacion del RSS
-			feed.setTitle("Ultimas canchas ingresadas - RSS Feed");
+			feed.setTitle("Últimas canchas ingresadas - RSS Feed");
 			feed.setLink(baseURL);
 			feed.setCopyright("Copyright 2009 Canchita - All rights reserved");
 			feed.setLanguage("es-ar");
@@ -104,7 +107,8 @@ public class LastFields extends GenericServlet {
 			image.setLink(baseURL);
 			image.setTitle("Canchita");
 			feed.setImage(image);
-			feed.setDescription("RSS Feed con las ultimas canchas ingresadas en canchita.com!");
+			feed.setDescription("RSS Feed con las últimas canchas ingresadas " +
+					"en canchita.com!");
 			feed.setPublishedDate(new Date());
 
 			for (Iterator<Field> i = fields.iterator(); i.hasNext();) {
@@ -137,10 +141,12 @@ public class LastFields extends GenericServlet {
 			SyndFeedOutput output = new SyndFeedOutput();
 			output.output(feed, writer);
 
-			logger.info("RSS Feed - LastFieds created at " + (new Date()).toString());
+			logger.info("RSS Feed - LastFieds created at "
+					+ (new Date()).toString());
 
 		} catch (Exception ex) {
-			logger.error("RSS Feed - LastFieds error at " + (new Date()).toString() + ex.toString());
+			logger.error("RSS Feed - LastFieds error at "
+					+ (new Date()).toString() + ex.toString());
 			ex.printStackTrace();
 		}
 

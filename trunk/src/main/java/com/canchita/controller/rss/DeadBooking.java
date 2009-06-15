@@ -50,9 +50,11 @@ public class DeadBooking extends GenericServlet {
 
 		Booking booking = null;
 		String neighbourhood = null;
-		
+
 		// Generar el feed para el rss
 		SyndFeed feed = new SyndFeedImpl();
+		// TODO: Fix hack, setEncoding iso tiene tildes y UTF8 no.
+		feed.setEncoding("iso-8859-1");
 		feed.setFeedType(new String("rss_2.0"));
 		List<SyndEntry> entries = new ArrayList<SyndEntry>();
 		SyndEntry entry;
@@ -63,19 +65,20 @@ public class DeadBooking extends GenericServlet {
 		int serverPort = request.getServerPort(); // 80
 		String contextPath = request.getContextPath(); // /mywebapp
 
-		String url = scheme + "://" + serverName + ":" + serverPort + contextPath;
-
+		String url = scheme + "://" + serverName + ":" + serverPort
+				+ contextPath;
 
 		neighbourhood = request.getParameter("neighbourhood");
-		
+
 		String baseURL = url;
 
 		Collection<Booking> bookings = null;
-		
+
 		try {
 			bookings = RSS.generateDownBookings(neighbourhood);
 		} catch (Exception e) {
-			logger.error("RSS Feed - DeadBooking error at " + (new Date()).toString() + e.getMessage());
+			logger.error("RSS Feed - DeadBooking error at "
+					+ (new Date()).toString() + e.getMessage());
 			e.printStackTrace();
 			return;
 		}
@@ -92,7 +95,9 @@ public class DeadBooking extends GenericServlet {
 			image.setLink(baseURL);
 			image.setTitle("Canchita");
 			feed.setImage(image);
-			feed.setDescription("RSS Feed con las reservas caidas, aprovechalas, ahora solo necesitas llamar a tus amigos! canchita.com!");
+			feed.setDescription("RSS Feed con las reservas caidas, " +
+					"aprovechalas, ahora sólo necesitás llamar a tus amigos! "+
+					"canchita.com!");
 			feed.setPublishedDate(new Date());
 
 			for (Iterator<Booking> i = bookings.iterator(); i.hasNext();) {
@@ -105,22 +110,39 @@ public class DeadBooking extends GenericServlet {
 				entry.setPublishedDate(new Date());
 				description = new SyndContentImpl();
 				description.setType("text/html");
-				description.setValue(new String("Se cayo la reserva para la cancha <i>" + booking.getItem().getName()
-						+ " (" + booking.getItem().getDescription() + ")"
-						+ "</i>, en el complejo <a href=\"" + baseURL
-						+ "/DetailedViewComplex?id="
-						+ booking.getItem().getComplex().getId()
-						+ "&viewDetails=Detalles\">"
-						+ booking.getItem().getComplex().getName() + "</a>"
-						+ "</i> ubicado en "
-						+ booking.getItem().getComplex().getPlace().toString()
-						+ ". La reserva era para " + 
-						((booking.getSchedule().getStartTime().toLocalDate().toString().equals(new Date()))?"hoy, ":"el dia ") 
-						+ booking.getSchedule().getStartTime().toLocalDate().toString()
-						+ " a las " + booking.getSchedule().getStartTime().toString("HH:MM") + " hasta las "
-						+ booking.getSchedule().getEndTime().toString("HH:MM") + " del dia "
-						+ booking.getSchedule().getEndTime().toLocalDate()));
-				
+				description.setValue(new String(
+						"Se cayó la reserva para la cancha <i>"
+								+ booking.getItem().getName()
+								+ " ("
+								+ booking.getItem().getDescription()
+								+ ")"
+								+ "</i>, en el complejo <a href=\""
+								+ baseURL
+								+ "/DetailedViewComplex?id="
+								+ booking.getItem().getComplex().getId()
+								+ "&viewDetails=Detalles\">"
+								+ booking.getItem().getComplex().getName()
+								+ "</a>"
+								+ "</i> ubicado en "
+								+ booking.getItem().getComplex().getPlace()
+										.toString()
+								+ ". La reserva era para "
+								+ ((booking.getSchedule().getStartTime()
+										.toLocalDate().toString()
+										.equals(new Date())) ? "hoy, "
+										: "el dia ")
+								+ booking.getSchedule().getStartTime()
+										.toLocalDate().toString()
+								+ " a las "
+								+ booking.getSchedule().getStartTime()
+										.toString("HH:MM")
+								+ " hasta las "
+								+ booking.getSchedule().getEndTime().toString(
+										"HH:MM")
+								+ " del dia "
+								+ booking.getSchedule().getEndTime()
+										.toLocalDate()));
+
 				entry.setDescription(description);
 				entries.add(entry);
 			}
@@ -133,10 +155,12 @@ public class DeadBooking extends GenericServlet {
 			SyndFeedOutput output = new SyndFeedOutput();
 			output.output(feed, writer);
 
-			logger.info("RSS Feed - DeadBooking created at " + (new Date()).toString());
+			logger.info("RSS Feed - DeadBooking created at "
+					+ (new Date()).toString());
 
 		} catch (Exception ex) {
-			logger.error("RSS Feed - DeadBooking error at " + (new Date()).toString() + ex.toString());
+			logger.error("RSS Feed - DeadBooking error at "
+					+ (new Date()).toString() + ex.toString());
 			ex.printStackTrace();
 		}
 
