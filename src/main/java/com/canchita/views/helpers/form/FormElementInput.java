@@ -94,7 +94,7 @@ public class FormElementInput extends FormElement {
 		String strclass = "";
 
 		if (!this.deco.getSclass().equals("")) {
-			strclass = String.format(" class=\"%s\"", this.deco.getSclass());
+			strclass = String.format(" class='%s'", this.deco.getSclass());
 		}
 
 		return String

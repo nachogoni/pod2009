@@ -38,6 +38,8 @@ public class FormAddComplex extends FormHandler {
 		
 		this.setName("Complejo")
 			.enableJ2Query("src/main/webapp/js/complex/add/init.js")
+			.setId("formComplex")
+			.enableJ2QueryValidation()
 	  		.setMethod("post");
 			     
 		this.addElement(new FormElementInput("text","name")
