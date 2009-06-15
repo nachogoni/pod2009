@@ -17,7 +17,7 @@ import com.canchita.service.BookingServiceProtocol;
 public class DropReservationListener extends TimerTask implements
 		ServletContextListener {
 
-	static final long interval = 1000 * 5L;
+	static final long interval = 1000 * 5 * 60L;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
