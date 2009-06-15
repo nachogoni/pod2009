@@ -45,5 +45,7 @@ public interface UserDAO {
 
 	public Registered login(String username, String password);
 
+	public Registered getById(Long userId) throws ElementNotExistsException;
+
 
 }

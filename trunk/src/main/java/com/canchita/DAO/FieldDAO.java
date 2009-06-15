@@ -1,8 +1,6 @@
 package com.canchita.DAO;
 
 import java.util.Collection;
-import java.util.Dictionary;
-import java.util.List;
 
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;

@@ -6,6 +6,7 @@ import java.util.List;
 import com.canchita.DAO.UserDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.UserException;
 
@@ -29,15 +30,73 @@ public abstract class Registered extends User {
 	protected String password;
 	protected Long score;
 	protected Long notifyBeforeExpiration;
-
+	
 	/*
 	 * Our model does not support user removal..yet
 	 */
 
 	protected Registered() {
 		this.emails = new LinkedList<String>();
+		this.score = 0L;
 	}
 
+	public Long getScore() {
+		return this.score;
+	}
+
+	public void addScore(long score) throws UserException {
+		
+		System.out.println("Le voy a sumar " + score);
+		
+		if( score < 0 ) {
+			throw new IllegalArgumentException("Puntos menores que cero");
+		}
+		
+		if( score == 0 ) {
+			return;
+		}
+		
+		this.score += score;
+		
+		this.updateUser();
+	}
+
+	public void subScore(long score) throws UserException {
+		
+		if( score < 0 ) {
+			throw new IllegalArgumentException("Puntos menores que cero");
+		}
+		
+		if( score == 0 ) {
+			return;
+		}
+		
+		this.score -= score;
+		
+		this.updateUser();
+		
+	}
+	
+	protected void updateUser() throws UserException {
+		UserDAO userDAO;
+		
+		try {
+			userDAO = DAOFactory.get(DAO.USER);
+		} catch (PersistenceException e) {
+			throw new UserException("No se pudo actualizar el estado",e);
+		}
+
+		try {
+			userDAO.update(this);
+		} catch (ElementNotExistsException e) {
+			throw new UserException("No existe dicho usuario en el sistema",e);
+		} catch (PersistenceException e) {
+			throw new UserException("No se pudo actualizar el estado",e);
+		}
+		
+	}
+
+	
 	private boolean active = true;
 
 	public abstract boolean getIsAdmin();
@@ -68,14 +127,6 @@ public abstract class Registered extends User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public Long getScore() {
-		return this.score;
-	}
-
-	public void setScore(long score) {
-		this.score = score;
 	}
 
 	public void setEmail(String email) {

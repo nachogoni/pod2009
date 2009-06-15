@@ -16,9 +16,9 @@ public interface ExpirationDAO {
 
 	public Expiration getById(Long id) throws PersistenceException;
 
-	public Expiration getByScore(Field aField, Integer score) throws ElementNotExistsException;
+	public Expiration getByScore(Field aField, Long score) throws ElementNotExistsException;
 	
-	public Expiration getByScore(Complex aComplex, Integer score) throws ElementNotExistsException;
+	public Expiration getByScore(Complex aComplex, Long score) throws ElementNotExistsException;
 	
 	public void update(Expiration expiration) throws PersistenceException;
 

@@ -2,8 +2,13 @@ package com.canchita.service;
 
 import java.util.List;
 
+import com.canchita.DAO.UserDAO;
+import com.canchita.DAO.factory.DAOFactory;
+import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.mailSender.mail.RegisterMail;
+import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.LoginException;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.RegisterException;
 import com.canchita.model.exception.UserException;
 import com.canchita.model.user.Guest;
@@ -71,5 +76,23 @@ public class UserService implements UserServiceProtocol {
 	@Override
 	public void updateUser(Registered user) throws UserException {
 		user.update();
+	}
+
+	@Override
+	public Registered getById(Long userId) throws UserException {
+		UserDAO userDAO;
+		Registered registered;
+		try {
+			userDAO = DAOFactory.get(DAO.USER);
+			registered = userDAO.getById(userId);
+		}
+		catch(ElementNotExistsException e) {
+			throw new UserException("No existe el usuario");
+		}
+		catch (PersistenceException e) {
+			throw new UserException("No se pudo obtener el usuario");
+		}
+		
+		return registered;
 	}
 }

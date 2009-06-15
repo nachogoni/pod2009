@@ -18,6 +18,7 @@ import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.UserException;
 import com.canchita.model.field.Field;
 import com.canchita.model.user.CommonUser;
 import com.canchita.service.BookingService;
@@ -171,6 +172,8 @@ public class AddBooking extends GenericServlet {
 		} catch (PersistenceException pe) {
 			error.add("Error en el servidor, por favor intente nuevamente");
 		} catch (BookingException e) {
+			error.add(e);
+		} catch (UserException e) {
 			error.add(e);
 		}
 

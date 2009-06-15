@@ -1,5 +1,6 @@
 package com.canchita.DAO.db.builders;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 
 		while (resultSet.next()) {
 
-			//Levanto el usuario.
+			// Levanto el usuario.
 			long userID = resultSet.getLong("user_id");
 			CommonUser user = null;
 			try {
@@ -50,8 +51,8 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 			} catch (PersistenceException e) {
 				e.printStackTrace();
 			}
-			
-			//Levanto el bookeable (field)
+
+			// Levanto el bookeable (field)
 			Long fieldID = resultSet.getLong("field_id");
 			Field field = null;
 			try {
@@ -59,19 +60,24 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 			} catch (ElementNotExistsException e) {
 				e.printStackTrace();
 			}
-			
-			//Armo el schedule TODO ver esto por el timezone
-			DateTime startDate = new DateTime(resultSet.getString("start_date"),DateTimeZone.UTC);
-			DateTime endDate = new DateTime(resultSet.getString("end_date"),DateTimeZone.UTC);
+
+			// Armo el schedule TODO ver esto por el timezone
+			DateTime startDate = new DateTime(
+					resultSet.getString("start_date"));
+			DateTime endDate = new DateTime(resultSet.getString("end_date"));
+			DateTime expirationDate = new DateTime(resultSet
+					.getString("expiration_date"));
+
 			Schedule schedule = new Schedule(startDate, endDate);
 
-			float cost = resultSet.getFloat("cost");
-			float paid = resultSet.getFloat("paid");
-			
-			//Construyo el booking
-			aBooking = new Booking( resultSet.getLong("reservation_id"),
-					field, user, resultSet.getLong("state"), schedule, cost, paid);
-			 
+			BigDecimal cost = new BigDecimal(resultSet.getString("cost"));
+			BigDecimal paid = new BigDecimal(resultSet.getString("paid"));
+
+			// Construyo el booking
+			aBooking = new Booking(resultSet.getLong("reservation_id"), field,
+					user, resultSet.getLong("state"), schedule, cost, paid,
+					expirationDate);
+
 			results.add(aBooking);
 		}
 

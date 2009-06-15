@@ -36,7 +36,7 @@ public interface ComplexServiceProtocol {
 
 	public Complex getById(Long id) throws PersistenceException;
 
-	public Expiration getExpirationPolicy(Long complexId, int score)
+	public Expiration getExpirationPolicy(Long complexId, long score)
 			throws PersistenceException;
 
 	public Expiration getExpirationPolicy(Long expirationId)

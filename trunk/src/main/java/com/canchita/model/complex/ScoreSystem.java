@@ -1,5 +1,10 @@
 package com.canchita.model.complex;
 
+import com.canchita.model.booking.Booking;
+import com.canchita.model.booking.BookingStatus;
+import com.canchita.model.exception.UserException;
+import com.canchita.model.user.CommonUser;
+
 /**
  * 
  * @author Pablo Federico Abramowicz
@@ -130,4 +135,65 @@ public class ScoreSystem {
 
 	}
 
+	public void cancel(Booking booking) throws UserException {
+		
+		CommonUser user = booking.getOwner();
+		
+		long score = this.getCancelledScore(booking);
+		
+		user.subScore(score);
+		
+	}
+
+
+	public void book(Booking booking) throws UserException {
+		
+		CommonUser user = booking.getOwner();
+		
+		user.addScore(this.booking);
+		
+	}
+	
+	public void pay(Booking booking) throws UserException {
+		CommonUser user = booking.getOwner();
+		
+		long score = this.getPayedScore(booking);
+		
+		user.addScore(score);
+	}
+
+	private long getPayedScore(Booking booking) {
+		BookingStatus status = booking.getState();
+		
+		//TODO no se agrega en el status porque los
+		//bookings no conocen de puntos
+		
+		if( status.equals(BookingStatus.HALF_PAID) ) {
+			return this.deposit;
+		}
+		
+		if( status.equals(BookingStatus.PAID) ) {
+			return this.pay;
+		}
+		
+		return 0;
+	}
+
+	private long getCancelledScore(Booking booking) {
+		
+		BookingStatus status = booking.getState();
+		
+		//TODO no se agrega en el status porque los
+		//bookings no conocen de puntos
+		
+		if( status.equals(BookingStatus.BOOKED) ) {
+			return downBooking;
+		}
+		
+		if( status.equals(BookingStatus.HALF_PAID) ) {
+			return downDeposit;
+		}
+		
+		return 0;
+	}
 }

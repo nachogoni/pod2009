@@ -1,5 +1,6 @@
 package com.canchita.model.booking;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 
 import org.joda.time.DateTime;
@@ -37,6 +38,8 @@ public interface Bookable {
 	
 	DateTime getExpiration(Booking booking);
 
-	float getPrice();
+	BigDecimal getPrice();
+
+	BigDecimal getAccontationPercentage();
 	
 }

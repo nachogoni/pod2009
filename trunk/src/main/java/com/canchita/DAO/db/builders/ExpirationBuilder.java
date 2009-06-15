@@ -34,7 +34,7 @@ public class ExpirationBuilder implements QueryProcessor<Expiration> {
 
 			anExpiration = new Expiration(resultSet
 					.getLong("expiration_policy_id"), resultSet
-					.getInt("from_score"), resultSet.getInt("to_score"),
+					.getLong("from_score"), resultSet.getLong("to_score"),
 					resultSet.getInt("days_being_half_signed"), resultSet
 							.getInt("days_being_reserved"));
 

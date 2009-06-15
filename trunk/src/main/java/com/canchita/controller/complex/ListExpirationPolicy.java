@@ -12,6 +12,7 @@ import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.booking.Expiration;
 import com.canchita.service.ComplexService;
 import com.canchita.service.ComplexServiceProtocol;
 
@@ -41,7 +42,7 @@ public class ListExpirationPolicy extends GenericServlet {
 		ErrorManager errorManager = new ErrorManager();
 
 		try {
-			Collection list = complexService.listExpirationPolicies(Long
+			Collection<Expiration> list = complexService.listExpirationPolicies(Long
 					.parseLong(id));
 			request.setAttribute("policies", list);
 			request.setAttribute("quantity", list.size());

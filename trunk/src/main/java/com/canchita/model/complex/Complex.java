@@ -1,5 +1,6 @@
 package com.canchita.model.complex;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,14 +45,17 @@ public class Complex implements Booker {
 	protected List<String> phones;
 	private List<Expiration> expirationPolicies;
 	private Expiration expiration;
+	
+	//TODO esta cableado meterlo en la BD para la proxima entrega
+	private BigDecimal accontationPercentage = new BigDecimal("0.50");
 
 	public Complex(String name) {
 		this.setName(name);
 		this.phones = new LinkedList<String>();
 
 		expiration = new Expiration();
-		expiration.setScoreFrom(0);
-		expiration.setScoreTo(Integer.MAX_VALUE);
+		expiration.setScoreFrom(0L);
+		expiration.setScoreTo(Long.MAX_VALUE);
 		expiration.setBookingLimit(defaultBookingLimit);
 		expiration.setDepositLimit(defaultDepositLimit);
 
@@ -73,8 +77,8 @@ public class Complex implements Booker {
 		this.phones = new LinkedList<String>();
 		
 		expiration = new Expiration();
-		expiration.setScoreFrom(0);
-		expiration.setScoreTo(Integer.MAX_VALUE);
+		expiration.setScoreFrom(0L);
+		expiration.setScoreTo(Long.MAX_VALUE);
 		expiration.setBookingLimit(defaultBookingLimit);
 		expiration.setDepositLimit(defaultDepositLimit);
 	}
@@ -84,8 +88,8 @@ public class Complex implements Booker {
 		this.phones = new LinkedList<String>();
 		
 		expiration = new Expiration();
-		expiration.setScoreFrom(0);
-		expiration.setScoreTo(Integer.MAX_VALUE);
+		expiration.setScoreFrom(0L);
+		expiration.setScoreTo(Long.MAX_VALUE);
 		expiration.setBookingLimit(defaultBookingLimit);
 		expiration.setDepositLimit(defaultDepositLimit);
 	}
@@ -317,6 +321,11 @@ public class Complex implements Booker {
 	
 	public  List<Availability> getPrettyTimetable() {
 		return this.timeTable.getAvailabilities();
+	}
+
+	@Override
+	public BigDecimal getAccontationPercentage() {
+		return this.accontationPercentage;
 	}
 
 }

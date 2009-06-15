@@ -1,5 +1,6 @@
 package com.canchita.model.field;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.Collections;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.canchita.DAO.BookingDAO;
+import com.canchita.DAO.ExpirationDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
 import com.canchita.model.booking.Bookable;
@@ -16,7 +18,6 @@ import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
 import com.canchita.model.complex.Complex;
-import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
@@ -43,14 +44,15 @@ public class Field implements Bookable {
 	private Complex complex;
 	private boolean hasRoof;
 	private FloorType floor;
-	private float price;
+	private BigDecimal price;
 	private Blob picture;
 	private boolean under_maintenance;
-	private ScoreSystem scoreSystem;
 	private Expiration expiration;
 
+	private BigDecimal accontationPercentage;
+
 	public Field(long id, long complexID, String name, String description,
-			long numberOfPlayers, boolean hasRoof, long floor, float price,
+			long numberOfPlayers, boolean hasRoof, long floor, BigDecimal price,
 			Blob picture, boolean under_maintenance) {
 
 		this.id = id;
@@ -72,14 +74,6 @@ public class Field implements Bookable {
 
 	public Complex getComplex() {
 		return complex;
-	}
-
-	public ScoreSystem getScoreSystem() {
-		return scoreSystem;
-	}
-
-	public void setScoreSystem(ScoreSystem scoreSystem) {
-		this.scoreSystem = scoreSystem;
 	}
 
 	public void setComplex(Complex complex) {
@@ -149,12 +143,18 @@ public class Field implements Bookable {
 	public Booking book(CommonUser user, Schedule hour) throws PersistenceException,
 			BookingException {
 
-		Booking booking = new Booking(this, hour, user);
+		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
 
-//		if (!this.inAvailableHours(booking)) {
-//			throw new BookingException(
-//					"La cancha no está disponible en este horario");
-//		}
+		Expiration expiration = expirationDAO.getByScore(this, user.getScore());
+
+		DateTime bookedExpiration = hour.getStartTime().minusHours(expiration.getBookingLimit());
+		
+		Booking booking = new Booking(this, hour, user, bookedExpiration);
+
+		//if (!this.inAvailableHours(booking)) {
+		//	throw new BookingException(
+		//			"La cancha no está disponible en este horario");
+		//}
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
@@ -174,7 +174,7 @@ public class Field implements Bookable {
 		Iterator<Booking> bookings = bookingDAO.getFieldBookings(this.id, date);
 		
 		Iterator<Schedule> availability = complex.getScheduleForDay(date);
-
+		
 		return this.getAvailableHours(date, bookings, availability);
 
 	}
@@ -340,12 +340,12 @@ public class Field implements Bookable {
 		return picture;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
 	@Override
-	public float getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
@@ -355,6 +355,16 @@ public class Field implements Bookable {
 
 	public boolean isUnder_maintenance() {
 		return under_maintenance;
+	}
+
+	@Override
+	public BigDecimal getAccontationPercentage() {
+		
+		if( this.accontationPercentage == null ) {
+			return this.complex.getAccontationPercentage();
+		}
+		
+		return accontationPercentage;
 	}
 
 }

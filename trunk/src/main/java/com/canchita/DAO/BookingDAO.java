@@ -5,9 +5,8 @@ import java.util.Iterator;
 
 import org.joda.time.DateTime;
 
-import com.canchita.model.booking.Bookable;
-import com.canchita.model.booking.Booker;
 import com.canchita.model.booking.Booking;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 
@@ -17,6 +16,8 @@ public interface BookingDAO {
 
 	public Booking getById(Long id) throws ElementNotExistsException;
 
+	public void cancel(Long id);
+	
 	public void delete(Long id);
 
 	public Iterator<Booking> getComplexBookings(Long complexId);
@@ -31,6 +32,9 @@ public interface BookingDAO {
 	// TODO ver el tema de la busqueda de reservas
 	// public List<Complex> getFiltered(String name, Locatable aLocation );
 
-	public Collection<Booking> getDownBookings();
+	Collection<Booking> getDownBookings(Long complexId);
+
+	public void update(Booking booking) throws ElementExistsException;
+
 
 }
