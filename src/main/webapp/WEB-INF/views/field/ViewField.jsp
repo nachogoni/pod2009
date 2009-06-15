@@ -84,46 +84,25 @@
 					<td><c:out value="${field.description}" /></td>
 				</tr>
 				<tr>
-
-				<td><strong>Sistema de Puntos</strong></td>
-				<td>
-				<table>
+					<td><strong>Cantidad de jugadores</strong></td>
+					<td><c:out value="${field.numberOfPlayers}" /></td>
+				</tr>
+				<tr>
+					<td><strong>Precio</strong></td>
+					<td><c:out value="${field.price}" /></td>
+				</tr>
+				<tr>
+					<td><strong>Es techada</strong></td>
+					<td>
 					<c:choose>
-					<c:when test="${field.scoreSystem != null}">
-						
-						<tr>
-						<td><strong>Reserva: </strong></td>
-						<td><c:out value="${field.scoreSystem.booking}" /></td>
-						</tr>
-						
-						<tr>
-						<td><strong>Deposito: </strong></td>
-						<td><c:out value="${field.scoreSystem.deposit}" /></td>
-						</tr>
-						
-						<tr>
-						<td><strong>Pago: </strong></td>
-						<td><c:out value="${field.scoreSystem.pay}" /></td>
-						</tr>
-						
-						<tr>
-						<td><strong>Cancelar Reserva: </strong></td>
-						<td>-<c:out value="${field.scoreSystem.downBooking}" /></td>
-						</tr>
-						
-						<tr>
-						<td><strong>Cancelar Deposito: </strong></td>
-						<td>-<c:out value="${field.scoreSystem.downDeposit}" /></td>
-						</tr>				
-						
-					</c:when>
-					<c:otherwise>
-						Esta cancha todavia no tiene un sistema de puntos asignado.
-					</c:otherwise>
+						<c:when test="${field.hasRoof == true}">
+							No
+						</c:when>
+						<c:otherwise>
+							Si
+						</c:otherwise>
 					</c:choose>
-				</table>
-				</td>
-				
+					</td>
 				</tr>
 			</table>
 
