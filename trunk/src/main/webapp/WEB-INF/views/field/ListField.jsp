@@ -235,6 +235,8 @@
 									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 									<input type="submit" name="modify" value="Modificar" />
 									</form>
+								</c:if>
+								<c:if test="${user.isAuthenticated}">
 									<form action="<c:out value="${baseURI}" />/field/ListFieldExpirationPolicy" method="get">
 									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
 									<input type="submit" name="expirationPolicy" value="Ver expiración" />

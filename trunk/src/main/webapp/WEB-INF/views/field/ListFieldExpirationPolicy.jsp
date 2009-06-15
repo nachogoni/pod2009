@@ -33,12 +33,14 @@
 				<td><strong>Puntaje hasta</strong></td>
 				<td><strong>Días que soporta en estado señada</strong></td>
 				<td><strong>Días que soporta en estado reservada</strong></td>
-				<td>
-				<form action="<c:out value="${baseURI}" />/field/AddFieldExpirationPolicy" method="get">
-				<input type="hidden" name="id" value="<c:out value="${param.id}"/>" />
-				<input type="submit" value="Agregar nueva" />
-				</form>
-				</td>
+				<c:if test="${user.isAdmin}">
+					<td>
+						<form action="<c:out value="${baseURI}" />/field/AddFieldExpirationPolicy" method="get">
+						<input type="hidden" name="id" value="<c:out value="${param.id}"/>" />
+						<input type="submit" value="Agregar nueva" />
+						</form>
+					</td>
+				</c:if>
 			</tr>
 			<c:forEach items="${policies}" var="policy" varStatus="rowCounter">
 					
@@ -57,16 +59,18 @@
 						<td><c:out value="${policy.depositLimit}" /></td>
 						<td><c:out value="${policy.bookingLimit}" /></td>
 						
-						<td>
-							<form action="<c:out value="${baseURI}" />/field/DeleteFieldExpirationPolicy" method="post">
-							<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
-							<input type="submit" class="delete" name="delete" value="Eliminar" />
-							</form>
-							<form action="<c:out value="${baseURI}" />/field/ModifyFieldExpirationPolicy" method="get">
-							<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
-							<input type="submit" name="modify" value="Modificar" />
-							</form>
-						</td>
+						<c:if test="${user.isAdmin}">
+							<td>
+								<form action="<c:out value="${baseURI}" />/field/DeleteFieldExpirationPolicy" method="post">
+								<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
+								<input type="submit" class="delete" name="delete" value="Eliminar" />
+								</form>
+								<form action="<c:out value="${baseURI}" />/field/ModifyFieldExpirationPolicy" method="get">
+								<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
+								<input type="submit" name="modify" value="Modificar" />
+								</form>
+							</td>
+						</c:if>	
 					</tr>
 					
 				</c:forEach>
