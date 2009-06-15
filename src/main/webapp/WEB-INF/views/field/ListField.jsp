@@ -150,12 +150,12 @@
     <input id="hasRoofNo" type="radio" name="hasRoof" value="no"/>
     <br /><br />
     <label for="floorType">Tipo de piso: </label>
-	Césped sintético
-    <input id="floorTypeGrass" type="radio" name="floorType" value="1"/>
-	Césped
-    <input id="floorTypeArtificial" type="radio" name="floorType" value="3"/>
-	Concreto
-    <input id="floorTypeConcrete" type="radio" name="floorType" value="2"/>
+    <select name="floorType">
+    	<option value=""> </option>
+    	<option value="1">Césped sintético</option>
+    	<option value="3">Césped</option>
+    	<option value="2">Concreto</option>
+    </select>
 	<input type="submit" name="search" value="Buscar" class="submit-go" />
 	</fieldset>
 </form>
