@@ -340,6 +340,13 @@
 		<servlet-class>
 		com.canchita.controller.rss.ListRSS</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Email</servlet-name>
+		<display-name>Email</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.admin.Email</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
 		<url-pattern>/ListComplex</url-pattern>
@@ -505,6 +512,10 @@
 	<servlet-mapping>
 		<servlet-name>ListRSS</servlet-name>
 		<url-pattern>/ListRSS</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Email</servlet-name>
+		<url-pattern>/admin/email</url-pattern>
 	</servlet-mapping>
 
 	<!-- BEGIN Error Handling -->
