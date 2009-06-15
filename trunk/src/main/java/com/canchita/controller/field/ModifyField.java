@@ -12,6 +12,7 @@ import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.FloorType;
@@ -163,6 +164,13 @@ public class ModifyField extends GenericServlet {
 					hasRoof, floor, price);
 		} catch (ElementNotExistsException e) {
 			error.add("No se pudo modificar porque el elemento fue eliminado.");
+			request.setAttribute("errorManager", error);
+			request.setAttribute("formulario", formulario);
+			UrlMapper.getInstance().forwardFailure(this, request, response,
+					UrlMapperType.POST);
+			return;
+		} catch (ElementExistsException e) {
+			error.add(e);
 			request.setAttribute("errorManager", error);
 			request.setAttribute("formulario", formulario);
 			UrlMapper.getInstance().forwardFailure(this, request, response,

@@ -115,6 +115,7 @@ CREATE  TABLE "FIELD" (
   "under_maintenance" NUMBER(1) NOT NULL ,
   "picture" BLOB NULL ,
   PRIMARY KEY ("field_id") ,
+  CONSTRAINT field_unique UNIQUE ("complex_id","name"),
   CONSTRAINT "fk_FIELD_COMPLEX"
     FOREIGN KEY ("complex_id" )
     REFERENCES "COMPLEX" ("complex_id" ) 

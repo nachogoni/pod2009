@@ -190,19 +190,14 @@ public class AddComplex extends GenericServlet {
 				// TODO loguear los errores
 			} catch (ElementExistsException ee) {
 				error.add(ee);
-				ee.printStackTrace();
 			} catch (PersistenceException e) {
 				error.add(e);
-				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
 				error.add(e);
-				e.printStackTrace();
 			} catch (InvalidScheduleException e) {
 				error.add(e);
-				e.printStackTrace();
 			} catch (Exception e) {
 				error.add(e);
-				e.printStackTrace();
 			}
 
 			if (error.size() != 0) {
