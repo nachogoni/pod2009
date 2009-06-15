@@ -130,7 +130,7 @@ public class DeadBooking extends GenericServlet {
 								+ ((booking.getSchedule().getStartTime()
 										.toLocalDate().toString()
 										.equals(new Date())) ? "hoy, "
-										: "el dia ")
+										: "el día ")
 								+ booking.getSchedule().getStartTime()
 										.toLocalDate().toString()
 								+ " a las "
