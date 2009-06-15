@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.canchita.controller.GenericServlet;
-import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
-import com.canchita.service.FieldService;
-import com.canchita.service.FieldServiceProtocol;
+import com.canchita.model.rss.RSS;
 import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -39,7 +37,6 @@ public class LastFields extends GenericServlet {
 	 */
 	public LastFields() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -51,9 +48,10 @@ public class LastFields extends GenericServlet {
 
 		logger.debug("GET request");
 
-		FieldServiceProtocol fieldService = new FieldService();
 		Field field = null;
 
+		String neighbourhood = "a";
+		
 		// Generar el feed para el rss
 		SyndFeed feed = new SyndFeedImpl();
 		feed.setFeedType(new String("rss_2.0"));
@@ -82,11 +80,11 @@ public class LastFields extends GenericServlet {
 
 		String baseURL = url;
 
-		// TODO: Tomar solo las ultimas canchas
 		Collection<Field> fields = null;
+		
 		try {
-			fields = fieldService.listField();
-		} catch (PersistenceException e) {
+			fields = RSS.generateNewFields(neighbourhood);
+		} catch (Exception e) {
 			logger.error("RSS Feed - LastFieds error at " + (new Date()).toString() + e.getMessage());
 			e.printStackTrace();
 			return;

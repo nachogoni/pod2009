@@ -21,6 +21,9 @@ public interface FieldServiceProtocol {
 	public Collection<Field> listField(String filter)
 			throws ValidationException, PersistenceException;
 
+	public Collection<Field> getLastFields(String neighbourhood, Long listCount)
+			throws ValidationException, PersistenceException;
+	
 	public void deleteField(Long id) throws PersistenceException;
 
 	public Long saveField(String name, String description, Long idComplex,

@@ -1,6 +1,8 @@
 package com.canchita.DAO;
 
 import java.util.Collection;
+import java.util.Dictionary;
+import java.util.List;
 
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -30,5 +32,7 @@ public interface FieldDAO {
 			String searchDescription, String searchMaxPrice,
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType);
+
+	public Collection<Field> getLastFields(String neighbourhood, Long listCount);
 
 }
