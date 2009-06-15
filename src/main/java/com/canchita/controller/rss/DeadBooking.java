@@ -113,7 +113,7 @@ public class DeadBooking extends GenericServlet {
 				description = new SyndContentImpl();
 				description.setType("text/html");
 				description.setValue(new String("Se cayo la reserva para la cancha <i>" + booking.getItem().getName()
-						+ "(" + booking.getItem().getDescription() + ")"
+						+ " (" + booking.getItem().getDescription() + ")"
 						+ "</i>, en el complejo <a href=\"" + baseURL
 						+ "/DetailedViewComplex?id="
 						+ booking.getItem().getComplex().getId()
@@ -124,9 +124,9 @@ public class DeadBooking extends GenericServlet {
 						+ ". La reserva era para " + 
 						((booking.getSchedule().getStartTime().toLocalDate().toString().equals(new Date()))?"hoy, ":"el dia ") 
 						+ booking.getSchedule().getStartTime().toLocalDate().toString()
-						+ " a las " + booking.getSchedule().getStartTime().toString("HH:MM") + " hasta "
-						+ booking.getSchedule().getEndTime().toLocalDate() + " a las "
-						+ booking.getSchedule().getEndTime().toString("HH:MM")));
+						+ " a las " + booking.getSchedule().getStartTime().toString("HH:MM") + " hasta las "
+						+ booking.getSchedule().getEndTime().toString("HH:MM") + " del dia "
+						+ booking.getSchedule().getEndTime().toLocalDate()));
 				
 				entry.setDescription(description);
 				entries.add(entry);
