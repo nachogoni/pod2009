@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.canchita.model.complex.Complex;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.location.Locatable;
@@ -43,4 +44,5 @@ public interface Bookable {
 
 	BigDecimal getAccontationPercentage();
 	
+	Complex getComplex();
 }

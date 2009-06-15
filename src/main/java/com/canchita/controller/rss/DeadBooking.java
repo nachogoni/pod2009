@@ -7,14 +7,17 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTimeFieldType;
+
 import com.canchita.controller.GenericServlet;
-import com.canchita.model.field.Field;
+import com.canchita.model.booking.Booking;
 import com.canchita.model.rss.RSS;
 import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndContentImpl;
@@ -52,8 +55,7 @@ public class DeadBooking extends GenericServlet {
 		
 		logger.debug("GET request");
 
-		Field field = null;
-
+		Booking booking = null;
 		String neighbourhood = null;
 		
 		// Generar el feed para el rss
@@ -75,19 +77,19 @@ public class DeadBooking extends GenericServlet {
 		
 		String baseURL = url;
 
-		Collection<Field> fields = null;
+		Collection<Booking> bookings = null;
 		
 		try {
-			fields = RSS.generateNewFields(neighbourhood);
+			bookings = RSS.generateDownBookings(neighbourhood);
 		} catch (Exception e) {
-			logger.error("RSS Feed - LastFieds error at " + (new Date()).toString() + e.getMessage());
+			logger.error("RSS Feed - DeadBooking error at " + (new Date()).toString() + e.getMessage());
 			e.printStackTrace();
 			return;
 		}
 
 		try {
 			// Informacion del RSS
-			feed.setTitle("Ultimas canchas ingresadas - RSS Feed");
+			feed.setTitle("Reservas caidas - RSS Feed");
 			feed.setLink(baseURL);
 			feed.setCopyright("Copyright 2009 Canchita - All rights reserved");
 			feed.setLanguage("es-ar");
@@ -97,27 +99,35 @@ public class DeadBooking extends GenericServlet {
 			image.setLink(baseURL);
 			image.setTitle("Canchita");
 			feed.setImage(image);
-			feed.setDescription("RSS Feed con las ultimas canchas ingresadas en canchita.com!");
+			feed.setDescription("RSS Feed con las reservas caidas, aprovechalas, ahora solo necesitas llamar a tus amigos! canchita.com!");
 			feed.setPublishedDate(new Date());
 
-			for (Iterator<Field> i = fields.iterator(); i.hasNext();) {
-				field = i.next();
+			for (Iterator<Booking> i = bookings.iterator(); i.hasNext();) {
+				booking = i.next();
 
 				entry = new SyndEntryImpl();
-				entry.setTitle(field.getName());
+				entry.setTitle(booking.getItem().getName());
 				entry.setLink(new String(baseURL + "/field/detailedview?id="
-						+ field.getId() + "&viewDetails=Detalles"));
+						+ booking.getItem().getId() + "&viewDetails=Detalles"));
 				entry.setPublishedDate(new Date());
 				description = new SyndContentImpl();
 				description.setType("text/html");
-				description.setValue((new String("<i>" + field.getDescription()
+				description.setValue(new String("Se cayo la reserva para la cancha <i>" + booking.getItem().getName()
+						+ "(" + booking.getItem().getDescription() + ")"
 						+ "</i>, en el complejo <a href=\"" + baseURL
 						+ "/DetailedViewComplex?id="
-						+ field.getComplex().getId()
+						+ booking.getItem().getComplex().getId()
 						+ "&viewDetails=Detalles\">"
-						+ field.getComplex().getName() + "</a>"
+						+ booking.getItem().getComplex().getName() + "</a>"
 						+ "</i> ubicado en "
-						+ field.getComplex().getPlace().toString())));
+						+ booking.getItem().getComplex().getPlace().toString()
+						+ ". La reserva era para " + 
+						((booking.getSchedule().getStartTime().toLocalDate().toString().equals(new Date()))?"hoy, ":"el dia ") 
+						+ booking.getSchedule().getStartTime().toLocalDate().toString()
+						+ " a las " + booking.getSchedule().getStartTime().toString("HH:MM") + " hasta "
+						+ booking.getSchedule().getEndTime().toLocalDate() + " a las "
+						+ booking.getSchedule().getEndTime().toString("HH:MM")));
+				
 				entry.setDescription(description);
 				entries.add(entry);
 			}
@@ -130,10 +140,10 @@ public class DeadBooking extends GenericServlet {
 			SyndFeedOutput output = new SyndFeedOutput();
 			output.output(feed, writer);
 
-			logger.info("RSS Feed - LastFieds created at " + (new Date()).toString());
+			logger.info("RSS Feed - DeadBooking created at " + (new Date()).toString());
 
 		} catch (Exception ex) {
-			logger.error("RSS Feed - LastFieds error at " + (new Date()).toString() + ex.toString());
+			logger.error("RSS Feed - DeadBooking error at " + (new Date()).toString() + ex.toString());
 			ex.printStackTrace();
 		}
 

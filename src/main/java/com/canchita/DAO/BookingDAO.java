@@ -37,7 +37,8 @@ public interface BookingDAO {
 
 	public void update(Booking booking) throws ElementExistsException;
 
-	public List<Booking> getAllBookings();
+	public Collection<Booking> getDownBookings(String neighbourhood, Long listCount);
 
+	public List<Booking> getAllBookings();
 
 }
