@@ -45,6 +45,9 @@
 	<listener>
 		<listener-class>com.canchita.listener.JDBCListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.canchita.listener.DropReservationListener</listener-class>
+	</listener>
 
 	<!-- END listeners -->
 	

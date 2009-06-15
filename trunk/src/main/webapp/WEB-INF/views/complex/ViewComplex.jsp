@@ -148,9 +148,10 @@
 								<!--  <tr class="<c:out value="${rowStyle}" />"> -->
 								<tr>
 									<td><c:out value="${field.name}" /></td>
-									<td><a href=<c:out value="field/book?id=${field.id}" />>Reservar</a></td>
+									<td><a href=<c:out value="field/book?id=${field.id}" />>Reservar</a>
+									<br />
+									<a href=<c:out value="field/detailedview?id=${field.id }" />>Detalles</a></td>
 								</tr>
-								
 							</c:forEach>
 							
 						</c:when>
