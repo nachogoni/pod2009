@@ -13,6 +13,7 @@ import com.canchita.helper.validator.Validator;
 import com.canchita.helper.validator.ValidatorWParam;
 import com.canchita.model.db.DataBaseConnection;
 import com.canchita.views.helpers.j2query.J2Query;
+import com.canchita.views.helpers.j2query.J2QueryFormValidator;
 
 public abstract class FormHandler {
 	protected ArrayList<FormElement> formElements;
@@ -21,11 +22,10 @@ public abstract class FormHandler {
 	protected HashMap<String, FormElement> formValues;
 	protected HashMap<String, String> errors;
 	protected ArrayList<String> attributes;
-	protected String method;
+	protected String method, name, id;
 	private Decorator formDecorator;
-	private String name;
-	private J2Query jjqueryInstance = null;
-	private boolean j2queryenabled;
+	private J2Query j2queryInstance = null;
+	private boolean j2queryenabled, j2queryvalidation;
 
 	Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 
@@ -39,11 +39,25 @@ public abstract class FormHandler {
 		formDecorator = new Decorator();
 		name = "form";
 		method = "post";
+		id = "";
 		j2queryenabled = false;
+		j2queryvalidation = false;
 	}
 
+	public FormHandler enableJ2QueryValidation(){
+		j2queryvalidation = true;
+		
+		return this;
+	}
+	
 	public boolean isJ2QueryEnabled() {
 		return j2queryenabled;
+	}
+	
+	public FormHandler setId(String aid){
+		id = aid;
+		
+		return this;
 	}
 
 	public FormHandler addDisplayGroup(ArrayList<String> elements, String group) {
@@ -72,7 +86,7 @@ public abstract class FormHandler {
 	 * @return
 	 */
 	public FormHandler enableJ2Query(String path) {
-		jjqueryInstance = new J2Query(path);
+		j2queryInstance = new J2Query(path);
 		j2queryenabled = true;
 
 		return this;
@@ -83,6 +97,14 @@ public abstract class FormHandler {
 	}
 
 	public FormElement addElement(FormElement e) {
+		//Si es requerido le seteo la clase 'required' si es que no tiene otra
+		Decorator deco;
+		if (e.isRequired()){
+			deco = e.deco;
+			if (deco.getSclass().isEmpty())
+				deco.setSclass("required");
+		}
+			
 		this.formElements.add(e);
 		this.formValues.put(e.getName(), e);
 		return e;
@@ -116,7 +138,7 @@ public abstract class FormHandler {
 	public String toString() {
 
 		String ret;
-		String err, sclass="";
+		String err, sclass="", fid="";
 
 		if (this.hasGroups()) {
 			return this.printGroups();
@@ -125,15 +147,17 @@ public abstract class FormHandler {
 
 		//Clase del decorador
 		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\"" + formDecorator.getSclass() + "\"";
+		//Id del form
+		fid = (id.isEmpty() ? "" : "id=\"" + id + "\"");
 		
-		ret += String.format("<form name=\"%s\" %s action=\"\" method=\"%s\" %s>",
-				this.name, sclass, this.method, this.getAttributesString());
+		ret += String.format("<form %s name=\"%s\" %s action=\"\" method=\"%s\" %s>",
+				fid, this.name, sclass, this.method, this.getAttributesString());
 
 		for (FormElement e : formElements) {
 			ret += e;
 			// Agrego los JJQuerys si esta habilitado
 			if (isJ2QueryEnabled())
-				jjqueryInstance.addElements(e.getJJQueryElements());
+				j2queryInstance.addElements(e.getJJQueryElements());
 			if ((err = this.errors.get(e.getName())) != null)
 				ret += "<div class='errors'>" + err + "</div>";
 		}
@@ -142,7 +166,9 @@ public abstract class FormHandler {
 
 		// Si esta habilitado JJQuery genero el archivo
 		if (isJ2QueryEnabled()) {
-			jjqueryInstance.generate();
+			if (j2queryvalidation)
+				j2queryInstance.addElement(new J2QueryFormValidator(this.id));
+			j2queryInstance.generate();
 		}
 
 		return ret;
@@ -155,10 +181,15 @@ public abstract class FormHandler {
 	 */
 	private String printGroups() {
 		String err;
-		String ret = "";
+		String ret = "", sclass, fid;
 
-		ret += String.format("<form name=\"%s\" action=\"\" method=\"%s\" %s>",
-				this.name, this.method, this.getAttributesString());
+		//Clase del decorador
+		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\"" + formDecorator.getSclass() + "\"";
+		//Id del form
+		fid = (id.isEmpty() ? "" : "id=\"" + id + "\"");
+		
+		ret += String.format("<form %s name=\"%s\" %s action=\"\" method=\"%s\" %s>",
+				fid, this.name, sclass, this.method, this.getAttributesString());
 
 		for (String aName : this.groupsOrder) {
 
@@ -171,7 +202,7 @@ public abstract class FormHandler {
 				ret += e;
 				// Agrego los JJQuerys
 				if (isJ2QueryEnabled())
-					jjqueryInstance.addElements(e.getJJQueryElements());
+					j2queryInstance.addElements(e.getJJQueryElements());
 
 				if ((err = this.errors.get(e.getName())) != null)
 					ret += "<div class='errors'>" + err + "</div>";
@@ -183,7 +214,9 @@ public abstract class FormHandler {
 
 		// Si esta habilitado JJQuery genero el archivo
 		if (isJ2QueryEnabled()) {
-			jjqueryInstance.generate();
+			if (j2queryvalidation)
+				j2queryInstance.addElement(new J2QueryFormValidator(this.id));
+			j2queryInstance.generate();
 		}
 		return ret;
 	}
