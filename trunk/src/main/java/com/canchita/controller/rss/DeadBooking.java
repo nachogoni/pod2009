@@ -7,14 +7,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.joda.time.DateTimeFieldType;
 
 import com.canchita.controller.GenericServlet;
 import com.canchita.model.booking.Booking;
@@ -49,10 +46,6 @@ public class DeadBooking extends GenericServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		
-		//TODO: esto no va! hay que hacer la parte de reservas!
-		
-		
 		logger.debug("GET request");
 
 		Booking booking = null;

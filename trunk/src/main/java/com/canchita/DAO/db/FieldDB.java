@@ -154,61 +154,13 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 		if (neighbourhood == null || neighbourhood.equals("")) {
 			neighbourhood = "%";
-		}/*
-		 * else { neighbourhood = "%" + neighbourhood + "%"; }
-		 */
+		}
 
 		List<Field> results = executeQuery(query, new Object[] { neighbourhood,
 				listCount }, FieldBuilder.getInstance());
 
 		return results;
 	}
-
-	/*
-	 * @Override public Collection<Field> getFiltered(Dictionary<String, String>
-	 * like, Dictionary<String, String> moreThan, Dictionary<String, String>
-	 * lessThan, Dictionary<String, String> equal, List<String> orderedBy) {
-	 * 
-	 * String key = null, searchString = null; Object[] params = new Object[
-	 * ((like == null)?0:like.size()) + ((moreThan == null)?0:moreThan.size())
-	 * +((lessThan == null)?0:lessThan.size()) + ((equal ==
-	 * null)?0:equal.size()) + ((orderedBy == null)?0:orderedBy.size())]; int
-	 * count = 0;
-	 * 
-	 * StringBuffer query = new StringBuffer("SELECT * FROM FIELD WHERE 1=1");
-	 * 
-	 * 
-	 * for (Enumeration<String> i = like.keys(); i.nextElement() != null;) { key
-	 * = i.nextElement(); searchString = like.get(key); query.append(" AND \"" +
-	 * key + "\" LIKE ? "); params[count++] = "%" + searchString + "%"; }
-	 * 
-	 * for (Enumeration<String> i = equal.keys(); i.nextElement() != null;) {
-	 * key = i.nextElement(); searchString = equal.get(key);
-	 * query.append(" AND \"" + key + "\" = ? "); params[count++] =
-	 * searchString; }
-	 * 
-	 * for (Enumeration<String> i = moreThan.keys(); i.nextElement() != null;) {
-	 * key = i.nextElement(); searchString = moreThan.get(key);
-	 * query.append(" AND \"" + key + "\" > ? "); params[count++] =
-	 * searchString; }
-	 * 
-	 * for (Enumeration<String> i = lessThan.keys(); i.nextElement() != null;) {
-	 * key = i.nextElement(); searchString = lessThan.get(key);
-	 * query.append(" AND \"" + key + "\" < ? "); params[count++] =
-	 * searchString; }
-	 * 
-	 * 
-	 * 
-	 * for (Enumeration<String> i = orderedBy.keys(); i.nextElement() != null;)
-	 * { key = i.nextElement(); searchString = orderedBy.get(key);
-	 * query.append(" AND \"" + key + "\" LIKE ? "); params[count++] = "%" +
-	 * searchString + "%"; }
-	 * 
-	 * List<Field> results = executeQuery(query.toString(), params,
-	 * FieldBuilder.getInstance());
-	 * 
-	 * return results; }
-	 */
 
 	@Override
 	public void save(Field field) throws PersistenceException {
