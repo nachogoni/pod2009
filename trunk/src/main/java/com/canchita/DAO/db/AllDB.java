@@ -28,6 +28,9 @@ public abstract class AllDB {
 		ConnectionManager connectionManager = connectionPool
 				.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
+		
+		List<E> list;
+		
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			for (int i = 0; i < params.length; i++) {
@@ -36,13 +39,17 @@ public abstract class AllDB {
 
 			statement.execute();
 			ResultSet resultSet = statement.getResultSet();
-			return processor.buildCollection(resultSet);
+			list = processor.buildCollection(resultSet);
+			resultSet.close();
+			statement.close();
 		} catch (SQLException e) {
 			// TODO no esta bueno que tire runtime
 			throw new RuntimeException("", e);
 		} finally {
 			connectionPool.releaseConnectionManager(connectionManager);
 		}
+		
+		return list;
 	}
 
 	/**
