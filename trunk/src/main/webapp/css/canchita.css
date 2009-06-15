@@ -11,6 +11,13 @@
 	margin-top:2em;
 }
 
+.userPointsHeader{
+	position: relative;
+	top: 5px;
+	font-size: 0.9em;
+	float: right;
+}
+
 .errors {
 color: #D63301;
 background-color: #FFCCBA;
