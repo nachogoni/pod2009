@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
@@ -46,13 +47,13 @@ public class BookingMemoryMock implements BookingDAO {
 	}
 
 	@Override
-	public Iterator<Booking> getComplexBookings(Long complexId) {
+	public List<Booking> getComplexBookings(Long complexId) {
 
 		return null;
 	}
 
 	@Override
-	public Iterator<Booking> getFieldBookings(Long fieldId) {
+	public List<Booking> getFieldBookings(Long fieldId) {
 		return null;
 	}
 
@@ -138,6 +139,12 @@ public class BookingMemoryMock implements BookingDAO {
 	public void update(Booking booking) throws ElementExistsException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Booking> getAllBookings() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

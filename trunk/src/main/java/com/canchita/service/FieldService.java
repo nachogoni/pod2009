@@ -3,6 +3,7 @@ package com.canchita.service;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -208,7 +209,7 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
-	public Iterator<Booking> getBookings(Long fieldId)
+	public List<Booking> getBookings(Long fieldId)
 			throws PersistenceException {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);

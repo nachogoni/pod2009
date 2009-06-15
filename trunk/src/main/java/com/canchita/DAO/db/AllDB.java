@@ -39,7 +39,6 @@ public abstract class AllDB {
 			return processor.buildCollection(resultSet);
 		} catch (SQLException e) {
 			// TODO no esta bueno que tire runtime
-			System.out.println(e.getMessage());
 			throw new RuntimeException("", e);
 		} finally {
 			connectionPool.releaseConnectionManager(connectionManager);

@@ -151,10 +151,10 @@ public class Field implements Bookable {
 		
 		Booking booking = new Booking(this, hour, user, bookedExpiration);
 
-		//if (!this.inAvailableHours(booking)) {
-		//	throw new BookingException(
-		//			"La cancha no está disponible en este horario");
-		//}
+		if (!this.inAvailableHours(booking)) {
+			throw new BookingException(
+					"La cancha no está disponible en este horario");
+		}
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
@@ -249,7 +249,7 @@ public class Field implements Bookable {
 		return Schedule.createHourlySchedule(date, possibleValues);
 	}
 
-	public Iterator<Booking> getBookings() throws PersistenceException {
+	public List<Booking> getBookings() throws PersistenceException {
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 
 		return bookingDAO.getFieldBookings(this.id);

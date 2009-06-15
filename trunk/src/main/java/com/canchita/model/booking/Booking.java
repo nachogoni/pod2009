@@ -8,8 +8,10 @@ import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.ExpirationDAO;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
+import com.canchita.model.complex.ScoreSystem;
 import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.UserException;
 import com.canchita.model.field.Field;
 import com.canchita.model.user.CommonUser;
 
@@ -78,7 +80,17 @@ public class Booking {
 		
 	}
 
-	public void pay(CommonUser user, BigDecimal amount) throws BookingException {
+	public void pay(BigDecimal amount, ScoreSystem scoreSystem) throws BookingException {
+		
+		int score = 0;
+		
+		if( this.state.equals(BookingStatus.PAID) ) {
+			throw new BookingException("La reserva ya está paga");
+		}
+		
+		if( this.state.equals(BookingStatus.CANCELLED) ) {
+			throw new BookingException("La reserva fue cancelada");
+		}
 		
 		/*
 		 * If amount exceeds cost, then we change it 
@@ -93,33 +105,45 @@ public class Booking {
 		
 		BigDecimal percentage = this.getItem().getAccontationPercentage();
 		
-		if( this.state.equals(BookingStatus.BOOKED) && paid.compareTo(amount.multiply(percentage)) > 0 ) {
+		if( this.state.equals(BookingStatus.BOOKED) && paid.compareTo(cost.multiply(percentage)) > 0 ) {
 			this.state = BookingStatus.HALF_PAID;
 			
 			ExpirationDAO expirationDAO;
 			Expiration expiration;
+			
 			try {
 				expirationDAO = DAOFactory.get(DAO.EXPIRATION);
 				//TODO este casteo esta horrible
-				expiration = expirationDAO.getByScore((Field)this.getItem(), user.getScore());
+				expiration = expirationDAO.getByScore((Field)this.getItem(), this.owner.getScore());
 			} catch (PersistenceException e) {
 				throw new BookingException("No se pudo cargar el pago de la reserva");
 			}
 
 			expirationDate = this.schedule.getStartTime().minusHours(expiration.getDepositLimit());
-						 
+			
+			score += scoreSystem.getDeposit();
 		}
 		
-		if( this.state.equals(BookingStatus.HALF_PAID) && paid.compareTo(amount) == 0 ) {
+		if( this.state.equals(BookingStatus.HALF_PAID) && paid.compareTo(cost) == 0 ) {
 			this.state = BookingStatus.PAID;
 			expirationDate = null;
+			
+			score += scoreSystem.getPay();
 		}
 		
 		try {
 			BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
 			bookingDAO.update(this);
+			
+			if( score != 0 ) {
+				this.getOwner().addScore(score);
+			}
+			
 		} catch (PersistenceException e) {
-			throw new BookingException("No se pudo cargar el pago de la reserva");
+			throw new BookingException("No se pudo cargar el pago de la reserva",e);
+		}
+		catch (UserException e) {
+			throw new BookingException("No se pudieron cargar los puntos del usuario",e);
 		}
 		
 	}

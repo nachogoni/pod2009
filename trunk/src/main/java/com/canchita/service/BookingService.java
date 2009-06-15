@@ -3,7 +3,6 @@ package com.canchita.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -47,7 +46,7 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public Iterator<Booking> getBookedBookings(Long complexId)
+	public List<Booking> getBookedBookings(Long complexId)
 			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
@@ -56,7 +55,7 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public Iterator<Booking> getBookableBookings(Long fieldId)
+	public List<Booking> getBookableBookings(Long fieldId)
 			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
@@ -153,26 +152,36 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public void fullPayBooking(Long userId, Long id) throws BookingException, UserException {
+	public void fullPayBooking(Long id) throws BookingException, UserException {
 		Booking booking = this.getById(id);
-
-		UserServiceProtocol userService = new UserService();
 		
-		CommonUser user = (CommonUser) userService.getById(userId);
+		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
 		
-		booking.pay(user,booking.getCost().subtract(booking.getPaid()));
+		ScoreSystem scoreSystem;
+		try {
+			scoreSystem = scoreSystemService.getScoreSystem();
+		} catch (PersistenceException e) {
+			throw new BookingException("No se pudo realizar el pago");
+		}
+		
+		booking.pay(booking.getCost().subtract(booking.getPaid()),scoreSystem);
 		
 	}
 
 	@Override
-	public void payBooking(Long userId, Long id, BigDecimal amount) throws BookingException, UserException {
+	public void payBooking(Long id, BigDecimal amount) throws BookingException, UserException {
 		Booking booking = this.getById(id);
 
-		UserServiceProtocol userService = new UserService();
+		ScoreSystemServiceProtocol scoreSystemService = new ScoreSystemService();
 		
-		CommonUser user = (CommonUser) userService.getById(userId);
+		ScoreSystem scoreSystem;
+		try {
+			scoreSystem = scoreSystemService.getScoreSystem();
+		} catch (PersistenceException e) {
+			throw new BookingException("No se pudo realizar el pago");
+		}
 		
-		booking.pay(user,amount);
+		booking.pay(amount, scoreSystem);
 	}
 	
 	private Booking getById(Long id) throws BookingException {
@@ -191,6 +200,20 @@ public class BookingService implements BookingServiceProtocol {
 		}
 		
 		return booking;
+	}
+
+	@Override
+	public List<Booking> getAllBookings() throws BookingException {
+		
+		BookingDAO bookingDAO;
+		
+		try {
+			bookingDAO = DAOFactory.get(DAO.BOOKING);
+		} catch (PersistenceException e) {
+			throw new BookingException("No se pudo listar las reservas");
+		}
+		
+		return bookingDAO.getAllBookings();
 	}
 
 
