@@ -74,10 +74,15 @@ public class RegisterDB extends AllDB implements RegisterDAO {
 	private Registered register(RegistrationInfo info)
 			throws PersistenceException {
 
+		Registered aUser;
 		UserDAO userDAO = DAOFactory.get(DAO.USER);
 
-		return userDAO.save(info.getUsername(), info.getPassword(), info
+		aUser = userDAO.save(info.getUsername(), info.getPassword(), info
 				.getPassword(), false, info.isAdmin());
+		
+		userDAO.addEmail(aUser, info.getEmail());
+		
+		return aUser;
 
 	}
 

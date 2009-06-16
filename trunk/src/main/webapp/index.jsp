@@ -14,7 +14,7 @@
 
 	<c:choose>
 	  <c:when test="${param.register}">
-	    <c:set var="registerMsg" scope="page" value="La registración se completo exitosamente, consulta tu correo electrónico para confirmarlo"/>
+	    <c:set var="registerMsg" scope="page" value="La registración se completó exitosamente, consultá tu correo electrónico para confirmarlo"/>
 	  </c:when>
 	  <c:otherwise>
 	    <c:set var="registerMsg" scope="page" value="Error al realizar la registración"/>

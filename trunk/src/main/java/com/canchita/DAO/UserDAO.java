@@ -37,6 +37,8 @@ public interface UserDAO {
 
 	boolean exists(String username);
 
+	public boolean emailExists(String email);
+
 	public void addEmail(Registered aUser, String email)
 			throws ElementNotExistsException, PersistenceException;
 

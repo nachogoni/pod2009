@@ -23,6 +23,8 @@ import com.canchita.model.exception.RegisterException;
  */
 public class Guest extends User {
 
+	private static final long serialVersionUID = 1L;
+
 	public boolean getIsAdmin() {
 		return false;
 	}

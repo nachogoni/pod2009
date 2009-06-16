@@ -292,4 +292,14 @@ public class UserDB extends AllDB implements UserDAO {
 		
 	}
 
+	@Override
+	public boolean emailExists(String email) {
+		String query = "SELECT COUNT(*) AS COUNT FROM EMAIL WHERE \"email\" = ?";
+
+		List<Integer> results = executeQuery(query, new Object[] { email },
+				CountBuilder.getInstance());
+
+		return results.get(0) > 0;
+	}
+
 }
