@@ -12,7 +12,6 @@ import com.canchita.model.complex.Complex;
 import com.canchita.views.helpers.form.Decorator;
 import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
-import com.canchita.views.helpers.form.FormElementSelect;
 import com.canchita.views.helpers.form.FormHandler;
 import com.canchita.views.helpers.form.Pair;
 import com.canchita.views.helpers.j2query.J2QueryTimePicker;
@@ -52,63 +51,90 @@ public class FormAddComplex extends FormHandler {
 			horas.add(String.format("%02d:%02d", i, ((i % 2) == 0) ? 0 : 30));
 		}
 
-		this.setName("Complejo").enableJ2Query(
-				"src/main/webapp/js/complex/add/init.js").setId("formComplex")
-				.enableJ2QueryValidation().setMethod("post");
+		this.setName("Complejo")
+			.enableJ2Query("src/main/webapp/js/complex/add/init.js")
+			.setId("formComplex")
+			//.enableJ2QueryValidation()
+			.setMethod("post");
 
-		this.addElement(new FormElementInput("text", "name").setLabel("Nombre")
-				.setId("idNombre").setRequired(true).addValidator("MaxLength",
-						"20").addValidator("IsAlphaNumS").addJ2QueryTooltip(
-						"Nombre del Complejo"));
+		this.addElement(new FormElementInput("text", "name")
+			.setLabel("Nombre")
+			.setId("idNombre")
+			.setRequired(true)
+			.addValidator("MaxLength","20")
+			.addValidator("IsAlphaNumS")
+			.addJ2QueryTooltip("Nombre del Complejo"));
 
-		this.addElement(
-				new FormElementInput("text", "description").setLabel(
-						"Descripci&oacute;n").setId("idDescripcion")
-						.addValidator("MaxLength", "100").setRequired(false))
-				.addJ2QueryTooltip("Descripci&oacute;n del Complejo");
+		this.addElement(new FormElementInput("text", "description")
+			.setLabel("Descripci&oacute;n")
+			.setId("idDescripcion")
+			.addValidator("MaxLength", "100")
+			.setRequired(false))
+			.addJ2QueryTooltip("Descripci&oacute;n del Complejo");
 
-		this.addElement(new FormElementInput("text", "address").setLabel(
-				"Direcci&oacute;n").setId("idDireccion").setRequired(true)
-				.addValidator("MaxLength", "50").addValidator("IsAddress")
-				.addJ2QueryTooltip("Direcci&oacute;n del Complejo"));
+		this.addElement(new FormElementInput("text", "address")
+			.setLabel("Direcci&oacute;n")
+			.setId("idDireccion")
+			.setRequired(true)
+			.addValidator("MaxLength", "50")
+			.addValidator("IsAddress")
+			.addJ2QueryTooltip("Direcci&oacute;n del Complejo"));
 
-		this.addElement(new FormElementInput("text", "neighbourhood").setLabel(
-				"Barrio").setId("idNeighbourhood").setRequired(true)
-				.addValidator("MaxLength", "50").addValidator("IsAlphaNumS")
-				.addJ2QueryTooltip("Barrio del Complejo"));
+		this.addElement(new FormElementInput("text", "neighbourhood")
+			.setLabel("Barrio")
+			.setId("idNeighbourhood")
+			.setRequired(true)
+			.addValidator("MaxLength", "50")
+			.addValidator("IsAlphaNumS")
+			.addJ2QueryTooltip("Barrio del Complejo"));
 
-		this.addElement(new FormElementInput("text", "town").setLabel("Ciudad")
-				.setRequired(true).addValidator("IsAlphaNumS").setId("idTown")
-				.addValidator("MaxLength", "50").addJ2QueryTooltip(
-						"Ciudad del Complejo"));
+		this.addElement(new FormElementInput("text", "town")
+			.setLabel("Ciudad")
+			.setRequired(true)
+			.addValidator("IsAlphaNumS")
+			.setId("idTown")
+			.addValidator("MaxLength", "50")
+			.addJ2QueryTooltip("Ciudad del Complejo"));
 
-		this.addElement(new FormElementInput("text", "state").setLabel(
-				"Provincia").setRequired(true).addValidator("IsAlphaNumS")
-				.addValidator("MaxLength", "50").setId("idState")
-				.addJ2QueryTooltip("Provincia del Complejo"));
+		this.addElement(new FormElementInput("text", "state")
+			.setLabel("Provincia")
+			.setRequired(true)
+			.addValidator("IsAlphaNumS")
+			.addValidator("MaxLength", "50").setId("idState")
+			.addJ2QueryTooltip("Provincia del Complejo"));
 
-		this.addElement(new FormElementInput("text", "zipcode").setLabel(
-				"C&oacute;digo Postal").setRequired(true).addValidator(
-				"IsNumeric").setId("idZipCode").addJ2QueryTooltip(
-				"C&oacute;digo Postal del Complejo"));
+		this.addElement(new FormElementInput("text", "zipcode")
+			.setLabel("C&oacute;digo Postal")
+			.setRequired(true)
+			.addValidator("IsNumeric")
+			.setId("idZipCode")
+			.addJ2QueryTooltip("C&oacute;digo Postal del Complejo"));
 
-		this.addElement(new FormElementInput("text", "latitude").setLabel(
-				"Latitud").setId("idLatitude").addJ2QueryTooltip(
-				"Latitud del Complejo"));
+		this.addElement(new FormElementInput("text", "latitude")
+			.setLabel("Latitud")
+			.setId("idLatitude")
+			.addJ2QueryTooltip("Latitud del Complejo"));
 
-		this.addElement(new FormElementInput("text", "longitude").setLabel(
-				"Longitud").setId("idLongitude").addJ2QueryTooltip(
-				"Longitud del Complejo"));
+		this.addElement(new FormElementInput("text", "longitude")
+			.setLabel("Longitud")
+			.setId("idLongitude")
+			.addJ2QueryTooltip("Longitud del Complejo"));
 
-		this.addElement(new FormElementInput("text", "telephone").setLabel(
-				"Tel&eacute;fono").setId("idTelephone").setRequired(true)
-				.addValidator("IsTelephone").setMultipleData("multiplePhone")
-				.addJ2QueryTooltip("Tel&eacute;fono del Complejo"));
+		this.addElement(new FormElementInput("text", "telephone")
+			.setLabel("Tel&eacute;fono")
+			.setId("idTelephone")
+			.setRequired(true)
+			.addValidator("IsTelephone")
+			.setMultipleData("multiplePhone")
+			.addJ2QueryTooltip("Tel&eacute;fono del Complejo"));
 
-		this.addElement(new FormElementInput("text", "country").setRequired(
-				true).addValidator("IsAlphaNumS").addValidator("MaxLength",
-				"50").setId("idCountry").setLabel("País").addJ2QueryTooltip(
-				"Pa&iacute;s del Complejo"));
+		this.addElement(new FormElementInput("text", "country")
+			.setRequired(true)
+			.addValidator("IsAlphaNumS")
+			.addValidator("MaxLength","50")
+			.setId("idCountry")
+			.setLabel("País")
+			.addJ2QueryTooltip("Pa&iacute;s del Complejo"));
 
 		ArrayList<String> diasDeSemana = new ArrayList<String>();
 		diasDeSemana.add("lunes");
