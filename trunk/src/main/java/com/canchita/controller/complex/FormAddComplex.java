@@ -287,28 +287,23 @@ public class FormAddComplex extends FormHandler {
 
 		Calendar aCalendar = aComplex.getTimeTable();
 		for (Availability av : aCalendar.getAvailabilities()) {
-			System.out.println("Día " + av.getDay());
 
 			// Para fecha_dia_inicio
 			String dayName = day2formName(av.getDay().toString(), "inicio");
-			System.out.println("name: " + dayName);
 
 			DateTime dt = av.getSchedule().getStartTime();
 			String timeString = String.format("%02d:%02d", dt.getHourOfDay(),
 					dt.getMinuteOfHour());
 
-			System.out.println("timeString: " + timeString);
 			data.add(new Pair<String, String>(dayName, timeString));
 
 			// Para fecha_dia_fin
 			dayName = day2formName(av.getDay().toString(), "fin");
-			System.out.println("name: " + dayName);
 
 			dt = av.getSchedule().getEndTime();
 			timeString = String.format("%02d:%02d", dt.getHourOfDay(), dt
 					.getMinuteOfHour());
 
-			System.out.println("timeString: " + timeString);
 			data.add(new Pair<String, String>(dayName, timeString));
 
 		}

@@ -8,7 +8,6 @@ import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.FieldBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
-import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -86,7 +85,6 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 	@Override
 	public Collection<Field> getFiltered(String filter) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
