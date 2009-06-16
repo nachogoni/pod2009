@@ -125,51 +125,57 @@
 					</c:choose>
 					</td>
 				</tr>
-				<tr>
-					<td><strong>Canchas:</strong></td>				
-					<td>
-									
-					<c:choose>
-						
-						<c:when test="${fields != null}">
-							
+				</table>
+				
+				<c:choose>
+					<c:when test="${fields != null}">
+						<h2>Canchas del complejo</h2>
+						<table class="complexesTable" border="1">
+							<tr>
+								<td><b>Nombre</b></td>
+								<td><b>Descripción</b></td>
+								<td><b>Cantidad de Jugadores</b></td>
+								<td><b>Techada</b></td>
+								<td><b>Tipo de piso</b></td>
+								<td><b>Precio</b></td>
+								<td><b>En Mantenimiento</b></td>
+								<td> </td>
+							</tr>
 							<c:forEach items="${fields}" var="field" varStatus="rowCounter">
-						        <!--
-						        <c:choose>
-						          <c:when test="${rowCounter.count % 2 == 0}">
-						            <c:set var="rowStyle" scope="page" value="odd"/>
-						          </c:when>
-						          <c:otherwise>
-						            <c:set var="rowStyle" scope="page" value=""/>
-						          </c:otherwise>
-						        </c:choose>
-						        -->
-								
-								<!--  <tr class="<c:out value="${rowStyle}" />"> -->
-								<tr>
-									<td><c:out value="${field.name}" /></td>
-									
-									<td>
+							<tr>
+								<td><c:out value="${field.name}" /></td>
+								<td><c:out value="${field.description}" /></td>
+								<td><c:out value="${field.numberOfPlayers}" /></td>
+								<c:if test="${(field.hasRoof)}">
+									<td><c:out value="Sí" /></td>
+								</c:if>
+								<c:if test="${!(field.hasRoof)}">
+									<td><c:out value="No" /></td>
+								</c:if>
+								<td><c:out value="${field.floor}" /></td>
+								<td><c:out value="${field.price}" /></td>
+								<c:if test="${(field.under_maintenance)}">
+                                	<td><c:out value="Sí" /></td>
+                            	</c:if>
+                            	<c:if test="${!(field.under_maintenance)}">
+                                	<td><c:out value="No" /></td>
+                            	</c:if>
+								<td>
 									<c:if test="${user.isAuthenticated && !user.isAdmin}">
 										<a href=<c:out value="field/book?id=${field.id}" />>Reservar</a>
 										<br />
 									</c:if>
-									<a href=<c:out value="field/detailedview?id=${field.id }" />>Detalles</a></td>
-								</tr>
+									<a href=<c:out value="field/detailedview?id=${field.id }" />>Detalles</a>
+								</td>
+							</tr>
 							</c:forEach>
-							
-						</c:when>
+						</table>
+					</c:when>
 						
-						<c:otherwise>
-							Este complejo todavia no tiene canchas
-						</c:otherwise>
-						
-					</c:choose>
-					
-					</td>
-				</tr>
-			</table>
-
+					<c:otherwise>
+						<h3>Este complejo todavia no tiene canchas</h3>
+					</c:otherwise>
+				</c:choose>
 </c:otherwise>
 </c:choose>
 
