@@ -114,4 +114,29 @@ public class UserService implements UserServiceProtocol {
 
 		return userDAO.emailExists(email);
 	}
+
+	@Override
+	public void otherUserHasEmail(Registered user, String email)
+			throws UserException {
+		UserDAO userDAO = null;
+
+		try {
+			userDAO = DAOFactory.get(DAO.USER);
+		} catch (PersistenceException e) {
+			throw new UserException("Error en la db");
+		}
+
+		try {
+			if (userDAO.otherUserHasEmail(user, email)) {
+				throw new UserException("Ya existe el email " + email
+						+ " en la db.");
+			}
+		} catch (ElementNotExistsException e) {
+			throw new UserException("Error en la db.");
+
+		} catch (PersistenceException e) {
+			throw new UserException("Error en la db.");
+		}
+
+	}
 }

@@ -49,5 +49,8 @@ public interface UserDAO {
 
 	public Registered getById(Long userId) throws ElementNotExistsException;
 
+	public boolean otherUserHasEmail(Registered user, String email)
+			throws ElementNotExistsException, PersistenceException;
+
 
 }

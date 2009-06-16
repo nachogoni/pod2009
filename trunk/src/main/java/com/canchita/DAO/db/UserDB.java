@@ -206,15 +206,16 @@ public class UserDB extends AllDB implements UserDAO {
 			throws PersistenceException {
 
 		// Primero borro todos los mails que no están en el vector de emails.
-		ArrayList<String> emailsList = new ArrayList<String>(Arrays.asList(emails));
+		ArrayList<String> emailsList = new ArrayList<String>(Arrays
+				.asList(emails));
 		emailsList.removeAll(Arrays.asList(""));
-		
+
 		String list = "( ";
 		int i = 0;
 		for (i = 0; i < (emailsList.size() - 1); i++) {
-			list += "'" +emailsList.get(i)+ "', ";
+			list += "'" + emailsList.get(i) + "', ";
 		}
-		list += "'" +emailsList.get(i)+ "')";
+		list += "'" + emailsList.get(i) + "')";
 
 		String delQuery = "DELETE FROM EMAIL WHERE \"email\" NOT IN " + list
 				+ " AND \"user_id\" = ?";
@@ -229,6 +230,18 @@ public class UserDB extends AllDB implements UserDAO {
 				// No hago nada, acá agarro los repetidos.
 			}
 		}
+	}
+
+	@Override
+	public boolean otherUserHasEmail(Registered user, String email)
+			throws ElementNotExistsException, PersistenceException {
+		String query = "SELECT COUNT(*) AS COUNT FROM EMAIL WHERE "
+				+ "\"email\" = ? AND \"user_id\" <> ?";
+
+		List<Integer> results = executeQuery(query, new Object[] { email,
+				user.getId() }, CountBuilder.getInstance());
+
+		return results.get(0) > 0;
 	}
 
 	@Override
@@ -274,8 +287,8 @@ public class UserDB extends AllDB implements UserDAO {
 		// CommonUser list gets loaded.
 		String query = "SELECT * FROM USERS WHERE \"user_id\" = ?";
 
-		List<Registered> results = executeQuery(query,
-				new Object[] { userId }, RegisteredBuilder.getInstance());
+		List<Registered> results = executeQuery(query, new Object[] { userId },
+				RegisteredBuilder.getInstance());
 
 		if (results.isEmpty())
 			throw new ElementNotExistsException();
@@ -289,7 +302,7 @@ public class UserDB extends AllDB implements UserDAO {
 		}
 
 		return results.get(0);
-		
+
 	}
 
 	@Override

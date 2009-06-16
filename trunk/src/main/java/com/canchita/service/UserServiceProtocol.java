@@ -29,16 +29,17 @@ public interface UserServiceProtocol {
 
 	List<String> getEmails(Registered user) throws UserException;
 
-	void updateEmails(Registered user, String[] emails)
-			throws UserException;
+	void updateEmails(Registered user, String[] emails) throws UserException;
 
 	void updateUser(Registered user) throws UserException;
 
 	Registered getById(Long userId) throws UserException;
 
 	Registered get(Registered user) throws UserException;
-	
-	boolean emailExists(String email);
 
+	public void otherUserHasEmail(Registered user, String email)
+			throws UserException;
+
+	boolean emailExists(String email);
 
 }
