@@ -45,6 +45,8 @@
 			<option value="<c:out value="${neighbour}" />"><c:out value="${neighbour}" /></option>
 		</c:forEach>
 	</select>
+	
+   <input type="submit" value="Elegir" class="submit-go" />
 	</fieldset>
 
 	<div id="whenError" class="ui-state-error ui-corner-all hidden error"> 
@@ -59,8 +61,6 @@
 		<span><strong>Alerta:</strong></span>
 		<span id="whenJSONErrorMsg" class="block"></span>
 	</div>
-		
-	<input type="submit" value="Elegir" class="submit-go" />
 </form>
 
 
