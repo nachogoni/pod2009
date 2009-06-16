@@ -7,6 +7,15 @@
 
 <h1>Realizar la reserva de la cancha</h1>
 
+<c:if test="${(param.id != null)}">
+	<div class="ui-state-highlight ui-corner-all info"> 
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* También puedes reservar esta cancha por varias semanas haciendo click 
+		<a href="<c:out value="${baseURI}" />/field/bookmany?id=<c:out value="${param.id}" />">aquí</a></span>
+	</div>
+</c:if>
+
 <c:if test="${(success != null)}">
 	<div class="ui-state-highlight ui-corner-all info"> 
 		<span class="ui-icon ui-icon-info infoIcon"></span>

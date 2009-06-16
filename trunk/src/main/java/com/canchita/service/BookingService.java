@@ -142,6 +142,11 @@ public class BookingService implements BookingServiceProtocol {
 			throw new BookingException("Los días de la semana no coinciden");
 		}
 
+		if (startTimeFrom.compareTo(startTimeTo) > 0 ) {
+			throw new BookingException("La fecha desde es mayor que la fecha hasta");
+		}
+
+		
 		long startDay = startTimeFrom.getDayOfYear()
 				+ (365 * startTimeFrom.getYear());
 		long endDay = startTimeTo.getDayOfYear()
