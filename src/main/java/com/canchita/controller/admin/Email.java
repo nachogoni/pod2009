@@ -71,19 +71,29 @@ public class Email extends GenericServlet {
 		} else {
 			ErrorManager error = new ErrorManager();
 			Registered user = this.getUser(request);
-			String[] emails = null;
+			String[] emails = request.getParameterValues("email");
 			UserServiceProtocol userService = new UserService();
+
+			// Se verifica que otro usuario no tenga esos mails.
+			for (String email : emails) {
+				try {
+					userService.otherUserHasEmail(user, email);
+				} catch (UserException e) {
+					error.add(e);
+					request.setAttribute("formulario", form);
+					this.failurePOST(request, response, error);
+					return;
+				}
+			}
 
 			// Se actualizan los mails.
 			try {
-				emails = request.getParameterValues("email");
 				userService.updateEmails(user, emails);
 
 			} catch (UserException e) {
 				error.add(e);
 				request.setAttribute("formulario", form);
-				UrlMapper.getInstance().forwardFailure(this, request, response,
-						UrlMapperType.GET);
+				this.failurePOST(request, response, error);
 				return;
 			}
 
