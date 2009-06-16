@@ -217,7 +217,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 	}
 	
 	@Override
-	public Collection<Booking> getDownBookings(String neighbourhood, Long listCount) {
+	public Collection<Booking> getDownBookings(String province, String locality, String neighbourhood, Long listCount) {
 		
 		String query = "SELECT \"reservation_id\", \"user_id\", RESERVATION.\"field_id\""
 			+ ", RESERVATION.\"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
@@ -225,14 +225,23 @@ public class BookingDB extends AllDB implements BookingDAO {
 			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
 			+ " FROM RESERVATION, FIELD, COMPLEX WHERE FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
 			+ " RESERVATION.\"field_id\" = FIELD.\"field_id\" AND \"start_date\" > SYSDATE AND "
-			+ "RESERVATION.\"state\" = ? AND \"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"start_date\"";
+			+ " RESERVATION.\"state\" = ? AND COMPLEX.\"state\" LIKE ? AND COMPLEX.\"city\" LIKE ? AND "
+			+ " \"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"start_date\"";
 		  		
+		if (province == null || province.equals("")) {
+			province = "%";
+		}
+		
+		if (locality == null || locality.equals("")) {
+			locality = "%";
+		}
+		
 		if (neighbourhood == null || neighbourhood.equals("")) {
 			neighbourhood = "%";
 		}
 		
 		List<Booking> results = executeQuery(query, new Object[] {
-				BookingStatus.CANCELLED.getIndex(), neighbourhood, listCount},
+				BookingStatus.CANCELLED.getIndex(), province, locality, neighbourhood, listCount},
 				ReservationBuilder.getInstance());
 		
 		return results;

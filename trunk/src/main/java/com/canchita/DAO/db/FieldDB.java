@@ -8,6 +8,7 @@ import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.FieldBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.model.booking.Booking;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -148,18 +149,27 @@ public class FieldDB extends AllDB implements FieldDAO {
 	}
 
 	@Override
-	public Collection<Field> getLastFields(String neighbourhood, Long listCount) {
+	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount) {
 
 		String query = "SELECT * FROM FIELD, COMPLEX WHERE "
 				+ "FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
+				+ " \"state\" LIKE ? AND \"city\" LIKE ? AND "
 				+ "\"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"field_id\"";
-
+	  		
+		if (province == null || province.equals("")) {
+			province = "%";
+		}
+	
+		if (locality == null || locality.equals("")) {
+			locality = "%";
+		}
+	
 		if (neighbourhood == null || neighbourhood.equals("")) {
 			neighbourhood = "%";
 		}
 
-		List<Field> results = executeQuery(query, new Object[] { neighbourhood,
-				listCount }, FieldBuilder.getInstance());
+		List<Field> results = executeQuery(query, new Object[] { province, locality,
+				neighbourhood, listCount }, FieldBuilder.getInstance());
 
 		return results;
 	}

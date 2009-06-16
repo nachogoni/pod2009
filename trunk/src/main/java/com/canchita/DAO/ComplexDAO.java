@@ -34,6 +34,10 @@ public interface ComplexDAO {
 
 	public List<String> getPhones(Complex complex);
 
-	public Collection<String> getNeighbourhoods();
-
+	public Collection<String> getProvinces();
+	
+	public Collection<String> getLocations(String province);
+	
+	public Collection<String> getNeighbourhoods(String province, String locality);
+	
 }

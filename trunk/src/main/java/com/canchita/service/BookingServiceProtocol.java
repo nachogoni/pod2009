@@ -44,7 +44,7 @@ public interface BookingServiceProtocol {
 	Collection<Booking> getDownBookings(Long complexId)
 			throws ValidationException, PersistenceException;
 
-	public Collection<Booking> getDownBookings(String neighbourhood, Long listCount)
+	public Collection<Booking> getDownBookings(String province, String locality, String neighbourhood, Long listCount)
 			throws ValidationException, PersistenceException;
 	List<Booking> getAllBookings() throws BookingException;
 

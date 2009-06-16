@@ -64,7 +64,7 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
-	public Collection<Field> getLastFields(String neighbourhood, Long listCount)
+	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount)
 			throws ValidationException, PersistenceException {
 		
 		Validator validator = new IsAlphaNum(true);
@@ -76,7 +76,7 @@ public class FieldService implements FieldServiceProtocol {
 		
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 		
-		return fieldDAO.getLastFields(neighbourhood, listCount);
+		return fieldDAO.getLastFields(province, locality, neighbourhood, listCount);
 		
 	}
 

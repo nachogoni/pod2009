@@ -585,10 +585,26 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 
 	@Override
-	public Collection<String> getNeighbourhoods() throws PersistenceException {
+	public Collection<String> getNeighbourhoods(String province, String locality) throws PersistenceException {
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
-		Collection<String> neighbourhoods = complexDAO.getNeighbourhoods();
+		Collection<String> neighbourhoods = complexDAO.getNeighbourhoods(province, locality);
 		return neighbourhoods;
+
+	}
+	
+	@Override
+	public Collection<String> getLocations(String province) throws PersistenceException {
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		Collection<String> locations = complexDAO.getLocations(province);
+		return locations;
+
+	}
+
+	@Override
+	public Collection<String> getProvinces() throws PersistenceException {
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		Collection<String> provinces = complexDAO.getProvinces();
+		return provinces;
 
 	}
 }

@@ -27,21 +27,16 @@ public class RSS {
 		return null;
 	}
 	
-	public static Collection<Booking> generateDownBookings(String neighbourhood)
+	public static Collection<Booking> generateDownBookings(String province, String locality, String neighbourhood)
 			throws ValidationException, PersistenceException {
 		
-		return new BookingService().getDownBookings(neighbourhood, 10L);
+		return new BookingService().getDownBookings(province, locality, neighbourhood, 10L);
 	}
 
-	public static Collection<Field> generateNewFields(String neighbourhood) 
+	public static Collection<Field> generateNewFields(String province, String locality, String neighbourhood) 
 			throws ValidationException, PersistenceException {
 		
-		return new FieldService().getLastFields(neighbourhood, 10L);
-	}
-	
-	public static Collection<Field> generateNewFields() 
-			throws ValidationException, PersistenceException {
-		return generateNewFields(null);
+		return new FieldService().getLastFields(province, locality, neighbourhood, 10L);
 	}
 	
 }
