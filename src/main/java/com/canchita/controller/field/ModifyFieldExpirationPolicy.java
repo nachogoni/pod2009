@@ -124,6 +124,14 @@ public class ModifyFieldExpirationPolicy extends GenericServlet {
 			error.add("Caída de reserva señada inválida");
 		}
 
+		if (downBooking < downDeposit) {
+			error.add("Las horas en estado señado no pueden ser menores al estado reservado.");
+		}
+		
+		if (scoreFrom > scoreTo) {
+			error.add("El puntaje inicial no puede ser superior al final.");
+		}
+		
 		if (error.size() != 0) {
 			request.setAttribute("errorManager", error);
 			request.setAttribute("formulario", form);

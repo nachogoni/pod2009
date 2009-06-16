@@ -18,10 +18,10 @@ public class FormAddExpirationPolicy extends FormHandler {
 		this.setName("Política de expiración").setMethod("post");
 
 		this.addElement(new FormElementInput("text", "scoreFrom").setLabel(
-				"Desde").setRequired(true).addValidator("IsNumeric"));
+				"Desde").setRequired(true).addValidator("IsNumericN"));
 
 		this.addElement(new FormElementInput("text", "scoreTo").setLabel(
-				"Hasta").setRequired(true).addValidator("IsNumeric"));
+				"Hasta").setRequired(true).addValidator("IsNumericN"));
 
 		this.addElement(new FormElementInput("text", "downBooking").setLabel(
 				"Cae reservada").setRequired(true)
