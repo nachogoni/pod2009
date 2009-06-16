@@ -12,7 +12,6 @@ import com.canchita.model.exception.LoginException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.RegisterException;
 import com.canchita.model.exception.UserException;
-import com.canchita.model.user.CommonUser;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
 

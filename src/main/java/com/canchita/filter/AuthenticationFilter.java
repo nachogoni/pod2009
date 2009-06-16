@@ -10,8 +10,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.joda.time.DateTimeZone;
-
 import com.canchita.service.UserService;
 
 public class AuthenticationFilter implements Filter {

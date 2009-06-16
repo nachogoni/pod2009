@@ -97,7 +97,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 		String minHasRoof = "0";
 		String maxHasRoof = "1";
-		String minType = "1";
+		String minType = "0";
 		String maxType = String.valueOf(Integer.MAX_VALUE);
 		String minPlayers = "0";
 		String maxPlayers = String.valueOf(Integer.MAX_VALUE);

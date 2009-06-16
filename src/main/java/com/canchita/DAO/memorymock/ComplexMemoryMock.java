@@ -251,13 +251,6 @@ public class ComplexMemoryMock implements ComplexDAO {
 	}
 
 	@Override
-	public void updatePhone(Complex complex, String oldPhone, String newPhone)
-			throws ElementNotExistsException, PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Complex getByPlace(Place place) throws ElementNotExistsException {
 		// TODO Auto-generated method stub
 		return null;
@@ -267,6 +260,13 @@ public class ComplexMemoryMock implements ComplexDAO {
 	public Collection<String> getNeighbourhoods() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void deletePhones(Complex complex) throws ElementNotExistsException,
+			PersistenceException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

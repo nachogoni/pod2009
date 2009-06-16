@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import com.canchita.DAO.db.FieldDB;
 import com.canchita.DAO.db.QueryProcessor;

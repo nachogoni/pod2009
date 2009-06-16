@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<link HREF=<c:out value="${baseURI}" escapeXml="false" />/LastFields TITLE="RSS" TYPE="application/rss+xml" rel="alternate">
+<link HREF="<c:out value="${baseURI}" escapeXml="false" />/LastFields" TITLE="RSS" TYPE="application/rss+xml" rel="alternate">
 
 <jsp:include page="/WEB-INF/views/general/header/header.jsp"
 	flush="true">
