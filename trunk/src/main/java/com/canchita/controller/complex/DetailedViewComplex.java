@@ -77,6 +77,8 @@ public class DetailedViewComplex extends GenericServlet {
 			logger.debug("Listando canchas para el complejo con id " + id);
 			fields = fieldService.listField(id);
 			logger.debug(fields);
+			if (fields.isEmpty())
+				fields = null;
 			request.setAttribute("fields", fields);
 		} catch (Exception e) {
 			error.add(e);
