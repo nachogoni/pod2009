@@ -15,6 +15,7 @@ import com.canchita.views.helpers.form.FormElementInput;
 import com.canchita.views.helpers.form.FormElementSelect;
 import com.canchita.views.helpers.form.FormHandler;
 import com.canchita.views.helpers.form.Pair;
+import com.canchita.views.helpers.j2query.J2QueryTimePicker;
 
 public class FormAddComplex extends FormHandler {
 	private static HashMap<String, String> days = new HashMap<String, String>();
@@ -105,90 +106,35 @@ public class FormAddComplex extends FormHandler {
 		this.addElement(new FormElementInput("text", "country").setRequired(
 				true).addValidator("IsAlphaNumS").setId("idCountry").setLabel(
 				"País").addJ2QueryTooltip("Pa&iacute;s del Complejo"));
-
-		/* Horarios lunes */
-		this.addElement(new FormElementInput("text", "fecha_lunes_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_lunes_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Lunes")
+		
+		ArrayList<String> diasDeSemana = new ArrayList<String>();
+		diasDeSemana.add("lunes");
+		diasDeSemana.add("martes");
+		diasDeSemana.add("miercoles");
+		diasDeSemana.add("jueves");
+		diasDeSemana.add("viernes");
+		diasDeSemana.add("sabado");
+		diasDeSemana.add("domingo");
+		
+		/* cargo los horarios */
+		for(String e:diasDeSemana){
+			this.addElement(new FormElementInput("text", String.format("fecha_%s_inicio", e))
+				.setLabel("Inicio")
+				.setRequired(true)
+				.setId(String.format("idfecha_%s_inicio", e))
+				.addValidator("IsHourMinute", "Horario de inicio del " + e)
+				.addJ2QueryElement(new J2QueryTimePicker(String.format("idfecha_%s_inicio", e)))
 				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_lunes_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_lunes_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Lunes")
+		
+			this.addElement(new FormElementInput("text", String.format("fecha_%s_fin", e))
+				.setLabel("Cierre")
+				.setRequired(true)
+				.setId(String.format("idfecha_%s_fin", e))
+				.addValidator("IsHourMinute", "Horario de cierre del " + e)
+				.addJ2QueryElement(new J2QueryTimePicker(String.format("idfecha_%s_fin", e)))
 				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin lunes */
-
-		/* Horarios martes */
-		this.addElement(new FormElementInput("text", "fecha_martes_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_martes_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Martes")
-				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_martes_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_martes_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Lunes")
-				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin martes */
-
-		/* Horarios miercoles */
-		this.addElement(new FormElementInput("text", "fecha_miercoles_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_miercoles_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Miercoles")
-				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_miercoles_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_miercoles_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Miercoles")
-				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin miercoles */
-
-		/* Horarios jueves */
-		this.addElement(new FormElementInput("text", "fecha_jueves_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_jueves_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Jueves")
-				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_jueves_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_jueves_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Jueves")
-				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin jueves */
-
-		/* Horarios viernes */
-		this.addElement(new FormElementInput("text", "fecha_viernes_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_viernes_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Viernes")
-				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_viernes_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_viernes_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Viernes")
-				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin viernes */
-
-		/* Horarios sabado */
-		this.addElement(new FormElementInput("text", "fecha_sabado_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_sabado_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Sabado")
-				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_sabado_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_sabado_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Sabado")
-				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin sabado */
-
-		/* Horarios domingo */
-		this.addElement(new FormElementInput("text", "fecha_domingo_inicio")
-				.setLabel("Inicio").setRequired(true).setId("idfecha_domingo_inicio").addValidator(
-						"IsHourMinute", "Horario de inicio del Domingo")
-				.addJ2QueryTooltip("Hora de inicio"));
-
-		this.addElement(new FormElementInput("text", "fecha_domingo_fin")
-				.setLabel("Cierre").setRequired(true).setId("idfecha_domingo_fin").addValidator(
-						"IsHourMinute", "Horario de cierre del Domingo")
-				.addJ2QueryTooltip("Hora de cierre"));
-		/* fin domingo */
+		}
+		
 
 		this.addElement(new FormElementInput("text", "depositLimit").setLabel(
 				"Límite de seña").setId("depositLimit").setRequired(true)

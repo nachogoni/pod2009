@@ -19,6 +19,10 @@
 <link rel="stylesheet"
 	href="/tp-pod/js/jquery/js/jquery-tooltip/jquery.tooltip.css"
 	type="text/css" media="print, projection, screen">
+<link rel="stylesheet"
+	href="/tp-pod/js/jquery/js/jquery-timepickr/jquery.timepickr.css"
+	type="text/css" media="print, projection, screen">	
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Canchita - <c:out value="${param.title}" /></title>
