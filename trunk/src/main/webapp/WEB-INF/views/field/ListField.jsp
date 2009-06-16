@@ -249,7 +249,7 @@
 									<input type="submit" name="expirationPolicy" value="Ver expiración" />
 									</form>
 								</c:if>
-                                <c:if test="${user.isAuthenticated}">
+                                <c:if test="${user.isAuthenticated && !user.isAdmin}">
                                     <form action="<c:out value="${baseURI}" />/field/book" method="get">
                                     <input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
                                     <input type="submit" name="id" value="Reservar" />
