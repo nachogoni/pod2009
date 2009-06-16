@@ -45,7 +45,7 @@ public class DeleteComplex extends GenericServlet {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("Error leyendo identificador");
+			logger.error("Error leyendo identificador del complejo: " + e.getMessage());
 		}
 
 		ErrorManager error = new ErrorManager();

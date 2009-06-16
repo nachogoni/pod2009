@@ -58,7 +58,7 @@ public class ListComplex extends GenericServlet {
 				
 				request.setAttribute("searchError", errorManager);
 				
-				logger.error("Error en la búsqueda");
+				logger.error("Error intentando listar complejos: " + e.getMessage());
 				
 				UrlMapper.getInstance().forwardFailure(this, request, response,
 						UrlMapperType.GET);
@@ -103,7 +103,7 @@ public class ListComplex extends GenericServlet {
 			
 			request.setAttribute("searchError", errorManager);
 			
-			logger.error("Error en la búsqueda");
+			logger.info("Error en la búsqueda");
 			
 			UrlMapper.getInstance().forwardFailure(this, request, response,
 					UrlMapperType.GET);
@@ -114,7 +114,7 @@ public class ListComplex extends GenericServlet {
 		catch(Exception e) {
 			complexes = null;
 			complexesSize = -1;
-			logger.error("Error en la búsqueda");
+			logger.error("Error en la búsqueda de complejos: " + e.getMessage());
 		}
 
 		request.setAttribute("complexes", complexes);

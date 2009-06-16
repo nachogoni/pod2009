@@ -50,7 +50,7 @@ public class DetailedViewComplex extends GenericServlet {
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
-			logger.error("Error leyendo id");
+			logger.error("Error leyendo id de complejo: " + e.getMessage());
 			error.add("El identificador debe ser numérico");
 		}
 

@@ -42,7 +42,7 @@ public class DeleteExpirationPolicy extends GenericServlet {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("Error leyendo identificador");
+			logger.error("Error leyendo identificador de la política: " + e.getMessage());
 		}
 
 		ErrorManager error = new ErrorManager();

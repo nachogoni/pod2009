@@ -43,7 +43,7 @@ public class DeleteField extends GenericServlet {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("Error leyendo id");
+			logger.error("Error leyendo id de cancha");
 		}
 
 			logger.debug("Eliminando cancha con id " + id);
