@@ -18,5 +18,7 @@ public interface TimetableDAO {
 			throws ElementNotExistsException;
 
 	public void delete(Long id);
+	
+	public void deleteByComplex(Long complexId);
 
 }

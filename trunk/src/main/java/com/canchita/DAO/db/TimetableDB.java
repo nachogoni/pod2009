@@ -24,6 +24,11 @@ public class TimetableDB extends AllDB implements TimetableDAO {
 		return instance;
 	}
 
+	public void deleteByComplex(Long complexId) {
+		String query = "DELETE FROM TIMETABLE WHERE \"complex_id\" = ?";
+		executeUpdate(query, new Object[] { complexId });
+	}
+	
 	@Override
 	public void delete(Long id) {
 		String query = "DELETE FROM TIMETABLE WHERE \"timetable_id\" = ?";

@@ -193,10 +193,17 @@ public class ModifyComplex extends GenericServlet {
 			error.add("Valores para los horarios incorrectos");
 		}
 		try {
+			//Update Basic Info
 			modifyService.updateComplex(id, name, description, address,
 					zipCode, neighbourhood, town, state, country);
+
+			//Update expiration policy
 			modifyService.setDefaultExpiration(id, bookingLimit, depositLimit);
-			//modifyService.addExpiration(id, bookingLimit, depositLimit);
+			
+			//Update telephones
+			modifyService.addTelephones(id, telephones);
+			
+			//Update timetable
 			modifyService.addTimeTable(id, schedule.get(0), schedule.get(1),
 					schedule.get(2), schedule.get(3), schedule.get(4), schedule
 							.get(5), schedule.get(6), schedule.get(7), schedule

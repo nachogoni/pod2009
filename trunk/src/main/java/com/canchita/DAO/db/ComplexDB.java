@@ -232,23 +232,20 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	}
 
 	@Override
+	public void deletePhones(Complex aComplex)throws ElementNotExistsException, PersistenceException {
+		
+		String query = "DELETE FROM PHONE WHERE \"complex_id\" = ?";
+		executeUpdate(query, new Object[] { aComplex.getId() });
+	}
+	@Override
 	public void addPhone(Complex aComplex, String phone)
 			throws ElementNotExistsException, PersistenceException {
 
-		String query = "INSERT INTO PHONE(\"phone\",\"complex_id\") VALUES(?, ?)";
+		String query = "DELETE FROM PHONE WHERE \"phone\" = ? and \"complex_id\" = ?";
 		executeUpdate(query, new Object[] { phone, aComplex.getId() });
-	}
-
-	@Override
-	public void updatePhone(Complex aComplex, String oldPhone, String newPhone)
-			throws ElementNotExistsException, PersistenceException {
-
-		String query = "UPDATE PHONE set \"phone\" = ? where \"phone_id\" = "
-				+ "(SELECT \"phone_id\" from PHONE where \"phone\" = ?"
-				+ "AND \"complex_id\" = ?)";
-
-		executeUpdate(query, new Object[] { newPhone, oldPhone,
-				aComplex.getId() });
+		
+		query = "INSERT INTO PHONE(\"phone\",\"complex_id\") VALUES(?, ?)";
+		executeUpdate(query, new Object[] { phone, aComplex.getId() });
 	}
 
 	@Override
