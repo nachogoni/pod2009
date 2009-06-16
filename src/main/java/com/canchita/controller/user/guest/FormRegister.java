@@ -9,10 +9,6 @@ import com.canchita.views.helpers.form.FormHandler;
 
 public class FormRegister extends FormHandler {
 
-	/*
-	 * TODO chequear realmente los valores de Min y MaxLength
-	 */
-	
 	public FormRegister() {
 		super();
 		ArrayList<String> register = new ArrayList<String>();
@@ -25,13 +21,14 @@ public class FormRegister extends FormHandler {
 			.setLabel("Nombre de Usuario")
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
-			.addValidator("MaxLength", "40")
+			.addValidator("MaxLength", "50")
 			.addValidator("MinLength","2")
 			);
 
 		this.addElement(new FormElementInput("text","email")
 			.setLabel("Correo Electrónico")
 			.setRequired(true)
+			.addValidator("MaxLength", "50")
 			.addValidator("IsEMailAddress")
 			);
 
@@ -39,14 +36,14 @@ public class FormRegister extends FormHandler {
 		this.addElement(new FormElementInput("password","pass")
 			.setLabel("Contraseña")
 			.setRequired(true)
-			.addValidator("MaxLength", "40")
+			.addValidator("MaxLength", "50")
 			.addValidator("MinLength","4")
 			);
 		
 		this.addElement(new FormElementInput("password","passAgain")
 			.setLabel("Repita Contraseña")
 			.setRequired(true)
-			.addValidator("MaxLength", "40")
+			.addValidator("MaxLength", "50")
 			.addValidator("MinLength","4")
 			);
 		

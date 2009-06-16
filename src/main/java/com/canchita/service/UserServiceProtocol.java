@@ -37,6 +37,8 @@ public interface UserServiceProtocol {
 	Registered getById(Long userId) throws UserException;
 
 	Registered get(Registered user) throws UserException;
+	
+	boolean emailExists(String email);
 
 
 }

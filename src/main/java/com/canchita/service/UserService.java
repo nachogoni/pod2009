@@ -102,4 +102,16 @@ public class UserService implements UserServiceProtocol {
 
 		return this.getById(user.getId());
 	}
+
+	@Override
+	public boolean emailExists(String email) {
+		UserDAO userDAO;
+		try {
+			userDAO = DAOFactory.get(DAO.USER);
+		} catch (PersistenceException e) {
+			return false;
+		}
+
+		return userDAO.emailExists(email);
+	}
 }

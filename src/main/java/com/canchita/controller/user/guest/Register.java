@@ -101,6 +101,11 @@ public class Register extends GenericServlet {
 				error.add("Las contraseñas deben coincidir");
 			}
 
+			UserServiceProtocol userService = new UserService();
+			if (userService.emailExists(email)) {
+				error.add("Ya existe ese e-mail en la base de datos.");
+			}
+			
 			if (error.size() != 0) {
 				logger.debug("Error en el formulario");
 				request.setAttribute("form", form);
@@ -110,7 +115,6 @@ public class Register extends GenericServlet {
 
 			String baseUrl = (String) request.getAttribute("baseURL");
 
-			UserServiceProtocol userService = new UserService();
 
 			try {
 				userService.register(username, password, email, baseUrl, this
