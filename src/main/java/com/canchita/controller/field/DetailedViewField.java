@@ -44,7 +44,7 @@ public class DetailedViewField extends GenericServlet {
 		try {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
-			logger.error("Error leyendo id");
+			logger.error("Error leyendo id de cancha");
 			error.add("El identificador debe ser numérico");
 		}
 
@@ -54,7 +54,7 @@ public class DetailedViewField extends GenericServlet {
 
 		} catch (Exception e) {
 			error.add(e);
-			logger.error("Error buscando detalles de la cancha con id " + id);
+			logger.error("Error buscando detalles de la cancha con id " + id + ": " + e.getMessage());
 		}
 
 		if( error.size() != 0 ) {

@@ -80,7 +80,7 @@ public class Login extends GenericServlet {
 		try {
 			user = userService.login(username,password);
 		} catch (LoginException e) {
-			logger.debug(String.format("Login failed using %s:%s combination.",
+			logger.error(String.format("Login failed using %s:%s combination.",
 					username, password));
 			error.add(e);
 			request.setAttribute("errorManager",error);

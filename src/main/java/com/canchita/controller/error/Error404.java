@@ -30,7 +30,7 @@ public class Error404 extends GenericServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		logger.error("Recurso inexistente: " + request.getRequestURI());
+		logger.info("Recurso inexistente: " + request.getRequestURI());
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);

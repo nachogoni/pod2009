@@ -32,8 +32,7 @@ public class DropReservationListener extends TimerTask implements
 
 	@Override
 	public void run() {
-		// TODO SACAR SYSOS
-		System.out.println("ENTRE A CANCELAR RESERVAS");
+
 		BookingServiceProtocol bookingService = new BookingService();
 		try {
 			Collection<Booking> cancelableBookings = bookingService
@@ -48,10 +47,8 @@ public class DropReservationListener extends TimerTask implements
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 		} catch (UserException e) {
-			System.out.println("Todo mal buscando el usuario");
 			e.printStackTrace();
 		} catch (BookingException e) {
-			System.out.println("Todo mal cancelando la reserva");
 			e.printStackTrace();
 		}
 

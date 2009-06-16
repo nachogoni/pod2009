@@ -56,7 +56,7 @@ public class ModifyComplex extends GenericServlet {
 			id = Long.parseLong((request.getParameter("id")));
 		} catch (Exception e) {
 			error.add("El identificador debe ser un número");
-			logger.error("Error leyendo id");
+			logger.error("Error leyendo id de complejo");
 		}
 
 		logger.debug("Buscando información del complejo " + id);
@@ -65,7 +65,7 @@ public class ModifyComplex extends GenericServlet {
 					.getDefaultExpirationPolicy(id));
 		} catch (PersistenceException e) {
 			error.add(e);
-			logger.error("Error buscando información del complejo " + id);
+			logger.error("Error buscando información del complejo " + id + " " + e.getMessage());
 		}
 
 		if (error.size() != 0) {
