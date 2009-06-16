@@ -29,7 +29,7 @@ public interface ComplexDAO {
 	public void addPhone(Complex complex, String phone)
 			throws ElementNotExistsException, PersistenceException;
 
-	public void updatePhone(Complex complex, String oldPhone, String newPhone)
+	public void deletePhones(Complex aComplex)
 			throws ElementNotExistsException, PersistenceException;
 
 	public List<String> getPhones(Complex complex);

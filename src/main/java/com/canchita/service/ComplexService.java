@@ -129,6 +129,42 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		complexDAO.update(aComplex);
 
+		try {
+
+			// Guardo los tels
+			List<String> phones = aComplex.getPhones();
+			// Guardo el calendario
+			Calendar aCalendar = aComplex.getTimeTable();
+
+			// Salvo el complejo
+			complexDAO.update(aComplex);
+
+			// Recupero Unique
+			aComplex = complexDAO.getByPlace(aComplex.getPlace());
+
+			// Agrego los teléfonos.
+			for (String phone : phones) {
+				complexDAO.addPhone(aComplex, phone);
+			}
+
+			// Agrego el calendario.
+			// HACK: debería hacerse con el get(DAO.TIMETABLE)
+			// pero no lo pude hacer andar :(
+
+			// Delete old rows
+			TimetableDB.getInstance().deleteByComplex(aComplex.getId());
+
+			// Save the new ones :)
+			for (Availability av : aCalendar.getAvailabilities()) {
+				TimetableDB.getInstance().save(av, aComplex.getId());
+			}
+
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -350,6 +386,27 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 
 	@Override
+	public void addTelephones(Long id, String[] telephones)
+			throws PersistenceException {
+
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
+		try {
+			Complex aComplex = complexDAO.getById(id);
+
+			complexDAO.deletePhones(aComplex);
+
+			for (String telephone : telephones) {
+				if (telephone != null && !telephone.equals(""))
+					complexDAO.addPhone(aComplex, telephone);
+			}
+
+		} catch (Exception e) {
+			throw new PersistenceException("Complejo no encontrado");
+		}
+	}
+
+	@Override
 	public void addScoreSystem(Long id, Integer booking, Integer deposit,
 			Integer pay, Integer downBooking, Integer downDeposit)
 			throws PersistenceException {
@@ -543,7 +600,7 @@ public class ComplexService implements ComplexServiceProtocol {
 			Integer depositLimit) throws PersistenceException {
 		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
 		expirationDAO.updateDefault(complexId, bookingLimit, depositLimit);
-		
+
 	}
 
 	@Override

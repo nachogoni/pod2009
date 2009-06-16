@@ -68,5 +68,8 @@ public interface ComplexServiceProtocol {
 
 	public Expiration getDefaultExpirationPolicy(Long id)
 			throws PersistenceException;
+	
+	public void addTelephones(Long id, String[] telephones)
+	throws PersistenceException;
 
 }
