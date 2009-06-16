@@ -5,4 +5,5 @@
 <script src="<c:out value="${baseURI}" escapeXml="false" />/js/jquery/js/jquery-ui-1.7.1.custom.min.js" type="text/javascript"/></script>
 <script src="<c:out value="${baseURI}" escapeXml="false" />/js/jquery/js/jquery-tooltip/jquery.tooltip.min.js" type="text/javascript"/></script>
 <script src="<c:out value="${baseURI}" escapeXml="false" />/js/jquery/js/jquery-validate/jquery.validate.js" type="text/javascript"/></script>
+<script src="<c:out value="${baseURI}" escapeXml="false" />/js/jquery/js/jquery-timepickr/jquery.timepickr.js" type="text/javascript"/></script>
 <script src="<c:out value="${baseURI}" escapeXml="false" />/js/util/canchita.js" type="text/javascript"/></script>
