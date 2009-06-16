@@ -123,41 +123,13 @@ public class ComplexService implements ComplexServiceProtocol {
 			location.setCountry(country);
 		}
 
+		try {
+			
 		aComplex.setPlace(location);
 
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
 		complexDAO.update(aComplex);
-
-		try {
-
-			// Guardo los tels
-			List<String> phones = aComplex.getPhones();
-			// Guardo el calendario
-			Calendar aCalendar = aComplex.getTimeTable();
-
-			// Salvo el complejo
-			complexDAO.update(aComplex);
-
-			// Recupero Unique
-			aComplex = complexDAO.getByPlace(aComplex.getPlace());
-
-			// Agrego los teléfonos.
-			for (String phone : phones) {
-				complexDAO.addPhone(aComplex, phone);
-			}
-
-			// Agrego el calendario.
-			// HACK: debería hacerse con el get(DAO.TIMETABLE)
-			// pero no lo pude hacer andar :(
-
-			// Delete old rows
-			TimetableDB.getInstance().deleteByComplex(aComplex.getId());
-
-			// Save the new ones :)
-			for (Availability av : aCalendar.getAvailabilities()) {
-				TimetableDB.getInstance().save(av, aComplex.getId());
-			}
 
 		} catch (PersistenceException e) {
 			e.printStackTrace();
@@ -502,10 +474,19 @@ public class ComplexService implements ComplexServiceProtocol {
 			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
 			Complex aComplex = complexDAO.getById(id);
-			aComplex.setTimeTable(aCalendar);
-			complexDAO.update(aComplex);
-		} catch (Exception e) {
-			throw new PersistenceException("Complejo no encontrado");
+
+			// Agrego el calendario.
+			// HACK: debería hacerse con el get(DAO.TIMETABLE)
+			// pero no lo pude hacer andar :(
+			
+			TimetableDB.getInstance().deleteByComplex(aComplex.getId());
+			
+			for (Availability av : aCalendar.getAvailabilities()) {
+				TimetableDB.getInstance().save(av, aComplex.getId());
+			}
+
+		} catch (PersistenceException e) {
+			throw e;
 		}
 	}
 
