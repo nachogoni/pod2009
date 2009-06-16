@@ -19,6 +19,7 @@ jQuery( function($) {
 		isRTL : false
 	};
 	$.datepicker.setDefaults($.datepicker.regional['es']);
+	
 });
 
 function addCalendar(element, openCallback, closeCallback) {
@@ -29,13 +30,23 @@ function addCalendar(element, openCallback, closeCallback) {
 	} : closeCallback;
 
 	$( function() {
-		$.datepicker.setDefaults($.extend( {
+		console.log($.extend( {
 			beforeShow : openCallback,
 			onClose : closeCallback,
 			showMonthAfterYear : false,
 			minDate : new Date()
-		}, $.datepicker.regional['']));
-		$(element).datepicker($.datepicker.regional['es']);
-
+		}, $.datepicker.regional['es']))
+		
+		$(element).datepicker($.extend( {
+			beforeShow : openCallback,
+			onClose : closeCallback,
+			showMonthAfterYear : false,
+			minDate : new Date()
+		}, $.datepicker.regional['es']));
+		//$(element).datepicker('option', 'minDate', new Date());
+		//$(element).datepicker('option', 'showMonthAfterYear', false);
+		//$(element).datepicker('option', 'onClose', closeCallback);
+		//$(element).datepicker('option', 'beforeShow', closeCallback);
+		
 	});
 }

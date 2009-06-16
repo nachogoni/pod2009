@@ -1,13 +1,18 @@
-$(document).ready( function() {
-	addCalendar("#datepicker1", function(input) {
-		$("#whenForm").addClass("hidden");
-	}, function(date) {
-		getHours();
-	});
-	addCalendar("#datepicker2");
+$(document).ready(
+		function() {
+			addCalendar("#datepicker1", function(input) {
+				$("#whenForm").addClass("hidden");
+			}, function(date) {
+				getHours();
 
-	$("#whenForm").addClass("hidden");
-});
+				$("#datepicker2").datepicker('option', 'minDate',
+						$("#datepicker1").datepicker('getDate'));
+
+			});
+			addCalendar("#datepicker2");
+
+			$("#whenForm").addClass("hidden");
+		});
 
 function getHours() {
 
@@ -58,9 +63,10 @@ function getHours() {
 			$("#whenForm").removeClass("hidden");
 
 		} else {
-			
-			var errorMsg = data['error'] ? data['error'] : "Error al buscar la disponibilidad de la cancha"; 
-			
+
+			var errorMsg = data['error'] ? data['error']
+					: "Error al buscar la disponibilidad de la cancha";
+
 			$("#whenJSONErrorMsg").empty();
 			$("#whenJSONErrorMsg").append("* " + errorMsg);
 			$("#whenJSONError").removeClass("hidden");
