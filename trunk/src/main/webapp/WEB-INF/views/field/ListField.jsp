@@ -153,7 +153,7 @@
     <select name="floorType">
     	<option value=""> </option>
     	<option value="1">Césped sintético</option>
-    	<option value="3">Césped</option>
+    	<option value="0">Césped</option>
     	<option value="2">Concreto</option>
     </select>
 	<input type="submit" name="search" value="Buscar" class="submit-go" />
