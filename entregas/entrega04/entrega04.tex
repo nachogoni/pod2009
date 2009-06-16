@@ -55,33 +55,45 @@ De esta manera limitamos el acceso.
 
 \section{FormHandler}
 Desde la última entrega el FormHandler se actualizó para que entienda de
-\textit{JavaScript}. Para realizar esto creamos la librería \section{J2Query}
+\textit{JavaScript}. Para realizar esto creamos la librería \emph{J2Query}
 que se explicará a continuación.
 
-\section{J2Query}
+\subsection{J2Query}
 El siguiente módulo permite manejo de JS con JQuery dentro del
 \textit{FormHandler}.
 
 Mejoras ofrecidas por esta librería:
-\subsubsection{campo mútiple}
+\subsubsection{Campo múltiple}
 La idea de este campo es que se pueda agregar inputs en el formulario
 a medida que el usuario lo requiera. Por ejemplo, cuando se agrega
 un complejo se requiere ingresar más de un teléfono.
 
-\subsubsection{timepicker}
+\subsubsection{Time Picker}
 En un principio para la selección de fechas utilizamos combos pero notamos
 que era molesto a la hora de una inserción masiva. Para solucionar esto,
 decidimos que los campos de fechas sean texto, pero cuenten con un
 widget de js para facilitar la inserción.
 
-\subsection{Tooltips}
+\subsubsection{Tooltips}
 Notamos que alguno de los campos de los fórmularios no tenían labels
 representativos, entonces utilizamos tooltips para facilitar el entedimiento
 de los datos a cargar por el usuario.
 
-\subsection{Futuras mejoras}
+\subsubsection{Futuras mejoras}
 Por falta de tiempo no pudimos terminar todas las ideas que teníamos para
 este módulo. Una de ellas, que creemos fundamental, es utilizar la información
 de los validadores realizados para que se agregue verificación de los campos
 del lado del cliente.
+
+\section{Log4J}
+Se decidió utilizar un SMTPAppender para enviar un correo electrónico a los
+administradores del sitio ante un error fatal. Se mantuvo además la funcionalidad
+presente en la entrega anterior.
+
+\section{Selenium}
+Para realizar el testeo de los casos de uso utilizamos una herramienta que nos permitiera
+automatizar la carga de datos y simular la navegación del usuario.
+Se adjunta al código fuente una carpeta con todos los tests realizados, separados según
+el caso de uso en cuestión.
+
 \end{document}
