@@ -1,7 +1,9 @@
 package com.canchita.controller.admin;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -73,6 +75,15 @@ public class Email extends GenericServlet {
 			Registered user = this.getUser(request);
 			String[] emails = request.getParameterValues("email");
 			UserServiceProtocol userService = new UserService();
+			HashSet<String> emailsSet = new HashSet<String>(Arrays.asList(emails));
+
+			//Verifico si hay repetidos.
+			if( emailsSet.size() < emails.length){
+				error.add("Hay direcciones de correo repetidas.");
+				request.setAttribute("formulario", form);
+				this.failurePOST(request, response, error);
+				return;
+			}
 
 			// Se verifica que otro usuario no tenga esos mails.
 			for (String email : emails) {
