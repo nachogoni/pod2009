@@ -243,11 +243,11 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public Collection<Booking> getDownBookings(String neighbourhood,
+	public Collection<Booking> getDownBookings(String province, String locality, String neighbourhood,
 			Long listCount) throws ValidationException, PersistenceException {
 		BookingDAO booking = DAOFactory.get(DAO.BOOKING);
 
-		return booking.getDownBookings(neighbourhood, listCount);
+		return booking.getDownBookings(province, locality, neighbourhood, listCount);
 	}
 
 	@Override

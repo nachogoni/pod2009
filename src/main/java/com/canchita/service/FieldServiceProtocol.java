@@ -23,7 +23,7 @@ public interface FieldServiceProtocol {
 	public Collection<Field> listField(String filter)
 			throws ValidationException, PersistenceException;
 
-	public Collection<Field> getLastFields(String neighbourhood, Long listCount)
+	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount)
 			throws ValidationException, PersistenceException;
 	
 	public void deleteField(Long id) throws PersistenceException;

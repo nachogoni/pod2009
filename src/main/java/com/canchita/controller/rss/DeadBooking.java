@@ -49,7 +49,9 @@ public class DeadBooking extends GenericServlet {
 		logger.debug("GET request");
 
 		Booking booking = null;
-		String neighbourhood = null;
+		String province = request.getParameter("province");
+		String locality = request.getParameter("locality");
+		String neighbourhood = request.getParameter("neighbourhood");
 
 		// Generar el feed para el rss
 		SyndFeed feed = new SyndFeedImpl();
@@ -68,14 +70,12 @@ public class DeadBooking extends GenericServlet {
 		String url = scheme + "://" + serverName + ":" + serverPort
 				+ contextPath;
 
-		neighbourhood = request.getParameter("neighbourhood");
-
 		String baseURL = url;
 
 		Collection<Booking> bookings = null;
 
 		try {
-			bookings = RSS.generateDownBookings(neighbourhood);
+			bookings = RSS.generateDownBookings(province, locality, neighbourhood);
 		} catch (Exception e) {
 			logger.error("RSS Feed - DeadBooking error at "
 					+ (new Date()).toString() + e.getMessage());

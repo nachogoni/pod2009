@@ -50,7 +50,9 @@ public class LastFields extends GenericServlet {
 
 		Field field = null;
 
-		String neighbourhood = null;
+		String province = request.getParameter("province");
+		String locality = request.getParameter("locality");
+		String neighbourhood = request.getParameter("neighbourhood");
 
 		// Generar el feed para el rss
 		SyndFeed feed = new SyndFeedImpl();
@@ -80,14 +82,12 @@ public class LastFields extends GenericServlet {
 		 * url += "?"+queryString; }
 		 */
 
-		neighbourhood = request.getParameter("neighbourhood");
-
 		String baseURL = url;
 
 		Collection<Field> fields = null;
 
 		try {
-			fields = RSS.generateNewFields(neighbourhood);
+			fields = RSS.generateNewFields(province, locality, neighbourhood);
 		} catch (Exception e) {
 			logger.error("RSS Feed - LastFieds error at "
 					+ (new Date()).toString() + e.getMessage());

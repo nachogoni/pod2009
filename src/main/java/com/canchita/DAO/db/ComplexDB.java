@@ -1,6 +1,7 @@
 package com.canchita.DAO.db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -78,8 +79,9 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	}
 
 	@Override
-	public Collection<String> getNeighbourhoods() {
-		String query = "SELECT DISTINCT \"neighbourhood\" FROM COMPLEX ORDER BY \"neighbourhood\"";
+	public Collection<String> getNeighbourhoods(String province, String locality) {
+		String query = "SELECT DISTINCT \"neighbourhood\" FROM COMPLEX  WHERE "
+			+ " \"state\" LIKE ? AND \"city\" LIKE ? ORDER BY \"neighbourhood\"";
 
 		ConnectionManager connectionManager = connectionPool.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
@@ -88,14 +90,20 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 		
 	    try
 	    {
-	      Statement st = connection.createStatement();
-	      ResultSet rs = st.executeQuery(query);
+			PreparedStatement st = connection.prepareStatement(query);
+			st.setObject(1, province);
+			st.setObject(2, locality);
+				    	
+	    	//Statement st = connection.createStatement();
+	    	//ResultSet rs = st.executeQuery(query);
+			st.execute();
+			ResultSet rs = st.getResultSet();
 	      
-	      result = new ArrayList<String>();
+	    	result = new ArrayList<String>();
 	      
-	      while (rs.next()) {
-	    	  result.add(rs.getString("neighbourhood"));
-	      }
+	    	while (rs.next()) {
+	    		result.add(rs.getString("neighbourhood"));
+	    	}
 	      
 	    }
 	    catch (SQLException ex)
@@ -279,5 +287,75 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 		}
 
 		return results.get(0);
+	}
+
+	@Override
+	public Collection<String> getLocations(String province) {
+		String query = "SELECT DISTINCT \"city\" FROM COMPLEX  WHERE "
+			+ " \"state\" LIKE ? ORDER BY \"city\"";
+
+		ConnectionManager connectionManager = connectionPool.getConnectionManager();
+		Connection connection = connectionManager.getConnection();
+
+		Collection<String> result = null;
+		
+	    try
+	    {
+			PreparedStatement st = connection.prepareStatement(query);
+			st.setObject(1, province);
+				    	
+	    	//Statement st = connection.createStatement();
+	    	//ResultSet rs = st.executeQuery(query);
+			st.execute();
+			ResultSet rs = st.getResultSet();
+	      
+	      result = new ArrayList<String>();
+	      
+	      while (rs.next()) {
+	    	  result.add(rs.getString("city"));
+	      }
+	      
+	    }
+	    catch (SQLException ex)
+	    {
+	      System.err.println(ex.getMessage());
+		} finally {
+			connectionPool.releaseConnectionManager(connectionManager);
+		}
+
+		return result;
+		
+	}
+
+	@Override
+	public Collection<String> getProvinces() {
+		String query = "SELECT DISTINCT \"state\" FROM COMPLEX ORDER BY \"state\"";
+
+		ConnectionManager connectionManager = connectionPool.getConnectionManager();
+		Connection connection = connectionManager.getConnection();
+
+		Collection<String> result = null;
+		
+	    try
+	    {
+	      Statement st = connection.createStatement();
+	      ResultSet rs = st.executeQuery(query);
+	      
+	      result = new ArrayList<String>();
+	      
+	      while (rs.next()) {
+	    	  result.add(rs.getString("state"));
+	      }
+	      
+	    }
+	    catch (SQLException ex)
+	    {
+	      System.err.println(ex.getMessage());
+		} finally {
+			connectionPool.releaseConnectionManager(connectionManager);
+		}
+
+		return result;
+		
 	}
 }
