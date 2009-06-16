@@ -30,7 +30,7 @@ public class RSS {
 	public static Collection<Booking> generateDownBookings(String province, String locality, String neighbourhood)
 			throws ValidationException, PersistenceException {
 		
-		return new BookingService().getDownBookings(province, locality, neighbourhood, 10L);
+		return new BookingService().getDownBookings(province, locality, neighbourhood, 100L);
 	}
 
 	public static Collection<Field> generateNewFields(String province, String locality, String neighbourhood) 

@@ -1,6 +1,7 @@
 package com.canchita.listener;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,7 +33,7 @@ public class DropReservationListener extends TimerTask implements
 
 	@Override
 	public void run() {
-
+System.out.println("Bajando..." + (new Date()));
 		BookingServiceProtocol bookingService = new BookingService();
 		try {
 			Collection<Booking> cancelableBookings = bookingService
