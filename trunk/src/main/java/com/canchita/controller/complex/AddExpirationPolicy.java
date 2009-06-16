@@ -110,13 +110,18 @@ public class AddExpirationPolicy extends GenericServlet {
 			} catch (NumberFormatException nfe) {
 				error.add("Valores para el sistema de reservas incorrectos");
 			}
-			
+
 			if (scoreFrom1 > scoreTo1) {
 				error.add("El puntaje inicial no puede ser superior al final.");
 			}
 
 			if (downBooking1 < downDeposit1) {
-				error.add("Las horas en estado señado no pueden ser menores al estado reservado.");
+				error
+						.add("Las horas en estado señado no pueden ser menores al estado reservado.");
+			}
+
+			if (downBooking1 > 1000 || downDeposit1 > 1000) {
+				error.add("El valor no puede ser mayor a 1000 horas.");
 			}
 
 			if (error.size() != 0) {
@@ -125,15 +130,15 @@ public class AddExpirationPolicy extends GenericServlet {
 				this.failure(request, response, error);
 				return;
 			}
-			
 
 			try {
-				service.setExpirationPolicy(id, scoreFrom1, scoreTo1, downBooking1, downDeposit1);
+				service.setExpirationPolicy(id, scoreFrom1, scoreTo1,
+						downBooking1, downDeposit1);
 			} catch (PersistenceException e) {
 				// TODO Auto-generated catch block
 				error.add("Error agregando política de expiración.");
 			}
-			
+
 			if (error.size() != 0) {
 				logger.debug("Error al guardar la política de expiración");
 				request.setAttribute("formulario", formulario);

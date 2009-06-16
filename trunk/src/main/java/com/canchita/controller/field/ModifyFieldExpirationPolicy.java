@@ -125,13 +125,18 @@ public class ModifyFieldExpirationPolicy extends GenericServlet {
 		}
 
 		if (downBooking < downDeposit) {
-			error.add("Las horas en estado señado no pueden ser menores al estado reservado.");
+			error
+					.add("Las horas en estado señado no pueden ser menores al estado reservado.");
 		}
-		
+
+		if (downBooking > 1000 || downDeposit > 1000) {
+			error.add("El valor no puede ser mayor a 1000 horas.");
+		}
+
 		if (scoreFrom > scoreTo) {
 			error.add("El puntaje inicial no puede ser superior al final.");
 		}
-		
+
 		if (error.size() != 0) {
 			request.setAttribute("errorManager", error);
 			request.setAttribute("formulario", form);
