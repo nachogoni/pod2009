@@ -128,8 +128,8 @@ public class UserService implements UserServiceProtocol {
 
 		try {
 			if (userDAO.otherUserHasEmail(user, email)) {
-				throw new UserException("Ya existe el email " + email
-						+ " en la db.");
+				throw new UserException("Ya existe el correo electrónico " + email
+						+ " en nuestros registros.");
 			}
 		} catch (ElementNotExistsException e) {
 			throw new UserException("Error en la db.");

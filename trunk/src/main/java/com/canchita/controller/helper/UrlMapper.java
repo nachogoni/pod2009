@@ -227,6 +227,8 @@ public class UrlMapper {
 				+ "user/registered/Profile.jsp");
 		failureForward.put("ProfileGET", FORWARD_ROOT_DIR
 				+ "user/registered/Profile.jsp");
+		failureForward.put("EmailPOST", FORWARD_ROOT_DIR
+				+ "user/registered/admin/Email.jsp");
 
 		// Complex
 
