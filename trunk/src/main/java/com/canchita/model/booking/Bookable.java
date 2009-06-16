@@ -1,7 +1,6 @@
 package com.canchita.model.booking;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 
 import org.joda.time.DateTime;
