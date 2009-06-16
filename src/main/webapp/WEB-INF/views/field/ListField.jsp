@@ -249,6 +249,12 @@
 									<input type="submit" name="expirationPolicy" value="Ver expiración" />
 									</form>
 								</c:if>
+                                <c:if test="${user.isAuthenticated}">
+                                    <form action="<c:out value="${baseURI}" />/field/book" method="get">
+                                    <input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+                                    <input type="submit" name="id" value="Reservar" />
+                                    </form>
+                                </c:if>
 								<form action="<c:out value="${baseURI}" />/field/detailedview" method="get">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
