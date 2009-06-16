@@ -46,8 +46,19 @@ Al empezar a levantar información de la base de datos usando un único
 \textit{ConnectionManager} notamos que el sitio funcionaba muy lento.
 Para resolver este conflicto creamos un \textit{listener} que al iniciar el
 servidor genere un pool de \textit{ConnectionManager}. Los distintos threads
-piden \textit{ConnectionManager} al pool y cuando se cierra el servidor
+piden un \textit{ConnectionManager} al pool y cuando se cierra el servidor
 libera todas las conexiones realizadas.
+
+\section{Precio de las reservas}
+En un principio, comenzamos utilizando \textit{double} para representar
+el precio de las reservas. Ésto trajo una serie de problemas a la hora de
+calcular si un pago causaba que una reserva pase al estado de señada o
+pagada debido a que la aritmética de punto flotante no ofrece una
+representación exacta. Se decidió utilizar la clase \textit{BigDecimal} provista
+por el paquete \textit{java.util.math} para representar de manera exacta los
+precios de las reservas. Esto fue debido a que el pago de una reserva es
+una operación sumamente sensible para el usuario y un mal cómputo del
+importe podría causar problemas.
 
 \section{ACL}
 Realizamos un módulo de ACL, imponiendo roles y recursos.
