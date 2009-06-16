@@ -30,11 +30,13 @@ public class FormField extends FormHandler {
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
 			.setRequired(true)
+			.addValidator("MaxLength", "50")
 			.addValidator("IsAlphaNumS"));
 		
 		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
 			.setRequired(false)
+			.addValidator("MaxLength", "100")
 			.addValidator("IsAlphaNumS"));
 		
 		this.addElement(new FormElementSelect("cantPlayers")
