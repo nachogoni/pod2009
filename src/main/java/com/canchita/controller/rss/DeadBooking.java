@@ -104,7 +104,9 @@ public class DeadBooking extends GenericServlet {
 				booking = i.next();
 
 				entry = new SyndEntryImpl();
-				entry.setTitle(booking.getItem().getName());
+				entry.setTitle(booking.getItem().getName() + " - " +  
+						booking.getSchedule().getStartTime().toLocalDate().toString()
+						+ " a las " + booking.getSchedule().getStartTime().toString("HH:MM"));
 				entry.setLink(new String(baseURL + "/field/detailedview?id="
 						+ booking.getItem().getId() + "&viewDetails=Detalles"));
 				entry.setPublishedDate(new Date());
