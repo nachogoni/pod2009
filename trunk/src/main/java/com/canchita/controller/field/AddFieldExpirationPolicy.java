@@ -85,6 +85,9 @@ public class AddFieldExpirationPolicy extends GenericServlet {
 				error
 						.add("Falta cuantas horas antes se cae la reserva estando señada");
 			}
+			
+
+
 
 			if (error.size() != 0) {
 				logger.debug("Error en el formulario");
@@ -111,6 +114,14 @@ public class AddFieldExpirationPolicy extends GenericServlet {
 				error.add("Valores para el sistema de reservas incorrectos");
 			}
 
+			if (downBooking < downDeposit) {
+				error.add("Las horas en estado señado no pueden ser menores al estado reservado.");
+			}
+			
+			if (scoreFrom > scoreTo) {
+				error.add("El puntaje inicial no puede ser superior al final.");
+			}
+			
 			if (error.size() != 0) {
 				logger.debug("Error en el formulario");
 				request.setAttribute("formulario", formulario);
