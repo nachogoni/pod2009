@@ -1,0 +1,87 @@
+% Defino el tipo de documento.
+\documentclass[a4paper,11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Este es para poder poner graficos y diagramas.
+\usepackage{graphicx}
+% Este paquete me permite poner grados celsius.
+\usepackage{textcomp}
+
+\title{
+        Programación de Objetos Distribuidos \\
+        Entrega \#4: \\
+        Implementación de Casos de Uso
+    }
+
+\author{
+        Grupo 3. \\
+        46099 - Abramowicz, Pablo Federico \\
+        46281 - Cabral, Martín Esteban \\
+        47031 - Gomez Vidal, Darío Maximiliano \\
+        46383 - Goñi, Juan Ignacio \\
+        46233 - Palombo, Martín \\
+        46069 - Sessa, Carlos Manuel
+        }
+\date{}
+
+% Empieza el documento.
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\section{Introducción}
+En este documento se detallan algunas de las decisiones tomadas para la 
+implementación de los casos de uso de la cuarta entrega.
+Asimismo, se comentan agregados que se realizaron para la mejor
+escalabilidad del proyecto y un más eficiente y rápido desarrollo.
+
+\section{ConnectionManager}
+Módulo que carga el driver de oracle y genera la conexión con la base de datos.
+Mantiene una conexión abierta a la cual acceden los distintos threads para
+mostrar resultados.
+
+\section{ConnectionPool}
+Al empezar a levantar información de la base de datos usando un único
+\textit{ConnectionManager} notamos que el sitio funcionaba muy lento.
+Para resolver este conflicto creamos un \textit{listener} que al iniciar el
+servidor genere un pool de \textit{ConnectionManager}. Los distintos threads
+piden \textit{ConnectionManager} al pool y cuando se cierra el servidor
+libera todas las conexiones realizadas.
+
+\section{ACL}
+Realizamos un módulo de ACL, imponiendo roles y recursos.
+De esta manera limitamos el acceso.
+
+\section{FormHandler}
+Desde la última entrega el FormHandler se actualizó para que entienda de
+\textit{JavaScript}. Para realizar esto creamos la librería \section{J2Query}
+que se explicará a continuación.
+
+\section{J2Query}
+El siguiente módulo permite manejo de JS con JQuery dentro del
+\textit{FormHandler}.
+
+Mejoras ofrecidas por esta librería:
+\subsubsection{campo mútiple}
+La idea de este campo es que se pueda agregar inputs en el formulario
+a medida que el usuario lo requiera. Por ejemplo, cuando se agrega
+un complejo se requiere ingresar más de un teléfono.
+
+\subsubsection{timepicker}
+En un principio para la selección de fechas utilizamos combos pero notamos
+que era molesto a la hora de una inserción masiva. Para solucionar esto,
+decidimos que los campos de fechas sean texto, pero cuenten con un
+widget de js para facilitar la inserción.
+
+\subsection{Tooltips}
+Notamos que alguno de los campos de los fórmularios no tenían labels
+representativos, entonces utilizamos tooltips para facilitar el entedimiento
+de los datos a cargar por el usuario.
+
+\subsection{Futuras mejoras}
+Por falta de tiempo no pudimos terminar todas las ideas que teníamos para
+este módulo. Una de ellas, que creemos fundamental, es utilizar la información
+de los validadores realizados para que se agregue verificación de los campos
+del lado del cliente.
+\end{document}
