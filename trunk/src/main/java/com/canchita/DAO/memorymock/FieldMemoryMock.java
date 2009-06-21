@@ -29,7 +29,7 @@ public class FieldMemoryMock implements FieldDAO {
 		try {
 			complexDAO = DAOFactory.get(DAO.COMPLEX);
 		} catch (PersistenceException e) {
-			e.printStackTrace();			
+			e.printStackTrace();
 		}
 
 		Field aField;
@@ -84,7 +84,7 @@ public class FieldMemoryMock implements FieldDAO {
 	public static FieldDAO getInstance() {
 		return new FieldMemoryMock();
 	}
-	
+
 	public void delete(Long id) throws ElementNotExistsException {
 
 		if (!FieldMocks.containsKey(id)) {
@@ -127,14 +127,13 @@ public class FieldMemoryMock implements FieldDAO {
 	}
 
 	public void save(Field field) throws PersistenceException {
-		
-		
-		if ( this.exists(field) ) {
+
+		if (this.exists(field)) {
 			throw new PersistenceException("Ya existe la cancha en el sistema");
 		}
 
 		field.setId(autoincrementalPk++);
-		
+
 		FieldMemoryMock.FieldMocks.put(field.getId(), field);
 	}
 
@@ -143,18 +142,16 @@ public class FieldMemoryMock implements FieldDAO {
 		if (!FieldMemoryMock.FieldMocks.containsKey(field.getId())) {
 			throw new ElementNotExistsException("La cancha no existe");
 		}
-		
+
 		for (Field otherField : FieldMocks.values()) {
 
-			
-			if (field.getId() != otherField.getId()
-					&& field.equals(otherField)) {
+			if (field.getId() != otherField.getId() && field.equals(otherField)) {
 				throw new ElementExistsException(
 						"Ya existe un complejo con esas características");
 			}
 
 		}
-		
+
 		FieldMemoryMock.FieldMocks.put(field.getId(), field);
 	}
 
@@ -187,17 +184,19 @@ public class FieldMemoryMock implements FieldDAO {
 	}
 
 	@Override
-	public Collection<Field> getFiltered(String searchName,
-			String searchDescription, String searchMaxPrice,
-			String searchNumberOfPlayers, String searchHasRoof,
-			String searchFloorType) {
+	public Collection<Field> getLastFields(String province, String locality,
+			String neighbourhood, Long listCount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Field> getLastFields(String province, String locality,
-			String neighbourhood, Long listCount) {
+	public Collection<Field> getFiltered(String searchName,
+			String searchDescription, String searchMaxPrice,
+			String searchNumberOfPlayers, String searchHasRoof,
+			String searchFloorType, String searchNeighbourhood,
+			String searchTown, String searchState, String searchCountry,
+			String searchAddress) {
 		// TODO Auto-generated method stub
 		return null;
 	}

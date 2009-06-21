@@ -57,6 +57,12 @@ public class SearchFieldForm extends FormHandler {
 			.addValue(FloorType.GRASS.toString(), ""+ FloorType.GRASS.ordinal()));
 
 
+		this.addElement(new FormElementInput("text", "address")
+		.setLabel("Dirección")
+		.setRequired(false)
+		.addValidator("MaxLength", "50")
+		.addValidator("IsAlphaNumS"));
+		
 		this.addElement(new FormElementInput("text", "neighbourhood")
 			.setLabel("Barrio")
 			.setRequired(false)
@@ -95,6 +101,7 @@ public class SearchFieldForm extends FormHandler {
 		sfield.add("hasRoof");
 		sfield.add("floorType");
 
+		sfield.add("address");
 		sfield.add("neighbourhood");
 		sfield.add("town");
 		sfield.add("state");

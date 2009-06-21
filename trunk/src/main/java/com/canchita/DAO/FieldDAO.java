@@ -29,8 +29,11 @@ public interface FieldDAO {
 	public Collection<Field> getFiltered(String searchName,
 			String searchDescription, String searchMaxPrice,
 			String searchNumberOfPlayers, String searchHasRoof,
-			String searchFloorType);
+			String searchFloorType, String searchNeighbourhood,
+			String searchTown, String searchState, String searchCountry,
+			String searchAddress);
 
-	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount);
+	public Collection<Field> getLastFields(String province, String locality,
+			String neighbourhood, Long listCount);
 
 }
