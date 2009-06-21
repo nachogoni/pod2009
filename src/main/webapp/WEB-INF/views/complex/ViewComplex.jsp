@@ -47,85 +47,82 @@
 </c:when>
 <c:otherwise>	
 
-<c:if test="${user.isAdmin}">
-	<table>
-		<tr>
-			<td>
-				<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
-				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-				<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-				<input type="submit" class="delete" name="delete" value="Eliminar" />
-				</form>
-			</td>
-			<td>
-				<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
-				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-				<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-				<input type="submit" name="modify" value="Modificar" />
-				</form>
-			</td>
-			<td>
-				<form action="<c:out value="${baseURI}" />/field/add" method="get">
-				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-				<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
-				<input type="submit" name="add" value="Agregar Canchas" />
-				</form>
-			</td>
-		</tr>
-	</table>
-</c:if>
-
 	<%-- TODO ver como hacerque anden los function tags --%>
-	
+
 			<table class="complexesTable" border="1">
 				<tr>
 					<td><strong>Nombre</strong></td>
-					<td><c:out value="${complex.name}" /></td>
-				</tr>
-				<tr>
 					<td><strong>Lugar</strong></td>
-					<td><c:out value="${complex.place}" /></td>
-				</tr>
-				<tr>
-					<td><strong>Descripción</strong></td>
-					<td><c:out value="${complex.description}" /></td>
-				</tr>
-				<tr>
+					<td><strong>Descipción</strong></td>
 					<td><strong>Horarios</strong></td>
-					<td>	
-					<c:choose>
-						<c:when test="${complex != null}">
-							<c:forEach items="${complex.prettyTimetable}" var="timetable" varStatus="rowCounter">
-								<strong><c:out value="${timetable.day}" />:</strong>
-								<c:out value="${timetable.schedule.startTime.hourOfDay}" />:
-						        <c:choose>
-						          <c:when test="${timetable.schedule.startTime.minuteOfHour == 0}">
-						          00
-						          </c:when>
-						          <c:otherwise>
-						          <c:out value="${timetable.schedule.startTime.minuteOfHour}" />
-						          </c:otherwise>
-						        </c:choose>
-								a
-								<c:out value="${timetable.schedule.endTime.hourOfDay}" />:
-					        	<c:choose>
-						          <c:when test="${timetable.schedule.endTime.minuteOfHour == 0}">
-						          00
-						          </c:when>
-						          <c:otherwise>
-						          <c:out value="${timetable.schedule.endTime.minuteOfHour}" />
-						          </c:otherwise>
-						        </c:choose>
-								<br />
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							El complejo no tiene horarios cargados.
-						</c:otherwise>
-					</c:choose>
-					</td>
+					<td></td>
 				</tr>
-				</table>
+						<tr>
+							<td><c:out value="${complex.name}" /></td>
+							<td><c:out value="${complex.place}" /></td>
+							<td><c:out value="${complex.description}" /></td>
+							
+							<td>	
+							<c:choose>
+								<c:when test="${complex != null}">
+									<c:forEach items="${complex.prettyTimetable}" var="timetable" varStatus="rowCounter">
+										<strong><c:out value="${timetable.day}" />:</strong>
+										<c:out value="${timetable.schedule.startTime.hourOfDay}" />:
+								        <c:choose>
+								          <c:when test="${timetable.schedule.startTime.minuteOfHour == 0}">
+								          00
+								          </c:when>
+								          <c:otherwise>
+								          <c:out value="${timetable.schedule.startTime.minuteOfHour}" />
+								          </c:otherwise>
+								        </c:choose>
+										a
+										<c:out value="${timetable.schedule.endTime.hourOfDay}" />:
+							        	<c:choose>
+								          <c:when test="${timetable.schedule.endTime.minuteOfHour == 0}">
+								          00
+								          </c:when>
+								          <c:otherwise>
+								          <c:out value="${timetable.schedule.endTime.minuteOfHour}" />
+								          </c:otherwise>
+								        </c:choose>
+										<br />
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									El complejo no tiene horarios cargados.
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td>
+								<c:if test="${user.isAdmin}">
+									<form action="<c:out value="${baseURI}" />/DeleteComplex" method="post">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" class="delete" name="delete" value="Eliminar" />
+									</form>
+									<form action="<c:out value="${baseURI}" />/ModifyComplex" method="get">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" name="modify" value="Modificar" />
+									</form>
+									<form action="<c:out value="${baseURI}" />/booking/listcomplex" method="get">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" name="list" value="Ver Reservas" />
+									</form>
+								</c:if>
+								<c:if test="${user.isAuthenticated}">
+									<form action="<c:out value="${baseURI}" />/ListExpirationPolicy" method="get">
+									<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+									<input type="submit" name="expirationPolicy" value="Ver expiración" />
+									</form>
+								</c:if>
+
+							</td>
+						</tr>
+						
+			</table>
 				
 				<c:choose>
 					<c:when test="${fields != null}">
@@ -162,10 +159,17 @@
                             	</c:if>
 								<td>
 									<c:if test="${user.isAuthenticated && !user.isAdmin}">
-										<a href=<c:out value="field/book?id=${field.id}" />>Reservar</a>
-										<br />
+									<form action="<c:out value="${baseURI}" />/field/book" method="get">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+									<input type="submit" name="bookField" value="Reservar" />
+									</form>
 									</c:if>
-									<a href=<c:out value="field/detailedview?id=${field.id }" />>Detalles</a>
+								<form action="<c:out value="${baseURI}" />/field/detailedview" method="get">
+								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+								<input type="submit" name="viewDetails" value="Detalles" />
+								</form>
 								</td>
 							</tr>
 							</c:forEach>

@@ -68,7 +68,8 @@ URL: http://www.alvit.de/vf
 		}
 		
 		tr:hover td, tr:hover td a, tr:hover th a {
-			color: #a10000;
+			/* Es el que pinta la columna de rojo cuando pasas */
+			/* color: #a10000; */
 		}
 		
 		td:hover {
@@ -83,32 +84,31 @@ URL: http://www.alvit.de/vf
 			color: #608117;
 			background-image: none;
 			text-decoration: none;
-			border-bottom: 1px dotted #8A8F95;
 			padding: 2px;
-			padding-right: 12px; background: transparent url(http://www.alvit.de/vf/csstablegallery/link.gif) no-repeat 100% 50%;
+			padding-right: 12px;
 		}
 
 		table a:hover {
 			color: #BBC4CD;
 			background-image: none;
 			text-decoration: none;
-			border-bottom: 3px solid #333;
 			padding: 2px;
-			padding-right: 12px; color: #A2A2A2; background: transparent url(http://www.alvit.de/vf/csstablegallery/link.gif) no-repeat 100% 50%;
+			padding-right: 12px;
+			color: #A2A2A2;
 		}
 		
 		table a:visited {
 			text-decoration: none;
-			border-bottom: 1px dotted #333;
 			text-decoration: none;
-			padding-right: 12px; color: #A2A2A2; background: transparent url(http://www.alvit.de/vf/csstablegallery/visitedLink.gif) no-repeat 100% 50%;
+			padding-right: 12px;
+			color: #A2A2A2;
 		}
 		
 		table a:visited:hover {
 			background-image: none;
 			text-decoration: none;
-			border-bottom: 3px solid #333;
 			padding: 2px;
-			padding-right: 12px; color: #A2A2A2; background: transparent url(http://www.alvit.de/vf/csstablegallery/visitedLink.gif) no-repeat 100% 50%;
+			padding-right: 12px;
+			color: #A2A2A2;
 		}
  

@@ -80,9 +80,10 @@ public class Booking {
 		
 	}
 
-	public void pay(BigDecimal amount, ScoreSystem scoreSystem) throws BookingException {
+	public boolean pay(BigDecimal amount, ScoreSystem scoreSystem) throws BookingException {
 		
 		int score = 0;
+		boolean exceeded = false;
 		
 		if( this.state.equals(BookingStatus.PAID) ) {
 			throw new BookingException("La reserva ya está paga");
@@ -99,6 +100,7 @@ public class Booking {
 		 */
 		if( amount.add(paid).compareTo(cost) > 0 ) {
 		 	amount = cost.subtract(paid);
+		 	exceeded = true;
 		}
 		
 		paid = paid.add(amount);
@@ -146,6 +148,7 @@ public class Booking {
 			throw new BookingException("No se pudieron cargar los puntos del usuario",e);
 		}
 		
+		return exceeded;
 	}
 
 	public DateTime getExpiration() {

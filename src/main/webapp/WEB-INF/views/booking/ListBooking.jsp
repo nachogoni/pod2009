@@ -29,6 +29,8 @@
 
 <c:if test="${(param.pay != null)}">
 
+
+
 	<c:choose>
 	  <c:when test="${param.pay}">
 	    <c:set var="payMsg" scope="page" value="El pago fue cargado exitosamente"/>
@@ -38,11 +40,20 @@
 	  </c:otherwise>
 	</c:choose>
 
+	<c:choose>
+	  <c:when test="${param.exceeded != null && param.exceeded}">
+	    <c:set var="exceededMsg" scope="page" value=". Sin embargo, se ingresó una cantidad mayor al total de la reserva, por lo que se debitó únicamente la cantidad necesaria para completar el pago de la misma"/>
+	  </c:when>
+	  <c:otherwise>
+	    <c:set var="exceededMsg" scope="page" value=""/>
+	  </c:otherwise>
+	</c:choose>
+
 	<div class="ui-state-highlight ui-corner-all info"> 
 			
 		<span class="ui-icon ui-icon-info infoIcon"></span>
 		<span><strong>Información:</strong></span>
-		<span class="block">* <c:out value="${payMsg}" /></span>
+		<span class="block">* <c:out value="${payMsg}" /><c:out value="${exceededMsg}" /></span>
 	</div>
 </c:if>
 

@@ -167,7 +167,9 @@
 					<td><strong>Descipción</strong></td>
 					<td>
 						<c:if test="${user.isAdmin}">
-							<a href="<c:out value="${baseURI}" />/AddComplex">Agregar Nuevo</a>
+							<form action="<c:out value="${baseURI}" />/AddComplex" method="get">
+								<input type="submit" name="addComplex" value="Agregar Nuevo" />
+							</form>
 						</c:if>
 					</td>
 				</tr>
