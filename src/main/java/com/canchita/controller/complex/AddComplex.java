@@ -62,9 +62,11 @@ public class AddComplex extends GenericServlet {
 
 		logger.debug("POST request");
 		FormHandler formulario = new FormAddComplex();
+		logger.debug("Se crea el formulario correctamente");
 
 		/* Load form with request values */
 		formulario.loadValues(request);
+		logger.debug("Se carga el formulario con la información del request");
 
 		if (!formulario.isValid()) {
 			logger.debug("Formulario inválido");
@@ -73,9 +75,7 @@ public class AddComplex extends GenericServlet {
 					UrlMapperType.POST);
 			return;
 		} else {
-
-			// TODO: Arreglar el manejo de excepcion y redireccionar a pagina de
-			// error.
+			logger.debug("El formulario es válido");
 			ErrorManager error = new ErrorManager();
 
 			String name = request.getParameter("name");
@@ -88,6 +88,7 @@ public class AddComplex extends GenericServlet {
 			String country = request.getParameter("country");
 			String address = request.getParameter("address");
 			String telephones[] = request.getParameterValues("telephone");
+			logger.debug("Se levantan todos los parámetros del request");
 
 			if (name == null) {
 				error.add("Falta el nombre del Complejo");
@@ -112,13 +113,18 @@ public class AddComplex extends GenericServlet {
 
 			Integer depositLimit = null;
 			Integer bookingLimit = null;
-
 			try {
 
 				depositLimit = Integer.parseInt(request
 						.getParameter("depositLimit"));
 				bookingLimit = Integer.parseInt(request
 						.getParameter("bookingLimit"));
+
+				if (bookingLimit < depositLimit) {
+					error.add("El valor de caducidad de seña no puede ser "
+							+ "mayor al valor de caducidad de la reserva");
+				}
+
 			} catch (NumberFormatException nfe) {
 				error.add("Valores para el sistema de reservas incorrectos");
 			}
@@ -182,10 +188,10 @@ public class AddComplex extends GenericServlet {
 
 				// lo salvo primero para que se salve el id
 				ComplexBuilder.saveComplex();
-				
+
 				logger.debug("Se carga la política de expiración");
-				ComplexBuilder.setExpirationPolicy(Integer.MIN_VALUE, Integer.MAX_VALUE,
-						bookingLimit, depositLimit);
+				ComplexBuilder.setExpirationPolicy(Integer.MIN_VALUE,
+						Integer.MAX_VALUE, bookingLimit, depositLimit);
 
 				// TODO loguear los errores
 			} catch (ElementExistsException ee) {
