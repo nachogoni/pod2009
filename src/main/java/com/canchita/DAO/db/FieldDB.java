@@ -105,7 +105,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 		String minPlayers = "0";
 		String maxPlayers = String.valueOf(Integer.MAX_VALUE);
 
-		String query = "SELECT * FROM FIELD WHERE 1=1 AND \"name\" LIKE ? AND ";
+		String query = "SELECT * FROM FIELD WHERE 1=1 AND lower(\"name\") LIKE lower(?) AND ";
 
 		if (searchName == null)
 			searchName = "%";
@@ -148,10 +148,10 @@ public class FieldDB extends AllDB implements FieldDAO {
 		}
 
 		if (searchDescription == null || searchDescription == "") {
-			query += "(\"description\" IS NULL OR \"description\" LIKE ? )";
+			query += "(\"description\" IS NULL OR lower(\"description\") LIKE lower(?) )";
 			searchDescription = "%";
 		} else {
-			query += "\"description\" LIKE ?";
+			query += "lower(\"description\") LIKE lower(?)";
 			searchDescription = "%" + searchDescription + "%";
 		}
 
@@ -179,8 +179,8 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 		if (isSearchingByPlace) {
 			query += " AND \"complex_id\" IN ( SELECT \"complex_id\" FROM COMPLEX"
-					+ " WHERE \"address\" LIKE ? AND \"neighbourhood\" LIKE ? AND \"city\" LIKE ? "
-					+ "AND \"state\" LIKE ? AND \"country\" LIKE ? )";
+					+ " WHERE lower(\"address\") LIKE lower(?) AND lower(\"neighbourhood\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) "
+					+ "AND lower(\"state\") LIKE lower(?) AND lower(\"country\") LIKE lower(?) )";
 			results = executeQuery(query,
 					new Object[] { searchName, searchDescription,
 							searchMaxPrice, maxHasRoof, minHasRoof, maxType,
@@ -203,8 +203,8 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 		String query = "SELECT * FROM FIELD, COMPLEX WHERE "
 				+ "FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
-				+ " \"state\" LIKE ? AND \"city\" LIKE ? AND "
-				+ "\"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"field_id\"";
+				+ " lower(\"state\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) AND "
+				+ "lower(\"neighbourhood\") LIKE lower(?) AND rownum <= ? ORDER BY \"field_id\"";
 
 		if (province == null || province.equals("")) {
 			province = "%";
