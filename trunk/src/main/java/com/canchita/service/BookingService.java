@@ -208,7 +208,7 @@ public class BookingService implements BookingServiceProtocol {
 	}
 
 	@Override
-	public void payBooking(Long id, BigDecimal amount) throws BookingException,
+	public boolean payBooking(Long id, BigDecimal amount) throws BookingException,
 			UserException {
 		Booking booking = this.getById(id);
 
@@ -221,7 +221,7 @@ public class BookingService implements BookingServiceProtocol {
 			throw new BookingException("No se pudo realizar el pago");
 		}
 
-		booking.pay(amount, scoreSystem);
+		return booking.pay(amount, scoreSystem);
 	}
 
 	private Booking getById(Long id) throws BookingException {

@@ -92,11 +92,12 @@ public class Pay extends GenericServlet {
 			ErrorManager error = new ErrorManager();
 
 			BookingServiceProtocol bookingService = new BookingService();
-
+			boolean exceeded = false;
+			
 			try {
 				Long id = Long.parseLong(request.getParameter("id"));
 				BigDecimal amount = new BigDecimal(request.getParameter("amount"));
-				bookingService.payBooking(id, amount);
+				exceeded = bookingService.payBooking(id, amount);
 			} catch (UserException e) {
 				error.add(e);
 				request.setAttribute("form", form);
@@ -111,7 +112,8 @@ public class Pay extends GenericServlet {
 			Map<String, String> map = new HashMap<String, String>();
 
 			map.put("pay", "true");
-
+			map.put("exceeded", Boolean.toString(exceeded));
+			
 			UrlMapper.getInstance().redirectSuccess(this, request, response,
 					UrlMapperType.POST, map);
 

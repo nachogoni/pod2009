@@ -32,32 +32,6 @@
 	</div>
 </c:if>
 
-<table>
-	<tr>
-		<td>
-			<c:if test="${user.isAdmin}">
-				<form action="<c:out value="${baseURI}" />/field/delete" method="post">
-				<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-				<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-				<input type="submit" class="delete" name="delete" value="Eliminar" />
-				</form>
-			</c:if>
-			<c:if test="${user.isAuthenticated && !user.isAdmin}">
-				<a href="<c:out value="${baseURI}" />/field/book?id=<c:out value="${field.id}" />">Reservar</a>
-			</c:if>
-		</td>
-		<td></td>
-		<!-- 
-		<td>
-			<form action="<c:out value="${baseURI}" />/ModifyField" method="get">
-			<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-			<input type="submit" name="modify" value="Modificar" />
-			</form>
-		</td>
-		-->
-	</tr>
-</table>
-
 <c:choose>
 <c:when  test="${(field == null)}">
 <div class="ui-state-error ui-corner-all error"> 
@@ -76,33 +50,68 @@
 	
 			<table class="fieldTable" border="1">
 				<tr>
-					<td><strong>Nombre</strong></td>
-					<td><c:out value="${field.name}" /></td>
-				</tr>
-				<tr>
+                    <td><strong>Nombre</strong></td>
+                    <td><strong>Complejo</strong></td>
 					<td><strong>Descripción</strong></td>
-					<td><c:out value="${field.description}" /></td>
-				</tr>
-				<tr>
 					<td><strong>Cantidad de jugadores</strong></td>
-					<td><c:out value="${field.numberOfPlayers}" /></td>
-				</tr>
-				<tr>
+					<td><strong>Techada</strong></td>
+					<td><strong>Tipo de piso</strong></td>
 					<td><strong>Precio</strong></td>
-					<td><c:out value="${field.price}" /></td>
+					<td><strong>En Mantenimiento</strong></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td><strong>Es techada</strong></td>
-					<td>
-					<c:choose>
-						<c:when test="${field.hasRoof == true}">
-							No
-						</c:when>
-						<c:otherwise>
-							Si
-						</c:otherwise>
-					</c:choose>
-					</td>
+					<td><c:out value="${field.name}" /></td>
+							<td><a href="<c:out value="${baseURI}" escapeXml="false"/>/DetailedViewComplex?id=<c:out value="${field.complex.id}" />"><c:out value="${field.complex.name}" /></a></td> 
+							<td><c:out value="${field.description}" /></td>
+							<td><c:out value="${field.numberOfPlayers}" /></td>
+							<c:if test="${(field.hasRoof)}">
+								<td><c:out value="Sí" /></td>
+							</c:if>
+							<c:if test="${!(field.hasRoof)}">
+								<td><c:out value="No" /></td>
+							</c:if>
+							
+							<td><c:out value="${field.floor}" /></td>
+							<td><c:out value="${field.price}" /></td>
+							<c:if test="${(field.under_maintenance)}">
+                                <td><c:out value="Sí" /></td>
+                            </c:if>
+                            <c:if test="${!(field.under_maintenance)}">
+                                <td><c:out value="No" /></td>
+                            </c:if>
+							
+							<td>
+								<c:if test="${user.isAdmin}">
+									<form action="<c:out value="${baseURI}" />/field/delete" method="post">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+									<input type="submit" class="delete" name="delete" value="Eliminar" />
+									</form>
+									<form action="<c:out value="${baseURI}" />/field/modify" method="get">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+									<input type="submit" name="modify" value="Modificar" />
+									</form>
+									<form action="<c:out value="${baseURI}" />/booking/listfield" method="get">
+									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+									<input type="submit" name="list" value="Ver Reservas" />
+									</form>
+								</c:if>
+								<c:if test="${user.isAuthenticated}">
+									<form action="<c:out value="${baseURI}" />/field/ListFieldExpirationPolicy" method="get">
+									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+									<input type="submit" name="expirationPolicy" value="Ver expiración" />
+									</form>
+								</c:if>
+                                <c:if test="${user.isAuthenticated && !user.isAdmin}">
+                                    <form action="<c:out value="${baseURI}" />/field/book" method="get">
+                                    <input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+                                    <input type="submit" name="id" value="Reservar" />
+                                    </form>
+                                </c:if>
+							</td>
 				</tr>
 			</table>
 

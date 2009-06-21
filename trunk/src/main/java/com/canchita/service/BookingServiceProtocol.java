@@ -22,7 +22,7 @@ public interface BookingServiceProtocol {
 	void cancelBooking(Long id) throws BookingException, PersistenceException,
 			UserException;
 
-	void payBooking(Long id, BigDecimal amount) throws BookingException,
+	boolean payBooking(Long id, BigDecimal amount) throws BookingException,
 			UserException;
 
 	void fullPayBooking(Long id) throws BookingException, UserException;
