@@ -20,25 +20,25 @@ public class FormAddExpirationPolicy extends FormHandler {
 		this.addElement(new FormElementInput("text", "scoreFrom")
 			.setLabel("Desde")
 			.setRequired(true)
-			.setMaxLength(10)
+			.setMaxLength(20)
 			.addValidator("IsNumericN"));
 
 		this.addElement(new FormElementInput("text", "scoreTo")
 			.setLabel("Hasta")
 			.setRequired(true)
-			.setMaxLength(10)
+			.setMaxLength(20)
 			.addValidator("IsNumericN"));
 
 		this.addElement(new FormElementInput("text", "downBooking")
 			.setLabel("Cae reservada")
 			.setRequired(true)
-			.setMaxLength(10)
+			.setMaxLength(20)
 			.addValidator("IsNumeric"));
 
 		this.addElement(new FormElementInput("text", "downDeposit")
 			.setLabel("Cae señada")
 			.setRequired(true)
-			.setMaxLength(10)
+			.setMaxLength(20)
 			.addValidator("IsNumeric"));
 		
 		Decorator decorator = new Decorator().setSclass("submit-go");

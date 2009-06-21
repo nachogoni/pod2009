@@ -13,6 +13,8 @@ import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
 import com.canchita.model.booking.Expiration;
+import com.canchita.service.ComplexService;
+import com.canchita.service.ComplexServiceProtocol;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
 
@@ -38,12 +40,19 @@ public class ListFieldExpirationPolicy extends GenericServlet {
 		String id = request.getParameter("id");
 
 		FieldServiceProtocol fieldService = new FieldService();
+		ComplexServiceProtocol complexService = new ComplexService();
 
 		ErrorManager errorManager = new ErrorManager();
 
 		try {
 			Collection<Expiration> list = fieldService
 					.listExpirationPolicies(Long.parseLong(id));
+
+			if (list.size() == 0) {
+				Collection<Expiration> parentList = complexService.listExpirationPolicies(
+						fieldService.getComplexId(Long.parseLong(id)));
+				request.setAttribute("parentPolicies", parentList);
+			}
 			request.setAttribute("policies", list);
 			request.setAttribute("quantity", list.size());
 
