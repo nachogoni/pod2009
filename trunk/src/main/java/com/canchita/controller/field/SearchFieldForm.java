@@ -47,7 +47,7 @@ public class SearchFieldForm extends FormHandler {
 			.addValue("", "")
 			.addValue("Sí", "yes")
 			.addValue("No", "no"));
-	
+		
 		this.addElement(new FormElementSelect("floorType")
 			.setLabel("Piso")
 			.setRequired(false)
