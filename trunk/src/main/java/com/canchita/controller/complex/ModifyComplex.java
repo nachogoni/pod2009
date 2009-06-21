@@ -149,6 +149,12 @@ public class ModifyComplex extends GenericServlet {
 					.getParameter("depositLimit"));
 			bookingLimit = Integer.parseInt(request
 					.getParameter("bookingLimit"));
+
+			if (bookingLimit < depositLimit) {
+				error.add("El valor de caducidad de seña no puede ser "
+						+ "mayor al valor de caducidad de la reserva");
+			}
+
 		} catch (NumberFormatException nfe) {
 			error.add("Valores para el sistema de reservas incorrectos");
 		}
