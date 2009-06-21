@@ -18,8 +18,6 @@ public class AuthenticationFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -46,7 +44,7 @@ public class AuthenticationFilter implements Filter {
 			
 			httpServletRequest.getSession().setAttribute("user", userService.createGuest());
 			
-			//TODO Agregar el formulario de login para los headers o ver donde mierda
+			//TODO Agregar el formulario de login para los headers o ver donde 
 		}
 	}
 

@@ -1405,7 +1405,7 @@ $.ui.mouse.defaults = {
             rangeMin:    $.range(0, 60, 15),
             rangeSec:    $.range(0, 60, 15),
             updateLive:  true,
-            resetOnBlur: true,
+            resetOnBlur: false,
             val:         false
         }
     });

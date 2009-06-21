@@ -12,6 +12,8 @@ package com.canchita.model.user;
  */
 public class Administrator extends Registered {
 
+	private static final long serialVersionUID = 1L;
+
 	public Administrator(long id, String userName, String password) {
 		this.password = password;
 		this.username = userName;

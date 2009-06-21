@@ -1,10 +1,7 @@
 package com.canchita.DAO;
 
 import java.util.Collection;
-import java.util.List;
 
-import com.canchita.model.booking.Booking;
-import com.canchita.model.booking.BookingStatus;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
