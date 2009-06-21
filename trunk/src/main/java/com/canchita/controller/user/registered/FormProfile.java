@@ -24,11 +24,14 @@ public class FormProfile extends FormHandler {
 				"src/main/webapp/js/user/profile/init.js").setMethod("post");
 
 		this.addElement(new FormElementInput("text", "email")
-				.setLabel("Correo").setId("idMail").setRequired(true)
+				.setLabel("Correo")
+				.setId("idMail")
+				.setRequired(true)
 				.addValidator("IsEMailAddress")
 				.addValidator("MaxLength", "50")
-				.setMultipleData("multipleEmail").addJ2QueryTooltip(
-						"Correo electr&oacute;nico del usuario"));
+				.setMaxLength(50)
+				.setMultipleData("multipleEmail")
+				.addJ2QueryTooltip("Correo electr&oacute;nico del usuario"));
 
 		ArrayList<String> days = new ArrayList<String>();
 		for (Integer i = 0; i < 32; i++) {

@@ -20,6 +20,7 @@ public class FormPay extends FormHandler {
 		this.addElement(new FormElementInput("text","amount")
 			.setLabel("Monto")
 			.setRequired(true)
+			.setMaxLength(10)
 			.addValidator("IsDecimal"));
 		
 				

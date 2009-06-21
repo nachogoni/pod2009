@@ -8,11 +8,13 @@ import com.canchita.views.helpers.j2query.J2QueryMultipleData;
 public class FormElementInput extends FormElement {
 	protected boolean multipleData;
 	protected String idButton;
+	protected int maxLength;
 	protected ArrayList<FormElementInput> subelements = new ArrayList<FormElementInput>();
 
 	public FormElementInput(String type, String name) {
 		super(type, name);
 		multipleData = false;
+		maxLength = -1;
 	}
 	
 	public void addSubElement(String value){
@@ -85,28 +87,37 @@ public class FormElementInput extends FormElement {
 
 		return this;
 	}
+	
+	public FormElementInput setMaxLength(int maxlength){
+		maxLength = maxlength; 
+		
+		return this;
+	}
 
 	protected void addSubElement(FormElementInput e) {
 		subelements.add(e);
 	}
 
 	protected String genInput() {
-		String strclass = "";
+		String strclass = "", strmaxlength="";
 
 		if (!this.deco.getSclass().equals("")) {
 			strclass = String.format(" class='%s'", this.deco.getSclass());
 		}
+		
+		if (maxLength > 0){
+			strmaxlength = String.format(" maxlength='%d'", maxLength);
+		}
 
 		return String
 				.format(
-						"<div id='div%s'><input id='%s' type='%s' name='%s' value='%s' %s></div>",
+						"<div id='div%s'><input id='%s' type='%s' name='%s' value='%s' %s %s></div>",
 						super.name, super.id, super.type, super.name,
-						super.value, strclass);
+						super.value, strclass, strmaxlength);
 	}
 
 	@Override
 	public FormElementInput setValue(String value) {
-		// TODO Auto-generated method stub
 		super.setValue(value);
 
 		return this;
@@ -128,7 +139,6 @@ public class FormElementInput extends FormElement {
 
 	@Override
 	public FormElementInput addValidator(String validator) {
-		// TODO Auto-generated method stub
 		super.addValidator(validator);
 
 		return this;
@@ -163,8 +173,7 @@ public class FormElementInput extends FormElement {
 
 	@Override
 	public FormElementInput setDecorator(Decorator deco) {
-		// TODO Auto-generated method stub
-		super.setDecorator(deco);
+ 		super.setDecorator(deco);
 
 		return this;
 	}
