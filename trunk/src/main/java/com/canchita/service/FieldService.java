@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.ComplexDAO;
 import com.canchita.DAO.ExpirationDAO;
 import com.canchita.DAO.FieldDAO;
@@ -18,6 +19,7 @@ import com.canchita.helper.validator.Validator;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.FieldException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
@@ -25,10 +27,15 @@ import com.canchita.model.field.FloorType;
 
 public class FieldService implements FieldServiceProtocol {
 
-	public void deleteField(Long id) throws PersistenceException {
+	public void deleteField(Long id) throws PersistenceException, FieldException {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		
+		if( bookingDAO.hasBookings(id) ) {
+			throw new FieldException("No se puede eliminar una cancha que tiene reservas activas");
+		}		
+		
 		fieldDAO.delete(id);
 	}
 
@@ -213,6 +220,15 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
+	public Iterator<Schedule> getAllHours(Long id, DateTime date) throws PersistenceException {
+		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
+
+		Field field = fieldDAO.getById(id);
+
+		return field.getAllHours(date);
+	}
+	
+	@Override
 	public Field getById(Long id) throws PersistenceException {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
@@ -317,5 +333,6 @@ public class FieldService implements FieldServiceProtocol {
 		expirationDAO.update(expiration);
 
 	}
+
 
 }

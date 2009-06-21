@@ -20,6 +20,7 @@ import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.SomeDaysBookedException;
 import com.canchita.model.exception.UserException;
 import com.canchita.model.field.Field;
 import com.canchita.model.user.CommonUser;
@@ -99,7 +100,8 @@ public class AddManyBookings extends GenericServlet {
 		String fromParameter = request.getParameter("from");
 		String toParameter = request.getParameter("to");
 		String whenParameter = request.getParameter("when");
-
+		String checkParameter = request.getParameter("check");
+		
 		ErrorManager error = new ErrorManager();
 
 		if (idParameter == null) {
@@ -131,6 +133,10 @@ public class AddManyBookings extends GenericServlet {
 			error.add("Falta el período en el cual se reservará la cancha");
 		}
 
+		if (checkParameter == null) {
+			error.add("Falta indicar si se ignora o no que haya reservas entre las fechas");
+		}
+
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
 			this.failurePOST(request, response, error);
@@ -153,6 +159,7 @@ public class AddManyBookings extends GenericServlet {
 					.add("La fecha hasta está en un formato inválido, debe ser de la forma \"dd/mm/yyyy\"");
 		}
 
+		boolean check = Boolean.valueOf(checkParameter);
 		
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
@@ -188,7 +195,7 @@ public class AddManyBookings extends GenericServlet {
 		List<Booking> bookings = null;
 		
 		try {
-			bookings = bookingService.saveManyBookings(user,id, startTimeFrom, endTimeFrom,startTimeTo,endTimeTo);
+			bookings = bookingService.saveManyBookings(user,id, startTimeFrom, endTimeFrom,startTimeTo,endTimeTo,check);
 			newUser = userService.get(user);
 			request.getSession().removeAttribute("user");
 			request.getSession().setAttribute("user", newUser);
@@ -198,12 +205,19 @@ public class AddManyBookings extends GenericServlet {
 			error.add(ene);
 		} catch (PersistenceException pe) {
 			error.add("Error en el servidor, por favor intente nuevamente");
+		} catch (SomeDaysBookedException e) {
+			request.setAttribute("id", id);
+			request.setAttribute("from", fromParameter);
+			request.setAttribute("to", toParameter);
+			request.setAttribute("when", whenParameter);
+			UrlMapper.getInstance().forwardTo(request, response, "/WEB-INF/views/field/ConfirmManyBookings.jsp");
+			return;
 		} catch (BookingException e) {
 			error.add(e);
 		} catch (UserException e) {
 			error.add(e);
 		}
-
+		
 		if (error.size() != 0) {
 			logger.debug("Error en el formulario");
 			this.failurePOST(request, response, error);

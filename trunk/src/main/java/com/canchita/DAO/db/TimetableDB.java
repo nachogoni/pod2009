@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.canchita.DAO.TimetableDAO;
 import com.canchita.DAO.db.builders.AvailabilityBuilder;
+import com.canchita.DAO.factory.FactoryMethod;
 import com.canchita.model.complex.Availability;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -20,6 +21,7 @@ public class TimetableDB extends AllDB implements TimetableDAO {
 	private TimetableDB() {
 	}
 
+	@FactoryMethod
 	public static TimetableDB getInstance() {
 		return instance;
 	}

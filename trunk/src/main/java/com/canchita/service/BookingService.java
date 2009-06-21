@@ -22,6 +22,7 @@ import com.canchita.model.exception.BookingException;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
+import com.canchita.model.exception.SomeDaysBookedException;
 import com.canchita.model.exception.UserException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
@@ -133,9 +134,10 @@ public class BookingService implements BookingServiceProtocol {
 	@Override
 	public List<Booking> saveManyBookings(CommonUser user, Long id,
 			DateTime startTimeFrom, DateTime endTimeFrom, DateTime startTimeTo,
-			DateTime endTimeTo) throws PersistenceException, BookingException,
+			DateTime endTimeTo, boolean checkAvailability) throws PersistenceException, BookingException,
 			UserException {
 
+			
 		// TODO se asume que start y end ocupan un dia cada uno
 
 		if (startTimeFrom.getDayOfWeek() != startTimeTo.getDayOfWeek()) {
@@ -145,7 +147,10 @@ public class BookingService implements BookingServiceProtocol {
 		if (startTimeFrom.compareTo(startTimeTo) > 0 ) {
 			throw new BookingException("La fecha desde es mayor que la fecha hasta");
 		}
-
+		
+		if( checkAvailability && ! this.areAllAvailable(startTimeFrom, startTimeTo, endTimeFrom, endTimeTo) ) {
+			throw new SomeDaysBookedException("Algunos días ya estan reservados");
+		}
 		
 		long startDay = startTimeFrom.getDayOfYear()
 				+ (365 * startTimeFrom.getYear());
@@ -153,7 +158,7 @@ public class BookingService implements BookingServiceProtocol {
 				+ (365 * startTimeTo.getYear());
 
 		long amountOfWeeks = (endDay - startDay) / DayOfWeek.WEEK_DAYS;
-
+		
 		DateTime startTime = startTimeFrom;
 		DateTime endTime = endTimeFrom;
 		List<Booking> bookings = new ArrayList<Booking>();
@@ -172,6 +177,33 @@ public class BookingService implements BookingServiceProtocol {
 		}
 
 		return bookings;
+	}
+
+	private boolean areAllAvailable(DateTime startTimeFrom,
+			DateTime startTimeTo, DateTime endTimeFrom, DateTime endTimeTo) throws PersistenceException {
+		
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		boolean areAvailable = true;
+		
+		long startDay = startTimeFrom.getDayOfYear()
+		+ (365 * startTimeFrom.getYear());
+		long endDay = startTimeTo.getDayOfYear()
+				+ (365 * startTimeTo.getYear());
+		
+		long amountOfWeeks = (endDay - startDay) / DayOfWeek.WEEK_DAYS;
+		
+		DateTime startTime = startTimeFrom;
+		DateTime endTime = endTimeFrom;
+
+		for (long i = 0; i <= amountOfWeeks && areAvailable; i++) {
+			
+			areAvailable = bookingDAO.viewAvailability(startTime, endTime);
+			
+			startTime = startTime.plusDays(DayOfWeek.WEEK_DAYS);
+			endTime = endTime.plusDays(DayOfWeek.WEEK_DAYS);
+		}
+		
+		return areAvailable;
 	}
 
 	@Override

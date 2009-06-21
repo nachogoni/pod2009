@@ -30,12 +30,6 @@ function addCalendar(element, openCallback, closeCallback) {
 	} : closeCallback;
 
 	$( function() {
-		console.log($.extend( {
-			beforeShow : openCallback,
-			onClose : closeCallback,
-			showMonthAfterYear : false,
-			minDate : new Date()
-		}, $.datepicker.regional['es']))
 		
 		$(element).datepicker($.extend( {
 			beforeShow : openCallback,

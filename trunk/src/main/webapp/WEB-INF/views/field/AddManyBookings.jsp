@@ -21,6 +21,9 @@
 					<span class="block">* Precio: $<c:out value="${booking.cost}"/> </span>
 				</c:forEach>
 			</c:when>
+			<c:otherwise>
+					<span class="block">* No se agendaron reservas</span>
+			</c:otherwise>
 		</c:choose>
 	</div>
 </c:if>
@@ -113,6 +116,8 @@
 	<c:if test="${(param.id != null)}">
 		<input id="id" type="hidden" name="id" value="<c:out value="${param.id}"/>"/>
 	</c:if>
+	
+	<input type="hidden" name="check" value="true"/>
 
 	<input type="submit" value="Agregar" class="submit-go" />
 </form>

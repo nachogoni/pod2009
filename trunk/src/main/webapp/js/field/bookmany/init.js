@@ -25,7 +25,7 @@ function getHours() {
 		return;
 	}
 
-	$.getJSON('/tp-pod/field/getavailablehours', {
+	$.getJSON('/tp-pod/field/getallhours', {
 		id : id,
 		date : date
 	}, showHours);

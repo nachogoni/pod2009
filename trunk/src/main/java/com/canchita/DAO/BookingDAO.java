@@ -29,6 +29,8 @@ public interface BookingDAO {
 	public Iterator<Booking> getFieldBookings(Long fieldId, DateTime date);
 
 	public boolean viewAvailability(Booking booking);
+
+	boolean viewAvailability(DateTime startTime, DateTime endTime);
 	
 	public boolean exists(Booking booking);
 	// TODO ver el tema de la busqueda de reservas
@@ -45,5 +47,10 @@ public interface BookingDAO {
 	public boolean tryCancel(Booking booking, Expiration expiration);
 
 	public List<Booking> getAllBookings();
+
+	public boolean hasBookings(Long id);
+
+	public boolean complexHasBookings(Long id);
+
 
 }

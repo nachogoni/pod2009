@@ -1,6 +1,8 @@
 package com.canchita.controller.field;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.FieldException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.FieldService;
 
@@ -24,7 +27,6 @@ public class DeleteField extends GenericServlet {
      */
     public DeleteField() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -50,15 +52,32 @@ public class DeleteField extends GenericServlet {
 			try {
 				delService.deleteField(id);
 			} catch (PersistenceException e) {
+
+				Map<String, String> map = new HashMap<String, String>();
+
+				map.put("delete", "false");
 				
 				UrlMapper.getInstance().redirectFailure(this, request, response,
-						UrlMapperType.POST);
+						UrlMapperType.POST,map);
+				return;
 				
+			} catch (FieldException e) {
+
+				Map<String, String> map = new HashMap<String, String>();
+
+				map.put("hasBookings", "true");
+				
+				UrlMapper.getInstance().redirectFailure(this, request, response,
+						UrlMapperType.POST,map);
+				return;
 			}
 
+			Map<String, String> map = new HashMap<String, String>();
+
+			map.put("delete", "true");
 		
-		UrlMapper.getInstance().redirectSuccess(this, request, response,
-				UrlMapperType.POST);
+			UrlMapper.getInstance().redirectSuccess(this, request, response,
+				UrlMapperType.POST,map);
 
 	}
 

@@ -170,36 +170,6 @@ public class BookingDB extends AllDB implements BookingDAO {
 	}
 
 	@Override
-	public boolean viewAvailability(Booking booking) {
-		String sqlDateFrom = "to_date (to_char ( TO_TIMESTAMP_TZ('"
-				+ booking.getSchedule().getStartTime()
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
-
-		String sqlDateTo = "to_date (to_char ( TO_TIMESTAMP_TZ('"
-				+ booking.getSchedule().getEndTime()
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
-
-		String query = "SELECT COUNT(*) FROM RESERVATION WHERE ("
-				+ sqlDateFrom
-				+ " >= to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS') 'YYYY-MON-DD HH24.MI.SS') "
-				+ " AND "
-				+ sqlDateFrom
-				+ " <= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS'))"
-				+ "OR ("
-				+ sqlDateTo
-				+ " >= to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS') 'YYYY-MON-DD HH24.MI.SS') "
-				+ " AND "
-				+ sqlDateTo
-				+ " <= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS'))";
-
-		List<Integer> results = executeQuery(query, new Object[] { booking
-				.getId() }, CountBuilder.getInstance());
-
-		return results.get(0) == 0;
-
-	}
-
-	@Override
 	public Collection<Booking> getDownBookings(Long complexId) {
 
 		String query = "SELECT \"reservation_id\", \"user_id\", \"field_id\""
@@ -215,35 +185,36 @@ public class BookingDB extends AllDB implements BookingDAO {
 
 		return results;
 	}
-	
+
 	@Override
-	public Collection<Booking> getDownBookings(String province, String locality, String neighbourhood, Long listCount) {
-		
+	public Collection<Booking> getDownBookings(String province,
+			String locality, String neighbourhood, Long listCount) {
+
 		String query = "SELECT \"reservation_id\", \"user_id\", RESERVATION.\"field_id\""
-			+ ", RESERVATION.\"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
-			+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
-			+ " FROM RESERVATION, FIELD, COMPLEX WHERE FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
-			+ " RESERVATION.\"field_id\" = FIELD.\"field_id\" AND \"start_date\" > SYSDATE AND "
-			+ " RESERVATION.\"state\" = ? AND COMPLEX.\"state\" LIKE ? AND COMPLEX.\"city\" LIKE ? AND "
-			+ " \"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"start_date\"";
-		  		
+				+ ", RESERVATION.\"state\", \"cost\", \"paid\", to_char(\"start_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as start_date, to_char(\"end_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
+				+ " FROM RESERVATION, FIELD, COMPLEX WHERE FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
+				+ " RESERVATION.\"field_id\" = FIELD.\"field_id\" AND \"start_date\" > SYSDATE AND "
+				+ " RESERVATION.\"state\" = ? AND COMPLEX.\"state\" LIKE ? AND COMPLEX.\"city\" LIKE ? AND "
+				+ " \"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"start_date\"";
+
 		if (province == null || province.equals("")) {
 			province = "%";
 		}
-		
+
 		if (locality == null || locality.equals("")) {
 			locality = "%";
 		}
-		
+
 		if (neighbourhood == null || neighbourhood.equals("")) {
 			neighbourhood = "%";
 		}
-		
+
 		List<Booking> results = executeQuery(query, new Object[] {
-				BookingStatus.CANCELLED.getIndex(), province, locality, neighbourhood, listCount},
-				ReservationBuilder.getInstance());
-		
+				BookingStatus.CANCELLED.getIndex(), province, locality,
+				neighbourhood, listCount }, ReservationBuilder.getInstance());
+
 		return results;
 	}
 
@@ -335,4 +306,92 @@ public class BookingDB extends AllDB implements BookingDAO {
 		return results.get(0) > 0;
 	}
 
+	@Override
+	public boolean hasBookings(Long id) {
+
+		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE \"field_id\" = ?"
+				+ " AND ( \"state\" = ? OR \"state\" = ? )";
+
+		List<Integer> results = executeQuery(query, new Object[] { id,
+				BookingStatus.BOOKED.getIndex(),
+				BookingStatus.HALF_PAID.getIndex() }, CountBuilder
+				.getInstance());
+
+		return results.get(0) > 0;
+	}
+
+	@Override
+	public boolean complexHasBookings(Long id) {
+		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION,FIELD,COMPLEX"
+				+ " WHERE FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND"
+				+ " RESERVATION.\"field_id\" = FIELD.\"field_id\""
+				+ " AND COMPLEX.\"complex_id\" = ? AND"
+				+ " ( RESERVATION.\"state\" = ? OR RESERVATION.\"state\" = ? )";
+
+		List<Integer> results = executeQuery(query, new Object[] { id,
+				BookingStatus.BOOKED.getIndex(),
+				BookingStatus.HALF_PAID.getIndex() }, CountBuilder
+				.getInstance());
+
+		return results.get(0) > 0;
+	}
+
+	@Override
+	public boolean viewAvailability(Booking booking) {
+		String sqlDateFrom = "to_date (to_char ( TO_TIMESTAMP_TZ('"
+				+ booking.getSchedule().getStartTime()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
+
+		String sqlDateTo = "to_date (to_char ( TO_TIMESTAMP_TZ('"
+				+ booking.getSchedule().getEndTime()
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
+
+			String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE ( " +
+			sqlDateFrom +
+			" >= ( to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) "
+			+ " AND "
+			+ sqlDateFrom
+			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )"
+			+ "OR ( "
+			+ sqlDateTo
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')"
+			+ " AND "
+			+ sqlDateTo
+			+ "<= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )";
+	
+		List<Integer> results = executeQuery(query, new Object[] {},
+				CountBuilder.getInstance());
+
+		return results.get(0) == 0;
+	}
+
+	@Override
+	public boolean viewAvailability(DateTime startTime, DateTime endTime) {
+		String sqlDateFrom = "to_date (to_char ( TO_TIMESTAMP_TZ('"
+			+ startTime
+			+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
+		
+		String sqlDateTo = "to_date (to_char ( TO_TIMESTAMP_TZ('"
+			+ endTime
+			+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
+		
+		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE ( " +
+			sqlDateFrom +
+			" >= ( to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) "
+			+ " AND "
+			+ sqlDateFrom
+			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )"
+			+ "OR ( "
+			+ sqlDateTo
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')"
+			+ " AND "
+			+ sqlDateTo
+			+ "<= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )";
+		
+		List<Integer> results = executeQuery(query, new Object[] {},
+				CountBuilder.getInstance());
+		
+		return results.get(0) == 0;
+		
+	}
 }

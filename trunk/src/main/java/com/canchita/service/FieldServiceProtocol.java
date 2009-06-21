@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import com.canchita.model.booking.Booking;
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.booking.Schedule;
+import com.canchita.model.exception.FieldException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
@@ -27,7 +28,7 @@ public interface FieldServiceProtocol {
 			String neighbourhood, Long listCount) throws ValidationException,
 			PersistenceException;
 
-	public void deleteField(Long id) throws PersistenceException;
+	public void deleteField(Long id) throws PersistenceException, FieldException;
 
 	public Long saveField(String name, String description, Long idComplex,
 			Boolean hasRoof, FloorType floor) throws PersistenceException;
@@ -68,4 +69,6 @@ public interface FieldServiceProtocol {
 	public void updateExpirationPolicy(Long id, Integer scoreFrom,
 			Integer scoreTo, Integer downBooking, Integer downDeposit)
 			throws PersistenceException;
+
+	public Iterator<Schedule> getAllHours(Long id, DateTime date) throws PersistenceException;
 }

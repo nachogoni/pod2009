@@ -32,11 +32,11 @@ public interface BookingServiceProtocol {
 
 	public List<Booking> getBookableBookings(Long bookeableId)
 			throws PersistenceException;
-
+	
 	List<Booking> saveManyBookings(CommonUser user, Long id,
 			DateTime startTimeFrom, DateTime endTimeFrom, DateTime startTimeTo,
-			DateTime endTimeTo) throws PersistenceException, BookingException,
-			UserException;
+			DateTime endTimeTo, boolean checkAvailability)
+			throws PersistenceException, BookingException, UserException;
 
 	public Collection<Booking> getDownBookings() throws ValidationException,
 			PersistenceException;

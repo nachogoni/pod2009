@@ -187,13 +187,13 @@ public class UrlMapper {
 		/* Field */
 		successRedirect.put("AddFieldPOST", "/tp-pod/field/list?add=true");
 		successRedirect
-				.put("DeleteFieldPOST", "/tp-pod/field/list?delete=true");
+				.put("DeleteFieldPOST", "/tp-pod/field/list");
 		successRedirect
 				.put("ModifyFieldPOST", "/tp-pod/field/list?modify=true");
 		/* Complex */
 		successRedirect.put("AddComplexPOST", "/tp-pod/ListComplex?add=true");
 		successRedirect.put("DeleteComplexPOST",
-				"/tp-pod/ListComplex?delete=true");
+				"/tp-pod/ListComplex");
 		successRedirect.put("ModifyComplexPOST",
 				"/tp-pod/ListComplex?modify=true");
 		
@@ -319,9 +319,9 @@ public class UrlMapper {
 				"/tp-pod/ListComplex?delete=false");
 
 		failureRedirect.put("DeleteComplexPOST",
-				"/tp-pod/ListComplex?delete=false");
+				"/tp-pod/ListComplex");
 		failureRedirect.put("DeleteFieldPOST",
-				"/tp-pod/field/list?delete=false");
+				"/tp-pod/field/list");
 		
 		//Booking
 		failureRedirect.put("FullPayPOST",
@@ -443,8 +443,15 @@ public class UrlMapper {
 
 		String url = this.findUrl(map, servlet, type);
 
-		request.getRequestDispatcher(url).forward(request, response);
+		this.forwardTo(request,response,url);
+		
 
+	}
+
+	public void forwardTo(HttpServletRequest request,
+			HttpServletResponse response, String url) throws ServletException, IOException {
+		request.getRequestDispatcher(url).forward(request, response);
+		
 	}
 
 	private void redirect(HttpServlet servlet, HttpServletRequest request,

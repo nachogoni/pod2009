@@ -2,6 +2,7 @@ package com.canchita.model.field;
 
 import java.math.BigDecimal;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -440,6 +441,15 @@ public class Field implements Bookable {
 
 	}
 
+	public Iterator<Schedule> getAllHours(DateTime date) {
+		
+		List<Booking> bookings = new ArrayList<Booking>();
+		
+		Iterator<Schedule> availability = complex.getScheduleForDay(date);
+		
+		return this.getAvailableHours(date, bookings.iterator(), availability);
+	}
+	
 	private Iterator<Schedule> getAvailableHours(DateTime date,
 			Iterator<Booking> bookings, Iterator<Schedule> availability) {
 
@@ -627,5 +637,6 @@ public class Field implements Bookable {
 		
 		return accontationPercentage;
 	}
+	
 
 }
