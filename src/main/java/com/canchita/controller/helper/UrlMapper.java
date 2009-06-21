@@ -169,9 +169,6 @@ public class UrlMapper {
 		successRedirect.put("ModifyScoreSystemPOST",
 				"/tp-pod/scoresystem/ShowScoreSystem?modify=true");
 
-		successRedirect.put("ModifyScoreSystemPOST",
-				"/tp-pod/ListComplex?modify=true");
-
 		// ExpirationPolicy
 		successRedirect.put("ModifyExpirationPolicyPOST",
 				"/tp-pod/ListComplex?modifyPolicy=true");
