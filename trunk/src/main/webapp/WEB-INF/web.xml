@@ -387,6 +387,13 @@
 		<servlet-class>
 		com.canchita.controller.booking.Pay</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Error403</servlet-name>
+		<display-name>Error403</display-name>
+		<description></description>
+		<servlet-class>
+		com.canchita.controller.error.Error403</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>ListComplex</servlet-name>
@@ -584,6 +591,11 @@
 	</servlet-mapping>
 
 	<!-- BEGIN Error Handling -->
+
+    <servlet-mapping>
+        <servlet-name>Error403</servlet-name>
+        <url-pattern>/error/403</url-pattern>
+    </servlet-mapping>
 
 	<error-page>
 		<error-code>404</error-code>
