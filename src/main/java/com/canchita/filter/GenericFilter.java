@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTimeZone;
 
-public class GenericFilter implements Filter {
+public class GenericFilter extends FilterWithLog implements Filter {
 
 	private FilterConfig filterConfig;
 

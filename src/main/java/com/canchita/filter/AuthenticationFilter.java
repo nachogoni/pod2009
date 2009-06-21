@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.canchita.service.UserService;
 
-public class AuthenticationFilter implements Filter {
+public class AuthenticationFilter extends FilterWithLog implements Filter {
 
 	private FilterConfig filterConfig;
 

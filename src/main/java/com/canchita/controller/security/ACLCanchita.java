@@ -44,6 +44,7 @@ public class ACLCanchita implements ACL<User, String> {
 		this.addACL("/test/martin", guest, commonUser, administrator);
 		
 		this.addACL("/", guest, commonUser, administrator);
+		this.addACL("/error/403", guest, commonUser, administrator);
 		this.addACL("/error/404", guest, commonUser, administrator);
 		this.addACL("/error/500", guest, commonUser, administrator);
 		this.addACL("/error/servererror", guest, commonUser, administrator);

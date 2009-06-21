@@ -148,6 +148,7 @@ public class UrlMapper {
 		
 		
 		// Errors
+		successForward.put("Error403GET", FORWARD_ROOT_DIR + "error/403.jsp");
 		successForward.put("Error404GET", FORWARD_ROOT_DIR + "error/404.jsp");
 		successForward.put("Error500GET", FORWARD_ROOT_DIR + "error/500.jsp");
 		successForward.put("ErrorExceptionGET", FORWARD_ROOT_DIR

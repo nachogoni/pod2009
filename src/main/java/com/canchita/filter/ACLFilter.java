@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.canchita.controller.security.ACLCanchita;
 import com.canchita.model.user.User;
 
-public class ACLFilter implements Filter {
+public class ACLFilter extends FilterWithLog implements Filter {
 
-	private static final String FORBIDDEN = "/WEB-INF/views/error/forbidden.jsp";
+	//TODO ver esto!!!
+	private static final String FORBIDDEN = "/error/403";
 	private FilterConfig filterConfig;
 
 	@Override
@@ -34,14 +35,16 @@ public class ACLFilter implements Filter {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
 			// Let's check if the user has access
-			if (! this.hasAccess(httpServletRequest)) {
-				httpServletRequest.getRequestDispatcher(FORBIDDEN).forward(
-						servletRequest, servletResponse);
+			if (!this.hasAccess(httpServletRequest)) {
+				logger.debug("El usuario actual no tiene permiso para acceder");
+				 httpServletRequest.getRequestDispatcher(FORBIDDEN).forward(
+				 servletRequest, servletResponse);
+
 				return;
 			}
 			// continue request
 			filterChain.doFilter(httpServletRequest, servletResponse);
-		
+
 		} else {
 			// otherwise, continue on in the chain with the ServletRequest and
 			// ServletResponse objects
@@ -51,9 +54,12 @@ public class ACLFilter implements Filter {
 
 	private boolean hasAccess(HttpServletRequest httpServletRequest) {
 
+		logger.debug("Entra en hasAccess");
 		User user = (User) httpServletRequest.getSession().getAttribute("user");
 
 		String url = httpServletRequest.getRequestURL().toString();
+
+		logger.debug("url: " + url);
 
 		String search = "/tp-pod";
 
@@ -65,12 +71,14 @@ public class ACLFilter implements Filter {
 
 		String result = url.substring(index + search.length());
 
+		logger.debug("result: " + result);
 		String[] split = result.split("\\?");
 
 		String object = split[0];
+		logger.debug("usuario: " + user);
+		logger.debug("objeto: " + object);
 
 		return ACLCanchita.getInstance().isAuthorized(user, object);
-
 	}
 
 	@Override
