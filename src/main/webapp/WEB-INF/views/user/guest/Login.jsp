@@ -22,8 +22,8 @@
 
     <div class="dedicatedLoginForm">
             <FORM action="" method="post" >
-                    <INPUT type="text" name="username" value="Usuario" class="loginInputElement gray">
-                    <INPUT type="password" name="password" value="********" class="loginInputElement gray">
+                    <INPUT type="text" name="username" maxlength="200" value="Usuario" class="loginInputElement gray">
+                    <INPUT type="password" name="password" maxlength="200" value="********" class="loginInputElement gray">
                     <INPUT class="submit-go" type="submit" value="Ingresar" class="loginButtonElement">
             </FORM>
     </div>

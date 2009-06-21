@@ -54,7 +54,7 @@
 	<fieldset>
 	<legend>Por favor, seleccione la fecha en la que desea realizar la reserva</legend>
 	<label for="date">Fecha: </label>
-	<input id="datepicker" type="text" name="date" size="10"/>
+	<input id="datepicker" type="text" name="date" maxlength="200" size="10"/>
 	</fieldset>
 
 	<div id="whenError" class="ui-state-error ui-corner-all hidden error"> 
