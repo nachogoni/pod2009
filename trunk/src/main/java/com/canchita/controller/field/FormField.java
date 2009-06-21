@@ -1,10 +1,17 @@
 package com.canchita.controller.field;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
+import com.canchita.controller.helper.UrlMapper;
+import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.complex.Complex;
+import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
 import com.canchita.model.field.FloorType;
+import com.canchita.service.ComplexService;
+import com.canchita.service.ComplexServiceProtocol;
 import com.canchita.views.helpers.form.Decorator;
 import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
@@ -20,12 +27,33 @@ public class FormField extends FormHandler {
 		
 		ArrayList<String> iplayers = new ArrayList<String>();
 		
+		Collection<Complex> complexes = null;
+		
 		for(int i=5;i<12;i++){
 			iplayers.add(String.valueOf(i));
 		}
 		
+		//Obtengo los complejos para mostrarlos
+		ComplexServiceProtocol complexService = new ComplexService();
+		try {
+			complexes = complexService.listComplex();
+		} catch (PersistenceException e) {
+			//TODO: Mandar al log
+			//Creo una vacia
+			complexes = new ArrayList<Complex>();
+		}
+		
 		this.setName("Cancha")
-  		.setMethod("post");
+  			.setMethod("post");
+		
+		FormElementSelect complejos = new FormElementSelect("idComplex");
+		complejos.setLabel("Complejo");	
+
+		for(Complex c:complexes){
+			complejos.addValue(c.getName(), String.valueOf(c.getId()));
+		}
+		
+		this.addElement(complejos);
 
 		this.addElement(new FormElementInput("text","name")
 			.setLabel("Nombre")
@@ -63,7 +91,7 @@ public class FormField extends FormHandler {
 			.addValue(FloorType.ARTIFICIAL_GRASS.toString(), "ARTIFICIAL_GRASS")
 			.addValue(FloorType.GRASS.toString(), "GRASS"));
 		
-		this.addElement(new FormElementInput("hidden","idComplex"));
+		//this.addElement(new FormElementInput("hidden","idComplex"));
 
 		Decorator decorator = new Decorator()
 			.setSclass("submit-go"); 
@@ -76,9 +104,9 @@ public class FormField extends FormHandler {
 			.setValue("Reset")
 			.setDecorator(decorator));
         
+		sfield.add("idComplex");
         sfield.add("name");
         sfield.add("description");
-        sfield.add("idComplex");
         this.addDisplayGroup(sfield, "Cancha");
         
         sprops.add("hasRoof");
@@ -98,6 +126,10 @@ public class FormField extends FormHandler {
 
 		String aux;
 		HashMap<String, String> dataPopu = new HashMap<String, String>();
+		
+		aux = String.valueOf(aField.getComplex().getId());
+		if (aux != null)
+			dataPopu.put("idComplex", aux);
 		
 		aux = aField.getName();
 		if (aux != null)

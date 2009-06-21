@@ -10,6 +10,7 @@ import com.canchita.model.db.DataBaseConnection;
 public class FormElementSelect extends FormElement {
 
 	protected ArrayList<FormElementSelectValue> options;
+	protected boolean disable;
 	Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 
 	/**
@@ -19,6 +20,7 @@ public class FormElementSelect extends FormElement {
 	 */
 	public FormElementSelect(String name) {
 		super("select", name);
+		disable = false;
 		options = new ArrayList<FormElementSelectValue>();
 	}
 
@@ -63,14 +65,18 @@ public class FormElementSelect extends FormElement {
 	 * Hace el html del select
 	 */
 	public String toString() {
-		String ret = "";
+		String ret = "", disabled="";
 
+		if (this.isDisabled()){
+			disabled = "disabled";
+		}
+		
 		for (FormElementSelectValue e : options) {
 			ret += e.toString();
 		}
 
-		return String.format("%s<select name=\"%s\"> %s </select>", super
-				.genLabel(), super.getName(), ret);
+		return String.format("%s<select name=\"%s\" %s> %s </select>", 
+				super.genLabel(), super.getName(), disabled , ret);
 	}
 
 	/**
@@ -99,7 +105,13 @@ public class FormElementSelect extends FormElement {
 
 		return this;
 	}
-
+	
+	public FormElementSelect disable(boolean flag){
+		super.setDisable(flag);
+		
+		return this;
+	}
+	
 	/**
 	 * Si es requerido o no
 	 */

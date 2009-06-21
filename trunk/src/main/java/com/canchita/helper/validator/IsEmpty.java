@@ -11,6 +11,9 @@ public class IsEmpty extends Validator {
 	@Override
 	public boolean validate(String data) {
 		// TODO Auto-generated method stub
+		if (data == null)
+			return false;
+		
 		return !data.isEmpty();
 	}
 

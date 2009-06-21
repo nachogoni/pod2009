@@ -49,7 +49,8 @@ public class AddField extends GenericServlet {
 			id = Long.parseLong(complexId);
 
 		} catch (NumberFormatException nfe) {
-
+			id = 1L;
+			/*
 			ErrorManager error = new ErrorManager();
 
 			error.add("Complejo invalido");
@@ -60,7 +61,7 @@ public class AddField extends GenericServlet {
 					UrlMapperType.GET);
 
 			return;
-
+			*/
 		}
 
 		/* Get Form */

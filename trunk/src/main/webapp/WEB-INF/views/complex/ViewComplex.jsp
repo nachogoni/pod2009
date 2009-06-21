@@ -136,7 +136,14 @@
 								<td><b>Tipo de piso</b></td>
 								<td><b>Precio</b></td>
 								<td><b>En Mantenimiento</b></td>
-								<td> </td>
+								<td>
+									<c:if test="${user.isAdmin}">
+										<form action="<c:out value="${baseURI}" />/field/add" method="get">
+											<input type="submit" class="" name="addfields" value="Agregar Cancha" />
+											<input type="hidden" name="id" value="<c:out value="${complex.id}"/>" />
+										</form>
+									</c:if>
+								</td>
 							</tr>
 							<c:forEach items="${fields}" var="field" varStatus="rowCounter">
 							<tr>
