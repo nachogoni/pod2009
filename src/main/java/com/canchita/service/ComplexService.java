@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.canchita.DAO.BookingDAO;
 import com.canchita.DAO.ComplexDAO;
 import com.canchita.DAO.ExpirationDAO;
+import com.canchita.DAO.TimetableDAO;
 import com.canchita.DAO.db.TimetableDB;
 import com.canchita.DAO.factory.DAOFactory;
 import com.canchita.DAO.factory.DAOFactory.DAO;
@@ -18,6 +20,7 @@ import com.canchita.model.complex.Availability;
 import com.canchita.model.complex.Calendar;
 import com.canchita.model.complex.Complex;
 import com.canchita.model.complex.DayOfWeek;
+import com.canchita.model.exception.ComplexException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -27,10 +30,16 @@ public class ComplexService implements ComplexServiceProtocol {
 
 	Complex aComplex;
 
-	public void deleteComplex(Long id) throws PersistenceException {
+	public void deleteComplex(Long id) throws PersistenceException, ComplexException {
 
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
+		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
+		
+		if( bookingDAO.complexHasBookings(id) ) {
+			throw new ComplexException("No se puede borrar un complejo que tiene reservas activas");
+		}
+		
 		complexDAO.delete(id);
 	}
 
@@ -470,24 +479,18 @@ public class ComplexService implements ComplexServiceProtocol {
 				sunSchedule);
 		aCalendar.add(sunAvailability);
 
-		try {
-			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
-			Complex aComplex = complexDAO.getById(id);
-
-			// Agrego el calendario.
-			// HACK: debería hacerse con el get(DAO.TIMETABLE)
-			// pero no lo pude hacer andar :(
-			
-			TimetableDB.getInstance().deleteByComplex(aComplex.getId());
-			
-			for (Availability av : aCalendar.getAvailabilities()) {
-				TimetableDB.getInstance().save(av, aComplex.getId());
-			}
-
-		} catch (PersistenceException e) {
-			throw e;
+		Complex aComplex = complexDAO.getById(id);
+		
+		TimetableDAO timetable = DAOFactory.get(DAO.TIME_TABLE);
+		
+		timetable.deleteByComplex(aComplex.getId());
+		
+		for (Availability av : aCalendar.getAvailabilities()) {
+			timetable.save(av, aComplex.getId());
 		}
+
 	}
 
 	@Override

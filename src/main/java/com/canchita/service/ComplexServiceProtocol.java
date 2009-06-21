@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import com.canchita.model.booking.Expiration;
 import com.canchita.model.complex.Complex;
+import com.canchita.model.exception.ComplexException;
 import com.canchita.model.exception.InvalidScheduleException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.exception.ValidationException;
@@ -24,7 +25,7 @@ public interface ComplexServiceProtocol {
 	
 	public Collection<String> getNeighbourhoods(String province, String locality) throws PersistenceException;
 	
-	public void deleteComplex(Long id) throws PersistenceException;
+	public void deleteComplex(Long id) throws PersistenceException, ComplexException;
 
 	public Long saveComplex(String name, String description, String address,
 			String zipCode, String neighbourhood, String town, String state,

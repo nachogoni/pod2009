@@ -28,7 +28,6 @@ public class CountBuilder implements QueryProcessor<Integer> {
 			throws SQLException {
 
 		List<Integer> results = new ArrayList<Integer>();
-
 		resultSet.next();
 		results.add(resultSet.getInt("COUNT"));
 

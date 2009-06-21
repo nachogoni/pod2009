@@ -1,6 +1,8 @@
 package com.canchita.controller.complex;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
 import com.canchita.controller.helper.UrlMapperType;
+import com.canchita.model.exception.ComplexException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.service.ComplexService;
@@ -56,26 +59,44 @@ public class DeleteComplex extends GenericServlet {
 			
 		} catch (ElementNotExistsException e) {
 			error.add(e);
-			e.printStackTrace();
 		} catch (PersistenceException e) {
 			error.add(e);
-			e.printStackTrace();
+		} catch (ComplexException e) {
+			Map<String, String> map = new HashMap<String, String>();
+
+			map.put("hasBookings", "true");
+			
+			UrlMapper.getInstance().redirectFailure(this, request, response,
+					UrlMapperType.POST,map);
+			
+			return;
 		}
 		
 		/*
-		 * TODO cambiar esto a un forward a la pagina get que ṕide confirmacion
+		 * TODO cambiar esto a un forward a la pagina get que pide confirmacion
 		 */
 		
 		if( error.size() != 0 ) {
 			logger.error("Error eliminando complejo con id: " + id);
+			
+			Map<String, String> map = new HashMap<String, String>();
+
+			map.put("delete", "false");
+			
 			UrlMapper.getInstance().redirectFailure(this, request, response,
-					UrlMapperType.POST);
+					UrlMapperType.POST,map);
+			return;
 
 		}
 		
 		logger.debug("Complejo elimado: " + id);
+		
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("delete", "true");
+		
 		UrlMapper.getInstance().redirectSuccess(this, request, response,
-				UrlMapperType.POST);
+				UrlMapperType.POST,map);
 
 	}
 

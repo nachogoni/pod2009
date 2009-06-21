@@ -97,10 +97,10 @@
 
 	<c:choose>
 	  <c:when test="${param.delete}">
-	    <c:set var="deleteMsg" scope="page" value="La cancha fue borrada exitosamente"/>
+	    <c:set var="deleteMsg" scope="page" value="La cancha fue eliminada exitosamente"/>
 	  </c:when>
 	  <c:otherwise>
-	    <c:set var="deleteMsg" scope="page" value="Error al borrar la cancha"/>
+	    <c:set var="deleteMsg" scope="page" value="Error al eliminar la cancha"/>
 	  </c:otherwise>
 	</c:choose>
 
@@ -111,6 +111,17 @@
 		<span class="block">* <c:out value="${deleteMsg}" /></span>
 	</div>
 </c:if>
+
+<c:if test="${(param.hasBookings != null && param.hasBookings)}">
+
+	<div class="ui-state-highlight ui-corner-all info"> 
+			
+		<span class="ui-icon ui-icon-info infoIcon"></span>
+		<span><strong>Información:</strong></span>
+		<span class="block">* No se puede eliminar una cancha que tiene reservas activas</span>
+	</div>
+</c:if>
+
 
 <c:if test="${(param.deletePolicy != null)}">
 

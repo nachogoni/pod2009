@@ -166,4 +166,22 @@ public class BookingMemoryMock implements BookingDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean complexHasBookings(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasBookings(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean viewAvailability(DateTime startTime, DateTime endTime) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
