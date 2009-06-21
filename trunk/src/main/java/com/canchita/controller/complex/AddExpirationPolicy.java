@@ -109,6 +109,10 @@ public class AddExpirationPolicy extends GenericServlet {
 
 			} catch (NumberFormatException nfe) {
 				error.add("Valores para el sistema de reservas incorrectos");
+				logger.debug("Error en el formulario");
+				request.setAttribute("formulario", formulario);
+				this.failure(request, response, error);
+				return;
 			}
 
 			if (scoreFrom1 > scoreTo1) {
@@ -117,7 +121,7 @@ public class AddExpirationPolicy extends GenericServlet {
 
 			if (downBooking1 < downDeposit1) {
 				error
-						.add("Las horas en estado señado no pueden ser menores al estado reservado.");
+						.add("Las horas en estado señado no pueden ser mayores al estado reservado.");
 			}
 
 			if (downBooking1 > 1000 || downDeposit1 > 1000) {

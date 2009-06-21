@@ -13,21 +13,9 @@
 
 <h1>Políticas de expiración para la cancha</h1>
 
-<div class="ui-state-highlight ui-corner-all info"> 
-		
-	<span class="ui-icon ui-icon-info infoIcon"></span>
-	<span><strong>Información:</strong></span>
-	<span class="block">* Recuerde que la política que se aplicará es la última que coincide
-	con el puntaje actual del usuario. Si la cancha no posee una política que coincida se
-	utilizará aquella que haya definido el complejo.</span>
-</div>
-
 <c:choose>
 <c:when test="${(policies != null)}">
-
-	<c:choose>
-	<c:when test="${ quantity != 0 }">
-		<table class="policiesTable" border="1">
+	<table class="policiesTable" border="1">
 			<tr>
 				<td><strong>Puntaje desde</strong></td>
 				<td><strong>Puntaje hasta</strong></td>
@@ -35,13 +23,17 @@
 				<td><strong>Horas que soporta en estado reservada</strong></td>
 				<c:if test="${user.isAdmin}">
 					<td>
-						<form action="<c:out value="${baseURI}" />/field/AddFieldExpirationPolicy" method="get">
-						<input type="hidden" name="id" value="<c:out value="${param.id}"/>" />
-						<input type="submit" value="Agregar nueva" />
-						</form>
-					</td>
+					<form action="<c:out value="${baseURI}" />/field/AddFieldExpirationPolicy" method="get">
+					<input type="hidden" name="id" value="<c:out value="${param.id}"/>" />
+					<input type="submit" value="Agregar nueva" />
+					</form>
+				</td>
 				</c:if>
 			</tr>
+	<c:choose>
+	<c:when test="${ quantity != 0 }">
+		
+
 			<c:forEach items="${policies}" var="policy" varStatus="rowCounter">
 					
 			        <c:choose>
@@ -74,16 +66,51 @@
 					</tr>
 					
 				</c:forEach>
-		</table>
 		</c:when>
 		<c:otherwise>
 			<div class="ui-state-highlight ui-corner-all info"> 
 			
 				<span class="ui-icon ui-icon-info infoIcon"></span>
 				<span><strong>Información:</strong></span>
-				<span class="block">* Hasta el momento no ha definido ninguna política.</span>
-
+				<span class="block">* La cancha no ha definido ninguna política. A continuación
+				se listan las definidas por el complejo al que pertenece.</span>
 			</div>
+				<c:forEach items="${parentPolicies}" var="policy" varStatus="rowCounter">
+					
+			        <c:choose>
+			          <c:when test="${rowCounter.count % 2 == 0}">
+			            <c:set var="rowStyle" scope="page" value="odd"/>
+			          </c:when>
+			          <c:otherwise>
+			            <c:set var="rowStyle" scope="page" value=""/>
+			          </c:otherwise>
+			        </c:choose>
+					
+					<tr class="<c:out value="${rowStyle}" />">
+						<td><c:out value="${policy.scoreFrom}" /></td>
+						<td><c:out value="${policy.scoreTo}" /></td>
+						<td><c:out value="${policy.depositLimit}" /></td>
+						<td><c:out value="${policy.bookingLimit}" /></td>
+						
+						<c:if test="${user.isAdmin}">
+						<td>
+							<c:choose>
+								<c:when test="${rowCounter.count > 1 }">
+								<form action="<c:out value="${baseURI}" />/DeleteExpirationPolicy" method="post">
+								<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
+								<input type="submit" class="delete" name="delete" value="Eliminar" />
+								</form>
+								</c:when>
+							</c:choose>
+							<form action="<c:out value="${baseURI}" />/ModifyExpirationPolicy" method="get">
+							<input type="hidden" name="id" value="<c:out value="${policy.id}"/>" />
+							<input type="submit" name="modify" value="Modificar" />
+							</form>
+						</td>
+						</c:if>
+					</tr>
+					
+				</c:forEach>
 			
 			<c:if test="${user.isAdmin}">			
 				<div class="submit-go">
@@ -93,6 +120,7 @@
 
 		</c:otherwise>
 		</c:choose>
+		</table>
 </c:when>
 <c:otherwise>
 	<div class="ui-state-error ui-corner-all error"> 
