@@ -2,6 +2,8 @@ package com.canchita.DAO;
 
 import java.util.Collection;
 
+import org.joda.time.DateTime;
+
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
 import com.canchita.model.field.Field;
@@ -31,7 +33,9 @@ public interface FieldDAO {
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType, String searchNeighbourhood,
 			String searchTown, String searchState, String searchCountry,
-			String searchAddress);
+			String searchAddress, 
+			DateTime from,
+			DateTime to);
 
 	public Collection<Field> getLastFields(String province, String locality,
 			String neighbourhood, Long listCount);

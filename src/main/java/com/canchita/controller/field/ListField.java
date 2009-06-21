@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.canchita.controller.GenericServlet;
 import com.canchita.controller.helper.ErrorManager;
 import com.canchita.controller.helper.UrlMapper;
@@ -120,24 +124,39 @@ public class ListField extends GenericServlet {
 				String searchState = request.getParameter("state");
 				String searchCountry = request.getParameter("country");
 
+				String searchDay = request.getParameter("day");
+				String searchFrom = request.getParameter("from");
+				String searchTo = request.getParameter("to");
+				
 				urlSearch = String
 						.format(
 								"name=%s&description=%s&maxPrice=%s&numberOfPlayers="
 										+ "%s&hasRoof=%s&floorType=%s&neighbourhood=%s&"
-										+ "town=%s&state=%s&country=%s&address=%s&",
+										+ "town=%s&state=%s&country=%s&address=%s&" +
+												"day=%s&from=%s&to=%s&",
 								searchName, searchDescription, searchMaxPrice,
 								searchNumberOfPlayers, searchHasRoof,
 								searchFloorType, searchNeighbourhood,
 								searchTown, searchState, searchCountry,
-								searchAddress);
+								searchAddress , searchDay, searchFrom, searchTo);
 
+				DateTimeFormatter parser = DateTimeFormat.forPattern("dd/MM/yyyy");
+				DateTime date = null,startTime = null,endTime = null;
+				
+				if( ! searchDay.isEmpty() ) {
+					date = parser.parseDateTime(searchDay);
+					startTime = this.getDate(date, searchFrom);
+					endTime = this.getDate(date, searchTo);
+				}
+
+				
 				logger.debug("urlSearch = " + urlSearch);
 				try {
 					fields = fieldService.listField(searchName,
 							searchDescription, searchMaxPrice,
 							searchNumberOfPlayers, searchHasRoof,
 							searchFloorType, searchNeighbourhood, searchTown,
-							searchState, searchCountry, searchAddress);
+							searchState, searchCountry, searchAddress,startTime,endTime);
 					fieldsSize = fields.size();
 				} catch (ValidationException e) {
 					logger
@@ -150,6 +169,7 @@ public class ListField extends GenericServlet {
 
 					UrlMapper.getInstance().forwardFailure(this, request,
 							response, UrlMapperType.GET);
+					return;
 
 				} catch (Exception e) {
 					logger.error("Error realizando búsqueda:" + e.getMessage());
@@ -158,6 +178,7 @@ public class ListField extends GenericServlet {
 
 					UrlMapper.getInstance().forwardFailure(this, request,
 							response, UrlMapperType.GET);
+					return;
 				}
 			}
 		}
@@ -203,4 +224,13 @@ public class ListField extends GenericServlet {
 
 	}
 
+	private DateTime getDate(DateTime date, String offset) {
+
+		String[] hoursAndMins = offset.split(":");
+
+		return date.withTime(Integer.parseInt(hoursAndMins[0]), Integer
+				.parseInt(hoursAndMins[1]), 0, 0);
+
+	}
+	
 }
