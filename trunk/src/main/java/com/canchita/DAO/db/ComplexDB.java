@@ -69,11 +69,9 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				complex.setPhone(phone);
 			}
 
-			//Agrego Calendar.
+			// Agrego Calendar.
 			complex.setTimeTable(getCalendar(complex));
 		}
-
-		
 
 		return results;
 	}
@@ -81,42 +79,40 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	@Override
 	public Collection<String> getNeighbourhoods(String province, String locality) {
 		String query = "SELECT DISTINCT \"neighbourhood\" FROM COMPLEX  WHERE "
-			+ " lower(\"state\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) ORDER BY \"neighbourhood\"";
+				+ " lower(\"state\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) ORDER BY \"neighbourhood\"";
 
-		ConnectionManager connectionManager = connectionPool.getConnectionManager();
+		ConnectionManager connectionManager = connectionPool
+				.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
 
 		Collection<String> result = null;
-		
-	    try
-	    {
+
+		try {
 			PreparedStatement st = connection.prepareStatement(query);
 			st.setObject(1, province);
 			st.setObject(2, locality);
-				    	
-	    	//Statement st = connection.createStatement();
-	    	//ResultSet rs = st.executeQuery(query);
+
+			// Statement st = connection.createStatement();
+			// ResultSet rs = st.executeQuery(query);
 			st.execute();
 			ResultSet rs = st.getResultSet();
-	      
-	    	result = new ArrayList<String>();
-	      
-	    	while (rs.next()) {
-	    		result.add(rs.getString("neighbourhood"));
-	    	}
-	      
-	    }
-	    catch (SQLException ex)
-	    {
-	      System.err.println(ex.getMessage());
+
+			result = new ArrayList<String>();
+
+			while (rs.next()) {
+				result.add(rs.getString("neighbourhood"));
+			}
+
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		} finally {
 			connectionPool.releaseConnectionManager(connectionManager);
 		}
 
 		return result;
-		
+
 	}
-	
+
 	private Calendar getCalendar(Complex aComplex) {
 		Calendar aCalendar = new Calendar();
 		Collection<Availability> avs = null;
@@ -126,7 +122,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			return null;
 		}
 
-		for ( Availability av : avs ) {
+		for (Availability av : avs) {
 			aCalendar.add(av);
 		}
 
@@ -150,7 +146,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				complex.setPhone(phone);
 			}
 
-			//Agrego Calendar.
+			// Agrego Calendar.
 			complex.setTimeTable(getCalendar(complex));
 		}
 
@@ -165,14 +161,14 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 			executeUpdate(query, new Object[] { complex.getName(),
 					complex.getDescription(), complex.getPlace().getAddress(),
 					complex.getPlace().getNeighbourhood(),
-					complex.getPlace().getTown(), complex.getPlace().getState(),
+					complex.getPlace().getTown(),
+					complex.getPlace().getState(),
 					complex.getPlace().getZipCode(),
 					complex.getPlace().getCountry(), complex.getFax(),
 					complex.getEmail(), complex.getPicture(),
 					complex.getPlace().getLatitude(),
 					complex.getPlace().getLongitude() });
-		}
-		catch(RuntimeException re) {
+		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 
 			if (sql instanceof SQLException
@@ -193,21 +189,21 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				+ "\"state\" = ?, \"zip_code\" = ?, \"country\" = ?, \"fax\" = ?,"
 				+ "\"email\" = ?, \"picture\" = ?, \"latitude\" = ?, \"longitude\" = ?"
 				+ "where \"complex_id\" = ?";
-		
-		try{
+
+		try {
 			executeUpdate(query, new Object[] { complex.getName(),
 					complex.getDescription(), complex.getPlace().getAddress(),
 					complex.getPlace().getNeighbourhood(),
-					complex.getPlace().getTown(), complex.getPlace().getState(),
+					complex.getPlace().getTown(),
+					complex.getPlace().getState(),
 					complex.getPlace().getZipCode(),
 					complex.getPlace().getCountry(), complex.getFax(),
 					complex.getEmail(), complex.getPicture(),
 					complex.getPlace().getLatitude(),
 					complex.getPlace().getLongitude(), complex.getId() });
-		}
-		catch(RuntimeException re) {
+		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
-	
+
 			if (sql instanceof SQLException
 					&& sql.getMessage().contains("PLACE_UNIQUE")) {
 				throw new ElementExistsException(
@@ -222,8 +218,13 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	public Collection<Complex> getFiltered(String filter) {
 		String query = "SELECT * FROM COMPLEX WHERE lower(\"name\") LIKE lower(?)";
 
-		List<Complex> results = executeQuery(query, new Object[] { "%" + filter
-				+ "%" }, ComplexBuilder.getInstance());
+		if (filter == null || filter == "")
+			filter = "%";
+		else
+			filter = "%" + filter + "%";
+
+		List<Complex> results = executeQuery(query, new Object[] { filter },
+				ComplexBuilder.getInstance());
 
 		for (Complex complex : results) {
 			List<String> phones = this.getPhones(complex);
@@ -232,7 +233,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				complex.setPhone(phone);
 			}
 
-			//Agrego Calendar.
+			// Agrego Calendar.
 			complex.setTimeTable(getCalendar(complex));
 		}
 
@@ -240,18 +241,20 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	}
 
 	@Override
-	public void deletePhones(Complex aComplex)throws ElementNotExistsException, PersistenceException {
-		
+	public void deletePhones(Complex aComplex)
+			throws ElementNotExistsException, PersistenceException {
+
 		String query = "DELETE FROM PHONE WHERE \"complex_id\" = ?";
 		executeUpdate(query, new Object[] { aComplex.getId() });
 	}
+
 	@Override
 	public void addPhone(Complex aComplex, String phone)
 			throws ElementNotExistsException, PersistenceException {
 
 		String query = "DELETE FROM PHONE WHERE \"phone\" = ? and \"complex_id\" = ?";
 		executeUpdate(query, new Object[] { phone, aComplex.getId() });
-		
+
 		query = "INSERT INTO PHONE(\"phone\",\"complex_id\") VALUES(?, ?)";
 		executeUpdate(query, new Object[] { phone, aComplex.getId() });
 	}
@@ -282,7 +285,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 				complex.setPhone(phone);
 			}
 
-			//Agrego Calendar.
+			// Agrego Calendar.
 			complex.setTimeTable(getCalendar(complex));
 		}
 
@@ -292,70 +295,66 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	@Override
 	public Collection<String> getLocations(String province) {
 		String query = "SELECT DISTINCT \"city\" FROM COMPLEX  WHERE "
-			+ " lower(\"state\") LIKE lower(?) ORDER BY \"city\"";
+				+ " lower(\"state\") LIKE lower(?) ORDER BY \"city\"";
 
-		ConnectionManager connectionManager = connectionPool.getConnectionManager();
+		ConnectionManager connectionManager = connectionPool
+				.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
 
 		Collection<String> result = null;
-		
-	    try
-	    {
+
+		try {
 			PreparedStatement st = connection.prepareStatement(query);
 			st.setObject(1, province);
-				    	
-	    	//Statement st = connection.createStatement();
-	    	//ResultSet rs = st.executeQuery(query);
+
+			// Statement st = connection.createStatement();
+			// ResultSet rs = st.executeQuery(query);
 			st.execute();
 			ResultSet rs = st.getResultSet();
-	      
-	      result = new ArrayList<String>();
-	      
-	      while (rs.next()) {
-	    	  result.add(rs.getString("city"));
-	      }
-	      
-	    }
-	    catch (SQLException ex)
-	    {
-	      System.err.println(ex.getMessage());
+
+			result = new ArrayList<String>();
+
+			while (rs.next()) {
+				result.add(rs.getString("city"));
+			}
+
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		} finally {
 			connectionPool.releaseConnectionManager(connectionManager);
 		}
 
 		return result;
-		
+
 	}
 
 	@Override
 	public Collection<String> getProvinces() {
 		String query = "SELECT DISTINCT \"state\" FROM COMPLEX ORDER BY \"state\"";
 
-		ConnectionManager connectionManager = connectionPool.getConnectionManager();
+		ConnectionManager connectionManager = connectionPool
+				.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
 
 		Collection<String> result = null;
-		
-	    try
-	    {
-	      Statement st = connection.createStatement();
-	      ResultSet rs = st.executeQuery(query);
-	      
-	      result = new ArrayList<String>();
-	      
-	      while (rs.next()) {
-	    	  result.add(rs.getString("state"));
-	      }
-	      
-	    }
-	    catch (SQLException ex)
-	    {
-	      System.err.println(ex.getMessage());
+
+		try {
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			result = new ArrayList<String>();
+
+			while (rs.next()) {
+				result.add(rs.getString("state"));
+			}
+
+		} catch (SQLException ex) {
+			System.err.println(ex.getMessage());
 		} finally {
 			connectionPool.releaseConnectionManager(connectionManager);
 		}
 
 		return result;
-		
+
 	}
 }

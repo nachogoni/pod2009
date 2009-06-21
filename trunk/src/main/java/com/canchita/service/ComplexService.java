@@ -56,7 +56,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 		Validator validator = new IsAlphaNum(true);
 
-		if (!validator.validate(filter)) {
+		if (filter != null && !validator.validate(filter)) {
 
 			throw new ValidationException(
 					"Error en el criterio de búsqueda, el mismo debe ser alfanumérico");
@@ -596,7 +596,8 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 	
 	@Override
-	public Collection<String> getLocations(String province) throws PersistenceException {
+	public Collection<String> getLocations(String province)
+			throws PersistenceException {
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 		Collection<String> locations = complexDAO.getLocations(province);
 		return locations;
