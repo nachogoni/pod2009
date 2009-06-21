@@ -54,11 +54,11 @@
 	<div>
 	<span><strong>IMPORTANTE:</strong> De estar algún día ocupado no se reservará para ese día</span>
 	<label for="from">Desde: </label>
-	<input id="datepicker1" type="text" name="from" size="10"/>
+	<input id="datepicker1" type="text" maxlength="200" name="from" size="10"/>
 	</div>
 	<div>
 	<label for="to">Hasta: </label>
-	<input id="datepicker2" type="text" name="to" size="10"/>
+	<input id="datepicker2" type="text" maxlength="200" name="to" size="10"/>
 	</div>
 	</fieldset>
 

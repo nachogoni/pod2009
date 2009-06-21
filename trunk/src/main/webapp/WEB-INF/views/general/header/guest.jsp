@@ -16,8 +16,8 @@
 
         <div class="loginForm">
                 <FORM action="<c:out value="${baseURI}" />/user/login" method="post" >
-                        <INPUT id="lf_username" type="text" name="username" value="Usuario" class="loginInputElement gray">
-                        <INPUT id="lf_password" type="password" name="password" value="********" class="loginInputElement gray">
+                        <INPUT id="lf_username" type="text" maxlength="200" name="username" value="Usuario" class="loginInputElement gray">
+                        <INPUT id="lf_password" type="password" maxlength="200" name="password" value="********" class="loginInputElement gray">
                         <INPUT class="submit-go" type="submit" value="Ingresar" class="loginButtonElement">
                 </FORM>
         </div>

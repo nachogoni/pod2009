@@ -36,7 +36,7 @@
 	<fieldset>
 	<legend>Búsqueda de complejos</legend>
 	<label for="search">Nombre: </label>
-	<input id="complexName" type="text" name="search"/>
+	<input id="complexName" type="text" maxlength="200" name="search"/>
 	<input type="submit" value="Buscar" class="submit-go" />
 	</fieldset>
 </form>
