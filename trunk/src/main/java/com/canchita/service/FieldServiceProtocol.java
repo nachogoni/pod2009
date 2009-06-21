@@ -49,14 +49,13 @@ public interface FieldServiceProtocol {
 			InvalidParameterException;
 
 	public Long getComplexId(Long id) throws PersistenceException;
-
-	public Collection<Field> listField(String searchName,
-			String searchDescription, String searchMaxPrice,
-			String searchNumberOfPlayers, String searchHasRoof,
-			String searchFloorType, String searchNeighbourhood,
-			String searchTown, String searchState, String searchCountry,
-			String searchAddress) throws ValidationException,
-			PersistenceException;
+	
+	Collection<Field> listField(String searchName, String searchDescription,
+			String searchMaxPrice, String searchNumberOfPlayers,
+			String searchHasRoof, String searchFloorType,
+			String searchNeighbourhood, String searchTown, String searchState,
+			String searchCountry, String searchAddress, DateTime startTime,
+			DateTime endTime) throws ValidationException, PersistenceException;
 
 	public Collection<Expiration> listExpirationPolicies(Long fieldId)
 			throws PersistenceException;

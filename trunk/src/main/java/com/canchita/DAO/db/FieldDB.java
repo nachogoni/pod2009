@@ -1,13 +1,18 @@
 package com.canchita.DAO.db;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.db.builders.CountBuilder;
 import com.canchita.DAO.db.builders.FieldBuilder;
 import com.canchita.DAO.factory.FactoryMethod;
+import com.canchita.model.booking.BookingStatus;
 import com.canchita.model.exception.ElementExistsException;
 import com.canchita.model.exception.ElementNotExistsException;
 import com.canchita.model.exception.PersistenceException;
@@ -94,7 +99,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType, String searchNeighbourhood,
 			String searchTown, String searchState, String searchCountry,
-			String searchAddress) {
+			String searchAddress, DateTime from, DateTime to) {
 
 		List<Field> results;
 		boolean isSearchingByPlace = false;
@@ -177,23 +182,68 @@ public class FieldDB extends AllDB implements FieldDAO {
 			maxPlayers = searchNumberOfPlayers;
 		}
 
+		List<Object> params = new ArrayList<Object>();
+
+		params.add(searchName);
+		params.add(searchDescription);
+		params.add(searchMaxPrice);
+		params.add(maxHasRoof);
+		params.add(minHasRoof);
+		params.add(maxType);
+		params.add(minType);
+		params.add(maxPlayers);
+		params.add(minPlayers);
+
+		if( from != null && to != null ) {
+			
+			String sqlDateFrom = "to_date (to_char ( TO_TIMESTAMP_TZ('"
+				+ from
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD'), 'YYYY-MON-DD')";
+			String sqlDateTo = "to_date (to_char ( TO_TIMESTAMP_TZ('"
+				+ to
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD'), 'YYYY-MON-DD')";
+			
+			query += " AND ( \"field_id\" NOT IN " +
+			"( SELECT DISTINCT \"field_id\" FROM RESERVATION WHERE \"state\" = ? OR \"state\" = ? AND ( " +
+			sqlDateFrom +
+			" >= ( to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) "
+			+ " AND "
+			+ sqlDateFrom
+			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )"
+			+ "OR ( "
+			+ sqlDateTo
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')"
+			+ " AND "
+			+ sqlDateTo
+			+ "<= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) )";
+		
+			params.add(BookingStatus.BOOKED.getIndex());
+			params.add(BookingStatus.HALF_PAID.getIndex());
+			
+		}
+		
 		if (isSearchingByPlace) {
 			query += " AND \"complex_id\" IN ( SELECT \"complex_id\" FROM COMPLEX"
 					+ " WHERE lower(\"address\") LIKE lower(?) AND lower(\"neighbourhood\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) "
 					+ "AND lower(\"state\") LIKE lower(?) AND lower(\"country\") LIKE lower(?) )";
-			results = executeQuery(query,
-					new Object[] { searchName, searchDescription,
-							searchMaxPrice, maxHasRoof, minHasRoof, maxType,
-							minType, maxPlayers, minPlayers, searchAddress,
-							searchNeighbourhood, searchTown, searchState,
-							searchCountry }, FieldBuilder.getInstance());
-		} else {
-			results = executeQuery(query, new Object[] { searchName,
-					searchDescription, searchMaxPrice, maxHasRoof, minHasRoof,
-					maxType, minType, maxPlayers, minPlayers }, FieldBuilder
-					.getInstance());
-		}
 
+			params.add(searchAddress);
+			params.add(searchNeighbourhood);
+			params.add(searchTown);
+			params.add(searchState);
+			params.add(searchCountry);
+
+		}
+		
+		System.out.println(Arrays.toString(params.toArray()));
+		System.out.println(from);
+		System.out.println(to);
+		System.out.println(query);
+		results = executeQuery(query, params.toArray(), FieldBuilder
+				.getInstance());
+
+		System.out.println(results);
+		
 		return results;
 	}
 
@@ -291,6 +341,5 @@ public class FieldDB extends AllDB implements FieldDAO {
 		}
 
 	}
-
 
 }

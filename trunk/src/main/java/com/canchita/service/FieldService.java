@@ -95,7 +95,7 @@ public class FieldService implements FieldServiceProtocol {
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType, String searchNeighbourhood,
 			String searchTown, String searchState, String searchCountry,
-			String searchAddress) throws ValidationException,
+			String searchAddress, DateTime startTime, DateTime endTime) throws ValidationException,
 			PersistenceException {
 
 		Validator alnumValidator = new IsAlphaNum(true);
@@ -125,7 +125,7 @@ public class FieldService implements FieldServiceProtocol {
 		return fieldDAO.getFiltered(searchName, searchDescription,
 				searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
 				searchFloorType, searchNeighbourhood, searchTown, searchState,
-				searchCountry, searchAddress);
+				searchCountry, searchAddress, startTime, endTime);
 	}
 
 	@Deprecated

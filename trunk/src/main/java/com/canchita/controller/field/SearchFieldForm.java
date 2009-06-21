@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.canchita.model.field.FloorType;
 import com.canchita.views.helpers.form.Decorator;
+import com.canchita.views.helpers.form.FormElement;
 import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
 import com.canchita.views.helpers.form.FormElementSelect;
@@ -87,6 +88,25 @@ public class SearchFieldForm extends FormHandler {
 			.addValidator("MaxLength", "50")
 			.addValidator("IsAlphaNumS"));
 
+		this.addElement(new FormElementInput("text", "day")
+		.setLabel("Fecha")
+		.setRequired(false)
+		.addValidator("MaxLength", "50")
+		.addValidator("IsDate"));
+
+		this.addElement(new FormElementInput("text", "from")
+		.setLabel("Horario Inicio")
+		.setRequired(false)
+		.addValidator("MaxLength", "50")
+		.addValidator("IsHourMinute"));
+
+		this.addElement(new FormElementInput("text", "to")
+		.setLabel("Horario Fin")
+		.setRequired(false)
+		.addValidator("MaxLength", "50")
+		.addValidator("IsHourMinute"));
+
+		
 		Decorator decorator = new Decorator()
 			.setSclass("submit-go"); 
 	
@@ -106,10 +126,49 @@ public class SearchFieldForm extends FormHandler {
 		sfield.add("town");
 		sfield.add("state");
 		sfield.add("country");
+		
+		sfield.add("day");
+		sfield.add("from");
+		sfield.add("to");
 
 		sfield.add("search");
 		this.addDisplayGroup(sfield, "Búsqueda de canchas");
 	}
+
+	@Override
+	public boolean isValid() {
+		
+		String day = this.getElement("day").getValue();
+		String from = this.getElement("from").getValue();
+		String to = this.getElement("to").getValue();
+		
+		if(day.isEmpty() ) {
+			if (! from.isEmpty()) {
+				this.errors.put("from", "Debe seleccionar una fecha");
+				return false;
+			}
+			else if( ! to.isEmpty() ) {
+				
+				this.errors.put("to", "Debe seleccionar una fecha");
+				return false;
+				
+			}
+		} else if( from.isEmpty() ) {
+			
+			this.errors.put("from", "Debe seleccionar una fecha de inicio");
+			return false;
+			
+		} else if( to.isEmpty() ) {
+		
+			this.errors.put("to", "Debe seleccionar una fecha de fin");
+			return false;
+		
+		}
+				
+		return super.isValid();
+	}
+	
+	
 }
 
 //<label for="hasRoof">Techada: </label>
