@@ -128,8 +128,12 @@ public abstract class FormHandler {
 	 */
 	public void setElementValue(String name, String value) {
 		FormElement e = formValues.get(name);
-		if (e != null)
-			e.setValue(value);
+		if (e != null){
+			if (e instanceof FormElementSelect)
+				((FormElementSelect)e).setValue(value);
+			else
+				e.setValue(value);
+		}
 	}
 
 	/**

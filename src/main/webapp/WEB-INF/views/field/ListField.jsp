@@ -170,15 +170,21 @@
 	<c:when test="${ fieldsLength != 0 }">
 		<table class="fieldsTable" border="1">
 			<tr>
-                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortName=<c:out value="${sortNameTypeR}" escapeXml="false"/>">Nombre</a></strong></td>
+                <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortName=<c:out value="${sortNameTypeR}" escapeXml="false"/>">Nombre</a></strong></td>
 				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortComplex=<c:out value="${sortComplexTypeR}" escapeXml="false"/>">Complejo</a></strong></td>
 				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortDescription=<c:out value="${sortDescriptionTypeR}" escapeXml="false"/>">Descripción</a></strong></td>
-                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPlayers=<c:out value="${sortPlayersTypeR}" escapeXml="false"/>">Cantidad de Jugadores</a></strong></td>
+                <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPlayers=<c:out value="${sortPlayersTypeR}" escapeXml="false"/>">Cantidad de Jugadores</a></strong></td>
 				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortRoof=<c:out value="${sortRoofTypeR}" escapeXml="false"/>">Techada</a></strong></td>
 				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortFloor=<c:out value="${sortFloorTypeR}" escapeXml="false"/>">Tipo de piso</a></strong></td>
-                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPrice=<c:out value="${sortPriceTypeR}" escapeXml="false"/>">Precio</a></strong></td>
-                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortMaintenance=<c:out value="${sortMaintenanceTypeR}" escapeXml="false"/>">En Mantenimiento</a></strong></td>
-				<td></td>
+                <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPrice=<c:out value="${sortPriceTypeR}" escapeXml="false"/>">Precio</a></strong></td>
+                <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortMaintenance=<c:out value="${sortMaintenanceTypeR}" escapeXml="false"/>">En Mantenimiento</a></strong></td>
+				<td>
+					<c:if test="${user.isAdmin}">
+						<form action="<c:out value="${baseURI}" />/field/add" method="get">
+							<input type="submit" class="" name="addfields" value="Agregar Nueva" />
+						</form>
+					</c:if>
+				</td>
 			</tr>
 			<c:forEach items="${fields}" var="field" varStatus="rowCounter">
 					

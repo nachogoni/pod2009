@@ -17,6 +17,7 @@ public abstract class FormElement {
 	protected String value;
 	protected String id;
 	protected Decorator deco;
+	protected boolean disabled;
 	protected Set<String> validators;
 	protected Map<String, String> validatorValues;
 	private boolean required;
@@ -34,6 +35,17 @@ public abstract class FormElement {
 		validatorValues = new HashMap<String, String>();
 		deco = new Decorator();
 		jjqueryElement = new ArrayList<J2QueryElement>();
+		disabled = false;
+	}
+	
+	public FormElement setDisable(boolean flag){
+		disabled = flag;
+		
+		return this;
+	}
+	
+	public boolean isDisabled(){
+		return disabled;
 	}
 	
 	public FormElement addJ2QueryTooltip(String tooltip){

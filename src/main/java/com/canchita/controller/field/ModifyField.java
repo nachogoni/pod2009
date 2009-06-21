@@ -74,8 +74,14 @@ public class ModifyField extends GenericServlet {
 			return;
 		}
 
+		/* disabling complex select */
+		formulario.setElementValue("idComplex", String.valueOf(id));
+		(formulario.getElement("idComplex")).setDisable(true);
+		
 		/* Form is sent to the view */
 		request.setAttribute("formulario", formulario);
+		
+		
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
