@@ -131,34 +131,6 @@
 	</div>
 </c:if>
 
-<form action="" method="get">
-	<fieldset>
-	<legend>Búsqueda de canchas</legend>
-	<label for="name">Nombre: </label>
-	<input id="fieldName" type="text" name="name" value="<c:out value="${param.name}" />"/>
-	<label for="description">Descripción: </label>
-	<input id="fieldDescription" type="text" name="description" value="<c:out value="${param.description}" />"/>
-	<label for="maxPrice">Precio máximo: </label>
-	<input id="fieldMaxPrice" type="text" name="maxPrice" value="<c:out value="${param.maxPrice}" />"/>
-	<label for="numberOfPlayers">Cantidad de jugadores: </label>
-    <input id="fieldNumberOfPlayers" type="text" name="numberOfPlayers" value="<c:out value="${param.numberOfPlayers}" />"/>
-    <br /><br />
-	<label for="hasRoof">Techada: </label>
-	Sí
-    <input id="hasRoofYes" type="radio" name="hasRoof" value="yes"/>
-	No
-    <input id="hasRoofNo" type="radio" name="hasRoof" value="no"/>
-    <br /><br />
-    <label for="floorType">Tipo de piso: </label>
-    <select name="floorType">
-    	<option value=""> </option>
-    	<option value="1">Césped sintético</option>
-    	<option value="0">Césped</option>
-    	<option value="2">Concreto</option>
-    </select>
-	<input type="submit" name="search" value="Buscar" class="submit-go" />
-	</fieldset>
-</form>
 
 <c:choose>
 <c:when  test="${(searchError != null)}">
@@ -173,123 +145,126 @@
 		</c:forEach>
 </div>
 </c:when>
-<c:otherwise>
+</c:choose>
+
+<!-- Mostra el error y el form-->
+<c:out value="${formulario}" escapeXml="false" />
+
 	<c:choose>
 	<c:when test="${(fields != null)}">
 	
-	<%-- TODO ver como hacerque anden los function tags --%>
+	<%-- TODO ver como hacer que anden los function tags --%>
 	
-		<c:choose>
-		<c:when test="${ fieldsLength != 0 }">
-			<table class="fieldsTable" border="1">
-				<tr>
-                    <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortName=<c:out value="${sortNameTypeR}" escapeXml="false"/>">Nombre</a></strong></td>
-					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortComplex=<c:out value="${sortComplexTypeR}" escapeXml="false"/>">Complejo</a></strong></td>
-					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortDescription=<c:out value="${sortDescriptionTypeR}" escapeXml="false"/>">Descripción</a></strong></td>
-                    <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPlayers=<c:out value="${sortPlayersTypeR}" escapeXml="false"/>">Cantidad de Jugadores</a></strong></td>
-					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortRoof=<c:out value="${sortRoofTypeR}" escapeXml="false"/>">Techada</a></strong></td>
-					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortFloor=<c:out value="${sortFloorTypeR}" escapeXml="false"/>">Tipo de piso</a></strong></td>
-                    <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPrice=<c:out value="${sortPriceTypeR}" escapeXml="false"/>">Precio</a></strong></td>
-                    <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortMaintenance=<c:out value="${sortMaintenanceTypeR}" escapeXml="false"/>">En Mantenimiento</a></strong></td>
-					<td></td>
-				</tr>
-				<c:forEach items="${fields}" var="field" varStatus="rowCounter">
+	<c:choose>
+	<c:when test="${ fieldsLength != 0 }">
+		<table class="fieldsTable" border="1">
+			<tr>
+                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortName=<c:out value="${sortNameTypeR}" escapeXml="false"/>">Nombre</a></strong></td>
+				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortComplex=<c:out value="${sortComplexTypeR}" escapeXml="false"/>">Complejo</a></strong></td>
+				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortDescription=<c:out value="${sortDescriptionTypeR}" escapeXml="false"/>">Descripción</a></strong></td>
+                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPlayers=<c:out value="${sortPlayersTypeR}" escapeXml="false"/>">Cantidad de Jugadores</a></strong></td>
+				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortRoof=<c:out value="${sortRoofTypeR}" escapeXml="false"/>">Techada</a></strong></td>
+				<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortFloor=<c:out value="${sortFloorTypeR}" escapeXml="false"/>">Tipo de piso</a></strong></td>
+                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortPrice=<c:out value="${sortPriceTypeR}" escapeXml="false"/>">Precio</a></strong></td>
+                   <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/field/list?sortMaintenance=<c:out value="${sortMaintenanceTypeR}" escapeXml="false"/>">En Mantenimiento</a></strong></td>
+				<td></td>
+			</tr>
+			<c:forEach items="${fields}" var="field" varStatus="rowCounter">
+					
+			        <c:choose>
+			          <c:when test="${rowCounter.count % 2 == 0}">
+			            <c:set var="rowStyle" scope="page" value="odd"/>
+			          </c:when>
+			          <c:otherwise>
+			            <c:set var="rowStyle" scope="page" value=""/>
+			          </c:otherwise>
+			        </c:choose>
+					
+					<tr class="<c:out value="${rowStyle}" />">
+						<td><c:out value="${field.name}" /></td>
+						<td><a href="<c:out value="${baseURI}" escapeXml="false"/>/DetailedViewComplex?id=<c:out value="${field.complex.id}" />"><c:out value="${field.complex.name}" /></a></td> 
+						<td><c:out value="${field.description}" /></td>
+						<td><c:out value="${field.numberOfPlayers}" /></td>
+						<c:if test="${(field.hasRoof)}">
+							<td><c:out value="Sí" /></td>
+						</c:if>
+						<c:if test="${!(field.hasRoof)}">
+							<td><c:out value="No" /></td>
+						</c:if>
 						
-				        <c:choose>
-				          <c:when test="${rowCounter.count % 2 == 0}">
-				            <c:set var="rowStyle" scope="page" value="odd"/>
-				          </c:when>
-				          <c:otherwise>
-				            <c:set var="rowStyle" scope="page" value=""/>
-				          </c:otherwise>
-				        </c:choose>
+						<td><c:out value="${field.floor}" /></td>
+						<td><c:out value="${field.price}" /></td>
+						<c:if test="${(field.under_maintenance)}">
+                               <td><c:out value="Sí" /></td>
+                           </c:if>
+                           <c:if test="${!(field.under_maintenance)}">
+                               <td><c:out value="No" /></td>
+                           </c:if>
 						
-						<tr class="<c:out value="${rowStyle}" />">
-							<td><c:out value="${field.name}" /></td>
-							<td><a href="<c:out value="${baseURI}" escapeXml="false"/>/DetailedViewComplex?id=<c:out value="${field.complex.id}" />"><c:out value="${field.complex.name}" /></a></td> 
-							<td><c:out value="${field.description}" /></td>
-							<td><c:out value="${field.numberOfPlayers}" /></td>
-							<c:if test="${(field.hasRoof)}">
-								<td><c:out value="Sí" /></td>
-							</c:if>
-							<c:if test="${!(field.hasRoof)}">
-								<td><c:out value="No" /></td>
-							</c:if>
-							
-							<td><c:out value="${field.floor}" /></td>
-							<td><c:out value="${field.price}" /></td>
-							<c:if test="${(field.under_maintenance)}">
-                                <td><c:out value="Sí" /></td>
-                            </c:if>
-                            <c:if test="${!(field.under_maintenance)}">
-                                <td><c:out value="No" /></td>
-                            </c:if>
-							
-							<td>
-								<c:if test="${user.isAdmin}">
-									<form action="<c:out value="${baseURI}" />/field/delete" method="post">
-									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-									<input type="submit" class="delete" name="delete" value="Eliminar" />
-									</form>
-									<form action="<c:out value="${baseURI}" />/field/modify" method="get">
-									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-									<input type="submit" name="modify" value="Modificar" />
-									</form>
-									<form action="<c:out value="${baseURI}" />/booking/listfield" method="get">
-									<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
-									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-									<input type="submit" name="list" value="Ver Reservas" />
-									</form>
-								</c:if>
-								<c:if test="${user.isAuthenticated}">
-									<form action="<c:out value="${baseURI}" />/field/ListFieldExpirationPolicy" method="get">
-									<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-									<input type="submit" name="expirationPolicy" value="Ver expiración" />
-									</form>
-								</c:if>
-                                <c:if test="${user.isAuthenticated && !user.isAdmin}">
-                                    <form action="<c:out value="${baseURI}" />/field/book" method="get">
-                                    <input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-                                    <input type="submit" name="id" value="Reservar" />
-                                    </form>
-                                </c:if>
-								<form action="<c:out value="${baseURI}" />/field/detailedview" method="get">
+						<td>
+							<c:if test="${user.isAdmin}">
+								<form action="<c:out value="${baseURI}" />/field/delete" method="post">
 								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
 								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
-								<input type="submit" name="viewDetails" value="Detalles" />
+								<input type="submit" class="delete" name="delete" value="Eliminar" />
 								</form>
-							</td>
-						</tr>
-						
-					</c:forEach>
-			</table>
-			</c:when>
-			<c:otherwise>
-				<div class="ui-state-highlight ui-corner-all info"> 
-				
-					<span class="ui-icon ui-icon-info infoIcon"></span>
-					<span><strong>Información:</strong></span>
-					<span class="block">* No se encontraron canchas</span>
-				</div>
+								<form action="<c:out value="${baseURI}" />/field/modify" method="get">
+								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+								<input type="submit" name="modify" value="Modificar" />
+								</form>
+								<form action="<c:out value="${baseURI}" />/booking/listfield" method="get">
+								<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+								<input type="submit" name="list" value="Ver Reservas" />
+								</form>
+							</c:if>
+							<c:if test="${user.isAuthenticated}">
+								<form action="<c:out value="${baseURI}" />/field/ListFieldExpirationPolicy" method="get">
+								<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+								<input type="submit" name="expirationPolicy" value="Ver expiración" />
+								</form>
+							</c:if>
+                               <c:if test="${user.isAuthenticated && !user.isAdmin}">
+                                   <form action="<c:out value="${baseURI}" />/field/book" method="get">
+                                   <input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+                                   <input type="submit" name="id" value="Reservar" />
+                                   </form>
+                               </c:if>
+							<form action="<c:out value="${baseURI}" />/field/detailedview" method="get">
+							<!--  TODO: Arreglar esto que hacemos para pasar el parametro -->
+							<input type="hidden" name="id" value="<c:out value="${field.id}"/>" />
+							<input type="submit" name="viewDetails" value="Detalles" />
+							</form>
+						</td>
+					</tr>
+					
+				</c:forEach>
+		</table>
+		</c:when>
+		<c:otherwise>
+			<div class="ui-state-highlight ui-corner-all info"> 
 			
-			</c:otherwise>
-			</c:choose>
-	</c:when>
-	<c:otherwise>
-		<div class="ui-state-error ui-corner-all error"> 
+				<span class="ui-icon ui-icon-info infoIcon"></span>
+				<span><strong>Información:</strong></span>
+				<span class="block">* No se encontraron canchas</span>
+			</div>
 		
-		<span class="ui-icon ui-icon-alert errorIcon"></span>
-		<span>
-		<strong>Alerta:</strong>
-		</span>
-			<span class="block">* Error en el servidor</span>
-		</div>
-	</c:otherwise>
-	</c:choose>
+		</c:otherwise>
+		</c:choose>
+</c:when>
+<c:otherwise>
+	<div class="ui-state-error ui-corner-all error"> 
+	
+	<span class="ui-icon ui-icon-alert errorIcon"></span>
+	<span>
+	<strong>Alerta:</strong>
+	</span>
+		<span class="block">* Error en el servidor</span>
+	</div>
 </c:otherwise>
 </c:choose>
+
 
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"
 	flush="true" />

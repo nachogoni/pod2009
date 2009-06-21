@@ -44,19 +44,19 @@ public abstract class FormHandler {
 		j2queryvalidation = false;
 	}
 
-	public FormHandler enableJ2QueryValidation(){
+	public FormHandler enableJ2QueryValidation() {
 		j2queryvalidation = true;
-		
+
 		return this;
 	}
-	
+
 	public boolean isJ2QueryEnabled() {
 		return j2queryenabled;
 	}
-	
-	public FormHandler setId(String aid){
+
+	public FormHandler setId(String aid) {
 		id = aid;
-		
+
 		return this;
 	}
 
@@ -97,14 +97,14 @@ public abstract class FormHandler {
 	}
 
 	public FormElement addElement(FormElement e) {
-		//Si es requerido le seteo la clase 'required' si es que no tiene otra
+		// Si es requerido le seteo la clase 'required' si es que no tiene otra
 		Decorator deco;
-		if (e.isRequired()){
+		if (e.isRequired()) {
 			deco = e.deco;
 			if (deco.getSclass().isEmpty())
 				deco.setSclass("required");
 		}
-			
+
 		this.formElements.add(e);
 		this.formValues.put(e.getName(), e);
 		return e;
@@ -138,20 +138,22 @@ public abstract class FormHandler {
 	public String toString() {
 
 		String ret;
-		String err, sclass="", fid="";
+		String err, sclass = "", fid = "";
 
 		if (this.hasGroups()) {
 			return this.printGroups();
 		}
 		ret = "";
 
-		//Clase del decorador
-		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\"" + formDecorator.getSclass() + "\"";
-		//Id del form
+		// Clase del decorador
+		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\""
+				+ formDecorator.getSclass() + "\"";
+		// Id del form
 		fid = (id.isEmpty() ? "" : "id=\"" + id + "\"");
-		
-		ret += String.format("<form %s name=\"%s\" %s action=\"\" method=\"%s\" %s>",
-				fid, this.name, sclass, this.method, this.getAttributesString());
+
+		ret += String.format(
+				"<form %s name=\"%s\" %s action=\"\" method=\"%s\" %s>", fid,
+				this.name, sclass, this.method, this.getAttributesString());
 
 		for (FormElement e : formElements) {
 			ret += e;
@@ -183,13 +185,15 @@ public abstract class FormHandler {
 		String err;
 		String ret = "", sclass, fid;
 
-		//Clase del decorador
-		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\"" + formDecorator.getSclass() + "\"";
-		//Id del form
+		// Clase del decorador
+		sclass = (formDecorator.getSclass().isEmpty()) ? "" : "class=\""
+				+ formDecorator.getSclass() + "\"";
+		// Id del form
 		fid = (id.isEmpty() ? "" : "id=\"" + id + "\"");
-		
-		ret += String.format("<form %s name=\"%s\" %s action=\"\" method=\"%s\" %s>",
-				fid, this.name, sclass, this.method, this.getAttributesString());
+
+		ret += String.format(
+				"<form %s name=\"%s\" %s action=\"\" method=\"%s\" %s>", fid,
+				this.name, sclass, this.method, this.getAttributesString());
 
 		for (String aName : this.groupsOrder) {
 
@@ -255,7 +259,7 @@ public abstract class FormHandler {
 					for (; i < data.length; i++) {
 						if (!data[i].isEmpty()) {
 							// Si lo agrego el unico requerido es el inicial
-							((FormElementInput)e).addSubElement(data[i]);
+							((FormElementInput) e).addSubElement(data[i]);
 						}
 					}
 				}
@@ -264,7 +268,7 @@ public abstract class FormHandler {
 	}
 
 	/**
-	 * Llena el formulario con un con la lista de claves (Nombre, Value) 
+	 * Llena el formulario con un con la lista de claves (Nombre, Value)
 	 * 
 	 * @param data
 	 */
@@ -275,34 +279,35 @@ public abstract class FormHandler {
 			}
 		}
 	}
-	
+
 	/**
-	 * Llena el formulario con una lista de elementos Pair(key, value)
-	 * Acepta repetidos para el caso que haya multiples valores 
+	 * Llena el formulario con una lista de elementos Pair(key, value) Acepta
+	 * repetidos para el caso que haya multiples valores
 	 * 
 	 * @param data
 	 */
 	public void populate(List<Pair<String, String>> data) {
-		//Seteo todos los elementos en blanco
+		// Seteo todos los elementos en blanco
 		for (FormElement e : formElements) {
 			if (!(e instanceof FormElementButton))
 				e.setValue("");
 		}
-		
-		//Recorro la lista de elementos
+
+		// Recorro la lista de elementos
 		FormElement e = null;
-		for(Pair<String,String> d:data){
-			//Obtengo el objeto
-			if ((e = formValues.get(d.getFirst())) != null){
-				if (e instanceof FormElementInput){
-					//Si el valor esta seteado tengo que agregar un sub-elemento
+		for (Pair<String, String> d : data) {
+			// Obtengo el objeto
+			if ((e = formValues.get(d.getFirst())) != null) {
+				if (e instanceof FormElementInput) {
+					// Si el valor esta seteado tengo que agregar un
+					// sub-elemento
 					if (e.getValue().isEmpty())
 						e.setValue(d.getSecond());
-					else{
-						//Agrego los valores 
-						((FormElementInput)e).addSubElement(d.getSecond());
+					else {
+						// Agrego los valores
+						((FormElementInput) e).addSubElement(d.getSecond());
 					}
-				}else{
+				} else {
 					e.setValue(d.getSecond());
 				}
 			}
@@ -321,15 +326,16 @@ public abstract class FormHandler {
 
 		// por cada elemento del formulario
 		for (FormElement e : formElements) {
-			// Si es requerido y tiene validadores
-			if (e.isRequired()) {
 
-				// Valido que no este vacio
-				aVal = new IsEmpty();
-				if (!aVal.validate(e.getValue())) {
-					this.errors.put(e.getName(), aVal.getError());
-					ret = false;
-				}
+			aVal = new IsEmpty();
+
+			// Si está vacío y es requerido
+			if (!aVal.validate(e.getValue()) && e.isRequired()) {
+				this.errors.put(e.getName(), aVal.getError());
+				ret = false;
+			}
+			// Si no está vacio, validá!
+			else if (aVal.validate(e.getValue())) {
 
 				if (e.validators != null) {
 					// por cada validador
@@ -364,19 +370,21 @@ public abstract class FormHandler {
 									.get(val));
 						}
 
-						//Si es un formElementInput veo si tiene subelementos y los valido
-						if (e instanceof FormElementInput){
-							if (((FormElementInput) e).isMultipleData()){
-								for (FormElement j:((FormElementInput) e).subelements){
+						// Si es un formElementInput veo si tiene subelementos y
+						// los valido
+						if (e instanceof FormElementInput) {
+							if (((FormElementInput) e).isMultipleData()) {
+								for (FormElement j : ((FormElementInput) e).subelements) {
 									if (!aVal.validate(j.getValue())) {
-										this.errors.put(j.getName(), aVal.getError());
+										this.errors.put(j.getName(), aVal
+												.getError());
 										ret = false;
 									}
 								}
 							}
 						}
-						
-						//Valido el elemento
+
+						// Valido el elemento
 						if (!aVal.validate(e.getValue())) {
 							this.errors.put(e.getName(), aVal.getError());
 							ret = false;
