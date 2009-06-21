@@ -239,7 +239,7 @@ public abstract class FormHandler {
 		for (FormElement e : this.formElements) {
 			/* si es un input solamente tiene que recargar los values */
 			if (e instanceof FormElementSelect) {
-				e.setValue(request.getParameter(e.getName()));
+				((FormElementSelect)e).setValue(request.getParameter(e.getName()));
 			} else if (e instanceof FormElementInput) {
 				// Seteo el valor
 				e.setValue(request.getParameter(e.getName()));

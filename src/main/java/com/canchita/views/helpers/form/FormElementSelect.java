@@ -83,7 +83,7 @@ public class FormElementSelect extends FormElement {
 
 		//Busco al elemento de name @value
 		for (FormElementSelectValue e : options) {
-			if (e.getName().equals(value)) {
+			if (e.getValue().equals(value)) {
 				e.setDefault(true);
 			}
 		}

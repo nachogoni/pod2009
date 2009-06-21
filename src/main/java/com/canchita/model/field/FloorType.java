@@ -14,6 +14,18 @@ public enum FloorType {
 
 	GRASS,ARTIFICIAL_GRASS,CONCRETE;
 	
+	public String getValue(){
+		if (this == GRASS) {
+			return "GRASS";
+		} else if (this == ARTIFICIAL_GRASS) {
+			return "ARTIFICIAL_GRASS";
+		} else if (this ==CONCRETE) {
+			return "CONCRETE";
+		} else {
+			return "";
+		}
+	}
+	
 	public String toString() {
 		if (this == GRASS) {
 			return "Césped";

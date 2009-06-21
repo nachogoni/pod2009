@@ -109,13 +109,17 @@ public class FormField extends FormHandler {
 		if (aux != null)
 			dataPopu.put("hasRoof", aux);
 		
-		aux = aField.getFloor().toString();
+		aux = aField.getFloor().getValue();
 		if (aux != null)
 			dataPopu.put("floor", aux);
 		
 		aux = String.valueOf(aField.getPrice());
 		if (aux != null)
 			dataPopu.put("price", aux);
+		
+		aux = String.valueOf(aField.getNumberOfPlayers());
+		if (aux != null)
+			dataPopu.put("cantPlayers", aux);
 		
 		this.populate(dataPopu);
 	}
