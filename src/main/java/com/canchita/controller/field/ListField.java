@@ -117,7 +117,6 @@ public class ListField extends GenericServlet {
 	
 				logger.debug("urlSearch = " + urlSearch);
 				try {
-		
 					fields = fieldService.listField(searchName, searchDescription,
 							searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
 							searchFloorType);

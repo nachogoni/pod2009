@@ -52,9 +52,34 @@ public class SearchFieldForm extends FormHandler {
 			.setLabel("Piso")
 			.setRequired(false)
 			.addValue("", "")
-			.addValue(FloorType.CONCRETE.toString(), "CONCRETE")
-			.addValue(FloorType.ARTIFICIAL_GRASS.toString(), "ARTIFICIAL_GRASS")
-			.addValue(FloorType.GRASS.toString(), "GRASS"));
+			.addValue(FloorType.CONCRETE.toString(), ""+ FloorType.CONCRETE.ordinal())
+			.addValue(FloorType.ARTIFICIAL_GRASS.toString(), ""+ FloorType.ARTIFICIAL_GRASS.ordinal())
+			.addValue(FloorType.GRASS.toString(), ""+ FloorType.GRASS.ordinal()));
+
+
+		this.addElement(new FormElementInput("text", "neighbourhood")
+			.setLabel("Barrio")
+			.setRequired(false)
+			.addValidator("MaxLength", "50")
+			.addValidator("IsAlphaNumS"));
+
+		this.addElement(new FormElementInput("text", "town")
+		.setLabel("Ciudad")
+		.setRequired(false)
+		.addValidator("MaxLength", "50")
+		.addValidator("IsAlphaNumS"));
+
+		this.addElement(new FormElementInput("text", "state")
+			.setLabel("Provincia")
+			.setRequired(false)
+			.addValidator("MaxLength", "50")
+			.addValidator("IsAlphaNumS"));
+
+		this.addElement(new FormElementInput("text", "country")
+			.setLabel("País")
+			.setRequired(false)
+			.addValidator("MaxLength", "50")
+			.addValidator("IsAlphaNumS"));
 
 		Decorator decorator = new Decorator()
 			.setSclass("submit-go"); 
@@ -63,13 +88,18 @@ public class SearchFieldForm extends FormHandler {
 			.setValue("Buscar")
 			.setDecorator(decorator));
 
-
 		sfield.add("name");
 		sfield.add("description");
 		sfield.add("maxPrice");
 		sfield.add("numberOfPlayers");
 		sfield.add("hasRoof");
 		sfield.add("floorType");
+
+		sfield.add("neighbourhood");
+		sfield.add("town");
+		sfield.add("state");
+		sfield.add("country");
+
 		sfield.add("search");
 		this.addDisplayGroup(sfield, "Búsqueda de canchas");
 	}
