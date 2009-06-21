@@ -196,8 +196,8 @@ public class BookingDB extends AllDB implements BookingDAO {
 				+ " as end_date, to_char(\"expiration_date\",'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"') as expiration_date"
 				+ " FROM RESERVATION, FIELD, COMPLEX WHERE FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
 				+ " RESERVATION.\"field_id\" = FIELD.\"field_id\" AND \"start_date\" > SYSDATE AND "
-				+ " RESERVATION.\"state\" = ? AND COMPLEX.\"state\" LIKE ? AND COMPLEX.\"city\" LIKE ? AND "
-				+ " \"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"start_date\"";
+				+ " RESERVATION.\"state\" = ? AND lower(COMPLEX.\"state\") LIKE lower(?) AND lower(COMPLEX.\"city\") LIKE (?) AND "
+				+ " lower(\"neighbourhood\") LIKE lower(?) AND rownum <= ? ORDER BY \"start_date\"";
 
 		if (province == null || province.equals("")) {
 			province = "%";

@@ -81,7 +81,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	@Override
 	public Collection<String> getNeighbourhoods(String province, String locality) {
 		String query = "SELECT DISTINCT \"neighbourhood\" FROM COMPLEX  WHERE "
-			+ " \"state\" LIKE ? AND \"city\" LIKE ? ORDER BY \"neighbourhood\"";
+			+ " lower(\"state\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) ORDER BY \"neighbourhood\"";
 
 		ConnectionManager connectionManager = connectionPool.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
@@ -220,7 +220,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public Collection<Complex> getFiltered(String filter) {
-		String query = "SELECT * FROM COMPLEX WHERE \"name\" LIKE ?";
+		String query = "SELECT * FROM COMPLEX WHERE lower(\"name\") LIKE lower(?)";
 
 		List<Complex> results = executeQuery(query, new Object[] { "%" + filter
 				+ "%" }, ComplexBuilder.getInstance());
@@ -292,7 +292,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 	@Override
 	public Collection<String> getLocations(String province) {
 		String query = "SELECT DISTINCT \"city\" FROM COMPLEX  WHERE "
-			+ " \"state\" LIKE ? ORDER BY \"city\"";
+			+ " lower(\"state\") LIKE lower(?) ORDER BY \"city\"";
 
 		ConnectionManager connectionManager = connectionPool.getConnectionManager();
 		Connection connection = connectionManager.getConnection();
