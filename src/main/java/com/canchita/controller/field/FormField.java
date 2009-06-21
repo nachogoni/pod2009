@@ -31,12 +31,14 @@ public class FormField extends FormHandler {
 			.setLabel("Nombre")
 			.setRequired(true)
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("IsAlphaNumS"));
 		
 		this.addElement(new FormElementInput("text","description")
 			.setLabel("Descripción")
 			.setRequired(false)
 			.addValidator("MaxLength", "100")
+			.setMaxLength(100)
 			.addValidator("IsAlphaNumS"));
 		
 		this.addElement(new FormElementSelect("cantPlayers")

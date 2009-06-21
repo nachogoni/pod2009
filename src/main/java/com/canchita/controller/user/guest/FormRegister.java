@@ -22,6 +22,7 @@ public class FormRegister extends FormHandler {
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("MinLength","2")
 			);
 
@@ -29,6 +30,7 @@ public class FormRegister extends FormHandler {
 			.setLabel("Correo Electrónico")
 			.setRequired(true)
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("IsEMailAddress")
 			);
 
@@ -37,6 +39,7 @@ public class FormRegister extends FormHandler {
 			.setLabel("Contraseña")
 			.setRequired(true)
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("MinLength","4")
 			);
 		
@@ -44,6 +47,7 @@ public class FormRegister extends FormHandler {
 			.setLabel("Repita Contraseña")
 			.setRequired(true)
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("MinLength","4")
 			);
 		

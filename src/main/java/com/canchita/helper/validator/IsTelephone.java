@@ -4,7 +4,7 @@ public class IsTelephone extends Validator {
 
 	@Override
 	public String getError() {
-		return "El telefono debe ser de la forma (ccc) nnnn-nnnn.";
+		return "El telefono debe ser de la forma (ddd)dddd-dddd o dddd-dddd.";
 	}
 
 	@Override

@@ -62,6 +62,7 @@ public class FormAddComplex extends FormHandler {
 			.setId("idNombre")
 			.setRequired(true)
 			.addValidator("MaxLength","20")
+			.setMaxLength(20)
 			.addValidator("IsAlphaNumS")
 			.addJ2QueryTooltip("Nombre del Complejo"));
 
@@ -69,6 +70,7 @@ public class FormAddComplex extends FormHandler {
 			.setLabel("Descripci&oacute;n")
 			.setId("idDescripcion")
 			.addValidator("MaxLength", "100")
+			.setMaxLength(100)
 			.setRequired(false))
 			.addJ2QueryTooltip("Descripci&oacute;n del Complejo");
 
@@ -77,6 +79,7 @@ public class FormAddComplex extends FormHandler {
 			.setId("idDireccion")
 			.setRequired(true)
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("IsAddress")
 			.addJ2QueryTooltip("Direcci&oacute;n del Complejo"));
 
@@ -85,6 +88,7 @@ public class FormAddComplex extends FormHandler {
 			.setId("idNeighbourhood")
 			.setRequired(true)
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addValidator("IsAlphaNumS")
 			.addJ2QueryTooltip("Barrio del Complejo"));
 
@@ -94,19 +98,23 @@ public class FormAddComplex extends FormHandler {
 			.addValidator("IsAlphaNumS")
 			.setId("idTown")
 			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
 			.addJ2QueryTooltip("Ciudad del Complejo"));
 
 		this.addElement(new FormElementInput("text", "state")
 			.setLabel("Provincia")
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
-			.addValidator("MaxLength", "50").setId("idState")
+			.addValidator("MaxLength", "50")
+			.setMaxLength(50)
+			.setId("idState")
 			.addJ2QueryTooltip("Provincia del Complejo"));
 
 		this.addElement(new FormElementInput("text", "zipcode")
 			.setLabel("C&oacute;digo Postal")
 			.setRequired(true)
 			.addValidator("IsNumeric")
+			.setMaxLength(4)
 			.setId("idZipCode")
 			.addJ2QueryTooltip("C&oacute;digo Postal del Complejo"));
 
@@ -125,6 +133,7 @@ public class FormAddComplex extends FormHandler {
 			.setId("idTelephone")
 			.setRequired(true)
 			.addValidator("IsTelephone")
+			.setMaxLength(9)
 			.setMultipleData("multiplePhone")
 			.addJ2QueryTooltip("Tel&eacute;fono del Complejo"));
 
@@ -132,6 +141,7 @@ public class FormAddComplex extends FormHandler {
 			.setRequired(true)
 			.addValidator("IsAlphaNumS")
 			.addValidator("MaxLength","50")
+			.setMaxLength(50)
 			.setId("idCountry")
 			.setLabel("País")
 			.addJ2QueryTooltip("Pa&iacute;s del Complejo"));
