@@ -92,8 +92,12 @@ public class FieldDB extends AllDB implements FieldDAO {
 	public Collection<Field> getFiltered(String searchName,
 			String searchDescription, String searchMaxPrice,
 			String searchNumberOfPlayers, String searchHasRoof,
-			String searchFloorType) {
+			String searchFloorType, String searchNeighbourhood,
+			String searchTown, String searchState, String searchCountry,
+			String searchAddress) {
 
+		List<Field> results;
+		boolean isSearchingByPlace = false;
 		String minHasRoof = "0";
 		String maxHasRoof = "1";
 		String minType = "0";
@@ -107,7 +111,42 @@ public class FieldDB extends AllDB implements FieldDAO {
 			searchName = "%";
 		else
 			searchName = "%" + searchName + "%";
-		
+
+		if (searchNeighbourhood == null || searchNeighbourhood == "")
+			searchNeighbourhood = "%";
+		else {
+			isSearchingByPlace = true;
+			searchNeighbourhood = "%" + searchNeighbourhood + "%";
+		}
+
+		if (searchTown == null || searchTown == "")
+			searchTown = "%";
+		else {
+			isSearchingByPlace = true;
+			searchTown = "%" + searchTown + "%";
+		}
+
+		if (searchState == null || searchState == "")
+			searchState = "%";
+		else {
+			isSearchingByPlace = true;
+			searchState = "%" + searchState + "%";
+		}
+
+		if (searchCountry == null || searchCountry == "")
+			searchCountry = "%";
+		else {
+			isSearchingByPlace = true;
+			searchCountry = "%" + searchCountry + "%";
+		}
+
+		if (searchAddress == null || searchAddress == "")
+			searchAddress = "%";
+		else {
+			isSearchingByPlace = true;
+			searchAddress = "%" + searchAddress + "%";
+		}
+
 		if (searchDescription == null || searchDescription == "") {
 			query += "(\"description\" IS NULL OR \"description\" LIKE ? )";
 			searchDescription = "%";
@@ -138,36 +177,50 @@ public class FieldDB extends AllDB implements FieldDAO {
 			maxPlayers = searchNumberOfPlayers;
 		}
 
-		List<Field> results = executeQuery(query, new Object[] { searchName,
-				searchDescription, searchMaxPrice, maxHasRoof, minHasRoof,
-				maxType, minType, maxPlayers, minPlayers }, FieldBuilder
-				.getInstance());
+		if (isSearchingByPlace) {
+			query += " AND \"complex_id\" IN ( SELECT \"complex_id\" FROM COMPLEX"
+					+ " WHERE \"address\" LIKE ? AND \"neighbourhood\" LIKE ? AND \"city\" LIKE ? "
+					+ "AND \"state\" LIKE ? AND \"country\" LIKE ? )";
+			results = executeQuery(query,
+					new Object[] { searchName, searchDescription,
+							searchMaxPrice, maxHasRoof, minHasRoof, maxType,
+							minType, maxPlayers, minPlayers, searchAddress,
+							searchNeighbourhood, searchTown, searchState,
+							searchCountry }, FieldBuilder.getInstance());
+		} else {
+			results = executeQuery(query, new Object[] { searchName,
+					searchDescription, searchMaxPrice, maxHasRoof, minHasRoof,
+					maxType, minType, maxPlayers, minPlayers }, FieldBuilder
+					.getInstance());
+		}
 
 		return results;
 	}
 
 	@Override
-	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount) {
+	public Collection<Field> getLastFields(String province, String locality,
+			String neighbourhood, Long listCount) {
 
 		String query = "SELECT * FROM FIELD, COMPLEX WHERE "
 				+ "FIELD.\"complex_id\" = COMPLEX.\"complex_id\" AND "
 				+ " \"state\" LIKE ? AND \"city\" LIKE ? AND "
 				+ "\"neighbourhood\" LIKE ? AND rownum <= ? ORDER BY \"field_id\"";
-	  		
+
 		if (province == null || province.equals("")) {
 			province = "%";
 		}
-	
+
 		if (locality == null || locality.equals("")) {
 			locality = "%";
 		}
-	
+
 		if (neighbourhood == null || neighbourhood.equals("")) {
 			neighbourhood = "%";
 		}
 
-		List<Field> results = executeQuery(query, new Object[] { province, locality,
-				neighbourhood, listCount }, FieldBuilder.getInstance());
+		List<Field> results = executeQuery(query, new Object[] { province,
+				locality, neighbourhood, listCount }, FieldBuilder
+				.getInstance());
 
 		return results;
 	}
@@ -176,14 +229,15 @@ public class FieldDB extends AllDB implements FieldDAO {
 	public void save(Field field) throws PersistenceException {
 		String query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try {	
-			executeUpdate(query, new Object[] { field.getComplex().getId(),
-					field.getName(), field.getDescription(),
-					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
-					field.getFloor().ordinal(), field.getPrice(),
-					bool2Long(field.isUnder_maintenance()), field.getPicture() });
-		}
-		catch (RuntimeException re) {
+		try {
+			executeUpdate(query,
+					new Object[] { field.getComplex().getId(), field.getName(),
+							field.getDescription(), field.getNumberOfPlayers(),
+							bool2Long(field.isHasRoof()),
+							field.getFloor().ordinal(), field.getPrice(),
+							bool2Long(field.isUnder_maintenance()),
+							field.getPicture() });
+		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 
 			if (sql instanceof SQLException
@@ -216,14 +270,14 @@ public class FieldDB extends AllDB implements FieldDAO {
 				+ "\"has_roof\" = ?, \"type\" = ?, \"price\" = ?,"
 				+ "\"under_maintenance\" = ?, \"picture\" = ?"
 				+ "where \"field_id\" = ?";
-		try{
+		try {
 			executeUpdate(query, new Object[] { field.getComplex().getId(),
 					field.getName(), field.getDescription(),
 					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
 					field.getFloor().ordinal(), field.getPrice(),
 					bool2Long(field.isUnder_maintenance()), field.getPicture(),
 					field.getId() });
-		}catch (RuntimeException re) {
+		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 
 			if (sql instanceof SQLException

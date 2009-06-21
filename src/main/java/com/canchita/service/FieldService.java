@@ -64,27 +64,31 @@ public class FieldService implements FieldServiceProtocol {
 
 	}
 
-	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount)
-			throws ValidationException, PersistenceException {
-		
+	public Collection<Field> getLastFields(String province, String locality,
+			String neighbourhood, Long listCount) throws ValidationException,
+			PersistenceException {
+
 		Validator validator = new IsAlphaNum(true);
-		
+
 		if (neighbourhood != null && !validator.validate(neighbourhood)) {
 			throw new ValidationException(
-			"Error en el criterio de búsqueda, el Barrio debe ser alfanumérico");
+					"Error en el criterio de búsqueda, el Barrio debe ser alfanumérico");
 		}
-		
+
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
-		
-		return fieldDAO.getLastFields(province, locality, neighbourhood, listCount);
-		
+
+		return fieldDAO.getLastFields(province, locality, neighbourhood,
+				listCount);
+
 	}
 
 	@Override
 	public Collection<Field> listField(String searchName,
 			String searchDescription, String searchMaxPrice,
 			String searchNumberOfPlayers, String searchHasRoof,
-			String searchFloorType) throws ValidationException,
+			String searchFloorType, String searchNeighbourhood,
+			String searchTown, String searchState, String searchCountry,
+			String searchAddress) throws ValidationException,
 			PersistenceException {
 
 		Validator alnumValidator = new IsAlphaNum(true);
@@ -93,6 +97,13 @@ public class FieldService implements FieldServiceProtocol {
 		if ((searchName != null && !alnumValidator.validate(searchName))
 				|| (searchDescription != null && !alnumValidator
 						.validate(searchDescription))
+				|| (searchNeighbourhood != null && !alnumValidator
+						.validate(searchNeighbourhood))
+				|| (searchTown != null && !alnumValidator.validate(searchTown))
+				|| (searchState != null && !alnumValidator
+						.validate(searchState))
+				|| (searchCountry != null && !alnumValidator
+						.validate(searchCountry))
 				|| (searchMaxPrice != null && !numValidator
 						.validate(searchMaxPrice))
 				|| (searchNumberOfPlayers != null && !numValidator
@@ -106,7 +117,8 @@ public class FieldService implements FieldServiceProtocol {
 
 		return fieldDAO.getFiltered(searchName, searchDescription,
 				searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
-				searchFloorType);
+				searchFloorType, searchNeighbourhood, searchTown, searchState,
+				searchCountry, searchAddress);
 	}
 
 	@Deprecated
@@ -209,8 +221,7 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
-	public List<Booking> getBookings(Long fieldId)
-			throws PersistenceException {
+	public List<Booking> getBookings(Long fieldId) throws PersistenceException {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
@@ -233,8 +244,9 @@ public class FieldService implements FieldServiceProtocol {
 		static Field aField = null;
 
 		public static void Build(String name, String description,
-				Long idComplex, Boolean hasRoof, FloorType floor, BigDecimal price,
-				Long number_of_players) throws PersistenceException {
+				Long idComplex, Boolean hasRoof, FloorType floor,
+				BigDecimal price, Long number_of_players)
+				throws PersistenceException {
 
 			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 

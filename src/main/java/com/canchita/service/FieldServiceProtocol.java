@@ -23,9 +23,10 @@ public interface FieldServiceProtocol {
 	public Collection<Field> listField(String filter)
 			throws ValidationException, PersistenceException;
 
-	public Collection<Field> getLastFields(String province, String locality, String neighbourhood, Long listCount)
-			throws ValidationException, PersistenceException;
-	
+	public Collection<Field> getLastFields(String province, String locality,
+			String neighbourhood, Long listCount) throws ValidationException,
+			PersistenceException;
+
 	public void deleteField(Long id) throws PersistenceException;
 
 	public Long saveField(String name, String description, Long idComplex,
@@ -51,7 +52,9 @@ public interface FieldServiceProtocol {
 	public Collection<Field> listField(String searchName,
 			String searchDescription, String searchMaxPrice,
 			String searchNumberOfPlayers, String searchHasRoof,
-			String searchFloorType) throws ValidationException,
+			String searchFloorType, String searchNeighbourhood,
+			String searchTown, String searchState, String searchCountry,
+			String searchAddress) throws ValidationException,
 			PersistenceException;
 
 	public Collection<Expiration> listExpirationPolicies(Long fieldId)

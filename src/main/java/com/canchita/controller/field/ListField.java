@@ -77,7 +77,7 @@ public class ListField extends GenericServlet {
 			logger.debug("Se pudo generar el listado");
 			fieldsSize = fields.size();
 
-		}else{
+		} else {
 			logger.debug("Entra y el formulario no está vacío");
 
 			/* Get Form */
@@ -85,7 +85,8 @@ public class ListField extends GenericServlet {
 
 			/* Load form with request values */
 			formulario.loadValues(request);
-			logger.debug("Se carga el formulario con la información del request");
+			logger
+					.debug("Se carga el formulario con la información del request");
 
 			if (!formulario.isValid()) {
 				logger.debug("Formulario inválido");
@@ -100,48 +101,70 @@ public class ListField extends GenericServlet {
 					logger.debug("Error al listar canchas " + e1.getMessage());
 				}
 
-			}else{
+			} else {
 
 				request.setAttribute("formulario", formulario);
 				logger.debug("El formulario es válido");
-	
+
 				String searchName = request.getParameter("name");
 				String searchDescription = request.getParameter("description");
 				String searchMaxPrice = request.getParameter("maxPrice");
-				String searchNumberOfPlayers = request.getParameter("numberOfPlayers");
+				String searchNumberOfPlayers = request
+						.getParameter("numberOfPlayers");
 				String searchHasRoof = request.getParameter("hasRoof");
 				String searchFloorType = request.getParameter("floorType");
-	
-				urlSearch = String.format("name=%s&description=%s&maxPrice=%s&numberOfPlayers=%s&hasRoof=%s&floorType=%s&", 
-						searchName, searchDescription, searchMaxPrice, searchNumberOfPlayers, searchHasRoof, searchFloorType);
-	
+				String searchAddress = request.getParameter("address");
+				String searchNeighbourhood = request
+						.getParameter("neighbourhood");
+				String searchTown = request.getParameter("town");
+				String searchState = request.getParameter("state");
+				String searchCountry = request.getParameter("country");
+
+				urlSearch = String
+						.format(
+								"name=%s&description=%s&maxPrice=%s&numberOfPlayers="
+										+ "%s&hasRoof=%s&floorType=%s&neighbourhood=%s&"
+										+ "town=%s&state=%s&country=%s&address=%s&",
+								searchName, searchDescription, searchMaxPrice,
+								searchNumberOfPlayers, searchHasRoof,
+								searchFloorType, searchNeighbourhood,
+								searchTown, searchState, searchCountry,
+								searchAddress);
+
 				logger.debug("urlSearch = " + urlSearch);
 				try {
-					fields = fieldService.listField(searchName, searchDescription,
-							searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
-							searchFloorType);
+					fields = fieldService.listField(searchName,
+							searchDescription, searchMaxPrice,
+							searchNumberOfPlayers, searchHasRoof,
+							searchFloorType, searchNeighbourhood, searchTown,
+							searchState, searchCountry, searchAddress);
 					fieldsSize = fields.size();
 				} catch (ValidationException e) {
-					logger.debug("Error realizando búsqueda");
-		
+					logger
+							.debug("Error realizando búsqueda: "
+									+ e.getMessage());
+
 					errorManager.add(e);
-		
+
 					request.setAttribute("searchError", errorManager);
-		
-					UrlMapper.getInstance().forwardFailure(this, request, response,
-							UrlMapperType.GET);
-		
+
+					UrlMapper.getInstance().forwardFailure(this, request,
+							response, UrlMapperType.GET);
+
 				} catch (Exception e) {
-					logger.error("Error realizando búsqueda");
+					logger.error("Error realizando búsqueda:" + e.getMessage());
 					fields = null;
 					fieldsSize = -1;
+
+					UrlMapper.getInstance().forwardFailure(this, request,
+							response, UrlMapperType.GET);
 				}
 			}
 		}
-		//ordeno la lista
+		// ordeno la lista
 		List<Field> list = new ArrayList<Field>(fields);
 		String typesort = "";
-		
+
 		ArrayList<String> parametersSort = new ArrayList<String>();
 		parametersSort.add("sortName");
 		parametersSort.add("sortComplex");
@@ -151,21 +174,27 @@ public class ListField extends GenericServlet {
 		parametersSort.add("sortFloor");
 		parametersSort.add("sortPrice");
 		parametersSort.add("sortMaintenance");
-		
-		for(String e:parametersSort){
-			if ((typesort = request.getParameter(e)) != null){
-				Collections.sort(list, Field.compareNames(typesort.equals("ASC")));
-				request.setAttribute(String.format("%sTypeR", e), typesort.equals("ASC") ? "DESC" : "ASC");
+		parametersSort.add("sortNeighbourhood");
+		parametersSort.add("sortTown");
+		parametersSort.add("sortState");
+		parametersSort.add("sortCountry");
+		parametersSort.add("sortAddress");
+
+		for (String e : parametersSort) {
+			if ((typesort = request.getParameter(e)) != null) {
+				Collections.sort(list, Field.compareNames(typesort
+						.equals("ASC")));
+				request.setAttribute(String.format("%sTypeR", e), typesort
+						.equals("ASC") ? "DESC" : "ASC");
 				request.setAttribute(String.format("%sType", e), typesort);
-			}else{
+			} else {
 				request.setAttribute(String.format("%sTypeR", e), "ASC");
 			}
 		}
-		
+
 		request.setAttribute("fields", list);
 		request.setAttribute("urlParameters", urlSearch);
 		request.setAttribute("fieldsLength", fieldsSize);
-
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
