@@ -20,6 +20,7 @@ import com.canchita.model.exception.ValidationException;
 import com.canchita.model.field.Field;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
+import com.canchita.views.helpers.form.FormHandler;
 
 /**
  * Servlet implementation class ListField
@@ -42,6 +43,7 @@ public class ListField extends GenericServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		logger.debug("GET request");
+		FormHandler formulario = null;
 		String search = request.getParameter("search");
 		String urlSearch = "";
 		Collection<Field> fields = null;
@@ -51,6 +53,12 @@ public class ListField extends GenericServlet {
 
 		ErrorManager errorManager = new ErrorManager();
 		if (search == null) {
+			logger.debug("Entra por primera vez");
+
+			/* Form is sent to the view */
+			formulario = new SearchFieldForm();
+			request.setAttribute("formulario", formulario);
+			logger.debug("Se crea el formulario correctamente");
 
 			try {
 				fields = fieldService.listField();
@@ -66,42 +74,71 @@ public class ListField extends GenericServlet {
 
 				return;
 			}
+			logger.debug("Se pudo generar el listado");
 			fieldsSize = fields.size();
 
 		}else{
-			String searchName = request.getParameter("name");
-			String searchDescription = request.getParameter("description");
-			String searchMaxPrice = request.getParameter("maxPrice");
-			String searchNumberOfPlayers = request.getParameter("numberOfPlayers");
-			String searchHasRoof = request.getParameter("hasRoof");
-			String searchFloorType = request.getParameter("floorType");
-			
-			urlSearch = String.format("name=%s&description=%s&maxPrice=%s&numberOfPlayers=%s&hasRoof=%s&floorType=%s&", 
-					searchName, searchDescription, searchMaxPrice, searchNumberOfPlayers, searchHasRoof, searchFloorType);
+			logger.debug("Entra y el formulario no está vacío");
+
+			/* Get Form */
+			formulario = new SearchFieldForm();
+
+			/* Load form with request values */
+			formulario.loadValues(request);
+			logger.debug("Se carga el formulario con la información del request");
+
+			if (!formulario.isValid()) {
+				logger.debug("Formulario inválido");
+				request.setAttribute("formulario", formulario);
+				errorManager.add("Error en el formulario");
+
+				try {
+					fields = fieldService.listField();
+					logger.debug("Se pudo generar el listado");
+					fieldsSize = fields.size();
+				} catch (Exception e1) {
+					logger.debug("Error al listar canchas " + e1.getMessage());
+				}
+
+			}else{
+
+				request.setAttribute("formulario", formulario);
+				logger.debug("El formulario es válido");
 	
-			try {
+				String searchName = request.getParameter("name");
+				String searchDescription = request.getParameter("description");
+				String searchMaxPrice = request.getParameter("maxPrice");
+				String searchNumberOfPlayers = request.getParameter("numberOfPlayers");
+				String searchHasRoof = request.getParameter("hasRoof");
+				String searchFloorType = request.getParameter("floorType");
 	
-				fields = fieldService.listField(searchName, searchDescription,
-						searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
-						searchFloorType);
-				fieldsSize = fields.size();
-			} catch (ValidationException e) {
-				logger.debug("Error realizando búsqueda");
+				urlSearch = String.format("name=%s&description=%s&maxPrice=%s&numberOfPlayers=%s&hasRoof=%s&floorType=%s&", 
+						searchName, searchDescription, searchMaxPrice, searchNumberOfPlayers, searchHasRoof, searchFloorType);
 	
-				errorManager.add(e);
-	
-				request.setAttribute("searchError", errorManager);
-	
-				UrlMapper.getInstance().forwardFailure(this, request, response,
-						UrlMapperType.GET);
-	
-			} catch (Exception e) {
-				logger.error("Error realizando búsqueda");
-				fields = null;
-				fieldsSize = -1;
+				logger.debug("urlSearch = " + urlSearch);
+				try {
+		
+					fields = fieldService.listField(searchName, searchDescription,
+							searchMaxPrice, searchNumberOfPlayers, searchHasRoof,
+							searchFloorType);
+					fieldsSize = fields.size();
+				} catch (ValidationException e) {
+					logger.debug("Error realizando búsqueda");
+		
+					errorManager.add(e);
+		
+					request.setAttribute("searchError", errorManager);
+		
+					UrlMapper.getInstance().forwardFailure(this, request, response,
+							UrlMapperType.GET);
+		
+				} catch (Exception e) {
+					logger.error("Error realizando búsqueda");
+					fields = null;
+					fieldsSize = -1;
+				}
 			}
 		}
-		
 		//ordeno la lista
 		List<Field> list = new ArrayList<Field>(fields);
 		String typesort = "";
@@ -128,13 +165,8 @@ public class ListField extends GenericServlet {
 		
 		request.setAttribute("fields", list);
 		request.setAttribute("urlParameters", urlSearch);
-
-		/*
-		 * TODO se hizo esto porque no funcionaba el tag fn:length de jstl.
-		 * Investigar!
-		 */
-
 		request.setAttribute("fieldsLength", fieldsSize);
+
 
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);

@@ -123,7 +123,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 		if (searchMaxPrice == null || searchMaxPrice == "")
 			searchMaxPrice = String.valueOf(Integer.MAX_VALUE);
 
-		if (searchHasRoof != null) {
+		if (searchHasRoof != null && searchHasRoof != "") {
 			minHasRoof = searchHasRoof.equals("yes") ? "1" : "0";
 			maxHasRoof = searchHasRoof.equals("yes") ? "1" : "0";
 		}

@@ -40,7 +40,7 @@ public class AddField extends GenericServlet {
 
 		logger.debug("GET request");
 
-		FormHandler formulario = new FormField();
+		FormHandler formulario = null;
 		String complexId = request.getParameter("id");
 
 		Long id = null;
