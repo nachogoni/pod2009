@@ -101,7 +101,6 @@ public class ModifyScoreSystem extends GenericServlet {
 
 		try {
 			booking = Integer.valueOf(request.getParameter("booking"));
-			;
 		} catch (Exception nfe) {
 			error.add("Puntaje por reserva inválido");
 		}
@@ -129,6 +128,20 @@ public class ModifyScoreSystem extends GenericServlet {
 		} catch (Exception nfe) {
 			error.add("Puntaje por caída de reserva señada inválido");
 		}
+
+		if (downDeposit <= downBooking)
+			error.add("Una caída en estado señada debe restar más "
+					+ "puntos que en estado reservada");
+
+		if (downBooking <= booking)
+			error.add("La caída en estado reservada debe restar más puntos que"
+					+ " los asignados al reservar");
+
+		if (downDeposit <= booking + deposit)
+			error.add("La caída en estado señada debe restar más puntos que"
+					+ " los asignados hasta el momento. La penalización por"
+					+ " caída en estado señada debe ser mayor que "
+					+ (booking + deposit));
 
 		if (error.size() != 0) {
 			request.setAttribute("errorManager", error);
