@@ -78,19 +78,6 @@ public class ListComplex extends GenericServlet {
 			return;
 		}
 		
-		if( (search.trim()).equals("") ) {
-			
-			
-			errorManager.add("El criterio de búsqueda no puede estar vacío");
-			
-			request.setAttribute("searchError", errorManager);
-			
-			UrlMapper.getInstance().forwardFailure(this, request, response,
-					UrlMapperType.GET);
-			
-			return;
-		}
-		
 		try {
 			logger.debug("Realizando búsqueda: " + search);
 			
