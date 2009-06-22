@@ -35,14 +35,20 @@ public class FieldBuilder implements QueryProcessor<Field> {
 
 		while (resultSet.next()) {
 
+			String percentage = resultSet.getString("accont_percentage");
+			BigDecimal bookingPercentage = null;
+
+			if (percentage != null && percentage != "") {
+				bookingPercentage = new BigDecimal(percentage);
+			}
+
 			aField = new Field(resultSet.getLong("field_id"), resultSet
 					.getLong("complex_id"), resultSet.getString("name"),
 					resultSet.getString("description"), resultSet
 							.getLong("number_of_players"), resultSet
 							.getBoolean("has_roof"), resultSet.getLong("type"),
 					new BigDecimal(resultSet.getString("price")), resultSet
-							.getBoolean("under_maintenance"), new BigDecimal(
-							resultSet.getString("accont_percentage")));
+							.getBoolean("under_maintenance"), bookingPercentage);
 
 			Complex aComplex = null;
 			try {
