@@ -78,6 +78,7 @@ public class FormField extends FormHandler {
 		
 		this.addElement(new FormElementInput("text", "accontationPercentage")
 				.setLabel("Porcentaje de reserva")
+				.setRequired(true)
 				.addValidator("MaxLength", "5")
 				.addValidator("IsPercentage"));
 		
