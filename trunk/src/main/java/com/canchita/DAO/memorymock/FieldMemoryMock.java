@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.joda.time.DateTime;
+
 import com.canchita.DAO.ComplexDAO;
 import com.canchita.DAO.FieldDAO;
 import com.canchita.DAO.factory.DAOFactory;
@@ -196,7 +198,7 @@ public class FieldMemoryMock implements FieldDAO {
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType, String searchNeighbourhood,
 			String searchTown, String searchState, String searchCountry,
-			String searchAddress) {
+			String searchAddress, DateTime from, DateTime to) {
 		// TODO Auto-generated method stub
 		return null;
 	}

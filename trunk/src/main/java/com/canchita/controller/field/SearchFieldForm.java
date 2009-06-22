@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.canchita.model.field.FloorType;
 import com.canchita.views.helpers.form.Decorator;
-import com.canchita.views.helpers.form.FormElement;
 import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
 import com.canchita.views.helpers.form.FormElementSelect;
