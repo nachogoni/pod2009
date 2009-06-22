@@ -374,7 +374,7 @@ public class BookingDB extends AllDB implements BookingDAO {
 			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') "
 			+ "AND "
 			+ sqlDateTo
-			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) )";
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ";
 				
 		List<Integer> results = executeQuery(query, new Object[] {},
 				CountBuilder.getInstance());

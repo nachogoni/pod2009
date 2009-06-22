@@ -112,7 +112,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 		String query = "SELECT DISTINCT FIELD.\"field_id\",FIELD.\"complex_id\","
 				+ "FIELD.\"name\", FIELD.\"description\",FIELD.\"number_of_players\","
 				+ "FIELD.\"has_roof\",FIELD.\"type\",FIELD.\"price\","
-				+ "FIELD.\"under_maintenance\""
+				+ "FIELD.\"under_maintenance\", FIELD.\"accont_percentage\""
 				+ " FROM FIELD,TIMETABLE,COMPLEX "
 				+ "WHERE 1=1 AND COMPLEX.\"complex_id\" = TIMETABLE.\"complex_id\" "
 				+ "AND FIELD.\"complex_id\" = COMPLEX.\"complex_id\" "
@@ -243,7 +243,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 		}
 
 		if (isSearchingByPlace) {
-			query += " AND \"complex_id\" IN ( SELECT \"complex_id\" FROM COMPLEX"
+			query += " AND FIELD.\"complex_id\" IN ( SELECT \"complex_id\" FROM COMPLEX"
 					+ " WHERE lower(\"address\") LIKE lower(?) AND lower(\"neighbourhood\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) "
 					+ "AND lower(\"state\") LIKE lower(?) AND lower(\"country\") LIKE lower(?) )";
 
