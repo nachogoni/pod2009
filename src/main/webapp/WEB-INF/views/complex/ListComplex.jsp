@@ -174,7 +174,7 @@
 				<tr>
 					<td><strong>Nombre</strong></td>
 					<td><strong>Lugar</strong></td>
-					<td><strong>Descipción</strong></td>
+					<td><strong>Descripción</strong></td>
 					<td>
 						<c:if test="${user.isAdmin}">
 							<form action="<c:out value="${baseURI}" />/AddComplex" method="get">

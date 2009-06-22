@@ -16,7 +16,7 @@ import com.canchita.model.user.User;
 public class ACLFilter extends FilterWithLog implements Filter {
 
 	//TODO ver esto!!!
-	private static final String FORBIDDEN = "/error/403";
+	private static final String FORBIDDEN = "/";
 	private FilterConfig filterConfig;
 
 	@Override
