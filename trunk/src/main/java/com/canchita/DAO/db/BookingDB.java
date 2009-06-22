@@ -346,18 +346,12 @@ public class BookingDB extends AllDB implements BookingDAO {
 				+ booking.getSchedule().getEndTime()
 				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
 
-			String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE ( " +
-			sqlDateFrom +
-			" >= ( to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) "
-			+ " AND "
+		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE ( "
 			+ sqlDateFrom
-			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )"
-			+ "OR ( "
+			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') "
+			+ "AND "
 			+ sqlDateTo
-			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')"
-			+ " AND "
-			+ sqlDateTo
-			+ "<= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )";
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) )";
 	
 		List<Integer> results = executeQuery(query, new Object[] {},
 				CountBuilder.getInstance());
@@ -375,19 +369,13 @@ public class BookingDB extends AllDB implements BookingDAO {
 			+ endTime
 			+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
 		
-		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE ( " +
-			sqlDateFrom +
-			" >= ( to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) "
-			+ " AND "
+		String query = "SELECT COUNT(*) AS COUNT FROM RESERVATION WHERE ( "
 			+ sqlDateFrom
-			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )"
-			+ "OR ( "
+			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') "
+			+ "AND "
 			+ sqlDateTo
-			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')"
-			+ " AND "
-			+ sqlDateTo
-			+ "<= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )";
-		
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) )";
+				
 		List<Integer> results = executeQuery(query, new Object[] {},
 				CountBuilder.getInstance());
 		

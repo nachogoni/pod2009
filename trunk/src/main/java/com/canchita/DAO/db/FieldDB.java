@@ -101,7 +101,7 @@ public class FieldDB extends AllDB implements FieldDAO {
 			String searchTown, String searchState, String searchCountry,
 			String searchAddress, DateTime from, DateTime to) {
 
-		List<Field> results;
+		List<Field> results = null;
 		boolean isSearchingByPlace = false;
 		String minHasRoof = "0";
 		String maxHasRoof = "1";
@@ -198,25 +198,19 @@ public class FieldDB extends AllDB implements FieldDAO {
 			
 			String sqlDateFrom = "to_date (to_char ( TO_TIMESTAMP_TZ('"
 				+ from
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD'), 'YYYY-MON-DD')";
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
 			String sqlDateTo = "to_date (to_char ( TO_TIMESTAMP_TZ('"
 				+ to
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD'), 'YYYY-MON-DD')";
+				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
 			
 			query += " AND ( \"field_id\" NOT IN " +
-			"( SELECT DISTINCT \"field_id\" FROM RESERVATION WHERE \"state\" = ? OR \"state\" = ? AND ( " +
-			sqlDateFrom +
-			" >= ( to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) "
-			+ " AND "
+			"( SELECT DISTINCT \"field_id\" FROM RESERVATION WHERE ( \"state\" = ? OR \"state\" = ?) AND ( "
 			+ sqlDateFrom
-			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') )"
-			+ "OR ( "
+			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') "
+			+ "AND "
 			+ sqlDateTo
-			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')"
-			+ " AND "
-			+ sqlDateTo
-			+ "<= to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) )";
-		
+			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) )";
+			
 			params.add(BookingStatus.BOOKED.getIndex());
 			params.add(BookingStatus.HALF_PAID.getIndex());
 			
@@ -239,9 +233,14 @@ public class FieldDB extends AllDB implements FieldDAO {
 		System.out.println(from);
 		System.out.println(to);
 		System.out.println(query);
+		
+		try {
 		results = executeQuery(query, params.toArray(), FieldBuilder
 				.getInstance());
-
+		}
+		catch(RuntimeException r) {
+			r.getCause().printStackTrace();
+		}
 		System.out.println(results);
 		
 		return results;
