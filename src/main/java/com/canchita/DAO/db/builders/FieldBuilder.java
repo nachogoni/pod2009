@@ -42,7 +42,6 @@ public class FieldBuilder implements QueryProcessor<Field> {
 							.getBoolean("has_roof"), resultSet.getLong("type"),
 							new BigDecimal(resultSet.getString("price")), resultSet.getBlob("picture"),
 					resultSet.getBoolean("under_maintenance"));
-			System.out.println(aField);
 			Complex aComplex = null;
 			try {
 				aComplex = ComplexDB.getInstance().getById(
