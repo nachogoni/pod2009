@@ -9,8 +9,10 @@ public class IsPercentage extends Validator {
 
 	@Override
 	public boolean validate(String data) {
-		return data.matches("[0]\\.?[0-9]*")
-			|| data.matches("1\\.?[0]*");
+		return data.matches("[0]") || data.matches("[1]")
+				|| data.matches("1\\.[0]*")
+				|| data.matches("0\\.[0]*")
+				|| data.matches("[0]\\.[0-9]*");
 	}
 
 }
