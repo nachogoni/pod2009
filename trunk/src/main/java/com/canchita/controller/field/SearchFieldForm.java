@@ -9,6 +9,8 @@ import com.canchita.views.helpers.form.FormElementButton;
 import com.canchita.views.helpers.form.FormElementInput;
 import com.canchita.views.helpers.form.FormElementSelect;
 import com.canchita.views.helpers.form.FormHandler;
+import com.canchita.views.helpers.j2query.J2QueryDatePicker;
+import com.canchita.views.helpers.j2query.J2QueryTimePicker;
 
 public class SearchFieldForm extends FormHandler {
 
@@ -16,6 +18,9 @@ public class SearchFieldForm extends FormHandler {
 		ArrayList<String> sfield = new ArrayList<String>();
 
 		this.setName("Búsqueda de canchas")
+			.enableJ2Query("src/main/webapp/js/field/search/init.js")
+			.setId("formSearch")
+			//.enableJ2QueryValidation()
   			.setMethod("get");
 
 		this.addElement(new FormElementInput("text", "name")
@@ -91,18 +96,24 @@ public class SearchFieldForm extends FormHandler {
 		this.addElement(new FormElementInput("text", "day")
 		.setLabel("Fecha")
 		.setRequired(false)
+		.setId("idDay")
+		.addJ2QueryElement(new J2QueryDatePicker("idDay","null","null"))
 		.addValidator("MaxLength", "50")
 		.addValidator("IsDate"));
 
 		this.addElement(new FormElementInput("text", "from")
 		.setLabel("Horario Inicio")
 		.setRequired(false)
+		.setId("idFrom")
+		.addJ2QueryElement(new J2QueryTimePicker("idFrom"))
 		.addValidator("MaxLength", "50")
 		.addValidator("IsHourMinute"));
 
 		this.addElement(new FormElementInput("text", "to")
 		.setLabel("Horario Fin")
 		.setRequired(false)
+		.setId("idTo")
+		.addJ2QueryElement(new J2QueryTimePicker("idTo"))
 		.addValidator("MaxLength", "50")
 		.addValidator("IsHourMinute"));
 
