@@ -40,7 +40,7 @@ public class FieldBuilder implements QueryProcessor<Field> {
 					resultSet.getString("description"), resultSet
 							.getLong("number_of_players"), resultSet
 							.getBoolean("has_roof"), resultSet.getLong("type"),
-							new BigDecimal(resultSet.getString("price")), resultSet.getBlob("picture"),
+							new BigDecimal(resultSet.getString("price")),
 					resultSet.getBoolean("under_maintenance"));
 			Complex aComplex = null;
 			try {

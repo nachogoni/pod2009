@@ -54,8 +54,7 @@ public class ComplexBuilder implements QueryProcessor<Complex> {
 						.getString("city"), resultSet.getString("state"),
 				resultSet.getString("zip_code"),
 				resultSet.getString("country"), resultSet.getString("fax"),
-				resultSet.getString("email"), resultSet.getBlob("picture"),
-				resultSet.getString("latitude"), resultSet
+				resultSet.getString("email"), resultSet.getString("latitude"), resultSet
 						.getString("longitude"));
 
 		try {

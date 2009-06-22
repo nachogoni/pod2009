@@ -1,7 +1,6 @@
 package com.canchita.model.complex;
 
 import java.math.BigDecimal;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -40,13 +39,12 @@ public class Complex implements Booker {
 	private List<Field> fields;
 	private Long id;
 	private String email;
-	private Blob picture;
 	private String fax;
 	protected List<String> phones;
 	private List<Expiration> expirationPolicies;
 	private Expiration expiration;
-	
-	//TODO esta cableado meterlo en la BD para la proxima entrega
+
+	// TODO esta cableado meterlo en la BD para la proxima entrega
 	private BigDecimal accontationPercentage = new BigDecimal("0.50");
 
 	public Complex(String name) {
@@ -63,8 +61,8 @@ public class Complex implements Booker {
 
 	public Complex(Integer id, String name, String description, String address,
 			String neighbourhood, String city, String state, String zipCode,
-			String country, String fax, String email, Blob picture,
-			String latitude, String longitude) {
+			String country, String fax, String email, String latitude,
+			String longitude) {
 		this.id = new Long(id);
 		this.name = name;
 		this.description = description;
@@ -73,9 +71,8 @@ public class Complex implements Booker {
 						city).state(state).zipCode(zipCode)).build();
 		this.email = email;
 		this.fax = fax;
-		this.setPicture(picture);
 		this.phones = new LinkedList<String>();
-		
+
 		expiration = new Expiration();
 		expiration.setScoreFrom(0L);
 		expiration.setScoreTo(Long.MAX_VALUE);
@@ -86,7 +83,7 @@ public class Complex implements Booker {
 	public Complex(long complexID) {
 		this.id = complexID;
 		this.phones = new LinkedList<String>();
-		
+
 		expiration = new Expiration();
 		expiration.setScoreFrom(0L);
 		expiration.setScoreTo(Long.MAX_VALUE);
@@ -286,14 +283,6 @@ public class Complex implements Booker {
 				+ email;
 	}
 
-	public void setPicture(Blob picture) {
-		this.picture = picture;
-	}
-
-	public Blob getPicture() {
-		return picture;
-	}
-
 	public void setPhone(String phone) {
 		if (!phone.isEmpty())
 			this.phones.add(phone);
@@ -318,8 +307,8 @@ public class Complex implements Booker {
 	public void setExpiration(Expiration defaultExpiration) {
 		this.expiration = defaultExpiration;
 	}
-	
-	public  List<Availability> getPrettyTimetable() {
+
+	public List<Availability> getPrettyTimetable() {
 		return this.timeTable.getAvailabilities();
 	}
 

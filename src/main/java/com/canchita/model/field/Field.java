@@ -1,7 +1,6 @@
 package com.canchita.model.field;
 
 import java.math.BigDecimal;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,7 +38,7 @@ import com.canchita.model.user.CommonUser;
 public class Field implements Bookable {
 
 	private Long id;
-	
+
 	private String name;
 	private String description;
 	private Long numberOfPlayers;
@@ -47,265 +46,278 @@ public class Field implements Bookable {
 	private boolean hasRoof;
 	private FloorType floor;
 	private BigDecimal price;
-	private Blob picture;
 	private boolean under_maintenance;
 	private Expiration expiration;
 
 	private BigDecimal accontationPercentage;
-	
+
 	/**
 	 * Retorna la funcion de comparacion de las canchas por techada o no
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareMaintenance(){
+	public static Comparator<Field> compareMaintenance() {
 		return compareMaintenance(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre cantidad de jugadores
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareMaintenance(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareMaintenance(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
-					return (o1.isUnder_maintenance() && o2.isUnder_maintenance()) ? 1 : 0;
+					return (o1.isUnder_maintenance() && o2
+							.isUnder_maintenance()) ? 1 : 0;
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
-				return (o1.isUnder_maintenance() && o2.isUnder_maintenance()) ? 0 : 1;
+				return (o1.isUnder_maintenance() && o2.isUnder_maintenance()) ? 0
+						: 1;
 			}
 		};
 	}
-	
-	
+
 	/**
 	 * Retorna la funcion de comparacion de las canchas por precio
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> comparePrice(){
+	public static Comparator<Field> comparePrice() {
 		return comparePrice(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre precio
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> comparePrice(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> comparePrice(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
 					return o1.getPrice().compareTo(o2.getPrice());
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
 				return o2.getPrice().compareTo(o1.getPrice());
 			}
 		};
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion de las canchas por tipo de piso
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareFloorType(){
+	public static Comparator<Field> compareFloorType() {
 		return compareFloorType(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre tipo de piso
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareFloorType(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareFloorType(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
-					return o1.getFloor().toString().compareTo(o2.getFloor().toString());
+					return o1.getFloor().toString().compareTo(
+							o2.getFloor().toString());
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
-				return o2.getFloor().toString().compareTo(o1.getFloor().toString());
+				return o2.getFloor().toString().compareTo(
+						o1.getFloor().toString());
 			}
 		};
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion de las canchas por techada o no
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareRoof(){
+	public static Comparator<Field> compareRoof() {
 		return compareRoof(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre cantidad de jugadores
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareRoof(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareRoof(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
 					return (o1.isHasRoof() && o2.isHasRoof()) ? 1 : 0;
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
 				return (o1.isHasRoof() && o2.isHasRoof()) ? 0 : 1;
 			}
 		};
 	}
-	
-	
+
 	/**
-	 * Retorna la funcion de comparacion de las canchas por cantidad de jugadores
+	 * Retorna la funcion de comparacion de las canchas por cantidad de
+	 * jugadores
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareNumberOfPlayers(){
+	public static Comparator<Field> compareNumberOfPlayers() {
 		return compareNumberOfPlayers(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre cantidad de jugadores
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareNumberOfPlayers(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareNumberOfPlayers(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
-					return o1.getNumberOfPlayers().compareTo(o2.getNumberOfPlayers());
+					return o1.getNumberOfPlayers().compareTo(
+							o2.getNumberOfPlayers());
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
-				return o2.getNumberOfPlayers().compareTo(o1.getNumberOfPlayers());
+				return o2.getNumberOfPlayers().compareTo(
+						o1.getNumberOfPlayers());
 			}
 		};
 	}
-	
-	
+
 	/**
-	 * Retorna la funcion de comparacion de las canchas por descripcion ascendente
+	 * Retorna la funcion de comparacion de las canchas por descripcion
+	 * ascendente
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareDescription(){
+	public static Comparator<Field> compareDescription() {
 		return compareDescription(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre descripciones
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareDescription(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareDescription(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
 					return o1.getDescription().compareTo(o2.getDescription());
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
 				return o2.getDescription().compareTo(o1.getDescription());
 			}
 		};
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion de las canchas por complejo ascendente
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareComplex(){
+	public static Comparator<Field> compareComplex() {
 		return compareComplex(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre nombres de complejo
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareComplex(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareComplex(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
-					return o1.getComplex().getName().compareTo(o2.getComplex().getName());
+					return o1.getComplex().getName().compareTo(
+							o2.getComplex().getName());
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
-				return o2.getComplex().getName().compareTo(o1.getComplex().getName());
+				return o2.getComplex().getName().compareTo(
+						o1.getComplex().getName());
 			}
 		};
 	}
-	
-	
+
 	/**
 	 * Retorna la funcion de comparacion de las canchas por nombre ascendente
 	 * 
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareNames(){
+	public static Comparator<Field> compareNames() {
 		return compareNames(true);
 	}
-	
+
 	/**
 	 * Retorna la funcion de comparacion sobre nombres de canchas
 	 * 
-	 * @param sort si es true devuelve ascendente, sino descendente
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
 	 * @return Comparator<Field>
 	 */
-	public static Comparator<Field> compareNames(boolean sort){
-		if (sort){
-			return new Comparator<Field>(){
+	public static Comparator<Field> compareNames(boolean sort) {
+		if (sort) {
+			return new Comparator<Field>() {
 				@Override
 				public int compare(Field o1, Field o2) {
 					return o1.getName().compareTo(o2.getName());
 				}
 			};
 		}
-		return new Comparator<Field>(){
+		return new Comparator<Field>() {
 			@Override
 			public int compare(Field o1, Field o2) {
 				return o2.getName().compareTo(o1.getName());
@@ -314,8 +326,8 @@ public class Field implements Bookable {
 	}
 
 	public Field(long id, long complexID, String name, String description,
-			long numberOfPlayers, boolean hasRoof, long floor, BigDecimal price,
-			Blob picture, boolean under_maintenance) {
+			long numberOfPlayers, boolean hasRoof, long floor,
+			BigDecimal price, boolean under_maintenance) {
 
 		this.id = id;
 		this.complex = new Complex(complexID);
@@ -323,9 +335,8 @@ public class Field implements Bookable {
 		this.description = description;
 		this.numberOfPlayers = numberOfPlayers;
 		this.hasRoof = hasRoof;
-		this.floor = FloorType.values()[(int)floor];
+		this.floor = FloorType.values()[(int) floor];
 		this.price = price;
-		this.picture = picture;
 		this.under_maintenance = under_maintenance;
 	}
 
@@ -411,6 +422,10 @@ public class Field implements Bookable {
 
 		DateTime bookedExpiration = hour.getStartTime().minusHours(expiration.getBookingLimit());
 		
+		if( bookedExpiration.isBeforeNow() ) {
+			throw new BookingException("No se pudo realizar la reserva, ya que dados sus puntos la fecha de expiración es anterior a la de la fecha");
+		}
+		
 		Booking booking = new Booking(this, hour, user, bookedExpiration);
 
 		if (!this.inAvailableHours(booking)) {
@@ -432,24 +447,24 @@ public class Field implements Bookable {
 			throws PersistenceException {
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-		
+
 		Iterator<Booking> bookings = bookingDAO.getFieldBookings(this.id, date);
-		
+
 		Iterator<Schedule> availability = complex.getScheduleForDay(date);
-		
+
 		return this.getAvailableHours(date, bookings, availability);
 
 	}
 
 	public Iterator<Schedule> getAllHours(DateTime date) {
-		
+
 		List<Booking> bookings = new ArrayList<Booking>();
-		
+
 		Iterator<Schedule> availability = complex.getScheduleForDay(date);
-		
+
 		return this.getAvailableHours(date, bookings.iterator(), availability);
 	}
-	
+
 	private Iterator<Schedule> getAvailableHours(DateTime date,
 			Iterator<Booking> bookings, Iterator<Schedule> availability) {
 
@@ -603,14 +618,6 @@ public class Field implements Bookable {
 		return numberOfPlayers;
 	}
 
-	public void setPicture(Blob picture) {
-		this.picture = picture;
-	}
-
-	public Blob getPicture() {
-		return picture;
-	}
-
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
@@ -630,13 +637,12 @@ public class Field implements Bookable {
 
 	@Override
 	public BigDecimal getAccontationPercentage() {
-		
-		if( this.accontationPercentage == null ) {
+
+		if (this.accontationPercentage == null) {
 			return this.complex.getAccontationPercentage();
 		}
-		
+
 		return accontationPercentage;
 	}
-	
 
 }

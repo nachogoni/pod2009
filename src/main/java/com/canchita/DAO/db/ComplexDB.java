@@ -155,7 +155,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 
 	@Override
 	public void save(Complex complex) throws PersistenceException {
-		String query = "INSERT into COMPLEX VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT into COMPLEX VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			executeUpdate(query, new Object[] { complex.getName(),
@@ -165,8 +165,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 					complex.getPlace().getState(),
 					complex.getPlace().getZipCode(),
 					complex.getPlace().getCountry(), complex.getFax(),
-					complex.getEmail(), complex.getPicture(),
-					complex.getPlace().getLatitude(),
+					complex.getEmail(), complex.getPlace().getLatitude(),
 					complex.getPlace().getLongitude() });
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
@@ -187,7 +186,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 		String query = "UPDATE COMPLEX set \"name\" = ?, \"description\" = ?, "
 				+ "\"address\" = ?, \"neighbourhood\" = ?, \"city\" = ?, "
 				+ "\"state\" = ?, \"zip_code\" = ?, \"country\" = ?, \"fax\" = ?,"
-				+ "\"email\" = ?, \"picture\" = ?, \"latitude\" = ?, \"longitude\" = ?"
+				+ "\"email\" = ?, \"latitude\" = ?, \"longitude\" = ?"
 				+ "where \"complex_id\" = ?";
 
 		try {
@@ -198,8 +197,7 @@ public class ComplexDB extends AllDB implements ComplexDAO {
 					complex.getPlace().getState(),
 					complex.getPlace().getZipCode(),
 					complex.getPlace().getCountry(), complex.getFax(),
-					complex.getEmail(), complex.getPicture(),
-					complex.getPlace().getLatitude(),
+					complex.getEmail(), complex.getPlace().getLatitude(),
 					complex.getPlace().getLongitude(), complex.getId() });
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
