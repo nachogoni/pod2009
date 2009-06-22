@@ -51,6 +51,8 @@ System.out.println("Bajando..." + (new Date()));
 			e.printStackTrace();
 		} catch (BookingException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
