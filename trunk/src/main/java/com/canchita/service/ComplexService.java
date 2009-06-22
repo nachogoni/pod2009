@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,16 +31,18 @@ public class ComplexService implements ComplexServiceProtocol {
 
 	Complex aComplex;
 
-	public void deleteComplex(Long id) throws PersistenceException, ComplexException {
+	public void deleteComplex(Long id) throws PersistenceException,
+			ComplexException {
 
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-		
-		if( bookingDAO.complexHasBookings(id) ) {
-			throw new ComplexException("No se puede borrar un complejo que tiene reservas activas");
+
+		if (bookingDAO.complexHasBookings(id)) {
+			throw new ComplexException(
+					"No se puede borrar un complejo que tiene reservas activas");
 		}
-		
+
 		complexDAO.delete(id);
 	}
 
@@ -102,7 +105,7 @@ public class ComplexService implements ComplexServiceProtocol {
 
 	public void updateComplex(Long id, String name, String description,
 			String address, String zipCode, String neighbourhood, String town,
-			String state, String country) throws PersistenceException {
+			String state, String country, BigDecimal bookingPercentage) throws PersistenceException {
 
 		Complex aComplex = getById(id);
 		Place location = aComplex.getPlace();
@@ -131,14 +134,18 @@ public class ComplexService implements ComplexServiceProtocol {
 		if (country != null) {
 			location.setCountry(country);
 		}
+		if (bookingPercentage != null)
+		{
+			aComplex.setAccontationPercentage(bookingPercentage);
+		}
 
 		try {
-			
-		aComplex.setPlace(location);
 
-		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+			aComplex.setPlace(location);
 
-		complexDAO.update(aComplex);
+			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
+
+			complexDAO.update(aComplex);
 
 		} catch (PersistenceException e) {
 			e.printStackTrace();
@@ -166,7 +173,7 @@ public class ComplexService implements ComplexServiceProtocol {
 		// Build a complex with minimal information
 		public static void Build(String name, String description,
 				String address, String zipCode, String neighbourhood,
-				String town, String state, String country) {
+				String town, String state, String country, BigDecimal percentage) {
 
 			aComplex = new Complex(name);
 			aComplex.setDescription(description);
@@ -181,7 +188,7 @@ public class ComplexService implements ComplexServiceProtocol {
 			complexLocation.setZipCode(zipCode);
 
 			aComplex.setPlace(complexLocation);
-
+			aComplex.setAccontationPercentage(percentage);
 		}
 
 		public static void addExpiration(Integer bookingLimit,
@@ -482,11 +489,11 @@ public class ComplexService implements ComplexServiceProtocol {
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
 		Complex aComplex = complexDAO.getById(id);
-		
+
 		TimetableDAO timetable = DAOFactory.get(DAO.TIME_TABLE);
-		
+
 		timetable.deleteByComplex(aComplex.getId());
-		
+
 		for (Availability av : aCalendar.getAvailabilities()) {
 			timetable.save(av, aComplex.getId());
 		}
@@ -588,13 +595,15 @@ public class ComplexService implements ComplexServiceProtocol {
 	}
 
 	@Override
-	public Collection<String> getNeighbourhoods(String province, String locality) throws PersistenceException {
+	public Collection<String> getNeighbourhoods(String province, String locality)
+			throws PersistenceException {
 		ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
-		Collection<String> neighbourhoods = complexDAO.getNeighbourhoods(province, locality);
+		Collection<String> neighbourhoods = complexDAO.getNeighbourhoods(
+				province, locality);
 		return neighbourhoods;
 
 	}
-	
+
 	@Override
 	public Collection<String> getLocations(String province)
 			throws PersistenceException {

@@ -1,6 +1,7 @@
 package com.canchita.controller.complex;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -88,6 +89,8 @@ public class AddComplex extends GenericServlet {
 			String country = request.getParameter("country");
 			String address = request.getParameter("address");
 			String telephones[] = request.getParameterValues("telephone");
+			String percentage = request.getParameter("accontationPercentage");
+
 			logger.debug("Se levantan todos los parámetros del request");
 
 			if (name == null) {
@@ -104,6 +107,10 @@ public class AddComplex extends GenericServlet {
 						.add("Falta la provincia/estado donde se encuentra el complejo");
 			}
 
+			if (percentage == null) {
+				error.add("Falta el porcentaje de reserva");
+			}
+
 			if (error.size() != 0) {
 				logger.debug("Error en el formulario");
 				request.setAttribute("formulario", formulario);
@@ -113,12 +120,17 @@ public class AddComplex extends GenericServlet {
 
 			Integer depositLimit = null;
 			Integer bookingLimit = null;
+			BigDecimal bookingPercentage = null;
+			
 			try {
 
 				depositLimit = Integer.parseInt(request
 						.getParameter("depositLimit"));
 				bookingLimit = Integer.parseInt(request
 						.getParameter("bookingLimit"));
+
+					bookingPercentage = new BigDecimal(request
+						.getParameter("accontationPercentage"));
 
 				if (bookingLimit < depositLimit) {
 					error.add("El valor de caducidad de seña no puede ser "
@@ -172,7 +184,7 @@ public class AddComplex extends GenericServlet {
 			try {
 				logger.debug("Se llama a build");
 				ComplexBuilder.Build(name, description, address, zipCode,
-						neighbourhood, town, state, country);
+						neighbourhood, town, state, country, bookingPercentage);
 
 				logger.debug("Se agrega timetable");
 				ComplexBuilder.addTimeTable(schedule.get(0), schedule.get(1),

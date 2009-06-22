@@ -326,8 +326,9 @@ public class Field implements Bookable {
 	}
 
 	public Field(long id, long complexID, String name, String description,
-			long numberOfPlayers, boolean hasRoof, long floor,
-			BigDecimal price, boolean under_maintenance) {
+
+	long numberOfPlayers, boolean hasRoof, long floor, BigDecimal price,
+			boolean under_maintenance, BigDecimal percentage) {
 
 		this.id = id;
 		this.complex = new Complex(complexID);
@@ -338,6 +339,7 @@ public class Field implements Bookable {
 		this.floor = FloorType.values()[(int) floor];
 		this.price = price;
 		this.under_maintenance = under_maintenance;
+		this.setAccontationPercentage(percentage);
 	}
 
 	@Override
@@ -413,19 +415,21 @@ public class Field implements Bookable {
 	}
 
 	@Override
-	public Booking book(CommonUser user, Schedule hour) throws PersistenceException,
-			BookingException {
+	public Booking book(CommonUser user, Schedule hour)
+			throws PersistenceException, BookingException {
 
 		ExpirationDAO expirationDAO = DAOFactory.get(DAO.EXPIRATION);
 
 		Expiration expiration = expirationDAO.getByScore(this, user.getScore());
 
-		DateTime bookedExpiration = hour.getStartTime().minusHours(expiration.getBookingLimit());
-		
-		if( bookedExpiration.isBeforeNow() ) {
-			throw new BookingException("No se pudo realizar la reserva, ya que dados sus puntos la fecha de expiración es anterior a la de la fecha");
+		DateTime bookedExpiration = hour.getStartTime().minusHours(
+				expiration.getBookingLimit());
+
+		if (bookedExpiration.isBeforeNow()) {
+			throw new BookingException(
+					"No se pudo realizar la reserva, ya que dados sus puntos la fecha de expiración es anterior a la de la fecha");
 		}
-		
+
 		Booking booking = new Booking(this, hour, user, bookedExpiration);
 
 		if (!this.inAvailableHours(booking)) {
@@ -643,6 +647,10 @@ public class Field implements Bookable {
 		}
 
 		return accontationPercentage;
+	}
+
+	public void setAccontationPercentage(BigDecimal accontationPercentage) {
+		this.accontationPercentage = accontationPercentage;
 	}
 
 }

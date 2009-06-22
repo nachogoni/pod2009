@@ -2,7 +2,6 @@ package com.canchita.DAO.db;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -110,15 +109,14 @@ public class FieldDB extends AllDB implements FieldDAO {
 		String minPlayers = "0";
 		String maxPlayers = String.valueOf(Integer.MAX_VALUE);
 
-
-		String query = "SELECT DISTINCT FIELD.\"field_id\",FIELD.\"complex_id\"," +
-				"FIELD.\"name\", FIELD.\"description\",FIELD.\"number_of_players\"," +
-				"FIELD.\"has_roof\",FIELD.\"type\",FIELD.\"price\"," +
-				"FIELD.\"under_maintenance\"" +
-				" FROM FIELD,TIMETABLE,COMPLEX " +
-				"WHERE 1=1 AND COMPLEX.\"complex_id\" = TIMETABLE.\"complex_id\" " +
-				"AND FIELD.\"complex_id\" = COMPLEX.\"complex_id\" " +
-				"AND lower(FIELD.\"name\") LIKE lower(?) AND ";
+		String query = "SELECT DISTINCT FIELD.\"field_id\",FIELD.\"complex_id\","
+				+ "FIELD.\"name\", FIELD.\"description\",FIELD.\"number_of_players\","
+				+ "FIELD.\"has_roof\",FIELD.\"type\",FIELD.\"price\","
+				+ "FIELD.\"under_maintenance\""
+				+ " FROM FIELD,TIMETABLE,COMPLEX "
+				+ "WHERE 1=1 AND COMPLEX.\"complex_id\" = TIMETABLE.\"complex_id\" "
+				+ "AND FIELD.\"complex_id\" = COMPLEX.\"complex_id\" "
+				+ "AND lower(FIELD.\"name\") LIKE lower(?) AND ";
 
 		if (searchName == null)
 			searchName = "%";
@@ -202,50 +200,48 @@ public class FieldDB extends AllDB implements FieldDAO {
 		params.add(maxPlayers);
 		params.add(minPlayers);
 
-		if( from != null && to != null ) {
-			
+		if (from != null && to != null) {
+
 			String sqlDateFrom = "to_date (to_char ( TO_TIMESTAMP_TZ('"
-				+ from
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
-			
+					+ from
+					+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
+
 			String sqlDateTo = "to_date (to_char ( TO_TIMESTAMP_TZ('"
-				+ to
-				+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
-			
-			query += " AND ( \"field_id\" NOT IN " +
-			"( SELECT DISTINCT \"field_id\" FROM RESERVATION WHERE ( \"state\" = ? OR \"state\" = ?) AND ( "
-			+ sqlDateFrom
-			+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') "
-			+ "AND "
-			+ sqlDateTo
-			+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) ) ";
-			
+					+ to
+					+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'), 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS')";
+
+			query += " AND ( \"field_id\" NOT IN "
+					+ "( SELECT DISTINCT \"field_id\" FROM RESERVATION WHERE ( \"state\" = ? OR \"state\" = ?) AND ( "
+					+ sqlDateFrom
+					+ " < to_date (to_char (\"end_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') "
+					+ "AND "
+					+ sqlDateTo
+					+ " > to_date (to_char (\"start_date\", 'YYYY-MON-DD HH24.MI.SS'), 'YYYY-MON-DD HH24.MI.SS') ) ) ) ";
+
 			params.add(BookingStatus.BOOKED.getIndex());
 			params.add(BookingStatus.HALF_PAID.getIndex());
 
-			String fromTS = "( TO_TIMESTAMP_TZ('"
-					+ from
+			String fromTS = "( TO_TIMESTAMP_TZ('" + from
 					+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'))";
-			String toTS = "( TO_TIMESTAMP_TZ('"
-					+ to
+			String toTS = "( TO_TIMESTAMP_TZ('" + to
 					+ "', 'YYYY-MM-DD\"T\"HH24:MI:SS.FFTZD'))";
-			
-			String sqlFromHour = "EXTRACT( HOUR FROM" + fromTS +") ";
-			String sqlFromMinute = "EXTRACT( MINUTE FROM" + fromTS +") ";
-			String sqlToHour = "EXTRACT( HOUR FROM" + toTS +") ";
-			String sqlToMinute = "EXTRACT( MINUTE FROM" + toTS +") ";
-			
-			query += " AND ( mod(to_char(" + fromTS + ",'D') + 5,7) = \"day\" AND ( ( "
-			+ sqlFromHour + "< EXTRACT(HOUR from \"to\") OR ( "
-			+ sqlFromHour + "= EXTRACT(HOUR from \"to\") AND "
-			+ sqlFromMinute + "< EXTRACT(MINUTE from \"to\") ) ) "
-			+ " AND ( "
-			+ sqlToHour + "> EXTRACT(HOUR from \"from\") OR ( "
-			+ sqlToHour + "= EXTRACT(HOUR from \"from\") AND "
-			+ sqlToMinute + "> EXTRACT(MINUTE from \"from\") ) ) ) ) ";
-			
+
+			String sqlFromHour = "EXTRACT( HOUR FROM" + fromTS + ") ";
+			String sqlFromMinute = "EXTRACT( MINUTE FROM" + fromTS + ") ";
+			String sqlToHour = "EXTRACT( HOUR FROM" + toTS + ") ";
+			String sqlToMinute = "EXTRACT( MINUTE FROM" + toTS + ") ";
+
+			query += " AND ( mod(to_char(" + fromTS
+					+ ",'D') + 5,7) = \"day\" AND ( ( " + sqlFromHour
+					+ "< EXTRACT(HOUR from \"to\") OR ( " + sqlFromHour
+					+ "= EXTRACT(HOUR from \"to\") AND " + sqlFromMinute
+					+ "< EXTRACT(MINUTE from \"to\") ) ) " + " AND ( "
+					+ sqlToHour + "> EXTRACT(HOUR from \"from\") OR ( "
+					+ sqlToHour + "= EXTRACT(HOUR from \"from\") AND "
+					+ sqlToMinute + "> EXTRACT(MINUTE from \"from\") ) ) ) ) ";
+
 		}
-		
+
 		if (isSearchingByPlace) {
 			query += " AND \"complex_id\" IN ( SELECT \"complex_id\" FROM COMPLEX"
 					+ " WHERE lower(\"address\") LIKE lower(?) AND lower(\"neighbourhood\") LIKE lower(?) AND lower(\"city\") LIKE lower(?) "
@@ -258,15 +254,14 @@ public class FieldDB extends AllDB implements FieldDAO {
 			params.add(searchCountry);
 
 		}
-		
+
 		try {
-		results = executeQuery(query, params.toArray(), FieldBuilder
-				.getInstance());
-		}
-		catch(RuntimeException r) {
+			results = executeQuery(query, params.toArray(), FieldBuilder
+					.getInstance());
+		} catch (RuntimeException r) {
 			r.getCause().printStackTrace();
 		}
-		
+
 		return results;
 	}
 
@@ -300,15 +295,16 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 	@Override
 	public void save(Field field) throws PersistenceException {
-		String query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
-			executeUpdate(query,
-					new Object[] { field.getComplex().getId(), field.getName(),
-							field.getDescription(), field.getNumberOfPlayers(),
-							bool2Long(field.isHasRoof()),
-							field.getFloor().ordinal(), field.getPrice(),
-							bool2Long(field.isUnder_maintenance()) });
+			executeUpdate(query, new Object[] { field.getComplex().getId(),
+					field.getName(), field.getDescription(),
+					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
+					field.getFloor().ordinal(), field.getPrice(),
+					bool2Long(field.isUnder_maintenance()),
+					field.getAccontationPercentage().toString() });
+
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 
@@ -340,14 +336,16 @@ public class FieldDB extends AllDB implements FieldDAO {
 		String query = "UPDATE FIELD set \"complex_id\" = ?, \"name\" = ?, "
 				+ "\"description\" = ?, \"number_of_players\" = ?, "
 				+ "\"has_roof\" = ?, \"type\" = ?, \"price\" = ?,"
-				+ "\"under_maintenance\" = ? "
+				+ "\"under_maintenance\" = ?, \"accont_percentage\" = ? "
 				+ "where \"field_id\" = ?";
 		try {
 			executeUpdate(query, new Object[] { field.getComplex().getId(),
 					field.getName(), field.getDescription(),
 					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
 					field.getFloor().ordinal(), field.getPrice(),
-					bool2Long(field.isUnder_maintenance()), field.getId() });
+					bool2Long(field.isUnder_maintenance()),
+					field.getAccontationPercentage(), field.getId() });
+
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
 

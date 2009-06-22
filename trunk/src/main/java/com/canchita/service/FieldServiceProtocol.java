@@ -28,14 +28,16 @@ public interface FieldServiceProtocol {
 			String neighbourhood, Long listCount) throws ValidationException,
 			PersistenceException;
 
-	public void deleteField(Long id) throws PersistenceException, FieldException;
+	public void deleteField(Long id) throws PersistenceException,
+			FieldException;
 
 	public Long saveField(String name, String description, Long idComplex,
 			Boolean hasRoof, FloorType floor) throws PersistenceException;
 
 	public void updateField(Long id, String name, String description,
 			Long number_of_players, Boolean hasRoof, FloorType floor,
-			BigDecimal price) throws PersistenceException;
+			BigDecimal price, BigDecimal bookingPercentage)
+			throws PersistenceException;
 
 	public Iterator<Schedule> getAvailableHours(Long id, DateTime date)
 			throws PersistenceException;
@@ -49,7 +51,7 @@ public interface FieldServiceProtocol {
 			InvalidParameterException;
 
 	public Long getComplexId(Long id) throws PersistenceException;
-	
+
 	Collection<Field> listField(String searchName, String searchDescription,
 			String searchMaxPrice, String searchNumberOfPlayers,
 			String searchHasRoof, String searchFloorType,
@@ -69,5 +71,6 @@ public interface FieldServiceProtocol {
 			Integer scoreTo, Integer downBooking, Integer downDeposit)
 			throws PersistenceException;
 
-	public Iterator<Schedule> getAllHours(Long id, DateTime date) throws PersistenceException;
+	public Iterator<Schedule> getAllHours(Long id, DateTime date)
+			throws PersistenceException;
 }

@@ -90,6 +90,7 @@ public class AddField extends GenericServlet {
 		Boolean hasRoof = null;
 		FloorType floor = null;
 		BigDecimal price = null;
+		BigDecimal bookingPercentage = null;
 		Long number_of_players = null;
 
 		logger.debug("POST request");
@@ -133,6 +134,12 @@ public class AddField extends GenericServlet {
 		} catch (NumberFormatException nfe) {
 			error.add("Error en el precio");
 		}
+		
+		try {
+			bookingPercentage = new BigDecimal(request.getParameter("accontationPercentage"));
+		} catch (NumberFormatException nfe) {
+			error.add("Error en el porcentaje de seña");
+		}
 
 		try {
 			number_of_players = Long.parseLong(request
@@ -155,7 +162,7 @@ public class AddField extends GenericServlet {
 
 		try {
 			FieldBuilder.Build(name, description, idComplex, hasRoof, floor,
-					price, number_of_players);
+					price, number_of_players, bookingPercentage);
 
 			FieldBuilder.saveField();
 

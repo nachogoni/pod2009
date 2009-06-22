@@ -1,5 +1,6 @@
 package com.canchita.DAO.db.builders;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,7 +56,8 @@ public class ComplexBuilder implements QueryProcessor<Complex> {
 				resultSet.getString("zip_code"),
 				resultSet.getString("country"), resultSet.getString("fax"),
 				resultSet.getString("email"), resultSet.getString("latitude"), resultSet
-						.getString("longitude"));
+						.getString("longitude"), new BigDecimal(resultSet
+						.getString("accont_percentage")));
 
 		try {
 			Collection<Availability> avs = TimetableDB.getInstance()

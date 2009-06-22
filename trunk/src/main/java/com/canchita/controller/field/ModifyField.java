@@ -104,6 +104,7 @@ public class ModifyField extends GenericServlet {
 		Boolean hasRoof = false;
 		FloorType floor = FloorType.CONCRETE;
 		BigDecimal price = null;
+		BigDecimal bookingPercentage = null;
 		Long number_of_players = null;
 
 		/* Load form with request values */
@@ -121,6 +122,7 @@ public class ModifyField extends GenericServlet {
 
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
+		
 
 		try {
 			hasRoof = Boolean.valueOf(request.getParameter("hasRoof"));
@@ -147,6 +149,14 @@ public class ModifyField extends GenericServlet {
 		}
 
 		try {
+			String param = request.getParameter("accontationPercentage");
+			if (param != null && param != "" )
+				bookingPercentage = new BigDecimal(param);
+		} catch (NumberFormatException nfe) {
+			error.add("Error en el porcentaje de seña");
+		}
+		
+		try {
 			number_of_players = Long.parseLong(request
 					.getParameter("cantPlayers"));
 		} catch (NumberFormatException nfe) {
@@ -156,6 +166,8 @@ public class ModifyField extends GenericServlet {
 		if (name == null) {
 			error.add("Falta el nombre de la Cancha");
 		}
+		
+		
 
 		if (error.size() != 0) {
 			request.setAttribute("errorManager", error);
@@ -167,7 +179,7 @@ public class ModifyField extends GenericServlet {
 
 		try {
 			modifyService.updateField(id, name, description, number_of_players,
-					hasRoof, floor, price);
+					hasRoof, floor, price, bookingPercentage);
 		} catch (ElementNotExistsException e) {
 			error.add("No se pudo modificar porque el elemento fue eliminado.");
 			request.setAttribute("errorManager", error);
