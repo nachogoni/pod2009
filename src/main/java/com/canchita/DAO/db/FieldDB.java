@@ -259,11 +259,6 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 		}
 		
-		System.out.println(Arrays.toString(params.toArray()));
-		System.out.println(from);
-		System.out.println(to);
-		System.out.println(query);
-		
 		try {
 		results = executeQuery(query, params.toArray(), FieldBuilder
 				.getInstance());
@@ -271,7 +266,6 @@ public class FieldDB extends AllDB implements FieldDAO {
 		catch(RuntimeException r) {
 			r.getCause().printStackTrace();
 		}
-		System.out.println(results);
 		
 		return results;
 	}
