@@ -117,10 +117,10 @@ public class FormAddComplex extends FormHandler {
 				.addJ2QueryTooltip("Pa&iacute;s del Complejo"));
 
 		this.addElement(new FormElementInput("text", "accontationPercentage")
-				.setLabel("Porcentaje de reserva").setRequired(true)
-				.addValidator("MaxLength", "5")
-				.setRequired(true)
-				.addValidator("IsPercentage"));
+		.setLabel("Porcentaje de reserva")
+		.setRequired(true)
+		.addValidator("MaxLength", "5")
+		.addValidator("IsPercentage"));
 
 		ArrayList<String> diasDeSemana = new ArrayList<String>();
 		diasDeSemana.add("lunes");
