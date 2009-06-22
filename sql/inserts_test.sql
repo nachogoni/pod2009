@@ -18,12 +18,12 @@ INSERT INTO EMAIL VALUES(NULL, '2@user2.com', 4);
 INSERT INTO EMAIL VALUES(NULL, '3@user2.com', 4);
 
 
-INSERT INTO COMPLEX VALUES (NULL,'Complejo1','Desc complejo 1', 'direccion 1', 'barrio1', 'ciudad1','state1', '1337', 'country1', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO COMPLEX VALUES (NULL,'Complejo2','Desc complejo 2', 'direccion 2', 'barrio2', 'ciudad2','state2', '1337', 'country2', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO COMPLEX VALUES (NULL,'Complejo1','Desc complejo 1', 'direccion 1', 'barrio1', 'ciudad1','state1', '1337', 'country1', NULL, NULL, NULL, NULL, '0.80');
+INSERT INTO COMPLEX VALUES (NULL,'Complejo2','Desc complejo 2', 'direccion 2', 'barrio2', 'ciudad2','state2', '1337', 'country2', NULL, NULL, NULL, NULL,'0.75');
 
-INSERT INTO FIELD VALUES(NULL,1,'cancha1', 'descripcion cancha1', 4, 1, 1, '22.40', 0, NULL);
+INSERT INTO FIELD VALUES(NULL,1,'cancha1', 'descripcion cancha1', 4, 1, 1, '22.40', 0, '0.3');
 INSERT INTO FIELD VALUES(NULL,1,'cancha2', 'descripcion cancha2', 4, 1, 1, '30.40', 0, NULL);
-INSERT INTO FIELD VALUES(NULL,2,'cancha3', 'descripcion cancha3', 4, 1, 1, '30.40', 0, NULL);
+INSERT INTO FIELD VALUES(NULL,2,'cancha3', 'descripcion cancha3', 4, 1, 1, '30.40', 0, '0.4');
 
 INSERT INTO EXPIRATION_POLICY VALUES(NULL, 1, NULL, -2000000000000, 2000000000000, 12, 48);
 INSERT INTO EXPIRATION_POLICY VALUES(NULL, 2, NULL, -2000000000000, 2000000000000, 6, 24);
