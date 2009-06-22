@@ -175,7 +175,12 @@ public class SearchFieldForm extends FormHandler {
 			return false;
 		
 		}
-				
+		
+		if( from.compareTo(to) > 0 ) {
+			this.errors.put("from", "Debe seleccionar un horario menor al de fin");
+			return false;
+		}
+		
 		return super.isValid();
 	}
 	
