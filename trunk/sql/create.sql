@@ -62,7 +62,6 @@ CREATE  TABLE "COMPLEX" (
   "country" VARCHAR2(50) NOT NULL ,
   "fax" VARCHAR2(50) NULL ,
   "email" VARCHAR2(50) NULL ,
-  "picture" BLOB NULL ,
   "latitude" VARCHAR2(50) NULL ,
   "longitude" VARCHAR2(50) NULL ,
   CONSTRAINT place_unique UNIQUE ("address", "city", "state", "country"),
@@ -113,7 +112,6 @@ CREATE  TABLE "FIELD" (
   "type" INT NOT NULL ,
   "price" VARCHAR2(10) NOT NULL ,
   "under_maintenance" NUMBER(1) NOT NULL ,
-  "picture" BLOB NULL ,
   PRIMARY KEY ("field_id") ,
   CONSTRAINT field_unique UNIQUE ("complex_id","name"),
   CONSTRAINT "fk_FIELD_COMPLEX"
