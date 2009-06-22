@@ -74,6 +74,7 @@ public class FormField extends FormHandler {
 		this.addElement(new FormElementInput("text","price")
 			.setLabel("Precio")
 			.setRequired(true)
+			.setMaxLength(5)
 			.addValidator("IsDecimal"));
 		
 		this.addElement(new FormElementInput("text", "accontationPercentage")
