@@ -1,6 +1,7 @@
 package com.canchita.controller.complex;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -121,6 +122,7 @@ public class ModifyComplex extends GenericServlet {
 		String neighbourhood = request.getParameter("neighbourhood");
 		String country = request.getParameter("country");
 		String address = request.getParameter("address");
+		String percentage = request.getParameter("accontationPercentage");
 		// TODO: ver cómo poner sólo los que faltan en la db.
 		String telephones[] = request.getParameterValues("telephone");
 
@@ -137,10 +139,15 @@ public class ModifyComplex extends GenericServlet {
 			error
 					.add("Falta la provincia/estado donde se encuentra el complejo");
 		}
+		
+		if (percentage == null) {
+			error.add("Falta el porcentaje de reserva");
+		}
 
 		Long id = null;
 		Integer depositLimit = null;
 		Integer bookingLimit = null;
+		BigDecimal bookingPercentage = null;
 
 		try {
 
@@ -149,6 +156,9 @@ public class ModifyComplex extends GenericServlet {
 					.getParameter("depositLimit"));
 			bookingLimit = Integer.parseInt(request
 					.getParameter("bookingLimit"));
+			
+			bookingPercentage = new BigDecimal(request
+					.getParameter("accontationPercentage"));
 
 			if (bookingLimit < depositLimit) {
 				error.add("El valor de caducidad de seña no puede ser "
@@ -201,7 +211,7 @@ public class ModifyComplex extends GenericServlet {
 		try {
 			//Update Basic Info
 			modifyService.updateComplex(id, name, description, address,
-					zipCode, neighbourhood, town, state, country);
+					zipCode, neighbourhood, town, state, country, bookingPercentage);
 
 			//Update expiration policy
 			modifyService.setDefaultExpiration(id, bookingLimit, depositLimit);

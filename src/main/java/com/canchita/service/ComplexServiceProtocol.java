@@ -1,5 +1,6 @@
 package com.canchita.service;
 
+import java.math.BigDecimal;
 import java.security.InvalidParameterException;
 import java.util.Collection;
 
@@ -20,12 +21,15 @@ public interface ComplexServiceProtocol {
 			throws ValidationException, PersistenceException;
 
 	public Collection<String> getProvinces() throws PersistenceException;
-	
-	public Collection<String> getLocations(String province) throws PersistenceException;
-	
-	public Collection<String> getNeighbourhoods(String province, String locality) throws PersistenceException;
-	
-	public void deleteComplex(Long id) throws PersistenceException, ComplexException;
+
+	public Collection<String> getLocations(String province)
+			throws PersistenceException;
+
+	public Collection<String> getNeighbourhoods(String province, String locality)
+			throws PersistenceException;
+
+	public void deleteComplex(Long id) throws PersistenceException,
+			ComplexException;
 
 	public Long saveComplex(String name, String description, String address,
 			String zipCode, String neighbourhood, String town, String state,
@@ -33,7 +37,8 @@ public interface ComplexServiceProtocol {
 
 	public void updateComplex(Long id, String name, String description,
 			String address, String zipCode, String neighbourhood, String town,
-			String state, String country) throws PersistenceException;
+			String state, String country, BigDecimal bookingPercentage)
+			throws PersistenceException;
 
 	public void addScoreSystem(Long id, Integer booking, Integer deposit,
 			Integer pay, Integer downBooking, Integer downDeposit)
@@ -73,8 +78,8 @@ public interface ComplexServiceProtocol {
 
 	public Expiration getDefaultExpirationPolicy(Long id)
 			throws PersistenceException;
-	
+
 	public void addTelephones(Long id, String[] telephones)
-	throws PersistenceException;
+			throws PersistenceException;
 
 }

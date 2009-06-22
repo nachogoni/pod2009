@@ -64,6 +64,7 @@ CREATE  TABLE "COMPLEX" (
   "email" VARCHAR2(50) NULL ,
   "latitude" VARCHAR2(50) NULL ,
   "longitude" VARCHAR2(50) NULL ,
+  "accont_percentage" VARCHAR2(10) NOT NULL ,
   CONSTRAINT place_unique UNIQUE ("address", "city", "state", "country"),
   PRIMARY KEY ("complex_id") );
 
@@ -112,6 +113,7 @@ CREATE  TABLE "FIELD" (
   "type" INT NOT NULL ,
   "price" VARCHAR2(10) NOT NULL ,
   "under_maintenance" NUMBER(1) NOT NULL ,
+  "accont_percentage" VARCHAR2(10) ,
   PRIMARY KEY ("field_id") ,
   CONSTRAINT field_unique UNIQUE ("complex_id","name"),
   CONSTRAINT "fk_FIELD_COMPLEX"

@@ -76,6 +76,11 @@ public class FormField extends FormHandler {
 			.setRequired(true)
 			.addValidator("IsDecimal"));
 		
+		this.addElement(new FormElementInput("text", "accontationPercentage")
+				.setLabel("Porcentaje de reserva")
+				.addValidator("MaxLength", "5")
+				.addValidator("IsPercentage"));
+		
 		this.addElement(new FormElementSelect("hasRoof")
 			.setLabel("Techada")
 			.setRequired(false)
@@ -110,6 +115,7 @@ public class FormField extends FormHandler {
         sprops.add("hasRoof");
         sprops.add("floor");
         sprops.add("price");
+        sprops.add("accontationPercentage");
         sprops.add("cantPlayers");
         this.addDisplayGroup(sprops, "Características");
         
@@ -152,6 +158,10 @@ public class FormField extends FormHandler {
 		aux = String.valueOf(aField.getNumberOfPlayers());
 		if (aux != null)
 			dataPopu.put("cantPlayers", aux);
+		
+		aux = String.valueOf(aField.getAccontationPercentage());
+		if (aux != null)
+			dataPopu.put("accontationPercentage", aux);
 		
 		this.populate(dataPopu);
 	}

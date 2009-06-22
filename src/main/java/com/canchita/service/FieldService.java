@@ -27,15 +27,17 @@ import com.canchita.model.field.FloorType;
 
 public class FieldService implements FieldServiceProtocol {
 
-	public void deleteField(Long id) throws PersistenceException, FieldException {
+	public void deleteField(Long id) throws PersistenceException,
+			FieldException {
 
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 		BookingDAO bookingDAO = DAOFactory.get(DAO.BOOKING);
-		
-		if( bookingDAO.hasBookings(id) ) {
-			throw new FieldException("No se puede eliminar una cancha que tiene reservas activas");
-		}		
-		
+
+		if (bookingDAO.hasBookings(id)) {
+			throw new FieldException(
+					"No se puede eliminar una cancha que tiene reservas activas");
+		}
+
 		fieldDAO.delete(id);
 	}
 
@@ -95,8 +97,8 @@ public class FieldService implements FieldServiceProtocol {
 			String searchNumberOfPlayers, String searchHasRoof,
 			String searchFloorType, String searchNeighbourhood,
 			String searchTown, String searchState, String searchCountry,
-			String searchAddress, DateTime startTime, DateTime endTime) throws ValidationException,
-			PersistenceException {
+			String searchAddress, DateTime startTime, DateTime endTime)
+			throws ValidationException, PersistenceException {
 
 		Validator alnumValidator = new IsAlphaNum(true);
 		Validator numValidator = new IsNumeric();
@@ -150,7 +152,8 @@ public class FieldService implements FieldServiceProtocol {
 
 	public void updateField(Long id, String name, String description,
 			Long number_of_players, Boolean hasRoof, FloorType floor,
-			BigDecimal price) throws PersistenceException {
+			BigDecimal price, BigDecimal bookingPercentage)
+			throws PersistenceException {
 
 		Field aField = getById(id);
 
@@ -172,7 +175,9 @@ public class FieldService implements FieldServiceProtocol {
 		if (number_of_players != null) {
 			aField.setNumberOfPlayers(number_of_players);
 		}
-
+		if (bookingPercentage != null) {
+			aField.setAccontationPercentage(bookingPercentage);
+		}
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		fieldDAO.update(aField);
@@ -220,14 +225,15 @@ public class FieldService implements FieldServiceProtocol {
 	}
 
 	@Override
-	public Iterator<Schedule> getAllHours(Long id, DateTime date) throws PersistenceException {
+	public Iterator<Schedule> getAllHours(Long id, DateTime date)
+			throws PersistenceException {
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		Field field = fieldDAO.getById(id);
 
 		return field.getAllHours(date);
 	}
-	
+
 	@Override
 	public Field getById(Long id) throws PersistenceException {
 
@@ -261,8 +267,8 @@ public class FieldService implements FieldServiceProtocol {
 
 		public static void Build(String name, String description,
 				Long idComplex, Boolean hasRoof, FloorType floor,
-				BigDecimal price, Long number_of_players)
-				throws PersistenceException {
+				BigDecimal price, Long number_of_players,
+				BigDecimal bookingPercentage) throws PersistenceException {
 
 			ComplexDAO complexDAO = DAOFactory.get(DAO.COMPLEX);
 
@@ -273,6 +279,7 @@ public class FieldService implements FieldServiceProtocol {
 			aField.setFloor(floor);
 			aField.setPrice(price);
 			aField.setNumberOfPlayers(number_of_players);
+			aField.setAccontationPercentage(bookingPercentage);
 
 		}
 
@@ -333,6 +340,5 @@ public class FieldService implements FieldServiceProtocol {
 		expirationDAO.update(expiration);
 
 	}
-
 
 }

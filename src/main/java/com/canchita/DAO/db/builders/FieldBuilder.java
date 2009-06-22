@@ -34,14 +34,16 @@ public class FieldBuilder implements QueryProcessor<Field> {
 		Field aField;
 
 		while (resultSet.next()) {
-			
+
 			aField = new Field(resultSet.getLong("field_id"), resultSet
 					.getLong("complex_id"), resultSet.getString("name"),
 					resultSet.getString("description"), resultSet
 							.getLong("number_of_players"), resultSet
 							.getBoolean("has_roof"), resultSet.getLong("type"),
-							new BigDecimal(resultSet.getString("price")),
-					resultSet.getBoolean("under_maintenance"));
+					new BigDecimal(resultSet.getString("price")), resultSet
+							.getBoolean("under_maintenance"), new BigDecimal(
+							resultSet.getString("accont_percentage")));
+
 			Complex aComplex = null;
 			try {
 				aComplex = ComplexDB.getInstance().getById(

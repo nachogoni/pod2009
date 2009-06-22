@@ -61,8 +61,9 @@ public class Complex implements Booker {
 
 	public Complex(Integer id, String name, String description, String address,
 			String neighbourhood, String city, String state, String zipCode,
-			String country, String fax, String email, String latitude,
-			String longitude) {
+			String country, String fax, String email, 
+			String latitude, String longitude, BigDecimal percentage) {
+
 		this.id = new Long(id);
 		this.name = name;
 		this.description = description;
@@ -72,6 +73,7 @@ public class Complex implements Booker {
 		this.email = email;
 		this.fax = fax;
 		this.phones = new LinkedList<String>();
+		this.accontationPercentage = percentage;
 
 		expiration = new Expiration();
 		expiration.setScoreFrom(0L);
@@ -315,6 +317,10 @@ public class Complex implements Booker {
 	@Override
 	public BigDecimal getAccontationPercentage() {
 		return this.accontationPercentage;
+	}
+
+	public void setAccontationPercentage(BigDecimal accontationPercentage) {
+		this.accontationPercentage = accontationPercentage;
 	}
 
 }
