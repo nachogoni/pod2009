@@ -72,7 +72,7 @@ width: 100%;
 height: 5px;
 line-height: 5px;
 background: #42760E; /*background color of horizontal line*/
-border-top: 1px solid #fff; /*Remove this to remove border between bar and tabs*/
+/*border-top: 1px solid #fff; /*Remove this to remove border between bar and tabs*/
 }
 
 </style>

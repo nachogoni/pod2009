@@ -22,4 +22,6 @@
                 </FORM>
         </div>
         <div class="ubercolordivider"> </div>
+        <div><img alt="micanchita.com" class="image" src="img/logo.jpg" /></div>
+        <div class="ubercolordivider"> </div>
 </div>
