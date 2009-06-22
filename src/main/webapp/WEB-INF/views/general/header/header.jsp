@@ -6,7 +6,7 @@
 
 <html>
 <head>
-
+<link href="/tp-pod/img/favicon.ico" rel="icon" type="image/x-icon" />
 <link rel="stylesheet" href="/tp-pod/css/color.tabs.css" type="text/css"
 	media="print, projection, screen">
 <link rel="stylesheet" href="/tp-pod/css/greentable.css" type="text/css"
