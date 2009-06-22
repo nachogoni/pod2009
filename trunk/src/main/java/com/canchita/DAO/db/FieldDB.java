@@ -235,15 +235,14 @@ public class FieldDB extends AllDB implements FieldDAO {
 			String sqlToHour = "EXTRACT( HOUR FROM" + toTS +") ";
 			String sqlToMinute = "EXTRACT( MINUTE FROM" + toTS +") ";
 			
-			
-			query += " AND ( to_char(" + fromTS + ",'D') = \"day\" AND ( "
+			query += " AND ( mod(to_char(" + fromTS + ",'D') + 5,7) = \"day\" AND ( ( "
 			+ sqlFromHour + "< EXTRACT(HOUR from \"to\") OR ( "
 			+ sqlFromHour + "= EXTRACT(HOUR from \"to\") AND "
 			+ sqlFromMinute + "< EXTRACT(MINUTE from \"to\") ) ) "
 			+ " AND ( "
 			+ sqlToHour + "> EXTRACT(HOUR from \"from\") OR ( "
 			+ sqlToHour + "= EXTRACT(HOUR from \"from\") AND "
-			+ sqlToMinute + "> EXTRACT(MINUTE from \"from\") ) ) ) ";
+			+ sqlToMinute + "> EXTRACT(MINUTE from \"from\") ) ) ) ) ";
 			
 		}
 		
