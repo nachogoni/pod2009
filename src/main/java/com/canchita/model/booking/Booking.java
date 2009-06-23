@@ -1,6 +1,7 @@
 package com.canchita.model.booking;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 import org.joda.time.DateTime;
 
@@ -35,7 +36,206 @@ public class Booking {
 	private BigDecimal cost;
 	private BigDecimal paid;
 	private DateTime expirationDate;
+	
+	 /**
+	 * Retorna la funcion de comparacion de las reservas por pago
+	 * 
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> comparePays() {
+		return comparePays(true);
+	}
 
+	/**
+	 * Retorna la funcion de comparacion sobre reservas por pago
+	 * 
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> comparePays(boolean sort) {
+		if (sort) {
+			return new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.paid.compareTo(o2.paid);
+				}
+			};
+		}
+		return new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o2, Booking o1) {
+				return o1.paid.compareTo(o2.paid);
+			}
+		};
+	}
+	
+	/**
+	 * Retorna la funcion de comparacion de las reservas por costo
+	 * 
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareCosts() {
+		return compareCosts(true);
+	}
+
+	/**
+	 * Retorna la funcion de comparacion sobre reservas por costo
+	 * 
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareCosts(boolean sort) {
+		if (sort) {
+			return new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.cost.compareTo(o2.cost);
+				}
+			};
+		}
+		return new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o2, Booking o1) {
+				return o1.cost.compareTo(o2.cost);
+			}
+		};
+	}
+	
+	/**
+	 * Retorna la funcion de comparacion de las reservas por estado
+	 * 
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareStates() {
+		return compareStates(true);
+	}
+
+	/**
+	 * Retorna la funcion de comparacion sobre reservas por estado
+	 * 
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareStates(boolean sort) {
+		if (sort) {
+			return new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.state.toString().compareTo(o2.state.toString());
+				}
+			};
+		}
+		return new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o2, Booking o1) {
+				return o1.state.toString().compareTo(o2.state.toString());
+			}
+		};
+	}
+	
+	/**
+	 * Retorna la funcion de comparacion de las reservas por complejo
+	 * 
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareComplexs() {
+		return compareComplexs(true);
+	}
+
+	/**
+	 * Retorna la funcion de comparacion sobre reservas por complejo
+	 * 
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareComplexs(boolean sort) {
+		if (sort) {
+			return new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.item.getComplex().getName().compareTo(o2.item.getComplex().getName());
+				}
+			};
+		}
+		return new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o2, Booking o1) {
+				return o1.item.getComplex().getName().compareTo(o2.item.getComplex().getName());
+			}
+		};
+	}
+	
+	/**
+	 * Retorna la funcion de comparacion de las reservas por cancha
+	 * 
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareFields() {
+		return compareFields(true);
+	}
+
+	/**
+	 * Retorna la funcion de comparacion sobre reservas por cancha
+	 * 
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareFields(boolean sort) {
+		if (sort) {
+			return new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.item.getName().compareTo(o2.item.getName());
+				}
+			};
+		}
+		return new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o2, Booking o1) {
+				return o1.item.getName().compareTo(o2.item.getName());
+			}
+		};
+	}
+
+	
+	/**
+	 * Retorna la funcion de comparacion de las reservas por nombre
+	 * 
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareUserNames() {
+		return compareUserNames(true);
+	}
+
+	/**
+	 * Retorna la funcion de comparacion sobre reservas por nombre
+	 * 
+	 * @param sort
+	 *            si es true devuelve ascendente, sino descendente
+	 * @return Comparator<Booking>
+	 */
+	public static Comparator<Booking> compareUserNames(boolean sort) {
+		if (sort) {
+			return new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.owner.getUsername().compareTo(o2.owner.getUsername());
+				}
+			};
+		}
+		return new Comparator<Booking>() {
+			@Override
+			public int compare(Booking o2, Booking o1) {
+				return o1.owner.getUsername().compareTo(o2.owner.getUsername());
+			}
+		};
+	}
+	
 	public Booking(Long id) {
 		this.setId(id);
 	}

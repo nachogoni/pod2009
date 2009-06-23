@@ -85,16 +85,16 @@
 		<c:when test="${ bookingsLength != 0 }">
 			<table class="fieldsTable" border="1">
 				<tr>
-                    <td><strong>Usuario</strong></td>
+					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/booking/list?sortUserName=<c:out value="${sortUserNameTypeR}" escapeXml="false"/>">Usuario</a></strong></td>
                     <c:if test="${showField}">
-                    	<td><strong>Cancha</strong></td>
+                    	<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/booking/list?sortField=<c:out value="${sortFieldTypeR}" escapeXml="false"/>">Cancha</a></strong></td>
                     </c:if>
                     <c:if test="${showComplex}">
-                    	<td><strong>Complejo</strong></td>
+                    	<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/booking/list?sortComplex=<c:out value="${sortComplexTypeR}" escapeXml="false"/>">Complejo</a></strong></td>
                     </c:if>
-					<td><strong>Estado</strong></td>
-					<td><strong>Costo</strong></td>
-                    <td><strong>Pagado</strong></td>
+					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/booking/list?sortState=<c:out value="${sortStateTypeR}" escapeXml="false"/>">Estado</a></strong></td>
+					<td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/booking/list?sortCost=<c:out value="${sortCostTypeR}" escapeXml="false"/>">Costo</a></strong></td>
+                    <td><strong><a href="<c:out value="${baseURI}" escapeXml="false"/>/booking/list?sortPay=<c:out value="${sortPayTypeR}" escapeXml="false"/>">Pagado</a></strong></td>
 					<td></td>
 				</tr>
 				<c:forEach items="${bookings}" var="booking" varStatus="rowCounter">
