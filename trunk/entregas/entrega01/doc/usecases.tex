@@ -8,18 +8,18 @@
 \usepackage{textcomp}
 
 \title{
-        Programación de Objetos Distribuidos \\
-        Entrega \#1: \\
+        Programaci\'on de Objetos Distribuidos \\
+        Entrega Final \\
         Diagrama y Casos de Uso
     }
 
 \author{
         Grupo 3. \\
         46099 - Abramowicz, Pablo Federico \\
-        46281 - Cabral, Martín Esteban \\
-        47031 - Gomez, Vidal Darío Maximiliano \\
-        46383 - Goñi, Juan Ignacio \\
-        46233 - Palombo, Martín \\
+        46281 - Cabral, Mart\'in Esteban \\
+        47031 - Gomez, Vidal Dar\'io Maximiliano \\
+        46383 - Go\~ni, Juan Ignacio \\
+        46233 - Palombo, Mart\'in \\
         46069 - Sessa, Carlos Manuel
         }
 \date{}
@@ -43,14 +43,6 @@
 \renewcommand{\theenumiii}{\arabic{enumiii}.}
 \renewcommand{\labelenumiii}{\theenumiii}
 
-
-\section{Diagrama de Casos de Uso}
-
-\begin{center}
- \includegraphics[width=1.00\textwidth]{use_cases.png}
- % use_cases.png: 1449x1890 pixel, 72dpi, 51.12x66.68 cm, bb=0 0 1449 1890
-\end{center}
-
 \pagebreak
 
 \section{Casos de Uso}
@@ -61,10 +53,10 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Modificación de datos personales de un usuario genérico del sistema.
-    \item Actores \\
-        Usuario genérico.
+    \item Descripci\'on breve: \\
+        Modificaci\'on de datos personales de un usuario gen\'erico del sistema.
+    \item Actores: \\
+        Usuario gen\'erico.
     \item Disparadores: \\
         El usuario hace click en \emph{Perfil}
     \end{enumerate}
@@ -72,10 +64,10 @@
     \item Flujo de Eventos:
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
             \begin{enumerate}
                 \item El usuario hace click en \emph{Perfil}.
-                \item Cambia su direccion de mail o cantidad de dias de anticipacion con los que desea recibir un mail del sistema.
+                \item Cambia su direcci\'on de e-mail o cantidad de d\'ias de anticipaci\'on con los que desea recibir un mail del sistema.
                 \item Una vez realizados los cambios hace click en \emph{Confirmar}.
             \end{enumerate}
         \item Flujo alternativo:
@@ -85,9 +77,9 @@
     \end{enumerate}
 
     \item Precondiciones: \\
-        Usuario hizo \underline{Login} como usuario genérico.
+        Usuario hizo \underline{Login} como usuario gen\'erico.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Datos personales del usuario guardados.
 
 \end{enumerate}
@@ -98,26 +90,26 @@
 
         \item
 	\begin{enumerate}
-            \item Descripción breve: \\
-                Actualización de las reservas automáticamente cuando alguna reserva
-                se da de baja por que se cumplió el tiempo de pago.
-            \item Actores \\
+            \item Descripci\'on breve: \\
+                Actualizaci\'on de las reservas autom\'aticamente cuando alguna reserva
+                se da de baja por que se cumpli\'o el tiempo de pago.
+            \item Actores: \\
                 Cron.
             \item Disparadores: \\
-                Dada una hora determina se ejecuta automáticamente.
+                Dada una hora determina se ejecuta autom\'aticamente.
         \end{enumerate}
 
         \item Flujo de Eventos: 
 
         \begin{enumerate}
-            \item Flujo básico:
-                Si existe alguna reserva cuyo tiempo de seña o pago expiró se da de baja.
+            \item Flujo b\'asico:
+                Si existe alguna reserva cuyo tiempo de se\~na o pago expir\'o se da de baja.
         \end{enumerate}
 
         \item Precondiciones: \\
             Reserva existente.
 
-        \item Post condiciones \\
+        \item Post condiciones: \\
             Reserva dada de baja.
 
 \end{enumerate}
@@ -128,48 +120,48 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Este caso de uso describe la reserva de una cancha determinada.
-    \item Actores \\
-        Usuario genérico.
+    \item Actores: \\
+        Usuario gen\'erico.
     \item Disparadores: \\
         El usuario hace click en \emph{Reservar} en el listado de canchas.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 		\begin{enumerate}
 		\item	El usuario hace click en \emph{Reservar}.
 		\item	El usuario hace click en el campo fecha.
 		\item	Selecciona una fecha del calendario.
-		\item	Selecciona un horario de la lista de horarios.		
+		\item	Selecciona un horario de la lista de horarios.
 		\item	El usuario hace click en \emph{Agregar}.
     		\end{enumerate}
     \end{enumerate}
 
     \item Precondiciones: \\
-        Usuario hizo \underline{Login} como usuario genérico.
-        La cancha está registrada en el sistema.
+        Usuario hizo \underline{Login} como usuario gen\'erico.
+        La cancha est\'a registrada en el sistema.
 	La cancha tiene horarios disponibles.
 
-    \item Post condiciones \\
-        Cancha reservada para el usuario genérico.
+    \item Post condiciones: \\
+        Cancha reservada para el usuario gen\'erico.
 
 \end{enumerate}
 
 % RESERVAS CANCHA PERIODICAMENTE
-\subsection{Reservar cancha periódicamente}
+\subsection{Reservar cancha periodicamente}
 \begin{enumerate}
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Este caso de uso describe la reserva periódica de una cancha determinada.
-    \item Actores \\
-        Usuario genérico.
+    \item Descripci\'on breve: \\
+        Este caso de uso describe la reserva peri\'odica de una cancha determinada.
+    \item Actores: \\
+        Usuario gen\'erico.
     \item Disparadores: \\
         El usuario hace click en \emph{Reservar} en el listado de canchas.
     \end{enumerate}
@@ -178,70 +170,63 @@
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 		\begin{enumerate}
 		\item	El usuario hace click en \underline{Reservar} en el listado de canchas.
-		\item	Hace click en \emph{Aqui} en el mensaje de informacion.
+		\item	Hace click en \emph{Aqu\'i} en el mensaje de informaci\'on.
 		\item	El usuario hace click en el campo fecha \emph{Desde}.
 		\item	Selecciona una fecha del calendario.
 		\item	El usuario hace click en el campo fecha \emph{Hasta}.
 		\item	Selecciona una fecha del calendario.
-		\item	Selecciona un horario de la lista de horarios.		
+		\item	Selecciona un horario de la lista de horarios.
 		\item	El usuario hace click en \emph{Agregar}.
 		\end{enumerate}
 	\end{enumerate}
 
     \item Precondiciones: \\
-        Usuario hizo \underline{Login} como usuario genérico.
-        La cancha está registrada en el sistema.
+        Usuario hizo \underline{Login} como usuario gen\'erico.
+        La cancha est\'a registrada en el sistema.
 
-    \item Post condiciones \\
-        Cancha reservada periódicamente para el usuario genérico.
-	La cancha se reservara solo para los dias disponibles.
+    \item Post condiciones: \\
+        Cancha reservada peri\'odicamente para el usuario gen\'erico.
+	La cancha se reservara s\'olo para los d\'ias disponibles.
 \end{enumerate}
 
 % LISTAR CANCHAS
 \subsection{Listar Canchas}
 \begin{enumerate}
-
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Se le presenta al usuario un listado de las canchas cargadas en el sistema.
-    \item Actores \\
-        Usuario genérico.
-    \item Disparadores: \\
-        El usuario hace click en \emph{Canchas}.
+		\item Descripci\'on breve: \\
+        		Se le presenta al usuario un listado de las canchas cargadas en el sistema.
+    		\item Actores: \\
+        		Usuario gen\'erico.
+    		\item Disparadores: \\
+        		El usuario hace click en \emph{Canchas}.
     \end{enumerate}
-
     \item Flujo de Eventos:
-
-    \begin{enumerate}
-
-        \item Flujo básico:
-        \begin{enumerate}
-            \item El usuario hace click en \emph{Canchas}
-            \item El sistema presenta al usuario un listado de las canchas.
-        \end{enumerate}
-    \end{enumerate}
-
+		\begin{enumerate}
+		\item Flujo b\'asico:
+        		\begin{enumerate}
+            			\item El usuario hace click en \emph{Canchas}
+            			\item El sistema presenta al usuario un listado de las canchas.
+        		\end{enumerate}
+    		\end{enumerate}
     \item Precondiciones: \\
         No aplica.
-
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Listado de canchas presentado al usuario.
-
 \end{enumerate}
 
 % LISTAR COMLEJOS
 \subsection{Listar Complejos}
 \begin{enumerate}
-
+    \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se le presenta al usuario un listado de las complejos deportivos cargados en el sistema.
-    \item Actores \\
-        Usuario genérico.
+    \item Actores: \\
+        Usuario gen\'erico.
     \item Disparadores: \\
         El usuario hace click en \emph{Complejos}.
     \end{enumerate}
@@ -249,7 +234,7 @@
     \item Flujo de Eventos: 
 
     \begin{enumerate}
-        \item Flujo básico:
+        \item Flujo b\'asico:
         \begin{enumerate}
             \item El usuario hace click en \emph{Complejos}
             \item El sistema presenta al usuario un listado de los complejos.
@@ -259,7 +244,7 @@
     \item Precondiciones: \\
         No aplica.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Listado de complejos presentado al usuario.
 
 \end{enumerate}
@@ -270,21 +255,21 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Se le permite al usuario ordenar el listado de cancha segun diversos criterios.
-    \item Actores \\
-        Usuario genérico.
+    \item Descripci\'on breve: \\
+        Se le permite al usuario ordenar el listado de cancha seg\'un diversos criterios.
+    \item Actores: \\
+        Usuario gen\'erico.
     \item Disparadores: \\
         El usuario realiza \underline{Listar Canchas}.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
         \begin{enumerate}
-                    \item El usuario hace click en la columna \emph{Nombre}
+                    \item El usuario hace click en la columna que desea ordenar. Los posibles ordanamientos son:
 			\begin{itemize}
 			 \item Nombre
 			 \item Complejo
@@ -300,8 +285,8 @@
     \item Precondiciones: \\
         Listado cargado previamente.
 
-    \item Post condiciones \\
-        Listado ordenado segun criterio seleccionado.
+    \item Post condiciones: \\
+        Listado ordenado seg\'un criterio seleccionado.
 
 \end{enumerate}
 
@@ -311,258 +296,600 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Se muestra en detalle las características de una cancha.
-    \item Actores \\
-        Usuario generico.
+    \item Descripci\'on breve: \\
+        Se muestra en detalle las caracter\'isticas de una cancha.
+    \item Actores: \\
+        Usuario gen\'erico.
     \item Disparadores: \\
-        Click en el botón \emph{Ver detalles} dentro de \underline{Listar Canchas} o en \underline{Ver detalles complejo}
+        Click en el bot\'on \emph{Ver detalles} dentro de \underline{Listar Canchas} o en \underline{Ver detalles complejo}
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
     \begin{enumerate}
-        \item Flujo básico:
+        \item Flujo b\'asico:
         \begin{enumerate}
             \item El usuario selecciona \underline{Listar Canchas}
                 o \underline{Ver detalles complejo} en el listado de complejos.
             \item El usuario hace click en \emph{Ver detalles}
-            \item Se le presenta al usuario informacion detallada sobre la cancha seleccionada.
+            \item Se le presenta al usuario informaci\'on detallada sobre la cancha seleccionada.
         \end{enumerate}
     \end{enumerate}
 
     \item Precondiciones: \\
-        Usuario logueado como usuario común.
-    \item Post condiciones \\
+        Usuario logueado como usuario com\'un.
+    \item Post condiciones: \\
         Detalles de la cancha presentados al usuario.
 
 \end{enumerate}
 
-% ADMINISTRAR COMPLEJOS
-\subsection{Administrar complejos}
+
+%ALTA COMPLEJO
+\subsection{Alta Complejo}
 \begin{enumerate}
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Este caso de uso describe las operaciones de creación, borrado y
-        modificación de complejos.
-    \item Actores \\
+    \item Descripci\'on breve: \\
+        Este caso de uso describe el alta de un nuevo complejo.
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        El administrador selecciona las operaciones explícitamente de su panel
-        de administración.
-    \end{enumerate}
-
-    \item Flujo de Eventos: 
-
-    \begin{enumerate}
-
-        \item Flujo básico:
-            El usuario selecciona \underline{Listar complejos}.
-        \item Flujos alternativos:\\
-            \begin{enumerate}
-                \item \underline{Crear complejo} \\
-                \begin{enumerate}
-                    \item El usuario hace click en \textit{Crear nuevo complejo}
-                    en el panel de administración.
-                    \item El usuario completa los datos solicitados: País, 
-                    provincia, localidad y barrio; teléfono, dirección, horario 
-                    general de atención.
-                    Se pueden indicar en forma opcional los rangos de puntos con
-                    el vencimiento de los distintos estados de las canchas, el 
-                    precio de las canchas y el porcentaje que corresponde a la
-                    reserva.
-                    \item El usuario da por finalizada la creación haciendo click
-                    en \textit{Guardar complejo}.
+        El administrador selecciona \emph{Agregar Nuevo} en el listado de complejos.
+    \end{enumerate} 
+    \item Flujo b\'asico:
+		\begin{enumerate}
+        		\item El usuario selecciona \underline{Complejos}.
+                        \item El usuario hace click en \emph{Agregar Nuevo}
+			\item El completa los datos solicitados. Todos los campos son obligatorios a menos que se indique otra cosa. Los campos son: 
+			\begin{itemize}
+				 \item Nombre del Complejo
+				 \item Descripci\'on
+				 \item Ciudad
+				 \item C\'odigo Postal
+				 \item Pa\'is
+		                 \item Provincia
+				 \item Localidad
+				 \item Barrio
+				 \item Latitud (opcional)
+				 \item Longitud (opcional)
+				 \item Tel\'efono(s)
+				 \item Direcci\'on
+				 \item Horarios de atenci\'on.
+				 \item Porcentaje de Reserva
+				 \item L\'imite de se\~na.
+				 \item L\'imite de Reserva
+			\end{itemize}
+                        \item El usuario hace click en \emph{Confirmar}.
                 \end{enumerate}
-                \item \underline{Modificar complejo} \\
-                \begin{enumerate}
-                    \item El usuario hace click en \textit{Modificar complejo} 
-                    dentro de la entrada del listado que corresponde al complejo 
-                    que desea modificar.
-                    \item El usuario modifica los datos deseados.
-                    \item El usuario da por finalizada la modificación haciendo 
-                    click en \textit{Guardar complejo}.
-                \end{enumerate}
-                \item \underline{Borrar complejo}
-                \begin{enumerate}
-                    \item El usuario hace click en \textit{Borrar complejo}
-                    dentro de la entrada del listado que corresponde al complejo
-                     que desea eliminar.
-                    \item El usuario confirma que desea eliminar el elemento
-                    seleccionado.
-                \end{enumerate}
-            \end{enumerate}
-    \end{enumerate}
+	\item Flujo alternativo:
+		\begin{enumerate}
+		 \item El usuario hace click en \emph{Cancelar}.
+		 \item El complejo no se guarda.
+		\end{enumerate}
 
     \item Precondiciones: \\
         Usuario hizo \underline{Login} como administrador.
 
-    \item Post condiciones \\
-        No aplica.
+    \item Post condiciones: \\
+        C\'omplejo guardado exitosamente.
 
 \end{enumerate}
 
-% ADMINISTRAR CANCHAS
-\subsection{Administrar canchas}
+%MODIFICACION COMPLEJO
+\subsection{Modificaci\'on Complejo}
 \begin{enumerate}
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Este caso de uso describe las operaciones de creación, borrado y
-        modificación de canchas.
-    \item Actores \\
+    \item Descripci\'on breve: \\
+        Este caso de uso describe la modificaci\'on de un nuevo complejo.
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        El administrador selecciona las operaciones explícitamente de la página
-        de administración de un complejo existente.
-    \end{enumerate}
-
-    \item Flujo de Eventos: 
-
-    \begin{enumerate}
-
-        \item Flujo básico:
-            El usuario selecciona un complejo a través de 
-            \underline{Listar complejos} y luego hace click en 
-            \underline{Listar canchas}.
-        \item Flujos alternativos:\\
-            \begin{enumerate}
-                \item \underline{Crear cancha} \\
-                \begin{enumerate}
-                    \item El usuario hace click en \textit{Crear nueva cancha}
-                    en el listado de canchas del complejo elegido.
-                    \item El usuario indica la cantidad de jugadores, el tipo de
-                    piso y si la cancha es o no techada.
-                    \item El usuario da por finalizada la creación haciendo click
-                    en \textit{Guardar cancha}.
+        El administrador selecciona \emph{Modificar} en el listado de complejos o en \underline{Vista Detallada Complejo}.
+    \end{enumerate} 
+    \item Flujo b\'asico:
+		\begin{enumerate}
+        		\item El usuario selecciona \underline{Complejos}.
+                        \item El usuario hace click en \emph{Modificar}
+			\item El usuario modifica los datos que desee. Todos los campos son obligatorios a menos que se indique otra cosa. Los campos son: 
+			\begin{itemize}
+				 \item Nombre del Complejo
+				 \item Descripci\'on
+				 \item Ciudad
+				 \item C\'odigo Postal
+				 \item Pa\'is
+		                 \item Provincia
+				 \item Localidad
+				 \item Barrio
+				 \item Latitud (opcional)
+				 \item Longitud (opcional)
+				 \item Tel\'efono(s)
+				 \item Direcci\'on
+				 \item Horarios de atenci\'on.
+				 \item Porcentaje de Reserva
+				 \item L\'imite de se\~na.
+				 \item L\'imite de Reserva
+			\end{itemize}
+                        \item El usuario hace click en \emph{Confirmar}.
                 \end{enumerate}
-                \item \underline{Modificar cancha} \\
-                \begin{enumerate}
-                    \item El usuario hace click en \textit{Modificar cancha} 
-                    dentro de la entrada del listado que corresponde a la cancha 
-                    que desea modificar.
-                    \item El usuario modifica los datos deseados.
-                    \item El usuario da por finalizada la modificación haciendo 
-                    click en \textit{Guardar cancha}.
-                \end{enumerate}
-                \item \underline{Borrar cancha}
-                \begin{enumerate}
-                    \item El usuario hace click en \textit{Borrar cancha}
-                    dentro de la entrada del listado que corresponde a la cancha
-                     que desea eliminar.
-                    \item El usuario confirma que desea eliminar el elemento
-                    seleccionado.
-                \end{enumerate}
-            \end{enumerate}
-    \end{enumerate}
+	\item Flujo alternativo:
+		\begin{enumerate}
+		 \item El usuario hace click en \emph{Cancelar}.
+		 \item Las modificaciones no se guardan.
+		\end{enumerate}
 
     \item Precondiciones: \\
         Usuario hizo \underline{Login} como administrador.
 
-    \item Post condiciones \\
-        No aplica.
+    \item Post condiciones: \\
+        C\'omplejo modificado exitosamente.
 
 \end{enumerate}
 
-% ADMINISTRAR PREMIOS POR RESERVAS
-\subsection{Administrar premios por reservas}
+%BAJA COMPLEJO
+\subsection{Baja Complejo}
 \begin{enumerate}
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Este caso de uso describe como se define la cantidad de puntos que gana
-        un usuario al pasar por los distintos estados de una reserva, de acuerdo
-        al sistema de puntos.
-    \item Actores \\
+    \item Descripci\'on breve: \\
+        Este caso de uso describe la baja de un complejo.
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        El administrador hace click en \underline{Administrar premios por reserva}
-        dentro de su panel de administración.
-    \end{enumerate}
-
-    \item Flujo de Eventos: 
-
-    \begin{enumerate}
-
-        \item Flujo básico:
-            El usuario hace click en \underline{Administrar premios por reserva}.
-            Luego determina cuantos puntos se otorgarán para las acciones de
-            \textit{Reservar}, \textit{Señar} y \textit{Pagar}.
-            También debe indicar cuántos puntos pierde el usuario si se cae
-            su reserva, según ya estuviese reservada o señada.
-    \end{enumerate}
+        El administrador selecciona \emph{Eliminar} en el listado de complejos.
+    \end{enumerate} 
+    \item Flujo b\'asico:
+		\begin{enumerate}
+        		\item El usuario selecciona \underline{Complejos}.
+                        \item El usuario hace click en \emph{Eliminar} al lado del complejo que desea borrar.
+			\item El usuario hace click en \emph{Ok} en el mensaje de confirmaci\'on.
+		\end{enumerate}
+	\item Flujo alternativo:
+		\begin{enumerate}
+		 \item El usuario hace click en \emph{Cancelar} en el mensaje de confirmaci\'on.
+		 \item El complejo no se borra.
+		\end{enumerate}
 
     \item Precondiciones: \\
         Usuario hizo \underline{Login} como administrador.
 
-    \item Post condiciones \\
-        Todas las acciones tienen un puntaje asociado. Sistema de puntos
-        actualizado.
-
+    \item Post condiciones: \\
+        C\'omplejo eliminado exitosamente.
 \end{enumerate}
 
-% ADMINISTRAR LIMITES DE RESERVAS POR PUNTOS
-\subsection{Administrar límites de reservas por puntos}
+
+%ALTA CANCHA
+\subsection{Alta Cancha}
 \begin{enumerate}
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
+        Este caso de uso describe el alta de una nueva cancha.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador selecciona \emph{Agregar Nuevo} en el listado de canchas, o en \underline{Vista Detallada Complejo}
+    \end{enumerate} 
+    \item Flujo b\'asico:
+		\begin{enumerate}
+        		\item El usuario selecciona \underline{Canchas}.
+                        \item El usuario hace click en \emph{Agregar Nuevo}
+			\item El completa los datos solicitados. Todos los campos son obligatorios a menos que se indique otra cosa. Los campos son: 
+			\begin{itemize}
+				 \item Complejo al cual pertenece
+				 \item Nombre
+				 \item Descripci\'on
+				 \item Techada
+				 \item Tipo de piso
+				 \item Precio de alquiler
+		                 \item Porcentaje de reserva
+				 \item Cantidad de jugadores
+			\end{itemize}
+                        \item El usuario hace click en \emph{Confirmar}.
+                \end{enumerate}
+	\item Flujo alternativo:
+		\begin{enumerate}
+		 \item El usuario hace click en \emph{Cancelar}.
+		 \item La cancha no se guarda.
+		\end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+
+    \item Post condiciones: \\
+        Cancha guardado exitosamente.
+
+\end{enumerate}
+
+%MODIFICACION CANCHA
+\subsection{Modificaci\'on Cancha}
+\begin{enumerate}
+
+    \item
+    	\begin{enumerate}
+    	\item Descripci\'on breve: \\
+	        Este caso de uso describe la modificaci\'on de una nueva cancha.
+    	\item Actores: \\
+        	Administrador.
+    	\item Disparadores: \\
+        	El administrador selecciona \emph{Modificar} en el listado de canchas, o en \underline{Vista Detallada Cancha}
+    	\item Flujo de Eventos: 
+	\end{enumerate} 
+    \item Flujo b\'asico:
+		\begin{enumerate}
+        		\item El usuario selecciona \underline{Canchas}.
+                        \item El usuario hace click en \emph{Modificar}
+			\item El usuario modifica los datos deseados. Todos los campos son obligatorios a menos que se indique otra cosa. Los campos son: 
+			\begin{itemize}
+				 \item Complejo al cual pertenece
+				 \item Nombre
+				 \item Descripci\'on
+				 \item Techada
+				 \item Tipo de piso
+				 \item Precio de alquiler
+		                 \item Porcentaje de reserva
+				 \item Cantidad de jugadores
+			\end{itemize}
+                        \item El usuario hace click en \emph{Confirmar}.
+                \end{enumerate}
+	\item Flujo alternativo:
+		\begin{enumerate}
+		 \item El usuario hace click en \emph{Cancelar}.
+		 \item Las modificaciones no se guardan
+		\end{enumerate}
+
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+
+    \item Post condiciones: \\
+        Cancha modificada exitosamente.
+
+\end{enumerate}
+
+%BAJA CANCHA
+\subsection{Baja Cancha}
+\begin{enumerate}
+
+    \item
+    	\begin{enumerate}
+    		\item Descripci\'on breve: \\
+        		Este caso de uso describe la baja de una cancha.
+    		\item Actores: \\
+        		Administrador.
+	    	\item Disparadores: \\
+        		El administrador selecciona \emph{Eliminar} en el listado de canchas.
+    	\end{enumerate} 
+    \item Flujo b\'asico:
+		\begin{enumerate}
+        		\item El usuario selecciona \underline{Canchas}.
+                        \item El usuario hace click en \emph{Eliminar} al lado de la cancha que desea borrar.
+			\item El usuario hace click en \emph{Ok} en el mensaje de confirmaci\'on.
+		\end{enumerate}
+    \item Flujo alternativo:
+		\begin{enumerate}
+		 \item El usuario hace click en \emph{Cancelar} en el mensaje de confirmaci\'on.
+		 \item La cancha no se borra.
+		\end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+    \item Post condiciones: \\
+        Cancha eliminado exitosamente.
+\end{enumerate}
+
+
+% ADMINISTRAR PREMIOS POR RESERVAS (SISTEMA DE PUNTOS)
+\subsection{Modificaci\'on de premios por reservas}
+\begin{enumerate}
+    \item
+    	\begin{enumerate}
+    		\item Descripci\'on breve: \\
+        		Este caso de uso describe como se modifica el sistema de puntos del sitio.
+    		\item Actores: \\
+        		Administrador.
+    		\item Disparadores: \\
+        		El administrador hace click en \emph{Sistema de Puntos}
+    	\end{enumerate}
+    \item Flujo de Eventos: 
+     	\begin{enumerate}
+		\item Flujo b\'asico:
+			\begin{enumerate}
+				\item El usuario hace click en \emph{Sistema de Puntos}.
+				\item El usuario hace click en \emph{Modificar}.
+				\item El usuario completa el formulario. Los campos son obligatorio y son los que siguen:
+				\begin{itemize}
+					\item Reserva
+					\item Se\~na
+					\item Pago
+					\item Cae Reserva
+					\item Cae Se\~nada
+				\end{itemize}
+				\item El usuario hace click en \emph{Confirmar}.
+			\end{enumerate}
+	\end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+    \item Post condiciones: \\
+        Sistema de puntos actualizado.
+\end{enumerate}
+
+%CONSULTA LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Ver Expiraci\'on Complejo}
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se consultan los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Complejos} y luego en \emph{Ver Expiraci\'on}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Complejos}.
+            		\item El usuario hace click en \emph{Ver Expiraci\'on}.
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.\\
+    \item Post condiciones: \\
+	Detalle de politicas presentado al usuario.
+\end{enumerate}
+
+%ALTA LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Alta Politicas de Expiracion para un Complejo} 
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
         Este caso de uso describe como se definen los plazos de vencimiento de
-        las reservas según el puntaje del usuario que haya realizado la reserva.
-    \item Actores \\
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        El administrador hace click en 
-        \underline{Administrar límites de reserva por puntos}
-        dentro de su panel de administración.
+        El administrador hace click en \underline{Ver Expiracion Complejo} y luego en \emph{Agregar Nueva}.
     \end{enumerate}
-
     \item Flujo de Eventos: 
-
     \begin{enumerate}
-
-        \item Flujo básico:
-            El usuario hace click en \underline{Administrar límites de reserva
-            por puntos}.
-            Luego se determina cuales serán los plazos máximos de tiempo para la
-            caducidad de cada complejo y cada cancha, teniendo en cuenta el rango
-            de puntos que tenga el usuario.
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Ver Expiraci\'on Complejo}.
+            		\item El usuario hace click en \emph{Agregar Nueva}.
+            		\item El usuario completa el formulario. Las campos son obligatorios y son:
+            		\begin{itemize}
+				\item Desde
+				\item Hasta
+				\item Cae Reserva
+				\item Cae Se\~nada
+			\end{itemize}
+			\item El usuario hace click en \emph{Confirmar}
+		\end{enumerate}
     \end{enumerate}
-
     \item Precondiciones: \\
         Usuario hizo \underline{Login} como administrador.
-
-    \item Post condiciones \\
-        No aplica.
-
+    \item Post condiciones: \\
+        Politica agregada correctamente.
 \end{enumerate}
+
+% MODIFICAR LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Modificar Politicas de Expiracion para un Complejo} 
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se definen los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Ver Expiracion Complejo} y luego en \emph{Moficar Expiraci\'on}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Ver Expiraci\'on Complejo}.
+            		\item El usuario hace click en \emph{Modificar} al lado de la politica que desea editar.
+            		\item El usuario completa el formulario. Las campos son obligatorios y son:
+            		\begin{itemize}
+				\item Desde
+				\item Hasta
+				\item Cae Reserva
+				\item Cae Se\~nada
+			\end{itemize}
+			\item El usuario hace click en \emph{Confirmar}
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+    \item Post condiciones: \\
+        Politicas modificadas correctamente.
+\end{enumerate}
+
+%BAJA LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Baja Politicas de Expiracion para un Complejo} 
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se eliminan los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Ver Expiracion Complejo} y luego en \emph{Eliminar}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Ver Expiraci\'on Complejo}.
+            		\item El usuario hace click en \emph{Eliminar}.
+			\item El usuario hace click en \emph{Ok} en el cuadro de confirmaci\'on.
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.\\
+	Hay al menos dos politicas en el listado.
+    \item Post condiciones: \\
+        Politica eliminada correctamente.
+\end{enumerate}
+
+%CONSULTA LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Ver Expiraci\'on Cancha}
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se consultan los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Canchas} y luego en \emph{Ver Expiraci\'on}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Canchas}.
+            		\item El usuario hace click en \emph{Ver Expiraci\'on}.
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.\\
+    \item Post condiciones: \\
+	Detalle de politicas presentado al usuario.
+\end{enumerate}
+
+%ALTA LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Alta Politicas de Expiracion para una Cancha} 
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se definen los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Ver Expiraci\'on Cancha} y luego en \emph{Agregar Nueva}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Ver Expiraci\'on Cancha}.
+            		\item El usuario hace click en \emph{Agregar Nueva}.
+            		\item El usuario completa el formulario. Las campos son obligatorios y son:
+            		\begin{itemize}
+				\item Desde
+				\item Hasta
+				\item Cae Reserva
+				\item Cae Se\~nada
+			\end{itemize}
+			\item El usuario hace click en \emph{Confirmar}
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+    \item Post condiciones: \\
+        Politica agregada correctamente.
+\end{enumerate}
+
+% MODIFICAR LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Modificar Politicas de Expiracion para una Cancha} 
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se definen los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Ver Expiraci\'on Cancha} y luego en \emph{Moficar Expiraci\'on}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Ver Expiraci\'on Cancha}.
+            		\item El usuario hace click en \emph{Modificar} al lado de la politica que desea editar.
+            		\item El usuario completa el formulario. Las campos son obligatorios y son:
+            		\begin{itemize}
+				\item Desde
+				\item Hasta
+				\item Cae Reserva
+				\item Cae Se\~nada
+			\end{itemize}
+			\item El usuario hace click en \emph{Confirmar}
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.
+    \item Post condiciones: \\
+        Politicas modificadas correctamente.
+\end{enumerate}
+
+%BAJA LIMITES DE RESERVAS POR PUNTOS (POLITICAS DE EXPIRACION)
+\subsection{Baja Politicas de Expiracion para una Cancha} 
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+    \item Descripci\'on breve: \\
+        Este caso de uso describe como se eliminan los plazos de vencimiento de
+        las reservas seg\'un el puntaje del usuario que haya realizado la reserva.
+    \item Actores: \\
+        Administrador.
+    \item Disparadores: \\
+        El administrador hace click en \underline{Ver Expiracion Cancha} y luego en \emph{Eliminar}.
+    \end{enumerate}
+    \item Flujo de Eventos: 
+    \begin{enumerate}
+        \item Flujo b\'asico:
+		\begin{enumerate}
+            		\item El usuario hace click en \underline{Ver Expiraci\'on Cancha}.
+            		\item El usuario hace click en \emph{Eliminar}.
+			\item El usuario hace click en \emph{Ok} en el cuadro de confirmaci\'on.
+		\end{enumerate}
+    \end{enumerate}
+    \item Precondiciones: \\
+        Usuario hizo \underline{Login} como administrador.\\
+	Hay al menos dos politicas en el listado.
+    \item Post condiciones: \\
+        Politica eliminada correctamente.
+\end{enumerate}
+
 
 % RESERVAR CAIDAS RSS
 \subsection{RSS: Ver reservas caidas}
 \begin{enumerate}
     \item
         \begin{enumerate}
-            \item Descripción breve: \\
-                Se listan los complejos con las últimas reservas caidas.
-            \item Actores \\
-                Usuario genérico, invitado.
+            \item Descripci\'on breve: \\
+                Se listan los complejos con las \'ultimas reservas caidas.
+            \item Actores: \\
+                Usuario gen\'erico, invitado.
             \item Disparadores: \\
                 Acceso a la url del \emph{RSS} de reservas caidas.
         \end{enumerate}
     \item Flujo de Eventos:
         \begin{enumerate}
-            \item Flujo básico:
-		\begin{enumerate}                
+            \item Flujo b\'asico:
+		\begin{enumerate}
 		\item Usuario accede a la url del \emph{RSS} de reservas caidas.
         	\end{enumerate}
 	\end{enumerate}
     \item Precondiciones: \\
         No aplica.
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Listado de reservas caidas con formato para ser leido por un lecto RSS.
 \end{enumerate}
 
@@ -572,10 +899,10 @@
 
     \item
     \begin{enumerate}
-        \item Descripción breve: \\
-            Se listan las últimas canchas agregadas al sistema.
-        \item Actores \\
-            Usuario genérico, invitado.
+        \item Descripci\'on breve: \\
+            Se listan las \'ultimas canchas agregadas al sistema.
+        \item Actores: \\
+            Usuario gen\'erico, invitado.
         \item Disparadores: \\
             Acceso a la url del \emph{RSS} de canchas nuevas.
     \end{enumerate}
@@ -583,48 +910,48 @@
     \item Flujo de Eventos: 
 
         \begin{enumerate}
-            \item Flujo básico:
+            \item Flujo b\'asico:
         	\begin{enumerate}        
-		\item 	Usuario genérico accede a la url del \emph{RSS} de canchas nuevas
+		\item 	Usuario gen\'erico accede a la url del \emph{RSS} de canchas nuevas
 	        \end{enumerate}
 	\end{enumerate}
 
     \item Precondiciones: \\
         El lector del \emph{RSS} no necesita estar logueado como usuario.
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Listado de nuevas canchas con formato para ser leido con un lector RSS.
 
 \end{enumerate}
 
 % INVITADO CONFIRMAR REGISTRACION
-\subsection{Invitado confirmar registración}
+\subsection{Invitado confirmar registraci\'on}
 \begin{enumerate}
 
     \item
         \begin{enumerate}
-            \item Descripción breve: \\
-                Confirmar la registración para obtener efectivamente una cuenta de usuario del sistema.
-            \item Actores \\
+            \item Descripci\'on breve: \\
+                Confirmar la registraci\'on para obtener efectivamente una cuenta de usuario del sistema.
+            \item Actores: \\
                 Invitado.
             \item Disparadores: \\
-                Click en el link del correo electrónico que se le envía al invitado.
+                Click en el link del correo electr\'onico que se le env\'ia al invitado.
 
         \end{enumerate}
 
     \item Flujo de Eventos:
 
         \begin{enumerate}
-            \item Flujo básico:
-                Un usuario genérico accede hace click en el link del correo electrónico que le fue enviado.
+            \item Flujo b\'asico:
+                Un usuario gen\'erico accede hace click en el link del correo electr\'onico que le fue enviado.
 
             \item Flujo alternativo:\\
                 Se muestra un cartel que informa que los datos ingresados son
                 incorrectos, puede volver a intentarlo.
 
                 \begin{enumerate}
-                    \item Condición 1 \\
+                    \item Condici\'on 1 \\
                             El hash proporcionado no existe en la base de datos.
-                    \item Condición 2 \\
+                    \item Condici\'on 2 \\
                             Faltan datos requeridos.
                 \end{enumerate}
     \end{enumerate}
@@ -632,7 +959,7 @@
     \item Precondiciones: \\
         No debe estar registrado como usuario del sistema.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         El invitado obtiene una cuenta de usuario y queda logueado en el sistema.
 
 \end{enumerate}
@@ -643,9 +970,9 @@
 
     \item
         \begin{enumerate}
-            \item Descripción breve: \\
+            \item Descripci\'on breve: \\
                 Obtener una cuenta de usuario del sistema.
-            \item Actores \\
+            \item Actores: \\
                 Invitado.
             \item Disparadores: \\
                 Click en \underline{registrarse} en la pantalla principal del sistema.
@@ -655,8 +982,8 @@
     \item Flujo de Eventos:
 
         \begin{enumerate}
-            \item Flujo básico:
-                Un usuario genérico accede a la pantalla principal del sistema y
+            \item Flujo b\'asico:
+                Un usuario gen\'erico accede a la pantalla principal del sistema y
                 hace click en \underline{registrarse}. Ingresa los datos necesarios
                 para registrarse como usuario del sistema.
 
@@ -665,22 +992,22 @@
                 incorrectos, puede volver a intentarlo.
 
                 \begin{enumerate}
-                    \item Condición 1 \\
+                    \item Condici\'on 1 \\
                             El usuario ingresado ya existe dentro del sistema.
-                    \item Condición 2 \\
+                    \item Condici\'on 2 \\
                             Faltan datos requeridos.
-                    \item Condición 3 \\
+                    \item Condici\'on 3 \\
                             Las contrase\~nas ingresadas no son iguales.
-                    \item Condición 4 \\
-                            Alguna combinación de las anteriores.
+                    \item Condici\'on 4 \\
+                            Alguna combinaci\'on de las anteriores.
                 \end{enumerate}
 	\end{enumerate}
 
     \item Precondiciones: \\
         No debe estar registrado como usuario del sistema.
 
-    \item Post condiciones \\
-        Se envía un correo elecrtónico al usuario para confirmar su casilla.
+    \item Post condiciones: \\
+        Se env\'ia un correo elecrt\'onico al usuario para confirmar su casilla.
 
 
 \end{enumerate}
@@ -691,9 +1018,9 @@
 
     \item
         \begin{enumerate}
-            \item Descripción breve: \\
+            \item Descripci\'on breve: \\
                 Acceso al sistema como usuario.
-            \item Actores \\
+            \item Actores: \\
                 Invitado.
             \item Disparadores: \\
                 El invitado hace click en \emph{Ingresar}
@@ -701,10 +1028,10 @@
 
     \item Flujo de Eventos:
         \begin{enumerate}
-            \item Flujo básico:
+            \item Flujo b\'asico:
         	\begin{enumerate}
 		\item	El invitado accede al sitio.
-                \item 	El invitado ingresa nombre de usuario, contraseña. 
+                \item 	El invitado ingresa nombre de usuario, contrase\~na. 
 		\end{enumerate}
             \item Flujo alternativo:\\
 		\begin{enumerate}
@@ -714,7 +1041,7 @@
         \end{enumerate}
         \item Precondiciones: \\
             Debe estar registrado como usuario del sistema.
-        \item Post condiciones \\
+        \item Post condiciones: \\
             El usuario tiene acceso al sistema.
 \end{enumerate}
 
@@ -723,20 +1050,20 @@
 \begin{enumerate}
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se carga un pago para una determinada reserva.
-    \item Actores \\
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \emph{Cargar Pago} dentro de la
-        página que muestra las reservas.
+        Click en el bot\'on \emph{Cargar Pago} dentro de la
+        p\'agina que muestra las reservas.
     \end{enumerate}
 
     \item Flujo de Eventos: 
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 	\begin{enumerate}
             \item Administrador hace click en \underline{Reservas}. 
 	    \item El Administrador hace click en \emph{Cargar Pago}. 
@@ -747,7 +1074,7 @@
             Se muestra un cartel que informa que la cantidad ingresada es
             incorrecta.
             \begin{enumerate}
-                \item Condición 1 \\
+                \item Condici\'on 1 \\
                     La cantidad ingresada es incorrecta.
             \end{enumerate}
 
@@ -756,9 +1083,9 @@
     \item Precondiciones: \\
         Ususario logueado como administrador.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Pago de la reserva cargado y, si aplica, estado de la reserva y puntos
-        del usuario que emitió la reserva actualizados.
+        del usuario que emiti\'o la reserva actualizados.
 
 \end{enumerate}
 
@@ -768,19 +1095,19 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se carga un pago completo para una determinada reserva.
-    \item Actores \\
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \emph{Cargar Pago Completo} dentro de la página que muestra las reservas.
+        Click en el bot\'on \emph{Cargar Pago Completo} dentro de la p\'agina que muestra las reservas.
     \end{enumerate}
 
     \item Flujo de Eventos:
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 	\begin{enumerate}
             \item Administrador hace click en \underline{Reservas}. 
 	    \item El Administrador hace click en \emph{Cargar pago completo de reserva}.
@@ -790,9 +1117,9 @@
     \item Precondiciones: \\
         Ususario logueado como administrador.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Pago de la reserva cargado y estado de la reserva actualizado a pagada.
-        Puntos del usuario que emitió la reserva actualizados.
+        Puntos del usuario que emiti\'o la reserva actualizados.
 
 \end{enumerate}
 
@@ -803,20 +1130,20 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
-        Se muestra en detalle las características de un complejo.
-    \item Actores \\
-        Usuario generico, Invitado, Administrador.
+    \item Descripci\'on breve: \\
+        Se muestra en detalle las caracter\'isticas de un complejo.
+    \item Actores: \\
+        Usuario gen\'erico, Invitado, Administrador.
    \item Disparadores: \\
-        Click en el botón \emph{Detalles} dentro de la
-        página que lista los complejos del sistema.
+        Click en el bot\'on \emph{Detalles} dentro de la
+        p\'agina que lista los complejos del sistema.
     \end{enumerate}
 
     \item Flujo de Eventos:
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 	\begin{enumerate}
         	\item El actor hace click en \underline{Complejos}. 
 		\item El actor hace click en \emph{Detalles}.
@@ -827,8 +1154,8 @@
     \item Precondiciones: \\
         No aplica.
 
-    \item Post condiciones \\
-        Vista detallada de la informacion del complejo.
+    \item Post condiciones: \\
+        Vista detallada de la informaci\'on del complejo.
 
 \end{enumerate}
 
@@ -838,19 +1165,19 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se listan todas las reservas existentes.
-    \item Actores \\
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \underline{Reservas}.
+        Click en el bot\'on \underline{Reservas}.
     \end{enumerate}
 
-    \item Flujo de Eventos: 
+    \item Flujo de Eventos:
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
     		\begin{enumerate}
             	\item Un Administrador hace click en \emph{Reservas}.
 		\end{enumerate}
@@ -859,7 +1186,7 @@
     \item Precondiciones: \\
         Usuario logueado como administrador.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Listo de reservas presentado al actor.
 
 \end{enumerate}
@@ -870,19 +1197,19 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se listan las reservas de canchas.
-    \item Actores \\
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \underline{Canchas}.
+        Click en el bot\'on \underline{Canchas}.
     \end{enumerate}
 
     \item Flujo de Eventos:
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 		\begin{enumerate}
             	\item	Un Administrador hace click en \underline{Reservas}.
 		\item	El Administrador hace click en \emph{Ver Reservas}.
@@ -892,7 +1219,7 @@
     \item Precondiciones: \\
         Administrador logueado como administrador.
 
-    \item Post condiciones \\
+    \item Post condiciones: \\
         Listado de reservas para la cancha seleccionada.
 
 \end{enumerate}
@@ -903,12 +1230,12 @@
 
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se listan las reservas de un complejo.
-    \item Actores \\
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón \emph{Ver reservas}
+        Click en el bot\'on \emph{Ver reservas}
         en el listo de complejos.
     \end{enumerate}
 
@@ -916,7 +1243,7 @@
 
     \begin{enumerate}
 
-        \item Flujo básico:
+        \item Flujo b\'asico:
 	\begin{enumerate}
             \item Un Administrador hace click en \underline{Complejos}.
 	    \item El Administrador hace click en \emph{Ver Reservas} para un determinado complejo.
@@ -935,45 +1262,36 @@
 % ORDENAR RESERVAS
 \subsection{Ordenar reservas}
 \begin{enumerate}
-
     \item
     \begin{enumerate}
-    \item Descripción breve: \\
+    \item Descripci\'on breve: \\
         Se ordenan los listados de reservas.
-    \item Actores \\
+    \item Actores: \\
         Administrador.
     \item Disparadores: \\
-        Click en el botón en el nombre de cualquier columna
+        Click en el bot\'on en el nombre de cualquier columna
         dentro de cualquier listado de reservas.
     \end{enumerate}
-
     \item Flujo de Eventos: 
-
     \begin{enumerate}
-
-        \item Flujo básico:
+        \item Flujo b\'asico:
 	\begin{enumerate}
-            \item Un Administrador hace click en \underline{Reservas}
-	    \item El Administrador hace click en alguno de los nombres de las columnas, el cual sera el criterio de ordenacion.
-Estos pueden ser:
-	\begin{itemize}
-	 \item Usuario
-	\item Cancha
-	\item Complejo
-	\item Estado
-	\item Costo
-	\item Pagado
-	\end{itemize}
+            	\item Un Administrador hace click en \underline{Reservas}
+	    	\item El Administrador hace click en alguno de los nombres de las columnas, el cual ser\'a el criterio de ordenaci\'on. Estos pueden ser:
+		\begin{itemize}
+			\item Usuario
+			\item Cancha
+			\item Complejo
+			\item Estado
+			\item Costo
+			\item Pagado
+		\end{itemize}
+	\end{enumerate}
 	\end{enumerate}
 
     \item Precondiciones: \\
-        \begin{enumerate}
-            \item Administrador logueado como administrador.
-        \end{enumerate}
-
+        Administrador logueado como administrador.
     \item Post condiciones \\
-        Listado ordenado segun columna seleccionada.
-
+        Listado ordenado seg\'un columna seleccionada.
 \end{enumerate}
-
 \end{document}
