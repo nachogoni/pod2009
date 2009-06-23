@@ -399,6 +399,10 @@ public abstract class FormHandler {
 		}
 		return ret;
 	}
+	
+	public void addError(String element, String error){
+		this.errors.put(element,error);
+	}
 
 	public void setAttribute(String type, String attribute) {
 		this.attributes.add(type + "=\"" + attribute + "\" ");
