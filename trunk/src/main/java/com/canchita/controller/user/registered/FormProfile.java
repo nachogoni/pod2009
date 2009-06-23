@@ -20,8 +20,9 @@ public class FormProfile extends FormHandler {
 		ArrayList<String> sNotifyBeforeExpiration = new ArrayList<String>();
 		ArrayList<String> sConfirm = new ArrayList<String>();
 
-		this.setName("Perfil").enableJ2Query(
-				"src/main/webapp/js/user/profile/init.js").setMethod("post");
+		this.setName("Perfil")
+			//.enableJ2Query("src/main/webapp/js/user/profile/init.js")
+			.setMethod("post");
 
 		this.addElement(new FormElementInput("text", "email")
 				.setLabel("Correo")

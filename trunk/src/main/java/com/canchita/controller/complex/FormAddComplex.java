@@ -51,9 +51,9 @@ public class FormAddComplex extends FormHandler {
 			horas.add(String.format("%02d:%02d", i, ((i % 2) == 0) ? 0 : 30));
 		}
 
-		this.setName("Complejo").enableJ2Query(
-				"src/main/webapp/js/complex/add/init.js").setId("formComplex")
-		// .enableJ2QueryValidation()
+		this.setName("Complejo")
+			//.enableJ2Query("src/main/webapp/js/complex/add/init.js").setId("formComplex")
+			//.enableJ2QueryValidation()
 				.setMethod("post");
 
 		this.addElement(new FormElementInput("text", "name").setLabel("Nombre")

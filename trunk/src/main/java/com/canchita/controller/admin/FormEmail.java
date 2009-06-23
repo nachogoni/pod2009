@@ -18,8 +18,9 @@ public class FormEmail extends FormHandler {
 		ArrayList<String> sEmails = new ArrayList<String>();
 		ArrayList<String> sConfirm = new ArrayList<String>();
 
-		this.setName("E-mails").enableJ2Query(
-				"src/main/webapp/js/admin/email/init.js").setMethod("post");
+		this.setName("E-mails")
+			//.enableJ2Query("src/main/webapp/js/admin/email/init.js")
+			.setMethod("post");
 
 		this.addElement(new FormElementInput("text", "email")
 				.setLabel("Correo").setId("idMail").setRequired(true)
