@@ -1,0 +1,114 @@
+% Defino el tipo de documento.
+\documentclass[a4paper,11pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+% Este es para poder poner graficos y diagramas.
+\usepackage{graphicx}
+% Este paquete me permite poner grados celsius.
+\usepackage{textcomp}
+
+\title{
+        Programación de Objetos Distribuidos \\
+        Entrega Final
+    }
+
+\author{
+        Grupo 3. \\
+        46099 - Abramowicz, Pablo Federico \\
+        46281 - Cabral, Martín Esteban \\
+        47031 - Gomez Vidal, Darío Maximiliano \\
+        46383 - Goñi, Juan Ignacio \\
+        46233 - Palombo, Martín \\
+        46069 - Sessa, Carlos Manuel
+        }
+\date{}
+
+% Empieza el documento.
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\section{Introducción}
+En este documento se detallan las decisiones tomadas, las posibles mejoras,
+los problemas encontrados y las conclusiones finales del trabajo.
+
+\section{Decisiones tomadas}
+
+\subsection{Documentación de entregas}
+Dado que el trabajo iba a constar de varias entregas nos propusimos documentar
+cada una de ellas, mencionando mejoras y decisiones tomadas en cada iteración.
+
+\subsection{Maven}
+El hecho de usar maven facilitó mucho la instalación de nuevas dependencias
+durante el desarrollo y la creación del WAR para la puesta en funcionamiento.
+Además, permitió que el ambiente completo pueda configurarse en unos pocos
+minutos.
+
+\subsection{Web servers}
+Para el desarrollo se utilizaron paralelamente Apache Tomcat y Mortbay Jetty.
+Lamentablemente el sistema final no es completamente utilizable con Jetty,
+puesto que el mismo no implementa el tipo de filtros que se utilizan.
+
+\subsection{Pocas dependencias}
+En la primer reunión discutimos la posibilidad de usar un framework MVC para
+hacer el trabajo, pero decidimos que íbamos a tratar de programar la mayoría de
+cosas de cero por una cuestión académica.
+
+\subsection{Filosofía DRY}
+Para un desarrollo más eficiente intentamos seguir la filosofía DRY.
+Como ventaja, esto nos llevó a generar muchos módulos reusables pero también
+nos hizo rehacer mucho código.
+
+\subsection{Hibernate}
+Cuando teníamos que reemplazar el mock con la base de datos se discutió
+si convenía usar o no Hibernate. Decidimos dejar a dos personas que se ocupen
+de probarlo y analizar si era una opción viable. Se lograron mapear tablas y
+se logró el correcto funcionamiento, pero siguiendo la filosofía de usar la menor
+cantidad de dependecias posible, no lo utilizamos. Además, resultó ser una buena
+oportunidad para aprender JDBC.
+
+\section{Problemas Encontrados}
+\subsection{Javadoc}
+Muchas veces resultaba difícil leer código de otro por la falta de javadocs.
+Si el sistema quiere seguir siendo usado, debería agregarse la documentación
+pertinente dentro del código.
+
+\subsection{Testeos unitarios}
+Empezamos generando la estructura para que el sistema tenga testeos unitarios
+y hagamos TDD, pero la realidad es que nunca se hicieron.
+
+\subsection{Logging}
+Por más que era un requerimiento del trabajo, no hicimos un uso extensivo de log4j.
+Muchos de los testeos los hicimos imprimiendo en la consola y recién para esta entrega mejoramos
+un poco el testeo con uso de logs.
+
+\section{Posibles mejoras}
+A continuación se listan las posibles mejoras de ideas propias y comentarios
+de terceros al probar el sistema.
+
+\subsection{FAQ}
+Muchos notaron la falta de una sección FAQ, básicamente para entender de qué
+se trata el sistema y para quién está apuntado.
+
+\subsection{Shoutbox}
+Notamos que en otro sitio de funcionalidad similar ofrecían un lugar donde los
+usuarios podían dejar mensajes en la página principal.
+
+\subsection{Relación entre usuarios}
+Al entrar al home del usuario no hay mucha información que mostrar. Sería
+deseable que los usuarios puedan hacerse amigos y comentar acerca de los perfiles
+de otros.
+
+\subsection{Promociones}
+Muchos complejos a veces generan promociones, por ejemplo, distintos valores
+de canchas dependiendo del horario. Actualmente no existe módulo para realizar
+ese manejo.
+
+\section{Conclusión}
+Nos resultó muy interesante el hecho de trabajar en un grupo de seis personas.
+Organizarnos bien fue un verdadero desafío, pero contar con más gente nos dio la
+posibilidad de probar distintas librerías y encontrar mejores soluciones.
+
+
+\end{document}
