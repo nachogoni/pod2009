@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,6 +27,7 @@ import com.canchita.model.field.Field;
 import com.canchita.service.FieldService;
 import com.canchita.service.FieldServiceProtocol;
 import com.canchita.views.helpers.form.FormHandler;
+import com.canchita.views.helpers.form.Pair;
 
 /**
  * Servlet implementation class ListField
@@ -187,26 +190,28 @@ public class ListField extends GenericServlet {
 		String typesort = "";
 
 		ArrayList<String> parametersSort = new ArrayList<String>();
+		HashMap<String, Pair<Comparator<Field>, Comparator<Field>>> comparators = new HashMap<String, Pair<Comparator<Field>, Comparator<Field>>>();
 		parametersSort.add("sortName");
+		comparators.put("sortName", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareNames(true),Field.compareNames(false)));
 		parametersSort.add("sortComplex");
+		comparators.put("sortComplex", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareComplex(true),Field.compareComplex(false)));
 		parametersSort.add("sortDescription");
+		comparators.put("sortDescription", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareDescription(true),Field.compareDescription(false)));
 		parametersSort.add("sortPlayers");
+		comparators.put("sortPlayers", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareNumberOfPlayers(true),Field.compareNumberOfPlayers(false)));
 		parametersSort.add("sortRoof");
+		comparators.put("sortRoof", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareRoof(true),Field.compareRoof(false)));
 		parametersSort.add("sortFloor");
+		comparators.put("sortFloor", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareFloorType(true),Field.compareFloorType(false)));
 		parametersSort.add("sortPrice");
+		comparators.put("sortPrice", new Pair<Comparator<Field>, Comparator<Field>>(Field.comparePrice(true),Field.comparePrice(false)));
 		parametersSort.add("sortMaintenance");
-		parametersSort.add("sortNeighbourhood");
-		parametersSort.add("sortTown");
-		parametersSort.add("sortState");
-		parametersSort.add("sortCountry");
-		parametersSort.add("sortAddress");
+		comparators.put("sortMaintenance", new Pair<Comparator<Field>, Comparator<Field>>(Field.compareMaintenance(true),Field.compareMaintenance(false)));
 
 		for (String e : parametersSort) {
 			if ((typesort = request.getParameter(e)) != null) {
-				Collections.sort(list, Field.compareNames(typesort
-						.equals("ASC")));
-				request.setAttribute(String.format("%sTypeR", e), typesort
-						.equals("ASC") ? "DESC" : "ASC");
+				Collections.sort(list, typesort.equals("ASC") ? comparators.get(e).getFirst() : comparators.get(e).getSecond());
+				request.setAttribute(String.format("%sTypeR", e), typesort.equals("ASC") ? "DESC" : "ASC");
 				request.setAttribute(String.format("%sType", e), typesort);
 			} else {
 				request.setAttribute(String.format("%sTypeR", e), "ASC");
