@@ -67,7 +67,6 @@ public class Expiration {
 	}
 
 	public DateTime getExpiration(Booking booking) {
-		// TODO implementame
 		return null;
 	}
 

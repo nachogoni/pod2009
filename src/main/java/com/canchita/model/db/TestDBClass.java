@@ -6,7 +6,6 @@ public class TestDBClass {
 	int akaka;
 	
 	public TestDBClass() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public String getHola(){

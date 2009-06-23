@@ -24,7 +24,6 @@ public class DeleteFieldExpirationPolicy extends GenericServlet {
 	 */
 	public DeleteFieldExpirationPolicy() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

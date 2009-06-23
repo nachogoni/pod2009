@@ -4,13 +4,11 @@ public class FormElementButton extends FormElement {
 	
 	
 	public FormElementButton(String aType, String aName) {
-		// TODO Auto-generated constructor stub
 		super(aType,aName);
 	}
 	
 	@Override
 	public FormElementButton setValue(String value) {
-		// TODO Auto-generated method stub
 		super.setValue(value);
 		
 		return this;
@@ -18,7 +16,6 @@ public class FormElementButton extends FormElement {
 	
 	@Override
 	public FormElementButton setDecorator(Decorator deco) {
-		// TODO Auto-generated method stub
 		super.setDecorator(deco);
 		
 		return this;

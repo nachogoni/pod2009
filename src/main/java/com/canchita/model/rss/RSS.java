@@ -23,7 +23,6 @@ import com.canchita.service.FieldService;
 public class RSS {
 
 	public static Collection<String> generateNews() {
-		//TODO implementame
 		return null;
 	}
 	

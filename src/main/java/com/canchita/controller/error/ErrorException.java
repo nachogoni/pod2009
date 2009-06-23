@@ -21,7 +21,6 @@ public class ErrorException extends GenericServlet {
 	 */
 	public ErrorException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

@@ -51,7 +51,6 @@ public class FormElementInclude extends FormElement {
 	
 	@Override
 	public FormElementInclude setLabel(String label) {
-		// TODO Auto-generated method stub
 		super.setLabel(label);
 		
 		return this;

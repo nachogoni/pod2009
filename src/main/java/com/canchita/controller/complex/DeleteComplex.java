@@ -30,7 +30,6 @@ public class DeleteComplex extends GenericServlet {
 	 */
 	public DeleteComplex() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -71,10 +70,6 @@ public class DeleteComplex extends GenericServlet {
 			
 			return;
 		}
-		
-		/*
-		 * TODO cambiar esto a un forward a la pagina get que pide confirmacion
-		 */
 		
 		if( error.size() != 0 ) {
 			logger.error("Error eliminando complejo con id: " + id);

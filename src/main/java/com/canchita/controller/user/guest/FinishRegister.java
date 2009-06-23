@@ -29,7 +29,6 @@ public class FinishRegister extends GenericServlet implements Servlet {
 	 */
 	public FinishRegister() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

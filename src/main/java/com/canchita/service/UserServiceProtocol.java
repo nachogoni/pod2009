@@ -8,12 +8,6 @@ import com.canchita.model.exception.UserException;
 import com.canchita.model.user.Guest;
 import com.canchita.model.user.Registered;
 
-/*
- * TODO charlar el tema del logout
- * ver si vale la pena recibir unicamente el
- * nombre de usuario
- */
-
 public interface UserServiceProtocol {
 
 	Guest createGuest();

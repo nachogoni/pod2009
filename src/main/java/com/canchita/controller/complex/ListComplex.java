@@ -105,12 +105,6 @@ public class ListComplex extends GenericServlet {
 		}
 
 		request.setAttribute("complexes", complexes);
-		
-		/*
-		 * TODO se hizo esto porque no funcionaba el tag
-		 * fn:length de jstl. Investigar!
-		 */
-		
 		request.setAttribute("complexesLength", complexesSize);
 		
 		UrlMapper.getInstance().forwardSuccess(this, request, response,

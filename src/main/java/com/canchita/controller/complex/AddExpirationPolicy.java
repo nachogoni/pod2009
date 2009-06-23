@@ -139,7 +139,6 @@ public class AddExpirationPolicy extends GenericServlet {
 				service.setExpirationPolicy(id, scoreFrom1, scoreTo1,
 						downBooking1, downDeposit1);
 			} catch (PersistenceException e) {
-				// TODO Auto-generated catch block
 				error.add("Error agregando política de expiración.");
 			}
 

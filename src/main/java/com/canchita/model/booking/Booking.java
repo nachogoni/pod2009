@@ -115,7 +115,6 @@ public class Booking {
 			
 			try {
 				expirationDAO = DAOFactory.get(DAO.EXPIRATION);
-				//TODO este casteo esta horrible
 				expiration = expirationDAO.getByScore((Field)this.getItem(), this.owner.getScore());
 			} catch (PersistenceException e) {
 				throw new BookingException("No se pudo cargar el pago de la reserva");

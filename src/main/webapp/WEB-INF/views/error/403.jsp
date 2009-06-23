@@ -11,7 +11,7 @@
 
 <div class="ui-state-error ui-corner-all error"><span
 	class="ui-icon ui-icon-alert errorIcon"></span> <span> <strong>Alerta:</strong>
-</span> <span class="block">* ¡No tienes permisos para ver esta página,
+</span> <span class="block">* ¡No tienes permisos para ver la página solicitada,
 el acceso indebido será reportado!</span></div>
 
 <jsp:include page="/WEB-INF/views/general/footer/footer.jsp"

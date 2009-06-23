@@ -4,7 +4,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class IsDate extends Validator {
-	private String regex;
 	
 	@Override
 	public String getError() {

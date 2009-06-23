@@ -9,14 +9,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.canchita.controller.security.ACLCanchita;
 import com.canchita.model.user.User;
 
 public class ACLFilter extends FilterWithLog implements Filter {
 
-	//TODO ver esto!!!
-	private static final String FORBIDDEN = "/";
+	private static final String FORBIDDEN = "/error/403";
 	private FilterConfig filterConfig;
 
 	@Override
@@ -37,9 +37,12 @@ public class ACLFilter extends FilterWithLog implements Filter {
 			// Let's check if the user has access
 			if (!this.hasAccess(httpServletRequest)) {
 				logger.debug("El usuario actual no tiene permiso para acceder");
-				 httpServletRequest.getRequestDispatcher(FORBIDDEN).forward(
-				 servletRequest, servletResponse);
-
+				HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+				
+				String base = (String) httpServletRequest.getAttribute("baseURI");
+				
+				httpServletResponse.sendRedirect(base + FORBIDDEN);
+				
 				return;
 			}
 			// continue request

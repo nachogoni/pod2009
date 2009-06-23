@@ -20,14 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  * 
  */
 
-/*
- * TODO falta agregar las paginas default de success y failure no se me ocurre
- * una buena success default lo mandaria al home igual como que siempre va a
- * ahber una success.
- * 
- * La default de error que sea una generica tipo pasaron cosas locas so sorry
- */
-
 public class UrlMapper {
 
 	private static final UrlMapper mapper = new UrlMapper();

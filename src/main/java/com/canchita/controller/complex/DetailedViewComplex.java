@@ -28,7 +28,6 @@ public class DetailedViewComplex extends GenericServlet {
 	 */
 	public DetailedViewComplex() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

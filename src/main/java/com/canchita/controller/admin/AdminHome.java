@@ -29,7 +29,7 @@ public class AdminHome extends GenericServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO agarrar los datos del admin
+
 		UrlMapper.getInstance().forwardSuccess(this, request, response,
 				UrlMapperType.GET);
 		

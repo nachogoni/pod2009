@@ -72,14 +72,6 @@ public class Calendar {
 		return ret;
 	}
 
-	/*
-	 * TODO esto ESTA MAL!!!! porque los horarios pueden estar en distinto orden
-	 * hay que hacer que el equals apra cada uno de uno se barra toda la lista
-	 * del otro buscando el elemento. Con hashCode se puede hacer mas sencillo
-	 * que es sumar todos los hashcodes el tema es que va a ser una peor
-	 * implementacion.
-	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
