@@ -136,6 +136,11 @@ public class ModifyFieldExpirationPolicy extends GenericServlet {
 		if (scoreFrom > scoreTo) {
 			error.add("El puntaje inicial no puede ser superior al final.");
 		}
+		
+		if (scoreFrom < Integer.MIN_VALUE || scoreTo > Integer.MAX_VALUE) {
+			error.add("Puntajes inválidos. El rango válido es entre "
+					+ Integer.MIN_VALUE + " y " + Integer.MAX_VALUE + ".");
+		}
 
 		if (error.size() != 0) {
 			request.setAttribute("errorManager", error);

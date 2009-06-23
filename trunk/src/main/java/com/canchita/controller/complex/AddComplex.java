@@ -202,8 +202,8 @@ public class AddComplex extends GenericServlet {
 				ComplexBuilder.saveComplex();
 
 				logger.debug("Se carga la política de expiración");
-				ComplexBuilder.setExpirationPolicy(Integer.MIN_VALUE,
-						Integer.MAX_VALUE, bookingLimit, depositLimit);
+				ComplexBuilder.setExpirationPolicy(-99999999,
+						999999999, bookingLimit, depositLimit);
 
 				// TODO loguear los errores
 			} catch (ElementExistsException ee) {
