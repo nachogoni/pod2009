@@ -17,7 +17,7 @@ public class SearchFieldForm extends FormHandler {
 		ArrayList<String> sfield = new ArrayList<String>();
 
 		this.setName("Búsqueda de canchas")
-			.enableJ2Query("src/main/webapp/js/field/search/init.js")
+			//.enableJ2Query("src/main/webapp/js/field/search/init.js")
 			.setId("formSearch")
 			//.enableJ2QueryValidation()
   			.setMethod("get");
