@@ -297,48 +297,6 @@
 			com.canchita.controller.user.registered.Profile</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>charly</servlet-name>
-		<display-name>charly</display-name>
-		<description></description>
-		<servlet-class>
-		com.canchita.controller.test.charly</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>pablo</servlet-name>
-		<display-name>pablo</display-name>
-		<description></description>
-		<servlet-class>
-		com.canchita.controller.test.pablo</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>maxi</servlet-name>
-		<display-name>maxi</display-name>
-		<description></description>
-		<servlet-class>
-		com.canchita.controller.test.maxi</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>juani</servlet-name>
-		<display-name>juani</display-name>
-		<description></description>
-		<servlet-class>
-		com.canchita.controller.test.juani</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>lombo</servlet-name>
-		<display-name>lombo</display-name>
-		<description></description>
-		<servlet-class>
-		com.canchita.controller.test.lombo</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>martin</servlet-name>
-		<display-name>martin</display-name>
-		<description></description>
-		<servlet-class>
-		com.canchita.controller.test.martin</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>ListRSS</servlet-name>
 		<display-name>ListRSS</display-name>
 		<description></description>
@@ -537,30 +495,6 @@
 		<url-pattern>/user/profile</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>charly</servlet-name>
-		<url-pattern>/test/charly</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>pablo</servlet-name>
-		<url-pattern>/test/pablo</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>maxi</servlet-name>
-		<url-pattern>/test/maxi</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>juani</servlet-name>
-		<url-pattern>/test/juani</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>lombo</servlet-name>
-		<url-pattern>/test/lombo</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>martin</servlet-name>
-		<url-pattern>/test/martin</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListRSS</servlet-name>
 		<url-pattern>/ListRSS</url-pattern>
