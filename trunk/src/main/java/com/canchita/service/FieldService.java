@@ -175,9 +175,9 @@ public class FieldService implements FieldServiceProtocol {
 		if (number_of_players != null) {
 			aField.setNumberOfPlayers(number_of_players);
 		}
-		if (bookingPercentage != null) {
-			aField.setAccontationPercentage(bookingPercentage);
-		}
+		
+		aField.setAccontationPercentage(bookingPercentage);
+
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		fieldDAO.update(aField);
