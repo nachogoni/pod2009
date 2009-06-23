@@ -4,8 +4,6 @@ public class ComplexForm extends FormHandler {
 	
 	public ComplexForm() {
 		super();
-		System.out.println("ESTE NO ES EL FORM CORRECTO!!!!");
-		System.out.println("Usar FormAddComplex!");
 
 		Decorator deco = new Decorator();
 		

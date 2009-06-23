@@ -242,9 +242,11 @@
 					<span class="block">* No se encontraron complejos</span>
 				</div>
 			
-				<div class="submit-go">
-					<a href="<c:out value="${baseURI}" />/AddComplex" >Agregar</a>
-				</div>
+				<c:if test="${user.isAdmin}">
+					<div class="submit-go">
+						<a href="<c:out value="${baseURI}" />/AddComplex" >Agregar</a>
+					</div>
+				</c:if>
 			
 			</c:otherwise>
 			</c:choose>

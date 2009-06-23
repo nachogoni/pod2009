@@ -25,7 +25,7 @@ public class FormEmail extends FormHandler {
 		this.addElement(new FormElementInput("text", "email")
 				.setLabel("Correo").setId("idMail").setRequired(true)
 				.addValidator("IsEMailAddress")
-				.setMaxLength(100)
+				.setMaxLength(50)
 				.setMultipleData("multipleEmail").addJ2QueryTooltip(
 						"Correo electr&oacute;nico del usuario"));
 

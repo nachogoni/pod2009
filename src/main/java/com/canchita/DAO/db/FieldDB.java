@@ -255,8 +255,6 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 		}
 
-		System.out.println(query);
-		
 		try {
 			results = executeQuery(query, params.toArray(), FieldBuilder
 					.getInstance());

@@ -53,8 +53,27 @@
 			        </c:choose>
 					
 					<tr class="<c:out value="${rowStyle}" />">
-						<td><c:out value="${policy.scoreFrom}" /></td>
-						<td><c:out value="${policy.scoreTo}" /></td>
+						<td>
+							<c:choose>
+							<c:when test="${policy.scoreFrom == -99999999}">
+								<c:out value="Mínimo" />
+							</c:when>
+					        <c:otherwise>
+								<c:out value="${policy.scoreFrom}" />
+					        </c:otherwise>
+					        </c:choose>
+						</td>
+						
+						<td>
+							<c:choose>
+							<c:when test="${policy.scoreTo == 999999999}">
+								<c:out value="Máximo" />
+							</c:when>
+					        <c:otherwise>
+								<c:out value="${policy.scoreFrom}" />
+					        </c:otherwise>
+					        </c:choose>
+						</td>
 						<td><c:out value="${policy.depositLimit}" /></td>
 						<td><c:out value="${policy.bookingLimit}" /></td>
 						

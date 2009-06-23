@@ -155,11 +155,11 @@ public class FormAddComplex extends FormHandler {
 
 		this.addElement(new FormElementInput("text", "depositLimit").setLabel(
 				"Límite de seña").setId("depositLimit").setRequired(true)
-				.addValidator("IsNumeric"));
+				.addValidator("IsNumeric").setMaxLength(9));
 
 		this.addElement(new FormElementInput("text", "bookingLimit").setLabel(
 				"L&iacute;mite de reserva").setId("bookingLimit").setRequired(
-				true).addValidator("IsNumeric"));
+				true).addValidator("IsNumeric").setMaxLength(9));
 
 		Decorator decoBotones = new Decorator().setSclass("submit-go");
 
