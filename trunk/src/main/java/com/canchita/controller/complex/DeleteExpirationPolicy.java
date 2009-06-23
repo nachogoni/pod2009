@@ -24,7 +24,6 @@ public class DeleteExpirationPolicy extends GenericServlet {
 	 */
 	public DeleteExpirationPolicy() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

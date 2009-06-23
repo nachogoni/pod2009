@@ -39,11 +39,10 @@ public class GenericFilter extends FilterWithLog implements Filter {
 		             httpServletRequest.setAttribute("baseURL", this.getBaseURL(httpServletRequest.getRequestURL(), search));
 		             httpServletRequest.setAttribute("baseURI", this.getBaseURI(httpServletRequest.getRequestURI(), search));
 		             
-		             //TODO for debugging
 		             try {
 		            	 filterChain.doFilter(httpServletRequest , servletResponse);
 		             }catch(Throwable t) {
-			        	 t.printStackTrace();
+			        	 this.logger.fatal("Error fatal que llego hasta el filtro", t);
 			         }
 		         } else {  
 		             //otherwise, continue on in the chain with the ServletRequest and ServletResponse objects  

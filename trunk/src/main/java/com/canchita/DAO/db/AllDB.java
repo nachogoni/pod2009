@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.canchita.jdbc.ConnectionManager;
@@ -48,7 +47,7 @@ public abstract class AllDB {
 			statement.close();
 		} catch (SQLException e) {
 			// TODO no esta bueno que tire runtime
-			throw new RuntimeException("", e);
+			throw new RuntimeException("Error en la base de datos", e);
 		} finally {
 			connectionPool.releaseConnectionManager(connectionManager);
 		}
@@ -87,16 +86,4 @@ public abstract class AllDB {
 
 	}
 
-	// TODO ver si no esta deprecated
-	public List<Integer> buildCollection(ResultSet resultSet)
-			throws SQLException {
-
-		List<Integer> results = new ArrayList<Integer>();
-
-		resultSet.next();
-		results.add(resultSet.getInt("COUNT"));
-
-		return results;
-
-	}
 }

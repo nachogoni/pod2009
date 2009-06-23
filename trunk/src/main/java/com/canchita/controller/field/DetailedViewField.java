@@ -24,7 +24,6 @@ public class DetailedViewField extends GenericServlet {
 	 */
 	public DetailedViewField() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

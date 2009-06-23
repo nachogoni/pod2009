@@ -75,12 +75,6 @@ public class BookingMemoryMock implements BookingDAO {
 	@Override
 	public Booking save(Booking booking) throws PersistenceException {
 
-		/*
-		 * TODO esto ESTA HORRIBLE estaria increible tener la interfaz
-		 * bookeableDAO y bookerDAO y que las de cancha y complejo extiendan de
-		 * esas porque sino pasan estos casteos horribles
-		 */
-
 		FieldDAO fieldDAO = DAOFactory.get(DAO.FIELD);
 
 		if (!fieldDAO.exists((Field) booking.getItem())) {
@@ -126,62 +120,52 @@ public class BookingMemoryMock implements BookingDAO {
 	
 	@Override
 	public void cancel(Long id) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Collection<Booking> getDownBookings(Long complexId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void update(Booking booking) throws ElementExistsException {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public List<Booking> getAllBookings() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Booking> getCancelableBookings() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean tryCancel(Booking booking, Expiration expiration) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Collection<Booking> getDownBookings(String province,
 			String locality, String neighbourhood, Long listCount) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean complexHasBookings(Long id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean hasBookings(Long id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean viewAvailability(DateTime startTime, DateTime endTime) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

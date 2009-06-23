@@ -17,7 +17,6 @@ public class DataBaseConnection {
 	Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 
 	public DataBaseConnection() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

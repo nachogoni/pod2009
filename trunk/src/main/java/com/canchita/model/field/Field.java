@@ -383,12 +383,13 @@ public class Field implements Bookable {
 		return id;
 	}
 
+	
 	public static List<Field> list(Complex complex) {
 		return complex.listFields();
 	}
 
+	@Deprecated
 	public static List<Field> list() {
-		// TODO
 		return null;
 	}
 
@@ -473,11 +474,6 @@ public class Field implements Bookable {
 			Iterator<Booking> bookings, Iterator<Schedule> availability) {
 
 		List<Integer> possibleValues = new LinkedList<Integer>();
-
-		/*
-		 * TODO it assumes that we can only book a field for 1 hour. See what to
-		 * do if this requisite changes
-		 */
 
 		while (availability.hasNext()) {
 			Schedule schedule = (Schedule) availability.next();

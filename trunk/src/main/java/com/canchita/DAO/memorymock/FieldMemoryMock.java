@@ -40,7 +40,6 @@ public class FieldMemoryMock implements FieldDAO {
 		try {
 			aComplex = complexDAO.getById(1L);
 		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -188,7 +187,6 @@ public class FieldMemoryMock implements FieldDAO {
 	@Override
 	public Collection<Field> getLastFields(String province, String locality,
 			String neighbourhood, Long listCount) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -199,7 +197,6 @@ public class FieldMemoryMock implements FieldDAO {
 			String searchFloorType, String searchNeighbourhood,
 			String searchTown, String searchState, String searchCountry,
 			String searchAddress, DateTime from, DateTime to) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -136,10 +136,7 @@ public class BookingService implements BookingServiceProtocol {
 			DateTime startTimeFrom, DateTime endTimeFrom, DateTime startTimeTo,
 			DateTime endTimeTo, boolean checkAvailability) throws PersistenceException, BookingException,
 			UserException {
-
 			
-		// TODO se asume que start y end ocupan un dia cada uno
-
 		if (startTimeFrom.getDayOfWeek() != startTimeTo.getDayOfWeek()) {
 			throw new BookingException("Los días de la semana no coinciden");
 		}
@@ -218,7 +215,6 @@ public class BookingService implements BookingServiceProtocol {
 	@Override
 	public Collection<Booking> getDownBookings() throws ValidationException,
 			PersistenceException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

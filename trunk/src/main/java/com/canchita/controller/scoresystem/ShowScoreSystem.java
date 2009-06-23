@@ -21,7 +21,6 @@ public class ShowScoreSystem extends GenericServlet {
 	 */
 	public ShowScoreSystem() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

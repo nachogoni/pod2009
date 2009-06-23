@@ -60,7 +60,6 @@ public class ReservationBuilder implements QueryProcessor<Booking> {
 				e.printStackTrace();
 			}
 
-			// Armo el schedule TODO ver esto por el timezone
 			DateTime startDate = new DateTime(
 					resultSet.getString("start_date"));
 			DateTime endDate = new DateTime(resultSet.getString("end_date"));

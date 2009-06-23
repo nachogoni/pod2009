@@ -10,7 +10,6 @@ public class CustomRegex extends ValidatorWParam {
 
 	@Override
 	public boolean validate(String data) {
-		// TODO Auto-generated method stub
 		if (regex.isEmpty())
 			return false;
 		
@@ -18,12 +17,10 @@ public class CustomRegex extends ValidatorWParam {
 	}
 	
 	public CustomRegex() {
-		// TODO Auto-generated constructor stub
 		regex = "";
 	}
 
 	public CustomRegex(String aRegex) {
-		// TODO Auto-generated constructor stub
 		this.regex = aRegex;
 	}
 	

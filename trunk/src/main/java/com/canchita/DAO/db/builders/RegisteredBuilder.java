@@ -32,8 +32,6 @@ public class RegisteredBuilder implements QueryProcessor<Registered> {
 
 		while (resultSet.next()) {
 			
-			//TODO hacer bien esto
-			
 			if( resultSet.getBoolean("is_admin") ) {
 				aUser = AdministratorBuilder.getInstance().buildAdministrator(resultSet);
 			}

@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--AgileJ Ltd. (http://www.agilej.com)-->
 <ajsv>
-    <diagram scope="scopeElementSets.elementSet.Switchable Subtypes" style="standardDiagramStyles.diagramStyle.Standard Basic Style" version="1.5.4.v20090614-1904">
+    <diagram scope="scopeElementSets.elementSet.Switchable Subtypes" style="standardDiagramStyles.diagramStyle.Hide Getters And Setters" version="1.5.4.v20090614-1904">
         <switch switchID="standardDiagramStyles.styleEnumSwitch.Manhattan Lines" switchValue="dependence, fields, inheritance"/>
         <switch switchID="standardDiagramStyles.styleEnumSwitch.Line Types" switchValue="dependence, field, inheritance"/>
-        <switch switchID="standardDiagramStyles.styleEnumSwitch.Signature Length" switchValue="short"/>
+        <switch switchID="standardDiagramStyles.styleEnumSwitch.Signature Length" switchValue="long"/>
         <switch switchID="standardDiagramStyles.styleEnumSwitch.Visibility" switchValue="public, protected, package, private"/>
         <switch switchID="standardDiagramStyles.styleEnumSwitch.Members" switchValue="fields, methods, inners, initializers"/>
-        <class className="com.canchita.model.complex.ScoreSystem" project="tp-pod" xLocation="-867" yLocation="-118"/>
-        <class className="com.canchita.model.complex.Complex" project="tp-pod" xLocation="-847" yLocation="534"/>
-        <class className="com.canchita.model.complex.Availability" project="tp-pod" xLocation="-150" yLocation="-794"/>
-        <class className="com.canchita.model.field.Field" project="tp-pod" xLocation="177" yLocation="297"/>
-        <class className="com.canchita.model.user.Registered" project="tp-pod" xLocation="-253" yLocation="822"/>
-        <class className="com.canchita.model.complex.DayOfWeek" project="tp-pod" xLocation="-204" yLocation="84"/>
-        <class className="com.canchita.model.location.Place" project="tp-pod" xLocation="1053" yLocation="-252"/>
-        <class className="com.canchita.model.booking.Booker" project="tp-pod" xLocation="469" yLocation="-611"/>
-        <class className="com.canchita.model.booking.Expiration" project="tp-pod" xLocation="-134" yLocation="308"/>
-        <class className="com.canchita.model.booking.Booking" project="tp-pod" xLocation="649" yLocation="722"/>
-        <class className="com.canchita.model.booking.Bookable" project="tp-pod" xLocation="689" yLocation="-83"/>
-        <class className="com.canchita.model.booking.Schedule" project="tp-pod" xLocation="663" yLocation="297"/>
-        <class className="com.canchita.model.field.FloorType" project="tp-pod" xLocation="83" yLocation="30"/>
-        <class className="com.canchita.model.user.Guest" project="tp-pod" xLocation="91" yLocation="-281"/>
-        <class className="com.canchita.model.user.CommonUser" project="tp-pod" xLocation="388" yLocation="30"/>
-        <class className="com.canchita.model.complex.Calendar" project="tp-pod" xLocation="-521" yLocation="100"/>
-        <class className="com.canchita.model.user.User" project="tp-pod" xLocation="-207" yLocation="-388"/>
-        <class className="com.canchita.model.location.Locatable" project="tp-pod" xLocation="704" yLocation="-298"/>
-        <class className="com.canchita.model.user.Administrator" project="tp-pod" xLocation="398" yLocation="-238"/>
-        <class className="com.canchita.model.rss.RSS" project="tp-pod" xLocation="140" yLocation="-536"/>
-        <class className="com.canchita.model.user.RegistrationInfo" project="tp-pod" xLocation="-516" yLocation="-275"/>
-        <class className="com.canchita.model.booking.BookingStatus" project="tp-pod" xLocation="-391" yLocation="466"/>
-        <class className="com.canchita.model.user.HashGenerator" project="tp-pod" xLocation="-197" yLocation="-160"/>
+        <class className="com.canchita.model.complex.ScoreSystem" project="tp-pod" xLocation="-1049" yLocation="-279"/>
+        <class className="com.canchita.model.complex.Complex" project="tp-pod" xLocation="-967" yLocation="1358"/>
+        <class className="com.canchita.model.complex.Availability" project="tp-pod" xLocation="-42" yLocation="-898"/>
+        <class className="com.canchita.model.field.Field" project="tp-pod" xLocation="512" yLocation="401"/>
+        <class className="com.canchita.model.user.Registered" project="tp-pod" xLocation="-13" yLocation="812"/>
+        <class className="com.canchita.model.complex.DayOfWeek" project="tp-pod" xLocation="-234" yLocation="157"/>
+        <class className="com.canchita.model.location.Place" project="tp-pod" xLocation="1661" yLocation="-448"/>
+        <class className="com.canchita.model.booking.Booker" project="tp-pod" xLocation="512" yLocation="-762"/>
+        <class className="com.canchita.model.booking.Expiration" project="tp-pod" xLocation="-219" yLocation="506"/>
+        <class className="com.canchita.model.booking.Booking" project="tp-pod" xLocation="748" yLocation="1357"/>
+        <class className="com.canchita.model.booking.Bookable" project="tp-pod" xLocation="995" yLocation="-190"/>
+        <class className="com.canchita.model.booking.Schedule" project="tp-pod" xLocation="960" yLocation="39"/>
+        <class className="com.canchita.model.field.FloorType" project="tp-pod" xLocation="152" yLocation="258"/>
+        <class className="com.canchita.model.user.Guest" project="tp-pod" xLocation="-189" yLocation="-307"/>
+        <class className="com.canchita.model.user.CommonUser" project="tp-pod" xLocation="204" yLocation="10"/>
+        <class className="com.canchita.model.complex.Calendar" project="tp-pod" xLocation="-733" yLocation="157"/>
+        <class className="com.canchita.model.user.User" project="tp-pod" xLocation="-147" yLocation="-505"/>
+        <class className="com.canchita.model.location.Locatable" project="tp-pod" xLocation="892" yLocation="-405"/>
+        <class className="com.canchita.model.user.Administrator" project="tp-pod" xLocation="430" yLocation="-238"/>
+        <class className="com.canchita.model.rss.RSS" project="tp-pod" xLocation="152" yLocation="-534"/>
+        <class className="com.canchita.model.user.RegistrationInfo" project="tp-pod" xLocation="-860" yLocation="-595"/>
+        <class className="com.canchita.model.booking.BookingStatus" project="tp-pod" xLocation="-660" yLocation="489"/>
+        <class className="com.canchita.model.user.HashGenerator" project="tp-pod" xLocation="-111" yLocation="-55"/>
     </diagram>
 </ajsv>

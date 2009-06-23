@@ -94,7 +94,6 @@ public class Complex implements Booker {
 	}
 
 	public static List<Complex> list() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -115,22 +114,18 @@ public class Complex implements Booker {
 	}
 
 	public List<Field> listFields() {
-		// TODO Auto-generated method stub
 		return fields;
 	}
 
 	public void add(Bookable bookable) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public Booking book(Bookable bookable, Schedule hour) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public List<Bookable> getBookables() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -139,12 +134,10 @@ public class Complex implements Booker {
 	}
 
 	public List<Booking> getBookings() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void remove(Bookable bookable) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -212,7 +205,6 @@ public class Complex implements Booker {
 	}
 
 	public Long getId() {
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 

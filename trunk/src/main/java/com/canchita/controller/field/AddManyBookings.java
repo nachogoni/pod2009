@@ -86,12 +86,6 @@ public class AddManyBookings extends GenericServlet {
 
 		logger.debug("POST request");
 
-		/*
-		 * TODO falta agregar el manejo de 23:00 00:00 igual creo que el jugo es
-		 * poner que atiende de 23:00 a 00:00 siendo 00:00 el mismo dia en el
-		 * horario de la cancha (o quizas no) VERLO BIEN
-		 */
-
 		Long id = null;
 		DateTime from = null,to = null;
 		DateTime startTimeFrom, endTimeFrom,startTimeTo,endTimeTo;
