@@ -79,7 +79,6 @@ public class FormField extends FormHandler {
 		
 		this.addElement(new FormElementInput("text", "accontationPercentage")
 				.setLabel("Porcentaje de reserva")
-				.setRequired(true)
 				.addValidator("MaxLength", "5")
 				.addValidator("IsPercentage"));
 		
@@ -161,7 +160,12 @@ public class FormField extends FormHandler {
 		if (aux != null)
 			dataPopu.put("cantPlayers", aux);
 		
-		aux = String.valueOf(aField.getAccontationPercentage());
+		if (aField.getRealAccontationPercentage() != null) {
+			aux = String.valueOf(aField.getRealAccontationPercentage());
+		}
+		else
+			aux = null;
+		
 		if (aux != null)
 			dataPopu.put("accontationPercentage", aux);
 		

@@ -297,15 +297,28 @@ public class FieldDB extends AllDB implements FieldDAO {
 
 	@Override
 	public void save(Field field) throws PersistenceException {
-		String query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query;
 
 		try {
-			executeUpdate(query, new Object[] { field.getComplex().getId(),
-					field.getName(), field.getDescription(),
-					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
-					field.getFloor().ordinal(), field.getPrice(),
-					bool2Long(field.isUnder_maintenance()),
-					field.getAccontationPercentage().toString() });
+
+			if (field.getRealAccontationPercentage() != null) {
+				query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				executeUpdate(query, new Object[] { field.getComplex().getId(),
+						field.getName(), field.getDescription(),
+						field.getNumberOfPlayers(),
+						bool2Long(field.isHasRoof()),
+						field.getFloor().ordinal(), field.getPrice(),
+						bool2Long(field.isUnder_maintenance()),
+						field.getAccontationPercentage().toString() });
+			} else {
+				query = "INSERT into FIELD VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, NULL)";
+				executeUpdate(query, new Object[] { field.getComplex().getId(),
+						field.getName(), field.getDescription(),
+						field.getNumberOfPlayers(),
+						bool2Long(field.isHasRoof()),
+						field.getFloor().ordinal(), field.getPrice(),
+						bool2Long(field.isUnder_maintenance()) });
+			}
 
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();
@@ -338,15 +351,27 @@ public class FieldDB extends AllDB implements FieldDAO {
 		String query = "UPDATE FIELD set \"complex_id\" = ?, \"name\" = ?, "
 				+ "\"description\" = ?, \"number_of_players\" = ?, "
 				+ "\"has_roof\" = ?, \"type\" = ?, \"price\" = ?,"
-				+ "\"under_maintenance\" = ?, \"accont_percentage\" = ? "
-				+ "where \"field_id\" = ?";
+				+ "\"under_maintenance\" = ?,";
+
 		try {
-			executeUpdate(query, new Object[] { field.getComplex().getId(),
-					field.getName(), field.getDescription(),
-					field.getNumberOfPlayers(), bool2Long(field.isHasRoof()),
-					field.getFloor().ordinal(), field.getPrice(),
-					bool2Long(field.isUnder_maintenance()),
-					field.getAccontationPercentage(), field.getId() });
+			if (field.getRealAccontationPercentage() == null) {
+				query += "\"accont_percentage\" = NULL where \"field_id\" = ?";
+				executeUpdate(query, new Object[] { field.getComplex().getId(),
+						field.getName(), field.getDescription(),
+						field.getNumberOfPlayers(),
+						bool2Long(field.isHasRoof()),
+						field.getFloor().ordinal(), field.getPrice(),
+						bool2Long(field.isUnder_maintenance()), field.getId() });
+			} else {
+				query += "\"accont_percentage\" = ? where \"field_id\" = ?";
+				executeUpdate(query, new Object[] { field.getComplex().getId(),
+						field.getName(), field.getDescription(),
+						field.getNumberOfPlayers(),
+						bool2Long(field.isHasRoof()),
+						field.getFloor().ordinal(), field.getPrice(),
+						bool2Long(field.isUnder_maintenance()),
+						field.getAccontationPercentage(), field.getId() });
+			}
 
 		} catch (RuntimeException re) {
 			Throwable sql = re.getCause();

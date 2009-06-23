@@ -44,8 +44,7 @@ public class Complex implements Booker {
 	private List<Expiration> expirationPolicies;
 	private Expiration expiration;
 
-	// TODO esta cableado meterlo en la BD para la proxima entrega
-	private BigDecimal accontationPercentage = new BigDecimal("0.50");
+	private BigDecimal accontationPercentage = null;
 
 	public Complex(String name) {
 		this.setName(name);

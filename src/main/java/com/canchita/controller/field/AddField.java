@@ -51,17 +51,17 @@ public class AddField extends GenericServlet {
 		} catch (NumberFormatException nfe) {
 			id = 1L;
 			/*
-			ErrorManager error = new ErrorManager();
-
-			error.add("Complejo invalido");
-
-			request.setAttribute("errorManager", error);
-
-			UrlMapper.getInstance().forwardFailure(this, request, response,
-					UrlMapperType.GET);
-
-			return;
-			*/
+			 * ErrorManager error = new ErrorManager();
+			 * 
+			 * error.add("Complejo invalido");
+			 * 
+			 * request.setAttribute("errorManager", error);
+			 * 
+			 * UrlMapper.getInstance().forwardFailure(this, request, response,
+			 * UrlMapperType.GET);
+			 * 
+			 * return;
+			 */
 		}
 
 		/* Get Form */
@@ -134,9 +134,14 @@ public class AddField extends GenericServlet {
 		} catch (NumberFormatException nfe) {
 			error.add("Error en el precio");
 		}
-		
+
 		try {
-			bookingPercentage = new BigDecimal(request.getParameter("accontationPercentage"));
+			String percentage = request.getParameter("accontationPercentage");
+			if (percentage != null && percentage != "")
+				bookingPercentage = new BigDecimal(request
+						.getParameter("accontationPercentage"));
+			else
+				bookingPercentage = null;
 		} catch (NumberFormatException nfe) {
 			error.add("Error en el porcentaje de seña");
 		}

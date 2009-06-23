@@ -49,7 +49,7 @@ public class Field implements Bookable {
 	private boolean under_maintenance;
 	private Expiration expiration;
 
-	private BigDecimal accontationPercentage;
+	private BigDecimal accontationPercentage = null;
 
 	/**
 	 * Retorna la funcion de comparacion de las canchas por techada o no
@@ -339,7 +339,7 @@ public class Field implements Bookable {
 		this.floor = FloorType.values()[(int) floor];
 		this.price = price;
 		this.under_maintenance = under_maintenance;
-		this.setAccontationPercentage(percentage);
+		this.accontationPercentage = percentage;
 	}
 
 	@Override
@@ -402,17 +402,20 @@ public class Field implements Bookable {
 		this.hasRoof = hasRoof;
 		this.floor = floor;
 		this.expiration = expiration;
+		this.accontationPercentage = null;
 	}
 
 	public Field(Complex complex, String name) {
 
 		this.complex = complex;
 		this.name = name;
+		this.accontationPercentage = null;
 
 	}
 
 	public Field(Long fieldId) {
 		this.id = fieldId;
+		this.accontationPercentage = null;
 	}
 
 	@Override
@@ -642,6 +645,10 @@ public class Field implements Bookable {
 			return this.complex.getAccontationPercentage();
 		}
 
+		return accontationPercentage;
+	}
+
+	public BigDecimal getRealAccontationPercentage() {
 		return accontationPercentage;
 	}
 
